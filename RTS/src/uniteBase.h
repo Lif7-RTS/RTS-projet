@@ -62,7 +62,7 @@ typedef struct SUniteBase UniteBase;
  * \param unit pointeur sur une unitBase
  * \return attaque
  */
- int getVieMax(UniteBase* unit);
+ int getAttaque(UniteBase* unit);
  /**
  * \fn char* getNom (UniteBase* unit)
  * \brief accesseur nom
