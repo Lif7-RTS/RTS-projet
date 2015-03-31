@@ -22,6 +22,30 @@ struct SBatiment{
 };
 typedef SBatiment Batiment;
 
+/* ***********************************************************--Init--*************************************************************************** */
+
+/**
+* \fn void detruirBatiment (Batiment* bat)
+* \brief initialise un Batiment
+*
+* \param[in, out] bat pointeur sur Batiment
+* \param[in] id est un identifiant unique
+* \param[in, out] typeBat pointeur sur un batiment de base
+* \param[in] vieCourante est le nombre de point de vie actuel du batiment
+* \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
+*/
+void initBatiment (Batiment* bat, int id, const BatBase* typeBat, int vieCourante, int enConstruction);
+
+/**
+* \fn void detruirBatiment (Batiment** bat)
+* \brief detruit et libère la structure batiment
+*
+* \param[in, out] bat pointeur sur Batiment.
+*/
+void detruirBatiment (Batiment** bat);
+
+/* *************************************************************--GET--***************************************************************************** */
+
 /**
 * \fn int getIdBat(Batiment* bat)
 * \brief accesseur id
@@ -29,7 +53,7 @@ typedef SBatiment Batiment;
 * \param[in, out] bat pointeur sur Batiment.
 *\return id, un identifiant unique
 */
-int getIdBat(Batiment* bat);
+int getIdBat(const Batiment* bat);
 
 /**
 * \fn BatBase getTypeBat(Batiment* bat)
@@ -38,7 +62,7 @@ int getIdBat(Batiment* bat);
 * \param[in, out] bat pointeur sur Batiment.
 * \return typeBat pointeur sur un batiment de base.
 */
-BatBase* getTypeBat(Batiment* bat);
+BatBase* getTypeBat(const Batiment* bat);
 
 /**
 * \fn int getVieCourante (Batiment* bat)
@@ -47,7 +71,7 @@ BatBase* getTypeBat(Batiment* bat);
 * \param[in, out] bat pointeur sur Batiment.
 * \return vieCourante est le nombre de point de vie actuel du batiment.
 */
-int getVieCourante (Batiment* bat);
+int getVieCourante (const Batiment* bat);
 
 /**
 * \fn int getEnConstruction (Batiment* bat)
@@ -56,44 +80,45 @@ int getVieCourante (Batiment* bat);
 * \param[in, out] bat pointeur sur Batiment.
 * \return enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
-int getEnConstruction (Batiment* bat);
+int getEnConstruction (const Batiment* bat);
 
+/* *************************************************************--SET--***************************************************************************** */
 
 /**
 * \fn void setIdBat(int id , Batiment* bat)
 * \brief mutateur id
 *
-* \param[in] id est un identifiant unique.
 * \param[in, out] bat pointeur sur Batiment.
+* \param[in] id est un identifiant unique.
 */
-void setIdBat(int id , Batiment* bat);
+void setIdBat(Batiment* bat, int id );
 
 /**
 * \fn void setTypeBat(BatBase* typeBat, Batiment* bat)
 * \brief mutateur typeBat
 *
-* \param[in, out] typeBat pointeur sur un batiment de base.
 * \param[in, out] bat pointeur sur Batiment.
+* \param[in, out] typeBat pointeur sur un batiment de base.
 */
-void setTypeBat(BatBase* typeBat, Batiment* bat);
+void setTypeBat(Batiment* bat, const BatBase* typeBat);
 
 /**
 * \fn void setVieCourante (int vieCourante , Batiment* bat)
 * \brief mutateur vieCourante
 *
-* \param[in] vieCourante est le nombre de point de vie actuel du batiment.
 * \param[in, out] bat pointeur sur Batiment.
+* \param[in] vieCourante est le nombre de point de vie actuel du batiment.
 */
-void setVieCourante (int vieCourante , Batiment* bat);
+void setVieCourante (Batiment* bat, int vieCourante);
 
 /**
 * \fn void setEnConstruction (int enConstruction , Batiment* bat)
 * \brief mutateur vieCourante
 *
-* \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 * \param[in, out] bat pointeur sur Batiment.
+* \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
-void setEnConstruction (int enConstruction , Batiment* bat);
+void setEnConstruction (Batiment* bat, int enConstruction);
 
 #endif /* _BAT */
 

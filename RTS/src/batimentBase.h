@@ -29,185 +29,7 @@ struct SBatBase{
 };
 typedef struct SBatBase BatBase;
 
-/**
-* \fn void setNomBat(char* nomBat, BatBase* bat)
-* \brief mutateur nomBat
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in, out] nomBat chaine de caractere contenant le nom du batiment.
-*/
-void setNomBat(char* nomBat, BatBase* bat);
-
-/**
-* \fn void setNiveau(char niveau, BatBase* bat)
-* \brief mutateur niveau
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] niveau d'amelioration du batiment.
-*/
-void setNiveau(char niveau, BatBase* bat);
-
-/**
-* \fn void setCheminImage(char* cheminImage, BatBase* bat)
-* \brief mutateur cheminImage
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in, out] cheminImage chaine de caractere contenant le chemin vers l'image du batiment.
-*/
-void setCheminImage(char* cheminImage, BatBase* bat);
-
-/**
-* \fn void setCheminImage(char* cheminImage, BatBase* bat)
-* \brief mutateur vieMax
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] vieMax est un entier representant la vie maximum d'un batiment.
-*/
-void setVieMax(int vieMax, BatBase* bat);
-
-/**
-* \fn void setAmeliorable(int ameliorable, BatBase* bat)
-* \brief mutateur ameliorable
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] ameliorable est un entier jugeant de la capacite d'amelioration d'un batiment.
-*/
-void setAmeliorable(int ameliorable, BatBase* bat);
-
-/**
-* \fn void setTempsConstruct(int tempsConstruct BatBase* bat)
-* \brief mutateur tempsConstruct
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] tempsConstruction est un entier contennat le temps en seconde necessaire a la construction d'un batiment.
-*/
-void setTempsConstruct(int tempsConstruct BatBase* bat);
-
-/**
-* \fn void setTaileCaseX(int tailleCaseX, BatBase* bat)
-* \brief mutateur tailleCaseX
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] tailleCaseX est la taille d'un batiment en case suivant sa coordonee x.
-*/
-void setTaileCaseX(int tailleCaseX, BatBase* bat);
-
-/**
-* \fn void setTaileCaseY(int tailleCaseY, BatBase* bat)
-* \brief mutateur tailleCaseY
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] tailleCaseY est la taille d'un batiment en case suivant sa coordonee y.
-*/
-void setTaileCaseY(int tailleCaseY, BatBase* bat);
-
-/**
-* \fn void setTabUnitFormable(UniteBase* tabUnitFormable, BatBase* bat)
-* \brief mutateur TabUnitFormable
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] TabUniteFormable est un tableau des troupe constructible par le batiment en question.
-*/
-void setTabUnitFormable(UniteBase* tabUnitFormable, BatBase* bat);
-
-/**
-* \fn void setTabAttente(File* tabAttente, BatBase* bat)
-* \brief mutateur tabAttente
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] tabAttente est la file d'attente des unite en construction dans le batiment en question.
-*/
-void setTabAttente(File* tabAttente, BatBase* bat);
-
-/**
-* \fn void getNomBat(BatBase* bat)
-* \brief accesseur nomBat
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return chaine de caractere contenant le nom du batiment.
-*/
-char* getNomBat(BatBase* bat);
-
-/**
-* \fn void setNiveau(BatBase* bat)
-* \brief accesseur niveau
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return le niveau actuel du batiment en question.
-*/
-char setNiveau(BatBase* bat);
-
-/**
-* \fn void getCheminImage(BatBase* bat)
-* \brief accesseur cheminImage
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return chaine de caractere contenant le chemin vers l'image du batiment.
-*/
-char* getCheminImage(BatBase* bat);
-
-/**
-* \fn void getCheminImage(BatBase* bat)
-* \brief accesseur vieMax
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return entier representant la vie maximum d'un batiment.
-*/
-int getVieMax(BatBase* bat);
-
-/**
-* \fn void getAmeliorable(BatBase* bat)
-* \brief accesseur ameliorable
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return entier jugeant de la capacite d'amelioration d'un batiment.
-*/
-int getAmeliorable(BatBase* bat);
-
-/**
-* \fn void getTempsConstruct(BatBase* bat)
-* \brief accesseur tempsConstruct
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return entier contennat le temps en seconde necessaire a la construction d'un batiment.
-*/
-int getTempsConstruct(BatBase* bat);
-
-/**
-* \fn void getTaileCaseX(BatBase* bat)
-* \brief accesseur tailleCaseX
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return la taille d'un batiment en case suivant sa coordonee x.
-*/
-int getTaileCaseX(BatBase* bat);
-
-/**
-* \fn void getTaileCaseY(BatBase* bat)
-* \brief accesseur tailleCaseY
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return taille d'un batiment en case suivant sa coordonee y.
-*/
-int getTaileCaseY(int tailleCaseY, BatBase* bat);
-
-/**
-* \fn void getTabUnitFormable(BatBase* bat)
-* \brief accesseur TabUnitFormable
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return tableau des troupe constructible par le batiment en question.
-*/
-UniteBase* getTabUnitFormable(BatBase* bat);
-
-/**
-* \fn void getTabAttente(BatBase* bat)
-* \brief accesseur tabAttente
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return la file d'attente des unite en construction dans le batiment en question.
-*/
-File* getTabAttente(BatBase* bat);
+/* ***********************************************************--Init--*************************************************************************** */
 
 /**
 * \fn void initBatBase(BateBase* bat, char* nomBat, char* cheminImage, int vieMax,int ameiorable, int tempsConstruct, int tailleCaseY, int tailleCaseX, UniteBase* tabUnitFormable, File* tabAttente)
@@ -225,15 +47,199 @@ File* getTabAttente(BatBase* bat);
 * \param[in, out] tabUniteFormable est un tableau des troupe constructible par le batiment en question.
 * \param[in, out] tabAttente est la file d'attente des unite en construction dans le batiment en question.
 */
-void initBatBase(BateBase* bat, char* nomBat,char niveau, char* cheminImage, int vieMax,int ameliorable, int tempsConstruct,
-                 int tailleCaseY, int tailleCaseX, UniteBase* tabUnitFormable, File* tabAttente);
+void initBatBase(BateBase* bat, const char* nomBat,char niveau, const char* cheminImage, int vieMax,int ameliorable, int tempsConstruct,
+                 int tailleCaseY, int tailleCaseX, const UniteBase* tabUnitFormable, const File* tabAttente);
 
 /**
-* \fn void setTaileCaseY(int tailleCaseY, BatBase* bat)
+* \fn void detruireBatBase(BatBase** bat)
 * \brief detruit un batiment de base.
 *
 * \param[in, out] bat pointeur sur BatBase
 */
-void detruireBatBase(BatBase* bat);
+void detruireBatBase(BatBase** bat);
+
+/* *************************************************************--GET--***************************************************************************** */
+
+/**
+* \fn void getNomBat(BatBase* bat)
+* \brief accesseur nomBat
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return chaine de caractere contenant le nom du batiment.
+*/
+char* getNomBat(const BatBase* bat);
+
+/**
+* \fn void getNiveau(BatBase* bat)
+* \brief accesseur niveau
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return le niveau actuel du batiment en question.
+*/
+char getNiveau(const BatBase* bat);
+
+/**
+* \fn void getCheminImage(BatBase* bat)
+* \brief accesseur cheminImage
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return chaine de caractere contenant le chemin vers l'image du batiment.
+*/
+char* getCheminImage(const BatBase* bat);
+
+/**
+* \fn void getCheminImage(BatBase* bat)
+* \brief accesseur vieMax
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return entier representant la vie maximum d'un batiment.
+*/
+int getVieMax(const BatBase* bat);
+
+/**
+* \fn void getAmeliorable(BatBase* bat)
+* \brief accesseur ameliorable
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return entier jugeant de la capacite d'amelioration d'un batiment.
+*/
+int getAmeliorable(const BatBase* bat);
+
+/**
+* \fn void getTempsConstruct(BatBase* bat)
+* \brief accesseur tempsConstruct
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return entier contennat le temps en seconde necessaire a la construction d'un batiment.
+*/
+int getTempsConstruct(const BatBase* bat);
+
+/**
+* \fn void getTaileCaseX(BatBase* bat)
+* \brief accesseur tailleCaseX
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return la taille d'un batiment en case suivant sa coordonee x.
+*/
+int getTailleCaseX(const BatBase* bat);
+
+/**
+* \fn void getTailleCaseY(BatBase* bat)
+* \brief accesseur tailleCaseY
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return taille d'un batiment en case suivant sa coordonee y.
+*/
+int getTailleCaseY(const BatBase* bat);
+
+/**
+* \fn void getTabUnitFormable(BatBase* bat)
+* \brief accesseur TabUnitFormable
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return tableau des troupe constructible par le batiment en question.
+*/
+UniteBase* getTabUnitFormable(const BatBase* bat);
+
+/**
+* \fn void getTabAttente(BatBase* bat)
+* \brief accesseur tabAttente
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return la file d'attente des unite en construction dans le batiment en question.
+*/
+File* getTabAttente(const BatBase* bat);
+
+/* *************************************************************--SET--***************************************************************************** */
+
+/**
+* \fn void setNomBat(BatBase* bat, const char* nomBat)
+* \brief mutateur nomBat
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in, out] nomBat chaine de caractere contenant le nom du batiment.
+*/
+void setNomBat(BatBase* bat, const char* nomBat);
+
+/**
+* \fn void setNiveau(BatBase* bat, char niveau)
+* \brief mutateur niveau
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] niveau d'amelioration du batiment.
+*/
+void setNiveau(BatBase* bat, char niveau);
+
+/**
+* \fn void setCheminImage(BatBase* bat, const char* cheminImage)
+* \brief mutateur cheminImage
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in, out] cheminImage chaine de caractere contenant le chemin vers l'image du batiment.
+*/
+void setCheminImage(BatBase* bat, const char* cheminImage);
+
+/**
+* \fn void setVieMax(BatBase* bat,int vieMax)
+* \brief mutateur vieMax
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] vieMax est un entier representant la vie maximum d'un batiment.
+*/
+void setVieMax(BatBase* bat,int vieMax);
+
+/**
+* \fn void setAmeliorable(BatBase* bat, int ameliorable)
+* \brief mutateur ameliorable
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] ameliorable est un entier jugeant de la capacite d'amelioration d'un batiment.
+*/
+void setAmeliorable(BatBase* bat, int ameliorable);
+
+/**
+* \fn void setTempsConstruct(BatBase* bat, int tempsConstruct)
+* \brief mutateur tempsConstruct
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] tempsConstruction est un entier contennat le temps en seconde necessaire a la construction d'un batiment.
+*/
+void setTempsConstruct(BatBase* bat, int tempsConstruct);
+
+/**
+* \fn void setTailleCaseX(BatBase* bat, int tailleCaseX)
+* \brief mutateur tailleCaseX
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] tailleCaseX est la taille d'un batiment en case suivant sa coordonee x
+*/
+void setTailleCaseX(BatBase* bat, int tailleCaseX);
+
+/**
+* \fn void setTailleCaseY(int tailleCaseY, BatBase* bat)
+* \brief mutateur tailleCaseY
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] tailleCaseY est la taille d'un batiment en case suivant sa coordonee y.
+*/
+void setTailleCaseY(BatBase* bat, int tailleCaseY);
+
+/**
+* \fn void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable)
+* \brief mutateur TabUnitFormable
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] TabUniteFormable est un tableau des troupe constructible par le batiment en question.
+*/
+void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable);
+
+/**
+* \fn void setTabAttente(File* tabAttente, BatBase* bat)
+* \brief mutateur tabAttente
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] tabAttente est la file d'attente des unite en construction dans le batiment en question.
+*/
+void setTabAttente(BatBase* bat, const File* tabAttente);
 
 #endif /* _BATBASE */
