@@ -31,12 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="src/batiment.h" />
 		<Unit filename="src/batimentBase.h" />
+		<Unit filename="src/case.h" />
 		<Unit filename="src/file.h" />
+		<Unit filename="src/jeu.h" />
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/terrain.h" />
+		<Unit filename="src/unite.h" />
+		<Unit filename="src/uniteBase.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
