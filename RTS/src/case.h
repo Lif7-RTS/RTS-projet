@@ -10,11 +10,15 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "uniteBase.h"
+#include "unite.h"
+
 #ifndef _CASE
 #define _CASE
 
+
 /**
- * \struct sCase
+ * \struct SCase
  * \brief Objet Case
  *
  * sCase est un objet case, composant le terrain
@@ -23,12 +27,14 @@ struct SCase{
     int acces; /*!< 1 si case accessible, 0 sinon */
     int pierre; /*!< nombre de ressource pierre disponible */
     int mithril; /*!< nombre de ressource mithril disponible */
-    int idContenu; /*!< id (unique) du contenu de la case */
-}
+    int idContenu; /*!< id (unique) du contenu de la case (positif unite, negatif batiment, 0 vide) */
+};
+
 typedef struct SCase sCase;
 
+
 /**
- * \fn void init(sCase* c,int p, int m, int acc)
+ * \fn void initCase(sCase* c,int p, int m, int acc)
  * \brief initialise une case
  *
  * \param[in, out] c pointeur sur sCase
@@ -36,8 +42,7 @@ typedef struct SCase sCase;
  * \param[in] m mithril dans la case
  * \param[in] acc 1 si case accessible, 0 sinon
  */
-
-void init(sCase* c,int p, int m, int acc);
+void initCase(sCase* c,int p, int m, int acc);
 /**
  * \fn int getContenu (sCase* c)
  * \brief accesseur idContenu
@@ -45,7 +50,7 @@ void init(sCase* c,int p, int m, int acc);
  * \param c pointeur sur sCase
  * \return idContenu
  */
-int getContenu(sCase* c);
+int getContenu(const sCase* c);
 
 /**
  * \fn int getPierre (sCase* c)
@@ -54,7 +59,7 @@ int getContenu(sCase* c);
  * \param c pointeur sur sCase
  * \return pierre
  */
- int getPierre(sCase* c);
+ int getPierre(const sCase* c);
 
  /**
  * \fn int getMithril (sCase* c)
@@ -63,7 +68,7 @@ int getContenu(sCase* c);
  * \param c pointeur sur sCase
  * \return mithril
  */
- int getMithril(sCase* c);
+ int getMithril(const sCase* c);
 
  /**
  * \fn bool getAcces (sCase* c)
@@ -72,7 +77,7 @@ int getContenu(sCase* c);
  * \param[in, out] c pointeur sur sCase
  * \return access
  */
- int getAcces(sCase* c);
+ int getAcces(const sCase* c);
 
  /**
  * \fn void setContenu (sCase* c,int id)
@@ -118,7 +123,7 @@ int getContenu(sCase* c);
  * \param[in, out] ouvrier pointeur sur l'unite qui mine
  */
 
-void prendrePierre(sCase* c, unite* ouvrier);
+void prendrePierre(sCase* c, Unite* ouvrier);
 
 /**
  * \fn void prendreMithril(sCase* c, unite* ouvrier)
@@ -128,7 +133,7 @@ void prendrePierre(sCase* c, unite* ouvrier);
  * \param[in, out] ouvrier pointeur sur l'unite qui mine
  */
 
-void prendreMithril(sCase* c, unite* ouvrier);
+void prendreMithril(sCase* c, Unite* ouvrier);
 
 #endif /* _CASE */
 

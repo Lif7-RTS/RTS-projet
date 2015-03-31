@@ -15,7 +15,7 @@
 #define _TERRAIN
 
 struct STerrain{
-     Case* tabCase; /*!< un tableau de case représentant le terrain*/
+     sCase* tabCase; /*!< un tableau de case représentant le terrain*/
      char* nomCarte;/*!< nom de la carte*/
      int tailleX;/*!< taille de la carte en coordonee X */
      int tailleY;/*!< taille de la carte en coordonée Y */
@@ -23,13 +23,13 @@ struct STerrain{
 typedef struct STerrain Terrain;
 
 /**
-* \fn void setTailleX(int x, Terrain* ter)
+* \fn void setTailleX(Terrain* ter, int x)
 * \brief mutateur tailleX
 *
 * \param[in, out] ter pointeur sur Terrain
 * \param[in] x taille de la carte
 */
-void setTailleX(int x, Terrain* ter);
+void setTailleX(Terrain* ter, int x);
 
 /**
 * \fn void setTailleX(int y, Terrain* ter)
@@ -38,7 +38,7 @@ void setTailleX(int x, Terrain* ter);
 * \param[in, out] ter pointeur sur Terrain
 * \param[in] y taille de la carte
 */
-void setTailleY(int y, Terrain* ter);
+void setTailleY(Terrain* ter, int y);
 
 /**
 * \fn void setCarte(char* dossierCarte, Terrain* ter)
@@ -47,7 +47,7 @@ void setTailleY(int y, Terrain* ter);
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out]  dossierCarte chaine de caractère contenant le chemin de la carte
 */
-void setCarte(char* dossierCarte, Terrain* ter);
+void setCarte(Terrain* ter, char* dossierCarte);
 
 /**
 * \fn int getTailleX(Terrain* ter);
@@ -76,7 +76,7 @@ int getTailleY(Terrain* ter);
 * \param[in] coordonée y d'une case
 * \return un pointeur sur un case de coordonées choisies
 */
-sCase* getCase(int x, int y, Terrain* ter);
+sCase* getCase(Terrain* ter,int x, int y);
 
 /**
 * \fn void initTerrain(char* dossierCarte, Terrain* ter)
@@ -85,14 +85,14 @@ sCase* getCase(int x, int y, Terrain* ter);
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out] dossierCarte chaine de caractère contenant le chemin de la carte
 */
-void initTerrain(char* dossierCarte, Terrain* ter);
+void initTerrain(Terrain* ter, char* dossierCarte);
 
 /**
-* \fn void detruireLibere(Terrain** ter)
+* \fn void detruireTerrain(Terrain** ter)
 * \brief detruit un Terrain
 *
 * \param[in, out] ter pointeur sur pointeur sur Terrain
 */
-void detruireLibere(Terrain** ter);
+void detruireTerrain(Terrain** ter);
 
 #endif /* _TERRAIN */

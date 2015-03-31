@@ -1,0 +1,35 @@
+# depslib dependency file v1.0
+1427792663 source:/home/etu/b/p1303674/lif7/TP_Projet/RTS/src/main.c
+	<stdlib.h>
+	<stdio.h>
+	"unite.h"
+	"uniteBase.h"
+	"case.h"
+
+1427792638 source:/home/etu/b/p1303674/lif7/TP_Projet/RTS/src/case.c
+	"case.h"
+
+1427793165 /home/etu/b/p1303674/lif7/TP_Projet/RTS/src/case.h
+	<stdlib.h>
+	<stdio.h>
+	"unite.h"
+	"uniteBase.h"
+
+1427792536 /home/etu/b/p1303674/lif7/TP_Projet/RTS/src/unite.h
+	<stdlib.h>
+	<stdio.h>
+	"uniteBase.h"
+
+1427792807 /home/etu/b/p1303674/lif7/TP_Projet/RTS/src/uniteBase.h
+	<stdlib.h>
+	<stdio.h>
+
+1427790431 source:/home/etu/b/p1303674/lif7/TP_Projet/RTS/src/terrain.c
+	<stdio.h>
+	"terrain.h"
+
+1427790756 /home/etu/b/p1303674/lif7/TP_Projet/RTS/src/terrain.h
+	<stdio.h>
+	<stdlib.h>
+	"case.h"
+

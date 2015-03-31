@@ -40,14 +40,14 @@ struct SJeu{
     int vuejoueur;/*!< joueur que la camera suit */
 };
 
-typedef struct SJeu  Jeu;
+typedef struct SJeu Jeu;
 /**
  * \fn int getNbJoueur ( jeu*  j)
  * \brief accesseur NbJoueur
  * \param j pointeur sur un Jeu
  * \return NbJoueur
  */
-int getNbJoueur( jeu*  j);
+int getNbJoueur(const jeu*  j);
 
  /**
  * \fn int getVueJoueur ( jeu* j)
@@ -55,7 +55,7 @@ int getNbJoueur( jeu*  j);
  * \param j pointeur sur un Jeu
  * \return vueJoueur
  */
- int getVueJoueur( jeu*  j);
+ int getVueJoueur(const jeu*  j);
 
  /**
  * \fn Joueur* getJoueur ( jeu* j, int jNb)
@@ -63,7 +63,7 @@ int getNbJoueur( jeu*  j);
  * \param j pointeur sur un Jeu
  * \return tableauJoueur[jNb]
  */
- Joueur* getJoueur(jeu*  j,int jNb);
+ Joueur* getJoueur(const jeu*  j,int jNb);
 
  /**
  * \fn Terrain*  getCarte ( jeu* j)
@@ -71,7 +71,7 @@ int getNbJoueur( jeu*  j);
  * \param j pointeur sur un Jeu
  * \return pointeur sur carte
  */
-Terrain* getCarte( jeu*  j);
+Terrain* getCarte(const jeu*  j);
 
   /**
  * \fn Unite* getUnite ( jeu* j, int uNb)
@@ -79,7 +79,7 @@ Terrain* getCarte( jeu*  j);
  * \param j pointeur sur un Jeu
  * \return pointeur sur tableauUnite[uNb]
  */
-Unite* getUnite( jeu*  j, int uNb);
+Unite* getUnite(const jeu*  j, int uNb);
 
   /**
  * \fn Batiment* getBat(jeu*  j, int bNb)
@@ -87,7 +87,7 @@ Unite* getUnite( jeu*  j, int uNb);
  * \param j pointeur sur un Jeu
  * \return pointeur sur tableauBatiment[bNb]
  */
-Batiment* getBat(jeu*  j, int bNb);
+Batiment* getBat(const jeu*  j, int bNb);
 
   /**
  * \fn  UniteBase* getUniteFormable(jeu*  j, int uNb)
@@ -95,7 +95,7 @@ Batiment* getBat(jeu*  j, int bNb);
  * \param j pointeur sur une  jeu
  * \return pointeur sur tabUniteFormable[uNb]
  */
- UniteBase* getUniteFormable(jeu*  j, int uNb);
+ UniteBase* getUniteFormable(const jeu*  j, int uNb);
 
 /**
  * \fn BatBase* getBatConstructible(jeu*  j,int bNb)
@@ -103,7 +103,7 @@ Batiment* getBat(jeu*  j, int bNb);
  * \param j pointeur sur une  jeu
  * \return pointeur sur tabBatConstructible[bNb]
  */
-BatBase* getBatConstructible(jeu*  j,int bNb);
+BatBase* getBatConstructible(const jeu*  j,int bNb);
 
 
  /**

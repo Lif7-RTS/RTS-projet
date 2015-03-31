@@ -1,6 +1,6 @@
 /**
  * \file uniteBase.h
- * \brief module unite
+ * \brief module uniteBase
  * \author Adrien Baud & Diego Roussel
  * \date 24/03/15
  *
@@ -47,64 +47,71 @@ typedef struct SUniteBase UniteBase;
  * \param[in] vitesse temps qu'il faut à l'unite pour traverser une case en ms
  */
  void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
-                    int ouvr, int t, int vitesseAtq, int ressourceM, char* chemin, int v){
- }
+                     int ouvr, int t, int vitesseAtq, int ressourceM, char* chemin, int v);
 /**
  * \fn int getVieMax (UniteBase* unit)
  * \brief accesseur vieMax
  * \param unit pointeur sur une unitBase
  * \return vieMax
  */
- int getVieMax(UniteBase* unit);
+ int getVieMaxUnite(const UniteBase* unit);
  /**
  * \fn int getAttaque (UniteBase* unit)
  * \brief accesseur attaque
  * \param unit pointeur sur une unitBase
  * \return attaque
  */
- int getAttaque(UniteBase* unit);
+ int getAttaque(const UniteBase* unit);
  /**
  * \fn char* getNom (UniteBase* unit)
  * \brief accesseur nom
  * \param unit pointeur sur une unitBase
  * \return nom
  */
- char* getNom(UniteBase* unit);
+ char* getNom(const UniteBase* unit);
  /**
  * \fn int getOuvrier (UniteBase* unit)
  * \brief accesseur ouvrier
  * \param unit pointeur sur une unitBase
  * \return ouvrier: 1 si ouvrier, 0 sinon
  */
- int getOuvrier(UniteBase* unit);
+ int getOuvrier(const UniteBase* unit);
   /**
  * \fn int getTempsFormation (UniteBase* unit)
  * \brief accesseur tempsFormation
  * \param unit pointeur sur une unitBase
  * \return tempsFormation
  */
- int getTempsFormation(UniteBase* unit);
+ int getTempsFormation(const UniteBase* unit);
   /**
  * \fn int getVitesseAttaque (UniteBase* unit)
  * \brief accesseur VitesseAttaque
  * \param unit pointeur sur une unitBase
  * \return VitesseAttaque
  */
- int getVitesseAttaque(UniteBase* unit);
+ int getVitesseAttaque(const UniteBase* unit);
   /**
  * \fn int getRessourceMax (UniteBase* unit)
  * \brief accesseur RessourceMax
  * \param unit pointeur sur une UniteBase
  * \return ressourceMax
  */
- int getRessourceMax(UniteBase* unit);
+ int getRessourceMax(const UniteBase* unit);
 /**
  * \fn int getVitesse (UniteBase* unit)
  * \brief accesseur Vitesse
  * \param unit pointeur sur une UniteBase
  * \return vitesse
  */
- int getVitesse(UniteBase* unit);
+ int getVitesse(const UniteBase* unit);
+
+ /**
+ * \fn char* getImage(UniteBase* unit)
+ * \brief accesseur cheminImage
+ * \param unit pointeur sur une UniteBase
+ * \return cheminImage
+ */
+ char* getImage(UniteBase* unit);
 
  /**
  * \fn void setVieMax (UniteBase* unit,int vieM)
@@ -113,7 +120,7 @@ typedef struct SUniteBase UniteBase;
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] vieM vie maximum de l'unite
  */
- void setVieMax(UniteBase* unit, int vieM);
+ void setVieMaxUnite(UniteBase* unit, int vieM);
 
   /**
  * \fn void setAttaque (UniteBase* unit,int atq)
@@ -168,6 +175,13 @@ typedef struct SUniteBase UniteBase;
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] vitesse temps qu'il faut à l'unite pour traverser une case en ms
  */
- void setOuvrier(UniteBase* unit, int ouvr);
+ void setVitesse(UniteBase* unit, int v);
+
+  /**
+ * \fn void setImage(UniteBase* unit, char* chemin)
+ * \brief mutateur cheminImage
+ * \param unit pointeur sur une UniteBase
+ */
+ void setImage(UniteBase* unit, char* chemin);
 
 #endif /* _UNITEBASE */

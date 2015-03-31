@@ -14,6 +14,7 @@
 #ifndef _UNITE
 #define _UNITE
 
+
 /**
  * \struct SUnite
  * \brief Objet Unite
@@ -29,41 +30,43 @@ struct SUnite{
     UniteBase* type;/*!< archetype de l'unite */
     int posCibleX; /*!< X de la position cible par l'unite ( case )*/
     int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
+    int pierrePorte;/*!< pierre transporte par l'unite */
+    int mithril;/*!< mithril tranporte par l'unite*/
 };
-typedef SUnite Unite;
+typedef struct SUnite Unite;
 
  /**
- * \fn int getId (Unite* unit,int id)
+ * \fn int getId (Unite* unit)
  * \brief accesseur id
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getId(Unite* unit, int id);
+ int getId(const Unite* unit);
 
  /**
- * \fn int getPosX (Unite* unit,int x)
+ * \fn int getPosX (Unite* unit)
  * \brief accesseur posX
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getPosX(Unite* unit, int posX);
+ int getPosX(const Unite* unit);
 
 
  /**
- * \fn int getPosY (Unite* unit,int y)
+ * \fn int getPosY (Unite* unit)
  * \brief accesseur posY
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getPosY(Unite* unit, int posY);
+ int getPosY(const Unite* unit);
 
  /**
- * \fn int getVieCourante (Unite* unit,int vie)
+ * \fn int getVieCourante (Unite* unit)
  * \brief accesseur vieCourante
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getVieCourante(Unite* unit, int vie);
+ int getVieCourante(const Unite* unit);
 
 
  /**
@@ -72,7 +75,7 @@ typedef SUnite Unite;
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getDeplacement(Unite* unit, int d);
+ int getDeplacement(const Unite* unit);
 
 /**
  * \fn UniteBase* getType(Unite* unit)
@@ -80,22 +83,40 @@ typedef SUnite Unite;
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- UniteBase* getType(Unite* unit);
+ UniteBase* getType(const Unite* unit);
 
 /**
- * \fn int getPosCibleX(Unite* unit,int x)
+ * \fn int getPosCibleX(Unite* unit)
  * \brief accesseur posCibleX
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getPosCibleX(Unite* unit, int x);
+ int getPosCibleX(const Unite* unit);
+
  /**
- * \fn int getPosCibleY(Unite* unit,int y)
+ * \fn int getPosCibleY(Unite* unit)
  * \brief accesseur posCibleY
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getPosCibleY(Unite* unit, int y);
+ int getPosCibleY(const Unite* unit);
+
+  /**
+ * \fn int getPierrePorte(Unite* unit)
+ * \brief accesseur pierrePorte
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ */
+ int getPierrePorte(const Unite* unit);
+
+   /**
+ * \fn int getMithrilPorte(Unite* unit)
+ * \brief accesseur mithrilPorte
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ */
+ int getMithrilPorte(const Unite* unit);
+
   /**
  * \fn void setId (Unite* unit,int id)
  * \brief mutateur id
@@ -112,7 +133,6 @@ typedef SUnite Unite;
  * \param[in] posX position X de l'unite
  */
  void setPosX(Unite* unit, int posX);
-
 
  /**
  * \fn void setPosY (Unite* unit,int y)
@@ -159,6 +179,7 @@ typedef SUnite Unite;
  * \param[in] x position cible de l'unite
  */
  void setPosCibleX(Unite* unit, int x);
+
  /**
  * \fn void setPosCibleY(Unite* unit,int y)
  * \brief mutateur posCibleY
@@ -167,4 +188,22 @@ typedef SUnite Unite;
  * \param[in] y position cible de l'unite
  */
  void setPosCibleY(Unite* unit, int y);
+
+   /**
+ * \fn int setPierrePorte(Unite* unit,int p)
+ * \brief mutateur pierrePorte
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] p pierre porte par l'unite
+ */
+ void setPierrePorte(Unite* unit, int p);
+
+   /**
+ * \fn void setMithrilPorte(Unite* unit, int m)
+ * \brief mutateur mithrilPorte
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] m mithril porte par l'unite
+ */
+ void setMithrilPorte(Unite* unit, int m);
 #endif /* _UNITE */
