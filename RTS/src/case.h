@@ -57,13 +57,13 @@ int getContenu(sCase* c);
  int getPierre(sCase* c);
 
  /**
- * \fn int getOr (sCase* c)
- * \brief accesseur or
+ * \fn int getMithril (sCase* c)
+ * \brief accesseur Mithril
  *
  * \param c pointeur sur sCase
- * \return or
+ * \return mithril
  */
- int getOr(sCase* c);
+ int getMithril(sCase* c);
 
  /**
  * \fn bool getAcces (sCase* c)
@@ -72,7 +72,7 @@ int getContenu(sCase* c);
  * \param[in, out] c pointeur sur sCase
  * \return access
  */
- bool getAcces(sCase* c);
+ int getAcces(sCase* c);
 
  /**
  * \fn void setContenu (sCase* c,int id)

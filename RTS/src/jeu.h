@@ -22,15 +22,22 @@
 #ifndef
 #define _JEU
 
+
+/**
+ * \struct SJeu
+ * \brief Objet Jeu
+ *
+ * SJeu objet representant une partie en cours
+ */
 struct SJeu{
-    int nbJoueur;
-    Joueur* tableauJoueur;
-    Terrain* carte;
-    TabUnite* tableauUnite;
-    TabBat* tableauBat;
-    BatBase* tabBatConstructible;
-    Jeu* tabUniteFormable;
-    int vue joueur;
+    int nbJoueur;/*!< nombre de joueur dans la partie */
+    Joueur* tableauJoueur;/*!< tableau contenant des pointeurs vers tout les joueurs de la partie*/
+    Terrain* carte;/*!< pointeur sur la carte de la partie*/
+    TabUnite* tableauUnite;/*!< tableau de pointeur sur toute les unites existante dans la partie*/
+    TabBat* tableauBat;/*!< Tableau de pointeur sur tout les batiments construits*/
+    BatBase* tabBatConstructible;/*!< Tableau de pointeurs sur tous les batiments constructibles */
+    Jeu* tabUniteFormable;/*!< Tableau de pointeurs sur toutes les unites formables*/
+    int vuejoueur;/*!< joueur que la camera suit */
 };
 
 typedef struct SJeu  Jeu;
