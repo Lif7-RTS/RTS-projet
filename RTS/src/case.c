@@ -48,7 +48,6 @@ void setAcces(sCase* c, int acc){
     c->acces = acc;
 }
 void prendrePierre(sCase* c, Unite* ouvrier){
-    int n = getId(ouvrier);
     UniteBase* type = getType(ouvrier);
     int rMax = getRessourceMax(type);
     int rCour = getPierre(c);

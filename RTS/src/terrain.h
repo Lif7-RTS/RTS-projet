@@ -16,7 +16,8 @@
 
 struct STerrain{
      sCase* tabCase; /*!< un tableau de case représentant le terrain*/
-     char* nomCarte;/*!< nom de la carte*/
+     char* collisionCarte;/*!< fichier de collision de la carte*/
+     char* imageCarte;/*!<image de la carte */
      int tailleX;/*!< taille de la carte en coordonee X */
      int tailleY;/*!< taille de la carte en coordonée Y */
 };
@@ -42,12 +43,12 @@ void setTailleY(Terrain* ter, int y);
 
 /**
 * \fn void setCarte(char* dossierCarte, Terrain* ter)
-* \brief mutateur nomCarte
+* \brief mutateur collisionCarte
 *
 * \param[in, out] ter pointeur sur Terrain
-* \param[in, out]  dossierCarte chaine de caractère contenant le chemin de la carte
+* \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
 */
-void setCarte(Terrain* ter, char* dossierCarte);
+void setCarte(Terrain* ter, const char* colliCarte);
 
 /**
 * \fn int getTailleX(Terrain* ter);
@@ -56,7 +57,7 @@ void setCarte(Terrain* ter, char* dossierCarte);
 * \param[in, out] ter pointeur sur Terrain
 * \return la taille de la carte
 */
-int getTailleX(Terrain* ter);
+int getTailleX(const Terrain* ter);
 
 /**
 * \fn int getTailleY(Terrain* ter);
@@ -65,7 +66,7 @@ int getTailleX(Terrain* ter);
 * \param[in, out] ter pointeur sur Terrain
 * \return la taille de la carte
 */
-int getTailleY(Terrain* ter);
+int getTailleY(const Terrain* ter);
 
 /**
 * \fn sCase* getCase(int x, int y, Terrain* ter)
@@ -76,23 +77,23 @@ int getTailleY(Terrain* ter);
 * \param[in] coordonée y d'une case
 * \return un pointeur sur un case de coordonées choisies
 */
-sCase* getCase(Terrain* ter,int x, int y);
+sCase* getCase(const Terrain* ter,int x, int y);
 
 /**
-* \fn void initTerrain(char* dossierCarte, Terrain* ter)
+* \fn void initTerrain(Terrain* ter, char* colliCarte)
 * \brief initialisation d'un Terrain
 *
 * \param[in, out] ter pointeur sur Terrain
-* \param[in, out] dossierCarte chaine de caractère contenant le chemin de la carte
+* \param[in, out] colliCarte chaine de caractère contenant le chemin du fichier de collision de la carte
 */
-void initTerrain(Terrain* ter, char* dossierCarte);
+void initTerrain(Terrain* ter, const char* colliCarte);
 
 /**
-* \fn void detruireTerrain(Terrain** ter)
+* \fn void detruireTerrain(Terrain* ter)
 * \brief detruit un Terrain
 *
-* \param[in, out] ter pointeur sur pointeur sur Terrain
+* \param[in, out] ter pointeur sur Terrain
 */
-void detruireTerrain(Terrain** ter);
+void detruireTerrain(Terrain* ter);
 
 #endif /* _TERRAIN */

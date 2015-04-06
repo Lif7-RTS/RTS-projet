@@ -31,7 +31,7 @@ struct SUnite{
     int posCibleX; /*!< X de la position cible par l'unite ( case )*/
     int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
     int pierrePorte;/*!< pierre transporte par l'unite */
-    int mithril;/*!< mithril tranporte par l'unite*/
+    int mithrilPorte;/*!< mithril tranporte par l'unite*/
 };
 typedef struct SUnite Unite;
 
@@ -169,7 +169,7 @@ typedef struct SUnite Unite;
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] t type de l'unite
  */
- void setType(Unite* unit, UniteBase* t);
+ void setType(Unite* unit, const UniteBase* type);
 
 /**
  * \fn void setPosCibleX(Unite* unit,int x)

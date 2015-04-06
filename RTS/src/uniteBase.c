@@ -65,7 +65,7 @@ void setVieMaxUnite(UniteBase* unit, int vieM){
 }
 
 void setAttaque(UniteBase* unit, int atq){
-     unit->attaque = attaque;
+     unit->attaque = atq;
 }
 
 void setNom(UniteBase* unit, char* n){

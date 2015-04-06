@@ -111,7 +111,7 @@ typedef struct SUniteBase UniteBase;
  * \param unit pointeur sur une UniteBase
  * \return cheminImage
  */
- char* getImage(UniteBase* unit);
+ char* getImage(const UniteBase* unit);
 
  /**
  * \fn void setVieMax (UniteBase* unit,int vieM)
