@@ -5,7 +5,7 @@
 * \version 1.1
 * \date 31/03/2015
 *
-*Structure representant une file.
+* Structure representant une file.
 */
 
 #include <stdio.h>
@@ -16,13 +16,13 @@
 
 struct SCellule{
      UniteBase* element; /*!< element dans la cellule */
-     Cellule* suivant; /*!< poiteur sur la cellule suivante */
-     Cellule* precedent; /*!<pointeur sur la cellule précédente */
+     struct SCellule* suivant; /*!< poiteur sur la cellule suivante */
+     struct SCellule* precedent; /*!<pointeur sur la cellule précédente */
 };
 typedef struct SCellule Cellule;
 
 struct SFile{
-     CelluleUB* prem; /*!< première element de la file d'attente */
+     Cellule* prem; /*!< première element de la file d'attente */
 };
 typedef struct SFile File;
 
@@ -65,16 +65,16 @@ void detruireCellule (Cellule** cell);
 /* *************************************************************--GET--***************************************************************************** */
 
 /**
-* \fn int getIdBat(Batiment* bat)
+* \fn Cellule* getPremier(const File* file)
 * \brief accesseur prem
 *
 * \param[in, out] file pointeur sur une structure File
 * \return un pointeur sur la première cellule de la file d'attente.
 */
-CelluleUB* getPremier(const File* file);
+Cellule* getPremier(const File* file);
 
 /**
-* \fn void getElement(Cellule* cell)
+* \fn UniteBase* getElement(Cellule* cell)
 * \brief mutateur element
 *
 * \param[in, out] cell est un pointeur sur une cellule
@@ -83,7 +83,7 @@ CelluleUB* getPremier(const File* file);
 UniteBase* getElement(Cellule* cell);
 
 /**
-* \fn void getSuivant(Cellule* cell)
+* \fn Cellule* getSuivant(Cellule* cell)
 * \brief mutateur suivant
 *
 * \param[in, out] cell est un pointeur sur une cellule
@@ -92,7 +92,7 @@ UniteBase* getElement(Cellule* cell);
 Cellule* getSuivant(Cellule* cell);
 
 /**
-* \fn void setPrecedent(Cellule* cell, const Cellule* prece)
+* \fn Cellule* getPrecedent(Cellule* cell)
 * \brief mutateur suivant
 *
 * \param[in, out] cell est un pointeur sur une cellule
@@ -103,51 +103,51 @@ Cellule* getPrecedent(Cellule* cell);
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
-* \fn void setPremier (File* file, const CelluleUB* premier)
+* \fn setPremier (File* file, Cellule* premier)
 * \brief mutateur prem
 *
 * \param[in, out] file pointeur sur une structure File
 * \param[in, out] premier est un pointeur sur un element UniteBase.
 */
-void setPremier (File* file, const UniteBase* premier);
+void setPremier (File* file, Cellule* premier);
 
 /**
-* \fn void setElement(File* file, const UniteBase* element)
+* \fn void setElement(File* file, UniteBase* element)
 * \brief mutateur element
 *
 * \param[in, out] cell est un pointeur sur une cellule
 * \param[in, out] element est un pointeur sur un element UniteBase.
 */
-void setElement(Cellule* cell, const UniteBase* element);
+void setElement(Cellule* cell, UniteBase* element);
 
 /**
-* \fn void setSuivant(Cellule* cell, const Cellule* suiv)
+* \fn void setSuivant(Cellule* cell, Cellule* suiv)
 * \brief mutateur suivant
 *
 * \param[in, out] cell est un pointeur sur une cellule
 * \param[in, out] suiv est un pointeur sur une structure Cellule.
 */
-void setSuivant(Cellule* cell, const Cellule* suiv);
+void setSuivant(Cellule* cell, Cellule* suiv);
 
 /**
-* \fn void setPrecedent(Cellule* cell, const Cellule* prece)
+* \fn void setPrecedent(Cellule* cell, Cellule* prece)
 * \brief mutateur suivant
 *
 * \param[in, out] cell est un pointeur sur une cellule
 * \param[in, out] prece est un pointeur sur une structure Cellule.
 */
-void setPrecedent(Cellule* cell, const Cellule* prece);
+void setPrecedent(Cellule* cell, Cellule* prece);
 
 /* *************************************************************--FCT--***************************************************************************** */
 
 /**
-* \fn void enfile(File* f, const Unite* element)
+* \fn void enfile(File* f, UniteBase* element)
 * \brief positione un nouvel element en fin de file d'attente
 *
 * \param[in, out] file pointeur sur une structure File
 * \param[in, out] element est un pointeur sur une UniteBase.
 */
-void enfile(File* f, const UniteBase* element);
+void enfile(File* f, UniteBase* element);
 
 /**
 * \fn void defile(File* f)

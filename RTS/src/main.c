@@ -42,4 +42,8 @@ int main(){
     endwin();
     detruireTerrain(ter);
     free(ter);
+
+     int* coucou= (int*)malloc(sizeof(int*));
+     free(coucou);
+     printf("%d", coucou);
 }

@@ -19,6 +19,7 @@ struct SBatiment{
      BatBase* typeBat;  /*!< type de base du batiment en question */
      int vieCourante;  /*!< nombre de point de vie actuel du batiment */
      int enConstruction;  /*!< 1 si le batiment en construction 0 sinon */
+     File* tabAttente;/*!< une file d'attente de construction d'unite en cours */
 };
 typedef SBatiment Batiment;
 
@@ -82,6 +83,15 @@ int getVieCourante (const Batiment* bat);
 */
 int getEnConstruction (const Batiment* bat);
 
+/**
+* \fn void getTabAttente(BatBase* bat)
+* \brief accesseur tabAttente
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return la file d'attente des unite en construction dans le batiment en question.
+*/
+File* getTabAttente(const BatBase* bat);
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -119,6 +129,15 @@ void setVieCourante (Batiment* bat, int vieCourante);
 * \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
 void setEnConstruction (Batiment* bat, int enConstruction);
+
+/**
+* \fn void setTabAttente(File* tabAttente, BatBase* bat)
+* \brief mutateur tabAttente
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param[in] tabAttente est la file d'attente des unite en construction dans le batiment en question.
+*/
+void setTabAttente(BatBase* bat, const File* tabAttente);
 
 #endif /* _BAT */
 

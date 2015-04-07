@@ -42,11 +42,17 @@
 			<Add directory="lib" />
 		</Linker>
 		<Unit filename="src/batiment.h" />
+		<Unit filename="src/batimentBase.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/batimentBase.h" />
 		<Unit filename="src/case.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/case.h" />
+		<Unit filename="src/file.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/file.h" />
 		<Unit filename="src/jeu.h" />
 		<Unit filename="src/joueur.h" />
