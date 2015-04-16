@@ -46,11 +46,17 @@
 		</Unit>
 		<Unit filename="src/afficheSDL.h" />
 		<Unit filename="src/batiment.h" />
+		<Unit filename="src/batimentBase.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/batimentBase.h" />
 		<Unit filename="src/case.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/case.h" />
+		<Unit filename="src/file.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/file.h" />
 		<Unit filename="src/jeu.c">
 			<Option compilerVar="CC" />
