@@ -51,6 +51,15 @@ void setTailleY(Terrain* ter, int y);
 void setCarte(Terrain* ter, const char* colliCarte);
 
 /**
+* \fn void setCarte(char* dossierCarte, Terrain* ter)
+* \brief mutateur collisionCarte
+*
+* \param[in, out] ter pointeur sur Terrain
+* \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
+*/
+void setImageCarte(Terrain* ter, const char* carte);
+
+/**
 * \fn int getTailleX(Terrain* ter);
 * \brief accesseur tailleX
 *
@@ -86,7 +95,7 @@ sCase* getCase(const Terrain* ter,int x, int y);
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out] colliCarte chaine de caractère contenant le chemin du fichier de collision de la carte
 */
-void initTerrain(Terrain* ter, const char* colliCarte);
+void initTerrain(Terrain* ter, const char* colliCarte, const char* imageCarte);
 
 /**
 * \fn void detruireTerrain(Terrain* ter)

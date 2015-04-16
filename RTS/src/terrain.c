@@ -41,12 +41,13 @@ sCase* getCase(const Terrain* ter,int x, int y){
     return &ter->tabCase[y*(ter->tailleX)+x];
 }
 
-void initTerrain(Terrain* ter, const char* colliCarte){
+void initTerrain(Terrain* ter, const char* colliCarte,const char* imageCarte){
     FILE* fp;
     int tailleX;
     int tailleY;
     int x,y,acc,p,m;
     setCarte(ter, colliCarte);
+    setImageCarte(ter,imageCarte);
     fp = fopen(colliCarte,"r");
     if(fp != NULL){
         fscanf(fp,"%d %d", &tailleX, &tailleY);
@@ -62,11 +63,16 @@ void initTerrain(Terrain* ter, const char* colliCarte){
         }
         fclose(fp);
     }
-    else
+    else{
         printf("impossible d'ouvrir le fichier !");
         EXIT_FAILURE;
+    }
 }
 
 void detruireTerrain(Terrain* ter){
     free(ter->tabCase);
+}
+
+void setImageCarte(Terrain* ter, const char* carte){
+    ter->imageCarte = carte;
 }

@@ -32,25 +32,17 @@ typedef struct SJoueur Joueur;
 /* ***********************************************************--INIT--*************************************************************************** */
 
 /**
-* \fn void initJoueur (Joueur* joue, int idJoueur, int pierre, int mithril, const char* nomJouer, int idRace, int nourritureMax, int nourritureCourante, int cameraX, int cameraY, const Batiment* tabBatiment, const Unite* tabTroupe);
+* \fn void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer, int idRace, int cameraX, int cameraY)
 * \brief initialise une structure joueur
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] idJoueur est un identifiant unique representant un joueur
-* \param[in] pierre est une quantite de pierre que possède le joueur
-* \param[in] mithril est une quantite de mithril que possède le joueur
 * \param[in, out] nomJoueur ets le nom choisi par le joueur
 * \param[in] idRace esr un identifiant unique representant la race du joueur
-* \param[in] nourMax est la quantite maximum de nourriture stockable par le joueur
-* \param[in] nourActu est la quantite actuelle de nourriture stockee par le joueur
 * \param[in] camX est la coordonee X de la camera du joueur
 * \param[in] camY est la coordonee Y de la camera du joueur
-* \param[in, out] bat est un pointeur sur un batiment
-* \param[in, out] unite est un poiteur sur une unite.
 */
-void initJoueur (Joueur* joue, int idJoueur, int pierre, int mithril, const char* nomJouer, int idRace, int nourritureMax,
-                  int nourritureCourante, int cameraX, int cameraY, const Batiment* tabBatiment, const Unite* tabTroupe);
-
+void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer, int idRace, int cameraX, int cameraY);
 /**
 * \fn void detruirJoueur (Joueur** joue)
 * \brief detruit et libère la structure joueur

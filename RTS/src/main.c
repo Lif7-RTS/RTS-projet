@@ -13,7 +13,7 @@ int main(){
     ch = (char*) malloc(sizeof(char)*2);
     int x,y;
     ter = (Terrain*) malloc(sizeof(Terrain));
-    initTerrain(ter, "carte.txt");
+    initTerrain(ter, "carte.txt", "blabla.jpg");
     int tailleX = ter->tailleX;
     int tailleY = ter->tailleY;
     printf("%d %d", tailleX, tailleY);

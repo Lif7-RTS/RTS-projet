@@ -4,7 +4,7 @@
  * \author Adrien Baud & Diego Roussel
  * \date 24/03/15
  *
- * Module represantant une unite
+ * Module representant une unite
  *
  */
 
