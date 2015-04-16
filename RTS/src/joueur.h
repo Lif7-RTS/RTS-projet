@@ -11,6 +11,8 @@
 #include <stdlib.h>
 #include "unite.h"
 #include "batiment.h"
+#include "race.h"
+#include "tabDyn.h"
 #ifndef _JOUEUR
 #define _JOUEUR
 
@@ -24,8 +26,8 @@ struct SJoueur{
      int nourritureCourante; /*!< la quantite actuel de nourriture dans le grenier du joueur */
      int cameraX; /*!< la position en coordonée x de la camera du joueur */
      int cameraY; /*!< la position en coordonée y de la camera du joueur */
-     Batiment* tabBatiment; /*!< un tableau contenant l'ensemble des batiments d'un joueur */
-     Unite* tabTroupe; /*!< un tableau contenant l'ensemble des unites d'un joueur */
+     TabDyn* tabBatiment; /*!< un tableau contenant l'ensemble des batiments d'un joueur */
+     TabDyn* tabTroupe; /*!< un tableau contenant l'ensemble des unites d'un joueur */
 };
 typedef struct SJoueur Joueur;
 
@@ -44,12 +46,12 @@ typedef struct SJoueur Joueur;
 */
 void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer, int idRace, int cameraX, int cameraY);
 /**
-* \fn void detruirJoueur (Joueur** joue)
-* \brief detruit et libère la structure joueur
+* \fn void detruireJoueur(Joueur* joue)
+* \brief detruit la structure joueur
 *
 * \param[in, out] joue est un pointeur sur Joueur
 */
-void detruirJoueur (Joueur** joue);
+void detruireJoueur(Joueur* joue);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -69,7 +71,7 @@ int getIdJoueur (const Joueur* joue);
 * \param[in, out] joue est un pointeur sur Joueur
 * \return pierre est une quantite de pierre que possède le joueur.
 */
-int getPierre (const Joueur* joue);
+int getPierreJoueur(const Joueur* joue);
 
 /**
 * \fn int getMithril (const Joueur* joue)
@@ -78,7 +80,7 @@ int getPierre (const Joueur* joue);
 * \param[in, out] joue est un pointeur sur Joueur
 * \return mithril est une quantite de mithril que possède le joueur.
 */
-int getMithril (const Joueur* joue);
+int getMithrilJoueur(const Joueur* joue);
 
 /**
 * \fn char* getNomJoueur (const Joueur* joue)
@@ -139,7 +141,7 @@ int getCameraY (const Joueur* joue);
 Unite* choisiUnite (const Joueur* joue, int numLigne);
 
 /**
-* \fn void ajouteUnite (const Joueur* joue, const Unite* unite)
+* \fn Batiment* choisiBatiment (const Joueur* joue, int numLigne)
 * \brief renvoi le batiment de la ligne choisi.
 *
 * \param[in, out] joue est un pointeur sur Joueur
@@ -166,7 +168,7 @@ void setIdJoueur (Joueur* joue, int idJoueur);
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] pierre est une quantite de pierre que possède le joueur.
 */
-void setPierre (Joueur* joue, int pierre);
+void setPierreJoueur(Joueur* joue, int pierre);
 
 /**
 * \fn void setMithril (Joueur* joue, int mithril)
@@ -175,7 +177,7 @@ void setPierre (Joueur* joue, int pierre);
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] mithril est une quantite de mithril que possède le joueur.
 */
-void setMithril (Joueur* joue, int mithril);
+void setMithrilJoueur(Joueur* joue, int mithril);
 
 /**
 * \fn void setNomJoueur (Joueur* joue, const char* nomJoueur)
@@ -227,7 +229,7 @@ void setCameraY (Joueur* joue, int camY);
 
 /**
 * \fn void ajouteUnite (Joueur* joue, const Unite* unite)
-* \brief ajoute une unite a tabUnite
+* \brief ajoute une unite a tabTroupe
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in, out] unite est un poiteur sur une unite.

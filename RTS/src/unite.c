@@ -22,7 +22,7 @@ int getPosY(const Unite* unit){
     return unit->posY;
 }
 
-int getVieCourante(const Unite* unit){
+int getVieCouranteUnite(const Unite* unit){
     return unit->vieCourante;
 }
 
@@ -62,7 +62,7 @@ void setPosY(Unite* unit, int y){
     unit->posX = y;
 }
 
-void setVieCourante(Unite* unit, int vie){
+void setVieCouranteUnite(Unite* unit, int vie){
     unit->vieCourante = vie;
 }
 

@@ -61,12 +61,12 @@ typedef struct SUnite Unite;
  int getPosY(const Unite* unit);
 
  /**
- * \fn int getVieCourante (Unite* unit)
+ * \fn int getVieCouranteUnite(Unite* unit)
  * \brief accesseur vieCourante
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getVieCourante(const Unite* unit);
+ int getVieCouranteUnite(const Unite* unit);
 
 
  /**
@@ -144,13 +144,13 @@ typedef struct SUnite Unite;
  void setPosY(Unite* unit, int posY);
 
  /**
- * \fn void setVieCourante (Unite* unit,int vie)
+ * \fn void setVieCouranteUnite(Unite* unit,int vie)
  * \brief mutateur vieCourante
  *
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] vie vie actuelle de l'unite
  */
- void setVieCourante(Unite* unit, int vie);
+ void setVieCouranteUnite(Unite* unit, int vie);
 
 
  /**

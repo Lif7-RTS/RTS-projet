@@ -13,8 +13,8 @@
 
 
 void initCase(sCase* c,int p, int m, int acc){
-    setPierre(c, p);
-    setMithril(c, m);
+    setPierreCase(c, p);
+    setMithrilCase(c, m);
     setAcces(c, acc);
     setContenu(c, 0);
 }
@@ -22,11 +22,11 @@ int getContenu(const sCase* c){
     return c->idContenu;
 }
 
-int getPierre(const sCase* c){
+int getPierreCase(const sCase* c){
     return c->pierre;
 }
 
-int getMithril(const sCase* c){
+int getMithrilCase(const sCase* c){
     return c->mithril;
 }
 
@@ -38,10 +38,10 @@ void setContenu(sCase* c, int id){
     c->idContenu = id;
 }
 
-void setPierre(sCase* c, int p){
+void setPierreCase(sCase* c, int p){
     c->pierre = p;
 }
-void setMithril(sCase* c, int m){
+void setMithrilCase(sCase* c, int m){
     c->mithril = m;
 }
 void setAcces(sCase* c, int acc){
@@ -50,27 +50,27 @@ void setAcces(sCase* c, int acc){
 void prendrePierre(sCase* c, Unite* ouvrier){
     UniteBase* type = getType(ouvrier);
     int rMax = getRessourceMax(type);
-    int rCour = getPierre(c);
+    int rCour = getPierreCase(c);
     if((rCour - rMax) < 0){
-        setPierrePorte(ouvrier, getPierre(c));
-        setPierre(c, 0);
+        setPierrePorte(ouvrier, getPierreCase(c));
+        setPierreCase(c, 0);
         return;
     }
     setPierrePorte(ouvrier, rMax);
-    setPierre(c,rCour - rMax);
+    setPierreCase(c,rCour - rMax);
     return;
 }
 
 void prendreMithril(sCase* c, Unite* ouvrier){
     int rMax = getRessourceMax(getType(ouvrier));
-    int rCour = getMithril(c);
+    int rCour = getMithrilCase(c);
     if((rCour - rMax) < 0){
-        setMithrilPorte(ouvrier, getPierre(c));
-        setMithril(c, 0);
+        setMithrilPorte(ouvrier, getMithrilCase(c));
+        setMithrilCase(c, 0);
         return;
     }
     setMithrilPorte(ouvrier, rMax);
-    setMithril(c,rCour - rMax);
+    setMithrilCase(c,rCour - rMax);
     return;
 }
 

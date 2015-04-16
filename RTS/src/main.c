@@ -1,49 +1,38 @@
-#include <stdlib.h>
+#include <SDL2/SDL.h>
+
 #include <stdio.h>
-#include "terrain.h"
-#include "unite.h"
-#include "uniteBase.h"
-#include "case.h"
 
-#include <curses.h>
+int main(int argc, char** argv)
+{
+    /* Initialisation simple */
+        if (SDL_Init(SDL_INIT_VIDEO) != 0 )
+    {
+        fprintf(stdout,"Échec de l'initialisation de la SDL (%s)\n",SDL_GetError());
+        return -1;
+    }
 
-int main(){
-    Terrain* ter;
-    char* ch;
-    ch = (char*) malloc(sizeof(char)*2);
-    int x,y;
-    ter = (Terrain*) malloc(sizeof(Terrain));
-    initTerrain(ter, "carte.txt", "blabla.jpg");
-    int tailleX = ter->tailleX;
-    int tailleY = ter->tailleY;
-    printf("%d %d", tailleX, tailleY);
-    initscr();
-    start_color();
-    init_pair(1, COLOR_YELLOW, COLOR_BLACK);
-    init_pair(2, COLOR_CYAN, COLOR_BLACK);
-    raw();
-    noecho();
-    keypad(stdscr, TRUE);
-    for(y = 0;y < tailleY; y++){
-        for(x = 0; x < tailleX; x++){
-            ch[0] = ter->tabCase[y*tailleX+x].acces + 65;
-            ch[1] = '\0';
-            if(ter->tabCase[y*tailleX+x].pierre > 0)
-                attron(COLOR_PAIR(1));
-            if(ter->tabCase[y*tailleX+x].mithril > 0)
-                attron(COLOR_PAIR(2));
-            mvprintw(y,x,ch);
-            attroff(COLOR_PAIR(1));
-            attroff(COLOR_PAIR(2));
+    {
+        /* Création de la fenêtre */
+        SDL_Window* pWindow = NULL;
+        pWindow = SDL_CreateWindow("Ma première application SDL2",SDL_WINDOWPOS_UNDEFINED,
+                                                                  SDL_WINDOWPOS_UNDEFINED,
+                                                                  640,
+                                                                  480,
+                                                                  SDL_WINDOW_SHOWN);
+
+        if( pWindow )
+        {
+            SDL_Delay(3000); /* Attendre trois secondes, que l'utilisateur voit la fenêtre */
+
+            SDL_DestroyWindow(pWindow);
+        }
+        else
+        {
+            fprintf(stderr,"Erreur de création de la fenêtre: %s\n",SDL_GetError());
         }
     }
-    refresh();
-    getch();
-    endwin();
-    detruireTerrain(ter);
-    free(ter);
 
-     int* coucou= (int*)malloc(sizeof(int*));
-     free(coucou);
-     printf("%d", coucou);
+    SDL_Quit();
+
+    return 0;
 }

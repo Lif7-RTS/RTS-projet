@@ -11,17 +11,16 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#ifndef _JEU
+#define _JEU
 #include "uniteBase.h"
 #include "unite.h"
 #include "case.h"
 #include "terrain.h"
 #include "batimentBase.h"
 #include "batiment.h"
-#include "tabUnite.h"
-#include "tabBat.h"
-
-#ifndef
-#define _JEU
+#include "joueur.h"
+#include "tabDyn.h"
 
 
 /**
@@ -126,12 +125,12 @@ BatBase* getBatConstructible(const Jeu*  j,int bNb);
  void setVueJoueur( Jeu*  j, int jNb);
 
  /**
- * \fn  void setCarte( jeu*  j, Terrain* c)
+ * \fn  void setCarteJeu( jeu*  j, Terrain* c)
  * \brief mutateur carte
  * \param[in, out] j pointeur sur  jeu
  * \param[in] c pointeur sur la nouvelle carte
  */
- void setCarte( Jeu*  j, Terrain* c);
+ void setCarteJeu( Jeu*  j, Terrain* c);
 
 /**
  * \fn  void ajouterUnite( jeu*  j, Unite* unit)
@@ -149,14 +148,14 @@ BatBase* getBatConstructible(const Jeu*  j,int bNb);
  */
  void ajouterBat( Jeu*  j, Batiment* bat);
 
-/** \fn void commencerPartie(jeu* j,int raceJ, char* cheminCarte)
+/** \fn void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ)
  * \brief fonction d'initialisation de jeu, cree jeu puis lance la boucle de jeu
  * \param [in,out] j pointeur sur jeu
  * \param [in] raceJ race du joueur 1 ( controle par l'utilisateur)
  * \param [in, out] cheminCarte chemin ( relatif ou absolu) vers la carte sur la quel la partie va etre lance
  *
  */
- void commencerPartie(Jeu* j,int raceJ, char* cheminCarte);
+void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ);
 
 /** \fn void boucleJeu(Jeu* j)
  * \brief function de boucle de jeu

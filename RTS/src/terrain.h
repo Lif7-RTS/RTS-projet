@@ -42,13 +42,13 @@ void setTailleX(Terrain* ter, int x);
 void setTailleY(Terrain* ter, int y);
 
 /**
-* \fn void setCarte(char* dossierCarte, Terrain* ter)
+* \fn void setCarteTerrain(Terrain* ter, const char* colliCarte)
 * \brief mutateur collisionCarte
 *
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
 */
-void setCarte(Terrain* ter, const char* colliCarte);
+void setCarteTerrain(Terrain* ter, const char* colliCarte);
 
 /**
 * \fn void setCarte(char* dossierCarte, Terrain* ter)

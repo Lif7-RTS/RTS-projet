@@ -33,7 +33,7 @@ int getTailleY(const Terrain* ter){
 }
 
 
-char* getCarte(const Terrain* ter){
+char* getCarteTerrain(const Terrain* ter){
     return ter->collisionCarte;
 }
 

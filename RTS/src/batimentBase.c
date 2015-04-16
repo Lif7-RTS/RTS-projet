@@ -114,7 +114,7 @@ BatBase* chargementBatBase(void){
           fscanf(fish,"%d", &nbBat);
           tabBat=(BatBase*)malloc(nbBat*sizeof(BatBase*));
 
-          for(i=0;i<BatBase;i++)
+          for(i=0;i<nbBat;i++)
           {
                fscanf(fish,"nom=%s", &(bat->nom));
                setNomBat(tabBat[i], bat->nom);

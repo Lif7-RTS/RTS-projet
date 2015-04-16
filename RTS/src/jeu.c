@@ -25,9 +25,9 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     tabBat = (TabDyn*)malloc(sizeof(TabDyn));
     tabJ = (Joueur*) malloc(sizeof(Joueur)*getNbJoueur(j));
     ter = (Terrain*) malloc(sizeof(Terrain));
-    setvueJoueur(j, 0);
+    setVueJoueur(j, 0);
     for(i = 0;i < getNbJoueur(j); i++){
-            initJoueur(tabJ[i],nomJ, raceJ, 0,0);
+        initJoueur(&tabJ[i],i,nomJ, raceJ, 0,0);
     }
     strcat(imageCarte, cheminCarte);
     strcat(imageCarte,"image.png");
@@ -35,12 +35,12 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     strcat(colliCarte,"carte.txt");
     j->tableauJoueur = tabJ;
     initTerrain(ter,colliCarte,imageCarte);
-    setCarte(j,ter);
+    setCarteJeu(j,ter);
     tabBatConstr = chargementBatBase();
     tabUniteForm = chargementUniteForm();
 }
 
-int getNbJoueur(Jeu* j){
+int getNbJoueur(const Jeu* j){
     return j->nbJoueur;
 }
 
@@ -53,7 +53,7 @@ Joueur* getJoueur(const Jeu* j, int jNb){
     return &(j->tableauJoueur[jNb]);
 }
 
-Terrain* getCarte(const Jeu* j){
+Terrain* getCarteJeu(const Jeu* j){
     return j->carte;
 }
 
@@ -82,18 +82,19 @@ void setVueJoueur(Jeu* j, int jNb){
     j->vueJoueur = jNb;
 }
 
-void setCarte(Jeu* j, Terrain* c){
+void setCarteJeu(Jeu* j, Terrain* c){
     j->carte = c;
 }
 
 void ajouterUnite(Jeu* j, Unite* unit){
-    ajouterTabDyn(j->tableauUnite, Unit);
+    ajouterTabDyn(j->tableauUnite, (uintptr_t)unit);
 }
 
 
 void ajouterBat(Jeu* j, Batiment* bat){
-    ajouterTabDyn(j->tableauBat, bat);
+    ajouterTabDyn(j->tableauBat, (uintptr_t)bat);
 }
+
 
 void boucleJeu(Jeu* j){
 

@@ -184,4 +184,13 @@ typedef struct SUniteBase UniteBase;
  */
  void setImage(UniteBase* unit, char* chemin);
 
+ /**
+* \fn UniteBase* chargementUniteBase(void)
+* \brief charge en mémoire toutes les types d'unites
+*
+*
+* \return un tableau regroupant l'ensemble des types d'unites
+*/
+UniteBase* chargementUniteBase(void);
+
 #endif /* _UNITEBASE */
