@@ -95,3 +95,19 @@ void setVitesse(UniteBase* unit, int v){
 void setImage(UniteBase* unit, char* chemin){
     unit->cheminImage = chemin;
 }
+
+UniteBase* chargementUniteBase(void){
+    FILE* f;
+    int nbUnite;
+    char nom[20];
+    UniteBase* tabUnite;
+    int i;
+
+    f = fopen("unite.txt", "r");
+    if(f == NULL){
+        printf("Erreur chargement uniteBase !");
+        exit(EXIT_FAILURE);
+    }
+    fscanf(f ,"%d", &nbUnite);
+    return NULL;
+}

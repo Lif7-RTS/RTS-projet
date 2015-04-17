@@ -9,6 +9,8 @@
  */
 
 #include "jeu.h"
+#include "afficheSDL.h"
+
 
 void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     int i;
@@ -21,6 +23,7 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     char imageCarte[128];
     char colliCarte[128];
     setNbJoueur(j,1);
+    j->aff = (Affichage*) malloc((sizeof(Affichage)));
     tabUnite = (TabDyn*)malloc(sizeof(TabDyn));
     tabBat = (TabDyn*)malloc(sizeof(TabDyn));
     tabJ = (Joueur*) malloc(sizeof(Joueur)*getNbJoueur(j));
@@ -36,8 +39,10 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     j->tableauJoueur = tabJ;
     initTerrain(ter,colliCarte,imageCarte);
     setCarteJeu(j,ter);
-    tabBatConstr = chargementBatBase();
-    tabUniteForm = chargementUniteForm();
+    /* tabBatConstr = chargementBatBase();
+    tabUniteForm = chargementUniteForm(); */
+    initAffichage(j->aff,j,j->carte);
+    boucleJeu(j);
 }
 
 int getNbJoueur(const Jeu* j){
@@ -97,7 +102,21 @@ void ajouterBat(Jeu* j, Batiment* bat){
 
 
 void boucleJeu(Jeu* j){
-
+      int quit = 0;
+      SDL_Event e;
+      while( !quit ){
+                //Handle events on queue
+        while( SDL_PollEvent(&e) != 0 ){
+                    //User requests quit
+            if( e.type == SDL_KEYDOWN ){
+                (j->tableauJoueur[j->vueJoueur].cameraX)++;
+            }
+             if( e.type == SDL_QUIT ){
+                quit = 1;
+            }
+        }
+        affiche(j->aff);
+    }
 }
 
 void afficheJeu(Jeu* j){

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "case.h"
+#include "define.h"
 #ifndef _TERRAIN
 #define _TERRAIN
 
@@ -20,6 +21,7 @@ struct STerrain{
      char* imageCarte;/*!<image de la carte */
      int tailleX;/*!< taille de la carte en coordonee X */
      int tailleY;/*!< taille de la carte en coordonée Y */
+     char* tiles;
 };
 typedef struct STerrain Terrain;
 

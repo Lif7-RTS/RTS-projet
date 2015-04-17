@@ -11,10 +11,10 @@
 #include <stdlib.h>
 #include "unite.h"
 #include "batiment.h"
-#include "race.h"
 #include "tabDyn.h"
 #ifndef _JOUEUR
 #define _JOUEUR
+/* #include "race.h" */
 
 struct SJoueur{
      int idJoueur; /*!< identifiant unique représentant un joueur */

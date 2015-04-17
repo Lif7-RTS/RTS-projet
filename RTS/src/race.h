@@ -6,12 +6,17 @@
 * \date 16/04/2015
 * structure des races du jeu, contenant les specificites de chaque race
 */
+#ifndef _RACE
+#define _RACE
 
+typedef struct SRace Race;
 struct SRace{
     int nourritureMax[2];
     int mithril[2];
     int pierre[2];
 };
-typedef struct SRace Race;
 
-Race r = {{10,11},{50,75},{100,120}};
+
+Race races = {{10,11},{50,75},{100,120}};
+
+#endif /* _RACE */

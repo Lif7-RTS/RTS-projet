@@ -9,7 +9,13 @@
 
 #include "joueur.h"
 
-
+typedef struct SRace Race;
+struct SRace{
+    int nourritureMax[2];
+    int mithril[2];
+    int pierre[2];
+};
+static Race races = {{10,11},{50,75},{100,120}};
 void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer,
                  int idRace, int cameraX, int cameraY){
     setIdJoueur(joue,idJoueur);
@@ -17,13 +23,13 @@ void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer,
     setIdRace(joue, idRace);
     setCameraX(joue, cameraX);
     setCameraY(joue, cameraY);
-    setNourritureMax(joue, r.nourritureMax[idRace]);
-    setMithrilJoueur(joue, r.mithril[idRace]);
-    setPierreJoueur(joue, r.pierre[idRace]);
+    setNourritureMax(joue, races.nourritureMax[idRace]);
+    setMithrilJoueur(joue, races.mithril[idRace]);
+    setPierreJoueur(joue, races.pierre[idRace]);
     joue->tabBatiment = (TabDyn*) malloc(sizeof(TabDyn));
     joue->tabTroupe = (TabDyn*) malloc(sizeof(TabDyn));
     initTabDyn(joue->tabBatiment,10);
-    initTabDyn(joue->tabTroupe,r.nourritureMax[idRace]);
+    initTabDyn(joue->tabTroupe,races.nourritureMax[idRace]);
 }
 
 void detruireJoueur(Joueur* joue){

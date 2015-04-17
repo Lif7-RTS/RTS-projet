@@ -11,8 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#ifndef _JEU
-#define _JEU
+#include "define.h"
 #include "uniteBase.h"
 #include "unite.h"
 #include "case.h"
@@ -21,15 +20,19 @@
 #include "batiment.h"
 #include "joueur.h"
 #include "tabDyn.h"
+#ifndef _JEU
+#define _JEU
 
-
+typedef struct SAffichage Affichage;
 /**
  * \struct SJeu
  * \brief Objet Jeu
  *
  * SJeu objet representant une partie en cours
  */
+typedef struct SJeu Jeu;
 struct SJeu{
+    Affichage* aff;
     int nbJoueur;/*!< nombre de joueur dans la partie */
     Joueur* tableauJoueur;/*!< tableau contenant des pointeurs vers tout les joueurs de la partie*/
     Terrain* carte;/*!< pointeur sur la carte de la partie*/
@@ -40,7 +43,7 @@ struct SJeu{
     int vueJoueur;/*!< joueur que la camera suit */
 };
 
-typedef struct SJeu Jeu;
+
 /**
  * \fn int getNbJoueur ( jeu*  j)
  * \brief accesseur NbJoueur
