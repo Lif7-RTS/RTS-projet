@@ -78,12 +78,12 @@ typedef struct SUnite Unite;
  int getDeplacement(const Unite* unit);
 
 /**
- * \fn UniteBase* getType(Unite* unit)
+ * \fn UniteBase* getTypeUnite(Unite* unit)
  * \brief accesseur type
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- UniteBase* getType(const Unite* unit);
+ UniteBase* getTypeUnite(const Unite* unit);
 
 /**
  * \fn int getPosCibleX(Unite* unit)
@@ -169,7 +169,7 @@ typedef struct SUnite Unite;
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] t type de l'unite
  */
- void setType(Unite* unit, const UniteBase* type);
+ void setTypeUnite(Unite* unit, const UniteBase* type);
 
 /**
  * \fn void setPosCibleX(Unite* unit,int x)

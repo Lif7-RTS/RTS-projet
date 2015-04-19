@@ -30,7 +30,7 @@ int getDeplacement(const Unite* unit){
     return unit->deplacement;
 }
 
-UniteBase* getType(const Unite* unit){
+UniteBase* getTypeUnite(const Unite* unit){
     return unit->type;
 }
 
@@ -70,7 +70,7 @@ void setDeplacement(Unite* unit, int deplac){
     unit->deplacement = deplac;
 }
 
-void setType(Unite* unit, const UniteBase* type){
+void setTypeUnite(Unite* unit, const UniteBase* type){
     unit->type = type;
 }
 

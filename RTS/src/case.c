@@ -48,7 +48,7 @@ void setAcces(sCase* c, int acc){
     c->acces = acc;
 }
 void prendrePierre(sCase* c, Unite* ouvrier){
-    UniteBase* type = getType(ouvrier);
+    UniteBase* type = getTypeUnite(ouvrier);
     int rMax = getRessourceMax(type);
     int rCour = getPierreCase(c);
     if((rCour - rMax) < 0){
@@ -62,7 +62,7 @@ void prendrePierre(sCase* c, Unite* ouvrier){
 }
 
 void prendreMithril(sCase* c, Unite* ouvrier){
-    int rMax = getRessourceMax(getType(ouvrier));
+    int rMax = getRessourceMax(getTypeUnite(ouvrier));
     int rCour = getMithrilCase(c);
     if((rCour - rMax) < 0){
         setMithrilPorte(ouvrier, getMithrilCase(c));

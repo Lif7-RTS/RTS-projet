@@ -21,7 +21,7 @@ void initTabDyn(TabDyn* t,int taille){
 int ajouterTabDyn(TabDyn* t, uintptr_t ptr){
     if(t->utilisee == t->taille){
         uintptr_t* ptr_realloc;
-        ptr_realloc = realloc(t->tab, sizeof(uintptr_t)*(t->taille)*2);
+        ptr_realloc = (uintptr_t*) realloc(t->tab, sizeof(uintptr_t)*(t->taille)*2);
         if(ptr_realloc == NULL){
             printf("erreur realloc !");
             return 0;

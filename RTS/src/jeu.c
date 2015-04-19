@@ -28,6 +28,10 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     tabBat = (TabDyn*)malloc(sizeof(TabDyn));
     tabJ = (Joueur*) malloc(sizeof(Joueur)*getNbJoueur(j));
     ter = (Terrain*) malloc(sizeof(Terrain));
+    initTabDyn(tabUnite,2);
+    j->tableauUnite = tabUnite;
+    initTabDyn(tabBat,2);
+    j->tableauBat = tabBat;
     setVueJoueur(j, 0);
     for(i = 0;i < getNbJoueur(j); i++){
         initJoueur(&tabJ[i],i,nomJ, raceJ, 0,0);
@@ -103,17 +107,41 @@ void ajouterBat(Jeu* j, Batiment* bat){
 
 void boucleJeu(Jeu* j){
       int quit = 0;
+      int x,y;
       SDL_Event e;
+      UniteBase* ub;
+      Unite* u;
+      u = (Unite*) malloc(sizeof(Unite));
+      ub = (UniteBase*) malloc(sizeof(UniteBase));
+      initUniteBase(ub,10,10,"lol", 0, 1, 10, 10, 3, 5);
+      setTypeUnite(u,ub);
+      ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
+      j->carte->tabCase[5].idContenu = 1;
       while( !quit ){
-                //Handle events on queue
+            SDL_PumpEvents();
+            SDL_GetMouseState(&x,&y);
         while( SDL_PollEvent(&e) != 0 ){
-                    //User requests quit
-            if( e.type == SDL_KEYDOWN ){
-                (j->tableauJoueur[j->vueJoueur].cameraX)++;
-            }
              if( e.type == SDL_QUIT ){
                 quit = 1;
             }
+        }
+        if( x >= SCREEN_W-TILE_TAILLE ){
+            if(((j->tableauJoueur[j->vueJoueur].cameraX) + 1) <= j->carte->tailleX - SCREEN_W/TILE_TAILLE)
+                (j->tableauJoueur[j->vueJoueur].cameraX)++;
+        }
+        if( x < TILE_TAILLE ){
+            if(((j->tableauJoueur[j->vueJoueur].cameraX) - 1) >= 0)
+                (j->tableauJoueur[j->vueJoueur].cameraX)--;
+        }
+        if( y >= SCREEN_H-TILE_TAILLE ){
+            if(((j->tableauJoueur[j->vueJoueur].cameraY) + 1) <= j->carte->tailleY - SCREEN_H/TILE_TAILLE)
+                (j->tableauJoueur[j->vueJoueur].cameraY)++;
+        }
+        if( y < TILE_TAILLE ){
+            if(((j->tableauJoueur[j->vueJoueur].cameraY) - 1) >= 0)
+                (j->tableauJoueur[j->vueJoueur].cameraY)--;
+
+
         }
         affiche(j->aff);
     }

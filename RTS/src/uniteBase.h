@@ -28,7 +28,7 @@ struct SUniteBase{
     int tempsFormation;/*!< temps de formation en secondes*/
     int vitesseAttaque;/*!< vitesse d'attaque (ecart entre 2 attaques en ms) */
     int ressourceMax; /*!< ressource maximum que cette unite peut porter */
-    char* cheminImage; /*!< chemin de l'image de l'unite */
+    char tile; /*!< numero de la tile de l'unite */
     int vitesse; /*!<temps qu'il faut à l'unite pour traverser une case en ms  */
 };
 
@@ -48,7 +48,7 @@ typedef struct SUniteBase UniteBase;
  * \param[in] vitesse temps qu'il faut à l'unite pour traverser une case en ms
  */
  void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
-                     int ouvr, int t, int vitesseAtq, int ressourceM, char* chemin, int v);
+                     int ouvr, int t, int vitesseAtq, int ressourceM, char tile, int v);
 /**
  * \fn int getVieMax (UniteBase* unit)
  * \brief accesseur vieMax
@@ -107,12 +107,12 @@ typedef struct SUniteBase UniteBase;
  int getVitesse(const UniteBase* unit);
 
  /**
- * \fn char* getImage(UniteBase* unit)
- * \brief accesseur cheminImage
+ * \fn char getTile(UniteBase* unit)
+ * \brief accesseur tile
  * \param unit pointeur sur une UniteBase
- * \return cheminImage
+ * \return tile
  */
- char* getImage(const UniteBase* unit);
+ char getTileUnite(const UniteBase* unit);
 
  /**
  * \fn void setVieMax (UniteBase* unit,int vieM)
@@ -179,11 +179,12 @@ typedef struct SUniteBase UniteBase;
  void setVitesse(UniteBase* unit, int v);
 
   /**
- * \fn void setImage(UniteBase* unit, char* chemin)
- * \brief mutateur cheminImage
+ * \fn void setTile(UniteBase* unit, char tile)
+ * \brief mutateur tile
  * \param unit pointeur sur une UniteBase
+ * \param tile numero de la tile de l'unite
  */
- void setImage(UniteBase* unit, char* chemin);
+ void setTileUnite(UniteBase* unit, char tile);
 
  /**
 * \fn UniteBase* chargementUniteBase(void)
