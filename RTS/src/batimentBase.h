@@ -13,7 +13,7 @@
 #include "uniteBase.h"
 #ifndef _BATBASE
 #define _BATBASE
-
+/* RAJOUTER LA RACE!!! OMFG!!!! */
 struct SBatBase{
      char* nomBat; /*!< le nom du batiment */
      char niveau;  /*!< c'est le niveau d'amelioration du batiment */
@@ -23,14 +23,14 @@ struct SBatBase{
      int tempsConstruct;/*!< temps en seconde necessaire a la construction d'un batiment */
      int tailleCaseY;/*!< taille en case d'un batiment suivant sa coordonée y */
      int tailleCaseX;/*!< taille en case d'un batiment suivant sa coordonée x */
-     UniteBase* tabUnitFormable;/*!< tableau des unite formable par un batiment */
+     int* tabUnitFormable;/*!< tableau d'identifiant d'unite formable par un batiment */
 };
 typedef struct SBatBase BatBase;
 
 /* ***********************************************************--Init--*************************************************************************** */
 
 /**
-* \fn void initBatBase(BatBase* bat, char* nomBat, char tile, int vieMax,int ameiorable, int tempsConstruct, int tailleCaseY, int tailleCaseX, UniteBase* tabUnitFormable)
+* \fn void initBatBase(BatBase* bat, char* nomBat, char tile, int vieMax,int ameiorable, int tempsConstruct, int tailleCaseY, int tailleCaseX, int* tabUnitFormable)
 * \brief initialise un batiment de base.
 *
 * \param[in, out] bat pointeur sur BatBase
@@ -46,7 +46,7 @@ typedef struct SBatBase BatBase;
 * \param[in, out] tabAttente est la file d'attente des unite en construction dans le batiment en question.
 */
 void initBatBase(BatBase* bat, const char* nomBat,char niveau, char tile, int vieMax,int ameliorable, int tempsConstruct,
-                 int tailleCaseY, int tailleCaseX, const UniteBase* tabUnitFormable);
+                 int tailleCaseY, int tailleCaseX, int* tabUnitFormable);
 
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -124,13 +124,13 @@ int getTailleCaseX(const BatBase* bat);
 int getTailleCaseY(const BatBase* bat);
 
 /**
-* \fn void getTabUnitFormable(BatBase* bat)
+* \fn int* getTabUnitFormable(const BatBase* bat)
 * \brief accesseur TabUnitFormable
 *
 * \param[in, out] bat pointeur sur BatBase
 * \return tableau des troupe constructible par le batiment en question.
 */
-UniteBase* getTabUnitFormable(const BatBase* bat);
+int* getTabUnitFormable(const BatBase* bat);
 
 /* *************************************************************--SET--***************************************************************************** */
 
@@ -207,13 +207,13 @@ void setTailleCaseX(BatBase* bat, int tailleCaseX);
 void setTailleCaseY(BatBase* bat, int tailleCaseY);
 
 /**
-* \fn void setTabUnitFormable(BatBase* bat, UniteBase* tabUnitFormable)
+* \fn void setTabUnitFormable(BatBase* bat, int* tabUnitFormable)
 * \brief mutateur TabUnitFormable
 *
 * \param[in, out] bat pointeur sur BatBase
 * \param[in] TabUniteFormable est un tableau des troupe constructible par le batiment en question.
 */
-void setTabUnitFormable(BatBase* bat, UniteBase* tabUnitFormable);
+void setTabUnitFormable(BatBase* bat, int* tabUnitFormable);
 
 /* *************************************************************--FCT--***************************************************************************** */
 
