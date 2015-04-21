@@ -1,0 +1,11 @@
+1
+
+nom=Archer
+vieMax=600
+attaque=50
+vitesseAttaque=950
+ouvrier=0
+tempsFormation=20
+ressourceMax=0
+tile=12
+vitesse=5

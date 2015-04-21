@@ -118,6 +118,14 @@ void boucleJeu(Jeu* j){
              if( e.type == SDL_QUIT ){
                 quit = 1;
             }
+            if(e.type == SDL_KEYDOWN)
+            {
+               if(e.key.keysym.sym == SDLK_RIGHT)
+                    (j->tableauJoueur[j->vueJoueur].cameraX)++;
+               if(e.key.keysym.sym == SDLK_DOWN)
+                    (j->tableauJoueur[j->vueJoueur].cameraY)++;
+            }
+
         }
         if( x >= SCREEN_W-TILE_TAILLE ){
             if(((j->tableauJoueur[j->vueJoueur].cameraX) + 1) <= j->carte->tailleX - SCREEN_W/TILE_TAILLE)
