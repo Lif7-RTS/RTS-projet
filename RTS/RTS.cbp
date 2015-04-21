@@ -38,9 +38,17 @@
 			<Add directory="include" />
 		</Compiler>
 		<Linker>
+			<Add option="-lmingw32" />
+			<Add option="-lSDL2main" />
+			<Add option="-lSDL2" />
+			<Add option="-lSDL2_image" />
 			<Add library="lib\pdcurses.lib" />
 			<Add directory="lib" />
 		</Linker>
+		<Unit filename="src/afficheSDL.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/afficheSDL.h" />
 		<Unit filename="src/batiment.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -53,15 +61,29 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/case.h" />
+		<Unit filename="src/define.h" />
 		<Unit filename="src/file.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/file.h" />
+		<Unit filename="src/jeu.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/jeu.h" />
+		<Unit filename="src/joueur.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/joueur.h" />
 		<Unit filename="src/main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="src/race.h" />
+		<Unit filename="src/tabBat.h" />
+		<Unit filename="src/tabDyn.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/tabDyn.h" />
+		<Unit filename="src/tabUnite.h" />
 		<Unit filename="src/terrain.c">
 			<Option compilerVar="CC" />
 		</Unit>

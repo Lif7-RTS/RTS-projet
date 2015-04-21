@@ -82,39 +82,37 @@
 	<stdio.h>
 	<wchar.h>
 
-1428387239 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\case.c
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\case.c
 	"unite.h"
 	"uniteBase.h"
 	"case.h"
 
-1428387239 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.h
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.h
 	<stdlib.h>
 	<stdio.h>
 	"uniteBase.h"
 
-1428387239 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.h
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.h
 	<stdlib.h>
 	<stdio.h>
 
-1428387239 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\case.h
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\case.h
 	<stdlib.h>
 	<stdio.h>
 	"uniteBase.h"
 	"unite.h"
 
-1428394395 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\main.c
-	<stdlib.h>
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\main.c
+	<SDL2/SDL.h>
 	<stdio.h>
-	"terrain.h"
-	"unite.h"
-	"uniteBase.h"
-	"case.h"
-	<curses.h>
+	"jeu.h"
+	"define.h"
 
-1428387239 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\terrain.h
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\terrain.h
 	<stdio.h>
 	<stdlib.h>
 	"case.h"
+	"define.h"
 
 1428387239 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\curses.h
 	<stdarg.h>
@@ -122,19 +120,19 @@
 	<stdio.h>
 	<wchar.h>
 
-1428387239 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\terrain.c
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\terrain.c
 	"terrain.h"
 
-1428387239 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.c
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.c
 	"unite.h"
 
-1428387239 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.c
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.c
 	"uniteBase.h"
 
-1429550817 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.c
+1429599064 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.c
 	"batimentBase.h"
 
-1429549517 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.h
+1429598971 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.h
 	<stdio.h>
 	<stdlib.h>
 	"uniteBase.h"
@@ -147,12 +145,385 @@
 	<stdlib.h>
 	"uniteBase.h"
 
-1429550623 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.c
+1429599134 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.c
 	"batiment.h"
 
-1429550654 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.h
+1429599161 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.h
 	<stdio.h>
 	<stdlib.h>
 	"batimentBase.h"
 	"file.h"
+
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\affichesdl.c
+	"afficheSDL.h"
+	"jeu.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\affichesdl.h
+	<stdio.h>
+	<stdlib.h>
+	"SDL2/SDL.h"
+	"SDL2/SDL_image.h"
+	"terrain.h"
+	"define.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl.h
+	"SDL_main.h"
+	"SDL_stdinc.h"
+	"SDL_assert.h"
+	"SDL_atomic.h"
+	"SDL_audio.h"
+	"SDL_clipboard.h"
+	"SDL_cpuinfo.h"
+	"SDL_endian.h"
+	"SDL_error.h"
+	"SDL_events.h"
+	"SDL_filesystem.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_haptic.h"
+	"SDL_hints.h"
+	"SDL_loadso.h"
+	"SDL_log.h"
+	"SDL_messagebox.h"
+	"SDL_mutex.h"
+	"SDL_power.h"
+	"SDL_render.h"
+	"SDL_rwops.h"
+	"SDL_system.h"
+	"SDL_thread.h"
+	"SDL_timer.h"
+	"SDL_version.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_main.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_stdinc.h
+	"SDL_config.h"
+	<sys/types.h>
+	<stdio.h>
+	<stdlib.h>
+	<stddef.h>
+	<stdarg.h>
+	<stdlib.h>
+	<malloc.h>
+	<stddef.h>
+	<stdarg.h>
+	<memory.h>
+	<string.h>
+	<strings.h>
+	<inttypes.h>
+	<stdint.h>
+	<ctype.h>
+	<math.h>
+	<float.h>
+	<iconv.h>
+	"begin_code.h"
+	<alloca.h>
+	<malloc.h>
+	<malloc.h>
+	<malloc.h>
+	<stdlib.h>
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_config.h
+	"SDL_platform.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_platform.h
+	"AvailabilityMacros.h"
+	"TargetConditionals.h"
+	<winapifamily.h>
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\begin_code.h
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\close_code.h
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_assert.h
+	"SDL_config.h"
+	"begin_code.h"
+	<signal.h>
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_atomic.h
+	"SDL_stdinc.h"
+	"SDL_platform.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_audio.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_endian.h"
+	"SDL_mutex.h"
+	"SDL_thread.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_error.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_endian.h
+	"SDL_stdinc.h"
+	<endian.h>
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_mutex.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_thread.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_atomic.h"
+	"SDL_mutex.h"
+	"begin_code.h"
+	<process.h>
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_rwops.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_clipboard.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_cpuinfo.h
+	"SDL_stdinc.h"
+	<intrin.h>
+	<intrin.h>
+	<altivec.h>
+	<mmintrin.h>
+	<mm3dnow.h>
+	<xmmintrin.h>
+	<emmintrin.h>
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_events.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_keyboard.h"
+	"SDL_mouse.h"
+	"SDL_joystick.h"
+	"SDL_gamecontroller.h"
+	"SDL_quit.h"
+	"SDL_gesture.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_video.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_surface.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_pixels.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_rect.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_pixels.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_surface.h
+	"SDL_stdinc.h"
+	"SDL_pixels.h"
+	"SDL_rect.h"
+	"SDL_blendmode.h"
+	"SDL_rwops.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_blendmode.h
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_keyboard.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_keycode.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_keycode.h
+	"SDL_stdinc.h"
+	"SDL_scancode.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_scancode.h
+	"SDL_stdinc.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_mouse.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_joystick.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_gamecontroller.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_rwops.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_quit.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_gesture.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"SDL_touch.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_touch.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_filesystem.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_haptic.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"SDL_joystick.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_hints.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_loadso.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_log.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_messagebox.h
+	"SDL_stdinc.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_power.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_render.h
+	"SDL_stdinc.h"
+	"SDL_rect.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_system.h
+	"SDL_stdinc.h"
+	"SDL_keyboard.h"
+	"SDL_render.h"
+	"SDL_video.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_timer.h
+	"SDL_stdinc.h"
+	"SDL_error.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_version.h
+	"SDL_stdinc.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\include\sdl2\sdl_image.h
+	"SDL.h"
+	"SDL_version.h"
+	"begin_code.h"
+	"close_code.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\define.h
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\jeu.h
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	"define.h"
+	"uniteBase.h"
+	"unite.h"
+	"case.h"
+	"terrain.h"
+	"batimentBase.h"
+	"batiment.h"
+	"joueur.h"
+	"tabDyn.h"
+
+1429599280 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\joueur.h
+	<stdio.h>
+	<stdlib.h>
+	"unite.h"
+	"batiment.h"
+	"tabDyn.h"
+
+1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\tabdyn.h
+	<stdlib.h>
+	<stdio.h>
+	<stdint.h>
+
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\jeu.c
+	"jeu.h"
+	"afficheSDL.h"
+
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\joueur.c
+	"joueur.h"
+
+1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\tabdyn.c
+	"tabDyn.h"
 

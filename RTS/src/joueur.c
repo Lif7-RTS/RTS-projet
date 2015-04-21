@@ -16,7 +16,7 @@ struct SRace{
     int pierre[2];
 };
 static Race races = {{10,11},{50,75},{100,120}};
-void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer,
+void initJoueur (Joueur* joue, int idJoueur, char* nomJouer,
                  int idRace, int cameraX, int cameraY){
     setIdJoueur(joue,idJoueur);
     setNomJoueur(joue,nomJouer);
@@ -93,7 +93,7 @@ void setMithrilJoueur(Joueur* joue, int mithril){
     joue->mithril = mithril;
 }
 
-void setNomJoueur(Joueur* joue, const char* nomJoueur){
+void setNomJoueur(Joueur* joue, char* nomJoueur){
     joue->nomJoueur = nomJoueur;
 }
 

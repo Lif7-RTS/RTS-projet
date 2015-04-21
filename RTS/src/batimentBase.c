@@ -13,13 +13,13 @@
 
 /* ***********************************************************--Init--*************************************************************************** */
 
-void initBatBase(BatBase* bat, const char* nomBat,char niveau, const char* cheminImage, int vieMax,int ameliorable,
+void initBatBase(BatBase* bat, const char* nomBat,char niveau, char tile, int vieMax,int ameliorable,
                  int tempsConstruct, int tailleCaseY, int tailleCaseX, const UniteBase* tabUnitFormable){
 
      setNomBat(bat, nomBat);
      setNiveau(bat, niveau);
-     setCheminImage(bat, cheminImage);
-     setVieMax(bat, vieMax);
+     setTileBat(bat, tile);
+     setVieMaxBat(bat, vieMax);
      setAmeliorable(bat, ameliorable);
      setAmeliorable(bat, ameliorable);
      setTailleCaseX(bat, tailleCaseX);
@@ -37,11 +37,11 @@ char getNiveau(const BatBase* bat){
      return bat->niveau;
 }
 
-char* getCheminImage(const BatBase* bat){
-     return bat->cheminImage;
+char getTileBat(const BatBase* bat){
+     return bat->tile;
 }
 
-int getVieMax(const BatBase* bat){
+int getVieMaxBat(const BatBase* bat){
      return bat->vieMax;
 }
 
@@ -67,7 +67,7 @@ UniteBase* getTabUnitFormable(const BatBase* bat){
 
 /* *************************************************************--SET--***************************************************************************** */
 
-void setNomBat(BatBase* bat, const char* nomBat){
+void setNomBat(BatBase* bat, char* nomBat){
      bat->nomBat=nomBat;
 }
 
@@ -75,11 +75,11 @@ void setNiveau(BatBase* bat, char niveau){
      bat->niveau=niveau;
 }
 
-void setCheminImage(BatBase* bat, const char* cheminImage){
-     bat->cheminImage=cheminImage;
+void setTileBat(BatBase* bat, char tile){
+     bat->tile=tile;
 }
 
-void setVieMax(BatBase* bat,int vieMax){
+void setVieMaxBat(BatBase* bat,int vieMax){
      bat->vieMax=vieMax;
 }
 
@@ -95,7 +95,7 @@ void setTailleCaseY(BatBase* bat, int tailleCaseY){
      bat->tailleCaseY=tailleCaseY;
 }
 
-void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable){
+void setTabUnitFormable(BatBase* bat, UniteBase* tabUnitFormable){
      bat->tabUnitFormable=tabUnitFormable;
 }
 
@@ -122,9 +122,8 @@ BatBase* chargementBatBase(void){
                fscanf(fish, "nom=%s", bat.nomBat);
                /*Niveau*/
                fscanf(fish, "niveau=%d", &(bat.niveau));
-
-               /* ATTENTION DANGER DEMANDER ADRIEN POUR IMAGE!!! */
-
+               /*Niveau*/
+               fscanf(fish, "niveau=%d", &(bat.tile));
                /*vieMax*/
                fscanf(fish, "vieMax=%d",&(bat.vieMax));
                /* ameliorable */
@@ -152,6 +151,6 @@ BatBase* chargementBatBase(void){
      else
      {
           printf("impossible d'ouvrir le fichier !");
-          EXIT_FAILURE;
+          exit(EXIT_FAILURE);
      }
 }

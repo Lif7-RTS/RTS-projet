@@ -36,7 +36,7 @@ typedef struct SBatiment Batiment;
 * \param[in] vieCourante est le nombre de point de vie actuel du batiment
 * \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
-void initBatiment (Batiment* bat, int id, const BatBase* typeBat, int vieCourante, int enConstruction);
+void initBatiment (Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction);
 
 /**
 * \fn void detruirBatiment (Batiment** bat)
@@ -105,13 +105,13 @@ File* getTabAttente(const Batiment* bat);
 void setIdBat(Batiment* bat, int id );
 
 /**
-* \fn void setTypeBat(BatBase* typeBat, Batiment* bat)
+* \fn vvoid setTypeBat(Batiment* bat, BatBase* typeBat)
 * \brief mutateur typeBat
 *
 * \param[in, out] bat pointeur sur Batiment.
 * \param[in, out] typeBat pointeur sur un batiment de base.
 */
-void setTypeBat(Batiment* bat, const BatBase* typeBat);
+void setTypeBat(Batiment* bat, BatBase* typeBat);
 
 /**
 * \fn void setVieCouranteBat(int vieCourante , Batiment* bat)
@@ -132,13 +132,13 @@ void setVieCouranteBat (Batiment* bat, int vieCourante);
 void setEnConstruction (Batiment* bat, int enConstruction);
 
 /**
-* \fn void setTabAttente(File* tabAttente, BatBase* bat)
+* \fn void setTabAttente(Batiment* bat, File* tabAttente)
 * \brief mutateur tabAttente
 *
 * \param[in, out] bat pointeur sur BatBase
 * \param[in] tabAttente est la file d'attente des unite en construction dans le batiment en question.
 */
-void setTabAttente(Batiment* bat, const File* tabAttente);
+void setTabAttente(Batiment* bat, File* tabAttente);
 
 #endif /* _BAT */
 

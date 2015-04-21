@@ -34,7 +34,7 @@ typedef struct SJoueur Joueur;
 /* ***********************************************************--INIT--*************************************************************************** */
 
 /**
-* \fn void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer, int idRace, int cameraX, int cameraY)
+* \fn void initJoueur (Joueur* joue, int idJoueur, char* nomJouer, int idRace, int cameraX, int cameraY)
 * \brief initialise une structure joueur
 *
 * \param[in, out] joue est un pointeur sur Joueur
@@ -44,7 +44,7 @@ typedef struct SJoueur Joueur;
 * \param[in] camX est la coordonee X de la camera du joueur
 * \param[in] camY est la coordonee Y de la camera du joueur
 */
-void initJoueur (Joueur* joue, int idJoueur, const char* nomJouer, int idRace, int cameraX, int cameraY);
+void initJoueur (Joueur* joue, int idJoueur,char* nomJouer, int idRace, int cameraX, int cameraY);
 /**
 * \fn void detruireJoueur(Joueur* joue)
 * \brief detruit la structure joueur
@@ -185,7 +185,7 @@ void setMithrilJoueur(Joueur* joue, int mithril);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in, out] nomJoueur ets le nom choisi par le joueur.*/
-void setNomJoueur (Joueur* joue, const char* nomJoueur);
+void setNomJoueur (Joueur* joue, char* nomJoueur);
 
 /**
 * \fn void setIdRace (Joueur* joue, int idRace)

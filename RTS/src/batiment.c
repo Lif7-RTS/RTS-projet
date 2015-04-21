@@ -12,11 +12,11 @@
 
 /* ***********************************************************--Init--*************************************************************************** */
 
-void initBatiment (Batiment* bat, int id, const BatBase* typeBat, int vieCourante, int enConstruction)
+void initBatiment (Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction)
 {
      setIdBat(bat, id);
      setTypeBat(bat, typeBat);
-     setVieCourante (bat, vieCourante);
+     setVieCouranteBat (bat, vieCourante);
      setEnConstruction (bat, enConstruction);
 }
 
@@ -53,7 +53,7 @@ void setIdBat(Batiment* bat, int id ){
      bat->id=id;
 }
 
-void setTypeBat(Batiment* bat, const BatBase* typeBat){
+void setTypeBat(Batiment* bat, BatBase* typeBat){
      bat->typeBat=typeBat;
 }
 
@@ -65,6 +65,6 @@ void setEnConstruction (Batiment* bat, int enConstruction){
      bat->enConstruction=enConstruction;
 }
 
-void setTabAttente(Batiment* bat, const File* tabAttente){
+void setTabAttente(Batiment* bat, File* tabAttente){
      bat->tabAttente=tabAttente;
 }

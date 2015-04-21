@@ -17,7 +17,7 @@
 struct SBatBase{
      char* nomBat; /*!< le nom du batiment */
      char niveau;  /*!< c'est le niveau d'amelioration du batiment */
-     char* cheminImage;/*!< un chemin vers l'image d'un batiment*/
+     char tile;/*!< un chemin vers l'image d'un batiment*/
      int vieMax; /*!< la vie maximum d'un batiment */
      int ameliorable;/*!< 1 si le batiment est ameliorable 0 sinon */
      int tempsConstruct;/*!< temps en seconde necessaire a la construction d'un batiment */
@@ -30,7 +30,7 @@ typedef struct SBatBase BatBase;
 /* ***********************************************************--Init--*************************************************************************** */
 
 /**
-* \fn void initBatBase(BatBase* bat, char* nomBat, char* cheminImage, int vieMax,int ameiorable, int tempsConstruct, int tailleCaseY, int tailleCaseX, UniteBase* tabUnitFormable)
+* \fn void initBatBase(BatBase* bat, char* nomBat, char tile, int vieMax,int ameiorable, int tempsConstruct, int tailleCaseY, int tailleCaseX, UniteBase* tabUnitFormable)
 * \brief initialise un batiment de base.
 *
 * \param[in, out] bat pointeur sur BatBase
@@ -45,7 +45,7 @@ typedef struct SBatBase BatBase;
 * \param[in, out] tabUniteFormable est un tableau des troupe constructible par le batiment en question.
 * \param[in, out] tabAttente est la file d'attente des unite en construction dans le batiment en question.
 */
-void initBatBase(BatBase* bat, const char* nomBat,char niveau, const char* cheminImage, int vieMax,int ameliorable, int tempsConstruct,
+void initBatBase(BatBase* bat, const char* nomBat,char niveau, char tile, int vieMax,int ameliorable, int tempsConstruct,
                  int tailleCaseY, int tailleCaseX, const UniteBase* tabUnitFormable);
 
 
@@ -70,25 +70,25 @@ char* getNomBat(const BatBase* bat);
 char getNiveau(const BatBase* bat);
 
 /**
-* \fn void getCheminImage(BatBase* bat)
+* \fn char getTileBat(const BatBase* bat)
 * \brief accesseur cheminImage
 *
 * \param[in, out] bat pointeur sur BatBase
-* \return chaine de caractere contenant le chemin vers l'image du batiment.
+* \return un caractère correspond au tile d'un batiment.
 */
-char* getCheminImage(const BatBase* bat);
+char getTileBat(const BatBase* bat);
 
 /**
-* \fn void getCheminImage(BatBase* bat)
+* \fn int getVieMaxBat(const BatBase* bat)
 * \brief accesseur vieMax
 *
 * \param[in, out] bat pointeur sur BatBase
 * \return entier representant la vie maximum d'un batiment.
 */
-int getVieMax(const BatBase* bat);
+int getVieMaxBat(const BatBase* bat);
 
 /**
-* \fn void getAmeliorable(BatBase* bat)
+* \fn int getAmeliorable(const BatBase* bat)
 * \brief accesseur ameliorable
 *
 * \param[in, out] bat pointeur sur BatBase
@@ -135,13 +135,13 @@ UniteBase* getTabUnitFormable(const BatBase* bat);
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
-* \fn void setNomBat(BatBase* bat, const char* nomBat)
+* \fn void setNomBat(BatBase* bat,char* nomBat)
 * \brief mutateur nomBat
 *
 * \param[in, out] bat pointeur sur BatBase
 * \param[in, out] nomBat chaine de caractere contenant le nom du batiment.
 */
-void setNomBat(BatBase* bat, const char* nomBat);
+void setNomBat(BatBase* bat,char* nomBat);
 
 /**
 * \fn void setNiveau(BatBase* bat, char niveau)
@@ -153,22 +153,22 @@ void setNomBat(BatBase* bat, const char* nomBat);
 void setNiveau(BatBase* bat, char niveau);
 
 /**
-* \fn void setCheminImage(BatBase* bat, const char* cheminImage)
+* \fn void setTileBat(BatBase* bat, char tile);
 * \brief mutateur cheminImage
 *
 * \param[in, out] bat pointeur sur BatBase
 * \param[in, out] cheminImage chaine de caractere contenant le chemin vers l'image du batiment.
 */
-void setCheminImage(BatBase* bat, const char* cheminImage);
+void setTileBat(BatBase* bat, char tile);
 
 /**
-* \fn void setVieMax(BatBase* bat,int vieMax)
+* \fn void setVieMaxBat(BatBase* bat,int vieMax)
 * \brief mutateur vieMax
 *
 * \param[in, out] bat pointeur sur BatBase
 * \param[in] vieMax est un entier representant la vie maximum d'un batiment.
 */
-void setVieMax(BatBase* bat,int vieMax);
+void setVieMaxBat(BatBase* bat,int vieMax);
 
 /**
 * \fn void setAmeliorable(BatBase* bat, int ameliorable)
@@ -207,13 +207,13 @@ void setTailleCaseX(BatBase* bat, int tailleCaseX);
 void setTailleCaseY(BatBase* bat, int tailleCaseY);
 
 /**
-* \fn void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable)
+* \fn void setTabUnitFormable(BatBase* bat, UniteBase* tabUnitFormable)
 * \brief mutateur TabUnitFormable
 *
 * \param[in, out] bat pointeur sur BatBase
 * \param[in] TabUniteFormable est un tableau des troupe constructible par le batiment en question.
 */
-void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable);
+void setTabUnitFormable(BatBase* bat, UniteBase* tabUnitFormable);
 
 /* *************************************************************--FCT--***************************************************************************** */
 
