@@ -21,13 +21,15 @@ struct SBatiment{
      int vieCourante;  /*!< nombre de point de vie actuel du batiment */
      int enConstruction;  /*!< 1 si le batiment en construction 0 sinon */
      File* tabAttente;/*!< une file d'attente de construction d'unite en cours */
+     int x;
+     int y;
 };
 typedef struct SBatiment Batiment;
 
 /* ***********************************************************--Init--*************************************************************************** */
 
 /**
-* \fn void detruirBatiment (Batiment* bat)
+* \fn void initBatiment (Batiment* bat)
 * \brief initialise un Batiment
 *
 * \param[in, out] bat pointeur sur Batiment
@@ -36,15 +38,15 @@ typedef struct SBatiment Batiment;
 * \param[in] vieCourante est le nombre de point de vie actuel du batiment
 * \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
-void initBatiment (Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction);
+void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction);
 
 /**
-* \fn void detruirBatiment (Batiment** bat)
+* \fn void detruireBatiment (Batiment** bat)
 * \brief detruit et libère la structure batiment
 *
 * \param[in, out] bat pointeur sur Batiment.
 */
-void detruirBatiment (Batiment** bat);
+void detruireBatiment(Batiment** bat);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -93,6 +95,25 @@ int getEnConstruction (const Batiment* bat);
 */
 File* getTabAttente(const Batiment* bat);
 
+/**
+* \fn int getPosXBat(Batiment* bat)
+* \brief accesseur x
+*
+* \param[in, out] bat pointeur sur Batiment.
+*\return x
+*/
+int getPosXBat(const Batiment* bat);
+
+/**
+* \fn int getPosXBat(Batiment* bat)
+* \brief accesseur y
+*
+* \param[in, out] bat pointeur sur Batiment.
+*\return y
+*/
+int getPosYBat(const Batiment* bat);
+
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -120,7 +141,7 @@ void setTypeBat(Batiment* bat, BatBase* typeBat);
 * \param[in, out] bat pointeur sur Batiment.
 * \param[in] vieCourante est le nombre de point de vie actuel du batiment.
 */
-void setVieCouranteBat (Batiment* bat, int vieCourante);
+void setVieCouranteBat(Batiment* bat, int vieCourante);
 
 /**
 * \fn void setEnConstruction (int enConstruction , Batiment* bat)
@@ -129,7 +150,7 @@ void setVieCouranteBat (Batiment* bat, int vieCourante);
 * \param[in, out] bat pointeur sur Batiment.
 * \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
-void setEnConstruction (Batiment* bat, int enConstruction);
+void setEnConstruction(Batiment* bat, int enConstruction);
 
 /**
 * \fn void setTabAttente(Batiment* bat, File* tabAttente)
@@ -140,5 +161,22 @@ void setEnConstruction (Batiment* bat, int enConstruction);
 */
 void setTabAttente(Batiment* bat, File* tabAttente);
 
+/**
+* \fn void setPosXBat(Batiment* bat, int x)
+* \brief mutateur x
+*
+* \param[in, out] bat pointeur sur Batiment.
+* \param[in] x la coordonnees x du bat
+*/
+void setPosXBat(Batiment* bat, int x );
+
+/**
+* \fn void setPosYBat(Batiment* bat, int y)
+* \brief mutateur y
+*
+* \param[in, out] bat pointeur sur Batiment.
+* \param[in] y la coordonnees y du bat
+*/
+void setPosYBat(Batiment* bat, int y);
 #endif /* _BAT */
 

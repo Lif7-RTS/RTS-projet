@@ -12,7 +12,7 @@
 
 /* ***********************************************************--Init--*************************************************************************** */
 
-void initBatiment (Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction)
+void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction)
 {
      setIdBat(bat, id);
      setTypeBat(bat, typeBat);
@@ -20,8 +20,7 @@ void initBatiment (Batiment* bat, int id, BatBase* typeBat, int vieCourante, int
      setEnConstruction (bat, enConstruction);
 }
 
-void detruirBatiment (Batiment** bat)
-{
+void detruireBatiment(Batiment** bat){
 
 }
 
@@ -35,11 +34,11 @@ BatBase* getTypeBat(const Batiment* bat){
      return bat->typeBat;
 }
 
-int getVieCouranteBat (const Batiment* bat){
+int getVieCouranteBat(const Batiment* bat){
      return bat->vieCourante;
 }
 
-int getEnConstruction (const Batiment* bat){
+int getEnConstruction(const Batiment* bat){
      return bat->enConstruction;
 }
 
@@ -47,6 +46,13 @@ File* getTabAttente(const Batiment* bat){
      return bat->tabAttente;
 }
 
+int getPosXBat(const Batiment* bat){
+    return bat->x;
+}
+
+int getPosYBat(const Batiment* bat){
+    return bat->y;
+}
 /* *************************************************************--SET--***************************************************************************** */
 
 void setIdBat(Batiment* bat, int id ){
@@ -57,14 +63,22 @@ void setTypeBat(Batiment* bat, BatBase* typeBat){
      bat->typeBat=typeBat;
 }
 
-void setVieCouranteBat (Batiment* bat, int vieCourante){
+void setVieCouranteBat(Batiment* bat, int vieCourante){
      bat->vieCourante=vieCourante;
 }
 
-void setEnConstruction (Batiment* bat, int enConstruction){
+void setEnConstruction(Batiment* bat, int enConstruction){
      bat->enConstruction=enConstruction;
 }
 
 void setTabAttente(Batiment* bat, File* tabAttente){
      bat->tabAttente=tabAttente;
+}
+
+void setPosXBat(Batiment* bat,int x){
+    bat->x = x;
+}
+
+void setPosYBat(Batiment* bat, int y){
+    bat->y= y;
 }
