@@ -97,17 +97,44 @@ void setTileUnite(UniteBase* unit, char tile){
 }
 
 UniteBase* chargementUniteBase(void){
-    FILE* f;
-    int nbUnite;
-    char nom[20];
-    UniteBase* tabUnite;
-    int i;
+     FILE* fich;
+     int nbUnite;
+     UniteBase* tabUnite;
+     UniteBase* unit;
+     char nom[25];
+     int i, j;
 
-    f = fopen("unite.txt", "r");
-    if(f == NULL){
-        printf("Erreur chargement uniteBase !");
-        exit(EXIT_FAILURE);
-    }
-    fscanf(f ,"%d", &nbUnite);
-    return NULL;
+     fish=fopen("data/unite.txt","r");
+     if(fish)
+     {
+          fscanf(fish,"%d", &nbUnite);
+          tabBat=(BatBase*)malloc(nbBat*sizeof(BatBase*));
+
+          for(i=0;i<nbBat;i++)
+          {
+               tabUnit[i]=unit;
+
+               /*Nom*/
+               fscanf(fish, "nom=%s\n", bat.nomBat);
+               /*Niveau*/
+               fscanf(fish, "niveau=%d", &(bat.niveau));
+               /*Niveau*/
+               fscanf(fish, "niveau=%d", &(bat.tile));
+               /*vieMax*/
+               fscanf(fish, "vieMax=%d",&(bat.vieMax));
+               /* ameliorable */
+               fscanf(fish, "ameliorable=%d", &(bat.ameliorable));
+               /* tempsConstruct */
+               fscanf(fish, "tempsConstruct=%d", &(bat.tempsConstruct));
+               /* tailleCaseX */
+               fscanf(fish, "tailleCaseX=%d", &(bat.tailleCaseX));
+               /* tailleCaseY */
+               fscanf(fish, "tailleCaseY=%d", &(bat.tailleCaseY));
+          }
+     }
+     else
+     {
+          printf("impossible d'ouvrir le fichier !");
+          exit(EXIT_FAILURE);
+     }
 }
