@@ -19,7 +19,7 @@ void setTailleY(Terrain* ter, int y){
     ter->tailleY = y;
 }
 
-void setCarte(Terrain* ter, const char* colliCarte){
+void setCarteTerrain(Terrain* ter, const char* colliCarte){
     ter->collisionCarte = colliCarte;
 }
 
@@ -41,13 +41,12 @@ sCase* getCase(const Terrain* ter,int x, int y){
     return &ter->tabCase[y*(ter->tailleX)+x];
 }
 
-void initTerrain(Terrain* ter, const char* colliCarte,const char* imageCarte){
+void initTerrain(Terrain* ter, const char* colliCarte){
     FILE* fp;
     int tailleX;
     int tailleY;
     int x,y,tile,p,m;
-    setCarte(ter, colliCarte);
-    setImageCarte(ter,imageCarte);
+    setCarteTerrain(ter, colliCarte);
     fp = fopen(colliCarte,"r");
     if(fp != NULL){
         fscanf(fp,"%d %d", &tailleX, &tailleY);
@@ -78,6 +77,3 @@ void detruireTerrain(Terrain* ter){
     free(ter->tabCase);
 }
 
-void setImageCarte(Terrain* ter, const char* carte){
-    ter->imageCarte = carte;
-}

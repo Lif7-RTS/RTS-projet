@@ -20,8 +20,6 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     TabDyn* tabBat;
     BatBase* tabBatConstr;
     UniteBase* tabUniteForm;
-    char imageCarte[128];
-    char colliCarte[128];
     setNbJoueur(j,1);
     j->aff = (Affichage*) malloc((sizeof(Affichage)));
     tabUnite = (TabDyn*)malloc(sizeof(TabDyn));
@@ -36,12 +34,8 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     for(i = 0;i < getNbJoueur(j); i++){
         initJoueur(&tabJ[i],i,nomJ, raceJ, 0,0);
     }
-    strcat(imageCarte, cheminCarte);
-    strcat(imageCarte,"image.png");
-    strcat(colliCarte,cheminCarte);
-    strcat(colliCarte,"carte.txt");
     j->tableauJoueur = tabJ;
-    initTerrain(ter,colliCarte,imageCarte);
+    initTerrain(ter,cheminCarte);
     setCarteJeu(j,ter);
     /* tabBatConstr = chargementBatBase();
     tabUniteForm = chargementUniteForm(); */

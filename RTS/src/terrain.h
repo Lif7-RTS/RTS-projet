@@ -18,7 +18,6 @@
 struct STerrain{
      sCase* tabCase; /*!< un tableau de case représentant le terrain*/
      char* collisionCarte;/*!< fichier de collision de la carte*/
-     char* imageCarte;/*!<image de la carte */
      int tailleX;/*!< taille de la carte en coordonee X */
      int tailleY;/*!< taille de la carte en coordonée Y */
      char* tiles;
@@ -52,14 +51,6 @@ void setTailleY(Terrain* ter, int y);
 */
 void setCarteTerrain(Terrain* ter, const char* colliCarte);
 
-/**
-* \fn void setCarte(char* dossierCarte, Terrain* ter)
-* \brief mutateur collisionCarte
-*
-* \param[in, out] ter pointeur sur Terrain
-* \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
-*/
-void setImageCarte(Terrain* ter, const char* carte);
 
 /**
 * \fn int getTailleX(Terrain* ter);
@@ -71,7 +62,7 @@ void setImageCarte(Terrain* ter, const char* carte);
 int getTailleX(const Terrain* ter);
 
 /**
-* \fn int getTailleY(Terrain* ter);
+* \fn int getTailleY(const Terrain* ter);
 * \brief accesseur tailleY
 *
 * \param[in, out] ter pointeur sur Terrain
@@ -79,6 +70,14 @@ int getTailleX(const Terrain* ter);
 */
 int getTailleY(const Terrain* ter);
 
+/**
+* \fn char* getCarteTerrain(const Terrain* ter);
+* \brief accesseur collisionCarte
+*
+* \param[in, out] ter pointeur sur Terrain
+* \return collisionCarte
+*/
+char* getCarteTerrain(const Terrain* ter);
 /**
 * \fn sCase* getCase(int x, int y, Terrain* ter)
 * \brief accesseur case
@@ -97,7 +96,7 @@ sCase* getCase(const Terrain* ter,int x, int y);
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out] colliCarte chaine de caractère contenant le chemin du fichier de collision de la carte
 */
-void initTerrain(Terrain* ter, const char* colliCarte, const char* imageCarte);
+void initTerrain(Terrain* ter, const char* colliCarte);
 
 /**
 * \fn void detruireTerrain(Terrain* ter)
