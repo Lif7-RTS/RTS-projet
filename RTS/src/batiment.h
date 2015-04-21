@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "batimentBase.h"
+#include "file.h"
 #ifndef _BAT
 #define _BAT
 
@@ -21,7 +22,7 @@ struct SBatiment{
      int enConstruction;  /*!< 1 si le batiment en construction 0 sinon */
      File* tabAttente;/*!< une file d'attente de construction d'unite en cours */
 };
-typedef SBatiment Batiment;
+typedef struct SBatiment Batiment;
 
 /* ***********************************************************--Init--*************************************************************************** */
 
@@ -66,13 +67,13 @@ int getIdBat(const Batiment* bat);
 BatBase* getTypeBat(const Batiment* bat);
 
 /**
-* \fn int getVieCourante (Batiment* bat)
+* \fn int getVieCouranteBat(Batiment* bat)
 * \brief accesseur vieCourante
 *
 * \param[in, out] bat pointeur sur Batiment.
 * \return vieCourante est le nombre de point de vie actuel du batiment.
 */
-int getVieCourante (const Batiment* bat);
+int getVieCouranteBat(const Batiment* bat);
 
 /**
 * \fn int getEnConstruction (Batiment* bat)
@@ -90,7 +91,7 @@ int getEnConstruction (const Batiment* bat);
 * \param[in, out] bat pointeur sur BatBase
 * \return la file d'attente des unite en construction dans le batiment en question.
 */
-File* getTabAttente(const BatBase* bat);
+File* getTabAttente(const Batiment* bat);
 
 /* *************************************************************--SET--***************************************************************************** */
 
@@ -113,13 +114,13 @@ void setIdBat(Batiment* bat, int id );
 void setTypeBat(Batiment* bat, const BatBase* typeBat);
 
 /**
-* \fn void setVieCourante (int vieCourante , Batiment* bat)
+* \fn void setVieCouranteBat(int vieCourante , Batiment* bat)
 * \brief mutateur vieCourante
 *
 * \param[in, out] bat pointeur sur Batiment.
 * \param[in] vieCourante est le nombre de point de vie actuel du batiment.
 */
-void setVieCourante (Batiment* bat, int vieCourante);
+void setVieCouranteBat (Batiment* bat, int vieCourante);
 
 /**
 * \fn void setEnConstruction (int enConstruction , Batiment* bat)
@@ -137,7 +138,7 @@ void setEnConstruction (Batiment* bat, int enConstruction);
 * \param[in, out] bat pointeur sur BatBase
 * \param[in] tabAttente est la file d'attente des unite en construction dans le batiment en question.
 */
-void setTabAttente(BatBase* bat, const File* tabAttente);
+void setTabAttente(Batiment* bat, const File* tabAttente);
 
 #endif /* _BAT */
 

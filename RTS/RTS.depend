@@ -131,10 +131,10 @@
 1428387239 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.c
 	"uniteBase.h"
 
-1428395346 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.c
+1429550817 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.c
 	"batimentBase.h"
 
-1428395373 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.h
+1429549517 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.h
 	<stdio.h>
 	<stdlib.h>
 	"uniteBase.h"
@@ -146,4 +146,13 @@
 	<stdio.h>
 	<stdlib.h>
 	"uniteBase.h"
+
+1429550623 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.c
+	"batiment.h"
+
+1429550654 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.h
+	<stdio.h>
+	<stdlib.h>
+	"batimentBase.h"
+	"file.h"
 

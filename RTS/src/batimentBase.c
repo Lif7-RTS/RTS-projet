@@ -103,10 +103,10 @@ void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable){
 
 BatBase* chargementBatBase(void){
      FILE* fish;
-     int nbBat;
-     char nom[20];
+     int nbBat, nbUnite;
      BatBase* tabBat;
-     int i;
+     BatBase bat;
+     int i, j;
 
      fish=fopen("batiment.txt","r");
      if(fish)
@@ -114,14 +114,39 @@ BatBase* chargementBatBase(void){
           fscanf(fish,"%d", &nbBat);
           tabBat=(BatBase*)malloc(nbBat*sizeof(BatBase*));
 
-          for(i=0;i<BatBase;i++)
+          for(i=0;i<nbBat;i++)
           {
-               fscanf(fish,"nom=%s", &(bat->nom));
-               setNomBat(tabBat[i], bat->nom);
-               fcanf(fish,"niveau=%d", &niveau);
-               setNiveau(tabBat[i], nom);
+               tabBat[i]=bat;
 
+               /*Nom*/
+               fscanf(fish, "nom=%s", bat.nomBat);
+               /*Niveau*/
+               fscanf(fish, "niveau=%d", &(bat.niveau));
 
+               /* ATTENTION DANGER DEMANDER ADRIEN POUR IMAGE!!! */
+
+               /*vieMax*/
+               fscanf(fish, "vieMax=%d",&(bat.vieMax));
+               /* ameliorable */
+               fscanf(fish, "ameliorable=%d", &(bat.ameliorable));
+               /* tempsConstruct */
+               fscanf(fish, "tempsConstruct=%d", &(bat.tempsConstruct));
+               /* tailleCaseX */
+               fscanf(fish, "tailleCaseX=%d", &(bat.tailleCaseX));
+               /* tailleCaseY */
+               fscanf(fish, "tailleCaseY=%d", &(bat.tailleCaseY));
+
+               /* tabUniteFormable */
+               fscanf(fish, "nombreUnite=%d", &nbUnite);
+               if(nbUnite > 0 )
+               {
+                    fscanf(fish,"tabUniteFormable=");
+                    bat.tabUnitFormable=(UniteBase*) malloc(nbUnite*sizeof(UniteBase*));
+                    for(j=0; j<nbUnite; j++)
+                    {
+                         fscanf(fish,"%d ", &(bat.tabUnitFormable[i]));
+                    }
+               }
           }
      }
      else

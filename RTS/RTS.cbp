@@ -41,6 +41,9 @@
 			<Add library="lib\pdcurses.lib" />
 			<Add directory="lib" />
 		</Linker>
+		<Unit filename="src/batiment.c">
+			<Option compilerVar="CC" />
+		</Unit>
 		<Unit filename="src/batiment.h" />
 		<Unit filename="src/batimentBase.c">
 			<Option compilerVar="CC" />
