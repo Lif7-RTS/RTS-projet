@@ -4,7 +4,7 @@
  * \author Adrien Baud & Diego Roussel
  * \date 24/03/15
  *
- * Module represantant une case de la carte.
+ * Module representant une case de la carte.
  *
  */
 
@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "uniteBase.h"
 #include "unite.h"
+
 
 #ifndef _CASE
 #define _CASE
@@ -59,7 +60,7 @@ int getContenu(const sCase* c);
  * \param c pointeur sur sCase
  * \return pierre
  */
- int getPierre(const sCase* c);
+ int getPierreCase(const sCase* c);
 
  /**
  * \fn int getMithril (sCase* c)
@@ -68,7 +69,7 @@ int getContenu(const sCase* c);
  * \param c pointeur sur sCase
  * \return mithril
  */
- int getMithril(const sCase* c);
+ int getMithrilCase(const sCase* c);
 
  /**
  * \fn bool getAcces (sCase* c)
@@ -95,7 +96,7 @@ int getContenu(const sCase* c);
  * \param[in, out] c pointeur sur sCase
  * \param[in] p pierre dans la case
  */
- void setPierre(sCase* c, int p);
+ void setPierreCase(sCase* c, int p);
 
  /**
  * \fn void setMithril (sCase* c,int m)
@@ -104,7 +105,7 @@ int getContenu(const sCase* c);
  * \param[in, out] c pointeur sur sCase
  * \param[in] m mithril dans la case
  */
- void setMithril(sCase* c, int m);
+ void setMithrilCase(sCase* c, int m);
 
 /**
  * \fn void setAcces (sCase* c,int m)

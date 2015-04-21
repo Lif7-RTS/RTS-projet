@@ -4,7 +4,7 @@
  * \author Adrien Baud & Diego Roussel
  * \date 24/03/15
  *
- * Module represantant une unite
+ * Module representant une unite
  *
  */
 
@@ -61,12 +61,12 @@ typedef struct SUnite Unite;
  int getPosY(const Unite* unit);
 
  /**
- * \fn int getVieCourante (Unite* unit)
+ * \fn int getVieCouranteUnite(Unite* unit)
  * \brief accesseur vieCourante
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- int getVieCourante(const Unite* unit);
+ int getVieCouranteUnite(const Unite* unit);
 
 
  /**
@@ -78,12 +78,12 @@ typedef struct SUnite Unite;
  int getDeplacement(const Unite* unit);
 
 /**
- * \fn UniteBase* getType(Unite* unit)
+ * \fn UniteBase* getTypeUnite(Unite* unit)
  * \brief accesseur type
  *
  * \param[in, out] unit pointeur sur UniteBase
  */
- UniteBase* getType(const Unite* unit);
+ UniteBase* getTypeUnite(const Unite* unit);
 
 /**
  * \fn int getPosCibleX(Unite* unit)
@@ -144,13 +144,13 @@ typedef struct SUnite Unite;
  void setPosY(Unite* unit, int posY);
 
  /**
- * \fn void setVieCourante (Unite* unit,int vie)
+ * \fn void setVieCouranteUnite(Unite* unit,int vie)
  * \brief mutateur vieCourante
  *
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] vie vie actuelle de l'unite
  */
- void setVieCourante(Unite* unit, int vie);
+ void setVieCouranteUnite(Unite* unit, int vie);
 
 
  /**
@@ -169,7 +169,7 @@ typedef struct SUnite Unite;
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] t type de l'unite
  */
- void setType(Unite* unit, const UniteBase* type);
+ void setTypeUnite(Unite* unit, const UniteBase* type);
 
 /**
  * \fn void setPosCibleX(Unite* unit,int x)

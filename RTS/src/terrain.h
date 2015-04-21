@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "case.h"
+#include "define.h"
 #ifndef _TERRAIN
 #define _TERRAIN
 
@@ -20,6 +21,7 @@ struct STerrain{
      char* imageCarte;/*!<image de la carte */
      int tailleX;/*!< taille de la carte en coordonee X */
      int tailleY;/*!< taille de la carte en coordonée Y */
+     char* tiles;
 };
 typedef struct STerrain Terrain;
 
@@ -42,13 +44,22 @@ void setTailleX(Terrain* ter, int x);
 void setTailleY(Terrain* ter, int y);
 
 /**
+* \fn void setCarteTerrain(Terrain* ter, const char* colliCarte)
+* \brief mutateur collisionCarte
+*
+* \param[in, out] ter pointeur sur Terrain
+* \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
+*/
+void setCarteTerrain(Terrain* ter, const char* colliCarte);
+
+/**
 * \fn void setCarte(char* dossierCarte, Terrain* ter)
 * \brief mutateur collisionCarte
 *
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
 */
-void setCarte(Terrain* ter, const char* colliCarte);
+void setImageCarte(Terrain* ter, const char* carte);
 
 /**
 * \fn int getTailleX(Terrain* ter);
@@ -86,7 +97,7 @@ sCase* getCase(const Terrain* ter,int x, int y);
 * \param[in, out] ter pointeur sur Terrain
 * \param[in, out] colliCarte chaine de caractère contenant le chemin du fichier de collision de la carte
 */
-void initTerrain(Terrain* ter, const char* colliCarte);
+void initTerrain(Terrain* ter, const char* colliCarte, const char* imageCarte);
 
 /**
 * \fn void detruireTerrain(Terrain* ter)

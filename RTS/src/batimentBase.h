@@ -222,7 +222,7 @@ void setTabUnitFormable(BatBase* bat, const UniteBase* tabUnitFormable);
 * \brief charge en mémoire tout les batiment de base.
 *
 *
-* \return un tableau regourpant l'ensemble des bâtiment de base.
+* \return un tableau regroupant l'ensemble des bâtiments de base.
 */
 BatBase* chargementBatBase(void);
 

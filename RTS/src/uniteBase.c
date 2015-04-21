@@ -11,7 +11,7 @@
 
 
 void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
-                     int ouvr, int t, int vitesseAtq, int ressourceM, char* chemin, int v){
+                     int ouvr, int t, int vitesseAtq, int ressourceM, char tile, int v){
     setVieMaxUnite(unit, vie);
     setAttaque(unit, atq);
     setNom(unit, n);
@@ -19,7 +19,7 @@ void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
     setTempsFormation(unit, t);
     setVitesseAttaque(unit, vitesseAtq);
     setRessourceMax(unit, ressourceM);
-    setImage(unit, chemin);
+    setTileUnite(unit, tile);
     setVitesse(unit, v);
 }
 
@@ -56,8 +56,8 @@ int getVitesse(const UniteBase* unit){
     return unit->vitesse;
 }
 
-char* getImage(const UniteBase* unit){
-    return unit->cheminImage;
+char getTileUnite(const UniteBase* unit){
+    return unit->tile;
 }
 
 void setVieMaxUnite(UniteBase* unit, int vieM){
@@ -92,6 +92,22 @@ void setVitesse(UniteBase* unit, int v){
     unit->vitesse = v;
 }
 
-void setImage(UniteBase* unit, char* chemin){
-    unit->cheminImage = chemin;
+void setTileUnite(UniteBase* unit, char tile){
+    unit->tile = tile;
+}
+
+UniteBase* chargementUniteBase(void){
+    FILE* f;
+    int nbUnite;
+    char nom[20];
+    UniteBase* tabUnite;
+    int i;
+
+    f = fopen("unite.txt", "r");
+    if(f == NULL){
+        printf("Erreur chargement uniteBase !");
+        exit(EXIT_FAILURE);
+    }
+    fscanf(f ,"%d", &nbUnite);
+    return NULL;
 }

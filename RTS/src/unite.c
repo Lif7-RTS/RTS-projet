@@ -4,7 +4,7 @@
  * \author Adrien Baud & Diego Roussel
  * \date 05/04/15
  *
- * Module represantant une unite
+ * Module representant une unite
  *
  */
 
@@ -22,7 +22,7 @@ int getPosY(const Unite* unit){
     return unit->posY;
 }
 
-int getVieCourante(const Unite* unit){
+int getVieCouranteUnite(const Unite* unit){
     return unit->vieCourante;
 }
 
@@ -30,7 +30,7 @@ int getDeplacement(const Unite* unit){
     return unit->deplacement;
 }
 
-UniteBase* getType(const Unite* unit){
+UniteBase* getTypeUnite(const Unite* unit){
     return unit->type;
 }
 
@@ -62,7 +62,7 @@ void setPosY(Unite* unit, int y){
     unit->posX = y;
 }
 
-void setVieCourante(Unite* unit, int vie){
+void setVieCouranteUnite(Unite* unit, int vie){
     unit->vieCourante = vie;
 }
 
@@ -70,7 +70,7 @@ void setDeplacement(Unite* unit, int deplac){
     unit->deplacement = deplac;
 }
 
-void setType(Unite* unit, const UniteBase* type){
+void setTypeUnite(Unite* unit, const UniteBase* type){
     unit->type = type;
 }
 
