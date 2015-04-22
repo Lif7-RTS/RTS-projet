@@ -82,7 +82,7 @@ void affiche(const Affichage* aff){
 			rect_Dest.h = TILE_TAILLE;
 			num_tile = aff->carte->tiles[camX+i+(camY+j)*tX];
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
-            id = aff->carte->tabCase[camX+i+(camY+j*tX)].idContenu;
+            id = aff->carte->tabCase[camX+i+(camY+j)*tX].idContenu;
             if(id != 0){
                 if(id > 0){
                     id--;
@@ -98,5 +98,5 @@ void affiche(const Affichage* aff){
 		}
 	}
     SDL_RenderPresent(aff->renderer);
-    SDL_Delay(1000/60);
+    SDL_Delay(1000/30);
 }
