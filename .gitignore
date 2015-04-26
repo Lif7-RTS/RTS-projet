@@ -1,2 +1,3 @@
 *.exe
 RTS/obj/*
+*.o

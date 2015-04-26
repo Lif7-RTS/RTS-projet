@@ -21,8 +21,8 @@ struct SBatiment{
      int vieCourante;  /*!< nombre de point de vie actuel du batiment */
      int enConstruction;  /*!< 1 si le batiment en construction 0 sinon */
      File* tabAttente;/*!< une file d'attente de construction d'unite en cours */
-     int x;
-     int y;
+     int x; /*!< position x du batiment (haut-gauche du batiment) */
+     int y; /*!< position x du batiment (haut-gauche du batiment) */
 };
 typedef struct SBatiment Batiment;
 

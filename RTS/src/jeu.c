@@ -102,15 +102,30 @@ void ajouterBat(Jeu* j, Batiment* bat){
 void boucleJeu(Jeu* j){
       int quit = 0;
       int x,y;
+      int* v;
+      v = (int*) malloc(sizeof(int));
       SDL_Event e;
       UniteBase* ub;
       Unite* u;
+      BatBase* bb;
+      Batiment* b;
+      b = (Batiment*) malloc(sizeof(Batiment));
+      bb = (BatBase*) malloc(sizeof(BatBase));
       u = (Unite*) malloc(sizeof(Unite));
       ub = (UniteBase*) malloc(sizeof(UniteBase));
+      initBatBase(bb,"lel", 0, 4,100,1,20,2,2,v);
       initUniteBase(ub,10,10,"lol", 0, 1, 10, 10, 3, 5);
+      setTypeBat(b, bb);
+      setPosXBat(b,6);
+      setPosYBat(b,0);
       setTypeUnite(u,ub);
+      ajouterTabDyn(j->tableauBat, (uintptr_t) b);
       ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
       j->carte->tabCase[5].idContenu = 1;
+      j->carte->tabCase[6].idContenu = -1;
+      j->carte->tabCase[7].idContenu = -1;
+      j->carte->tabCase[6+(j->carte->tailleX)].idContenu = -1;
+      j->carte->tabCase[7+(j->carte->tailleX)].idContenu = -1;
       while( !quit ){
             SDL_PumpEvents();
             SDL_GetMouseState(&x,&y);

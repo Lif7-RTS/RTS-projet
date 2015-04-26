@@ -64,11 +64,10 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
 }
 
 void affiche(const Affichage* aff){
-    int i,j,id,camX,camY,tX,tY;
+    int i,j,id,camX,camY,tX;
 	SDL_Rect rect_Dest;
 	int num_tile;
 	tX = aff->carte->tailleX;
-	tY = aff->carte->tailleY;
 	camX = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraX;
 	camY = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraY;
 	SDL_RenderClear(aff->renderer);
@@ -86,11 +85,13 @@ void affiche(const Affichage* aff){
             if(id != 0){
                 if(id > 0){
                     id--;
-                    num_tile = getTileUnite(((Unite*)(aff->jeu->tableauUnite->tab[id]))->type);
+                    num_tile = getTileUnite(getTypeUnite((Unite*)(aff->jeu->tableauUnite->tab[id])));
                 }
                 else{
                     id++;
-                   /* num_tile = getTileBat(((Unite*)(aff->jeu->tableauBat->tab[-id]))->type); */
+                    num_tile = getTileBat(getTypeBat((Batiment*)(aff->jeu->tableauBat->tab[-id])));
+                    num_tile += (i+camX)-getPosXBat((Batiment*)(aff->jeu->tableauBat->tab[-id]));
+                    num_tile += ((j+camY)-getPosYBat((Batiment*)(aff->jeu->tableauBat->tab[-id])))*getTailleCaseX(getTypeBat((Batiment*)(aff->jeu->tableauBat->tab[-id])));
                 }
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             }
@@ -98,5 +99,5 @@ void affiche(const Affichage* aff){
 		}
 	}
     SDL_RenderPresent(aff->renderer);
-    SDL_Delay(1000/30);
+    SDL_Delay(1000/60);
 }
