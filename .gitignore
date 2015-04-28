@@ -1,3 +1,4 @@
 *.exe
 RTS/obj/*
 *.o
+*.exe

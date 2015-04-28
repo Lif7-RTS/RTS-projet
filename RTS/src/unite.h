@@ -10,7 +10,9 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "uniteBase.h"
+#include "Pile.h"
 #ifndef _UNITE
 #define _UNITE
 
@@ -21,6 +23,7 @@
  *
  * SUnite objet representant une unite.
  */
+
 struct SUnite{
     int id;/*!< id (unique) de l'unite*/
     int posX;/*!< position X de l'unite ( en case )*/
@@ -32,6 +35,8 @@ struct SUnite{
     int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
     int pierrePorte;/*!< pierre transporte par l'unite */
     int mithrilPorte;/*!< mithril tranporte par l'unite*/
+    Pile* chemin; /*faire le SET */
+    clock_t timerUnite; /* faire le GET */
 };
 typedef struct SUnite Unite;
 
@@ -42,6 +47,14 @@ typedef struct SUnite Unite;
  * \param[in, out] unit pointeur sur UniteBase
  */
  int getId(const Unite* unit);
+
+ /**
+ * \fn  int getChemin(const Unite* unit)
+ * \brief accesseur chemin
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ */
+ Pile* getChemin(const Unite* unit);
 
  /**
  * \fn int getPosX (Unite* unit)
@@ -142,6 +155,15 @@ typedef struct SUnite Unite;
  * \param[in] posY position Y de l'unite
  */
  void setPosY(Unite* unit, int posY);
+
+ /**
+ * \fn void setTimerUnite(Unite* unit, clock_t time)
+ * \brief mutateur Timer
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] time nombe de tick d'horloge
+ */
+ void setTimerUnite(Unite* unit, clock_t time);
 
  /**
  * \fn void setVieCouranteUnite(Unite* unit,int vie)

@@ -87,10 +87,12 @@
 	"uniteBase.h"
 	"case.h"
 
-1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.h
+1430212382 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.h
 	<stdlib.h>
 	<stdio.h>
+	<time.h>
 	"uniteBase.h"
+	"Pile.h"
 
 1429596849 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.h
 	<stdlib.h>
@@ -123,10 +125,12 @@
 1429599818 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\terrain.c
 	"terrain.h"
 
-1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.c
+1430212449 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unite.c
 	"unite.h"
+	"terrain.h"
+	"case.h"
 
-1429606109 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.c
+1430201843 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\unitebase.c
 	"uniteBase.h"
 
 1429604879 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batimentbase.c
@@ -145,16 +149,16 @@
 	<stdlib.h>
 	"uniteBase.h"
 
-1429599134 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.c
+1430201466 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.c
 	"batiment.h"
 
-1429599161 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.h
+1430201466 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\batiment.h
 	<stdio.h>
 	<stdlib.h>
 	"batimentBase.h"
 	"file.h"
 
-1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\affichesdl.c
+1430201466 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\affichesdl.c
 	"afficheSDL.h"
 	"jeu.h"
 
@@ -517,7 +521,7 @@
 	<stdio.h>
 	<stdint.h>
 
-1429608722 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\jeu.c
+1430201466 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\jeu.c
 	"jeu.h"
 	"afficheSDL.h"
 
@@ -526,4 +530,11 @@
 
 1429596849 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\tabdyn.c
 	"tabDyn.h"
+
+1430213030 d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\pile.h
+	<stdlib.h>
+	<stdio.h>
+
+1430213071 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\pile.c
+	"pile.h"
 
