@@ -18,8 +18,6 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     Terrain* ter;
     TabDyn* tabUnite;
     TabDyn* tabBat;
-    BatBase* tabBatConstr;
-    UniteBase* tabUniteForm;
     setNbJoueur(j,1);
     j->aff = (Affichage*) malloc((sizeof(Affichage)));
     tabUnite = (TabDyn*)malloc(sizeof(TabDyn));
@@ -37,8 +35,9 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     j->tableauJoueur = tabJ;
     initTerrain(ter,cheminCarte);
     setCarteJeu(j,ter);
-    /* tabBatConstr = chargementBatBase();
-    tabUniteForm = chargementUniteForm(); */
+    setIdSel(j,0);
+    j->tabBatConstructible = chargementBatBase();
+    j->tabUniteFormable = chargementUniteBase();
     initAffichage(j->aff,j,j->carte);
     boucleJeu(j);
 }
@@ -77,6 +76,10 @@ BatBase* getBatConstructible(const Jeu* j, int bNb){
     return &(j->tabBatConstructible[bNb]);
 }
 
+int getIdSel(const Jeu* j){
+    return j->idSel;
+}
+
 void setNbJoueur(Jeu* j, int nb){
     j->nbJoueur = nb;
 }
@@ -98,29 +101,28 @@ void ajouterBat(Jeu* j, Batiment* bat){
     ajouterTabDyn(j->tableauBat, (uintptr_t)bat);
 }
 
+void setIdSel(Jeu* j,int id){
+    j->idSel = id;
+}
 
 void boucleJeu(Jeu* j){
       int quit = 0;
       int x,y;
-      int* v;
-      v = (int*) malloc(sizeof(int));
+      int xClick,yClick;
       SDL_Event e;
-      UniteBase* ub;
       Unite* u;
-      BatBase* bb;
       Batiment* b;
       b = (Batiment*) malloc(sizeof(Batiment));
-      bb = (BatBase*) malloc(sizeof(BatBase));
       u = (Unite*) malloc(sizeof(Unite));
-      ub = (UniteBase*) malloc(sizeof(UniteBase));
-      initBatBase(bb,"lel", 0, 4,100,1,20,2,2,v);
-      initUniteBase(ub,10,10,"lol", 0, 1, 10, 10, 3, 5);
-      setTypeBat(b, bb);
+      setTypeBat(b, getBatConstructible(j,0));
       setPosXBat(b,6);
       setPosYBat(b,0);
-      setTypeUnite(u,ub);
+      setTypeUnite(u,getUniteFormable(j,0));
+      printf("%d \n",getTileUnite(getTypeUnite(u)));
       ajouterTabDyn(j->tableauBat, (uintptr_t) b);
       ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
+      setPosX(u,5);
+      setPosY(u,0);
       j->carte->tabCase[5].idContenu = 1;
       j->carte->tabCase[6].idContenu = -1;
       j->carte->tabCase[7].idContenu = -1;
@@ -133,28 +135,51 @@ void boucleJeu(Jeu* j){
              if( e.type == SDL_QUIT ){
                 quit = 1;
             }
-            if(e.type == SDL_KEYDOWN)
-            {
-               if(e.key.keysym.sym == SDLK_RIGHT)
-                    (j->tableauJoueur[j->vueJoueur].cameraX)++;
-               if(e.key.keysym.sym == SDLK_DOWN)
-                    (j->tableauJoueur[j->vueJoueur].cameraY)++;
+            if(e.type == SDL_KEYDOWN){
+            }
+            if(e.type == SDL_MOUSEBUTTONDOWN){
+                xClick = e.button.x;
+                yClick = e.button.y;
+                if(yClick < SCREEN_H-HUD_H){
+                    xClick = xClick/TILE_TAILLE + getCameraX(getJoueur(j,getVueJoueur(j)));
+                    yClick = yClick/TILE_TAILLE + getCameraY(getJoueur(j,getVueJoueur(j)));
+                    printf("x: %d y: %d ",xClick,yClick);
+                    if(e.button.button == SDL_BUTTON_LEFT){
+                        setIdSel(j,getContenu(getCase(getCarteJeu(j),xClick,yClick)));
+                         printf("id: %d \n",getContenu(getCase(getCarteJeu(j),xClick,yClick)));
+                    }
+                    else if(e.button.button == SDL_BUTTON_RIGHT){
+                        if(getIdSel(j) < 0){
+
+                        }
+                        else if(getIdSel(j) > 0){
+                            u = getUnite(j,getIdSel(j)-1);
+                            /* deplacerUnite(u,xClick,yClick);*/
+                            setContenu(getCase(getCarteJeu(j),getPosX(u),getPosY(u)),0);
+                            printf("x: %d y: %d \n",getPosX(u),getPosY(u));
+                            setContenu(getCase(getCarteJeu(j),xClick,yClick),getIdSel(j));
+                            setPosX(u, xClick);
+                            setPosY(u, yClick);
+                        }
+                    }
+                }
+
             }
 
         }
-        if( x >= SCREEN_W-TILE_TAILLE ){
+        if( x >= SCREEN_W-20){
             if(((j->tableauJoueur[j->vueJoueur].cameraX) + 1) <= j->carte->tailleX - SCREEN_W/TILE_TAILLE)
                 (j->tableauJoueur[j->vueJoueur].cameraX)++;
         }
-        if( x < TILE_TAILLE ){
+        if( x < 20 ){
             if(((j->tableauJoueur[j->vueJoueur].cameraX) - 1) >= 0)
                 (j->tableauJoueur[j->vueJoueur].cameraX)--;
         }
-        if( y >= SCREEN_H-TILE_TAILLE ){
+        if( y >= SCREEN_H-20){
             if(((j->tableauJoueur[j->vueJoueur].cameraY) + 1) <= j->carte->tailleY - SCREEN_H/TILE_TAILLE)
                 (j->tableauJoueur[j->vueJoueur].cameraY)++;
         }
-        if( y < TILE_TAILLE ){
+        if( y < 20 ){
             if(((j->tableauJoueur[j->vueJoueur].cameraY) - 1) >= 0)
                 (j->tableauJoueur[j->vueJoueur].cameraY)--;
 

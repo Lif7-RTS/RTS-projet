@@ -177,14 +177,14 @@ void avanceUnite(Unite* homme, Terrain* terrain){
 }
 
 void trouverAcces(Unite* homme,int* x, int* y){
-     int distX= abs(x-getPosX(homme));
+  /*   int distX= abs(x-getPosX(homme));
      int distY= abs(y-getPosY(homme));
      int i,j;
-     for(i=x;i<i-distX,i--)
+     for(i=x;i<i-distX;i--)
      {
           for(j=y+i; j<i; j--)
      }
-
+ */
 
 }
 

@@ -13,7 +13,7 @@
 
 /* ***********************************************************--Init--*************************************************************************** */
 
-void initBatBase(BatBase* bat, const char* nomBat,char niveau, char tile, int vieMax,int ameliorable,
+void initBatBase(BatBase* bat,char* nomBat,char niveau, char tile, int vieMax,int ameliorable,
                  int tempsConstruct, int tailleCaseY, int tailleCaseX, int* tabUnitFormable){
 
      setNomBat(bat, nomBat);
@@ -61,10 +61,13 @@ int getTailleCaseY(const BatBase* bat){
      return bat->tailleCaseY;
 }
 
-int* getTabUnitFormable(const BatBase* bat){
-     return bat->tabUnitFormable;
+int getUnitFormableBat(const BatBase* bat,int i){
+     return bat->tabUnitFormable[i];
 }
 
+int getNbUniteFormable(const BatBase* bat){
+     return bat->nbUnitFormable;
+}
 /* *************************************************************--SET--***************************************************************************** */
 
 void setNomBat(BatBase* bat, char* nomBat){
@@ -99,6 +102,9 @@ void setTabUnitFormable(BatBase* bat, int* tabUnitFormable){
      bat->tabUnitFormable=tabUnitFormable;
 }
 
+void setNbUniteFormable(BatBase* bat, int nb){
+     bat->nbUnitFormable = nb;
+}
 /* *************************************************************--FCT--***************************************************************************** */
 
 BatBase* chargementBatBase(void){
@@ -136,15 +142,18 @@ BatBase* chargementBatBase(void){
                fscanf(fish, "tailleCaseX=%d\n", &(bat->tailleCaseX));
                /* tailleCaseY */
                fscanf(fish, "tailleCaseY=%d\n", &(bat->tailleCaseY));
+                printf("tailleCaseY: %d \n", bat->tailleCaseY);
                /* tabUniteFormable */
                fscanf(fish, "nombreUnite=%d\n", &nbUnite);
+               setNbUniteFormable(bat, nbUnite);
+               printf("nbUniteFormable: %d \n", getNbUniteFormable(bat));
                if(nbUnite > 0 )
                {
                     fscanf(fish,"tabUniteFormable=");
                     bat->tabUnitFormable=(int*) malloc(nbUnite*sizeof(int));
                     for(j=0; j<nbUnite; j++)
                     {
-                         fscanf(fish,"%d ", &(bat->tabUnitFormable[i]));
+                         fscanf(fish,"%d ", &(bat->tabUnitFormable[j]));
                     }
                }
           }

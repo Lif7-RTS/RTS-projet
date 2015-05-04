@@ -7,5 +7,5 @@ vitesseAttaque=950
 ouvrier=0
 tempsFormation=20
 ressourceMax=0
-tile=12
+tile=5
 vitesse=5

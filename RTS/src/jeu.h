@@ -41,6 +41,7 @@ struct SJeu{
     BatBase* tabBatConstructible;/*!< Tableau de pointeurs sur tous les batiments constructibles */
     UniteBase* tabUniteFormable;/*!< Tableau de pointeurs sur toutes les unites formables*/
     int vueJoueur;/*!< joueur que la camera suit */
+    int idSel; /*!< id de l'unite selectionnee par le joueur[vueJoueur] */
 };
 
 
@@ -69,12 +70,12 @@ int getNbJoueur(const Jeu*  j);
  Joueur* getJoueur(const Jeu*  j,int jNb);
 
  /**
- * \fn Terrain*  getCarte ( jeu* j)
+ * \fn Terrain*  getCarteJeu( jeu* j)
  * \brief accesseur carte
  * \param j pointeur sur un Jeu
  * \return pointeur sur carte
  */
-Terrain* getCarte(const Jeu*  j);
+Terrain* getCarteJeu(const Jeu*  j);
 
   /**
  * \fn Unite* getUnite ( jeu* j, int uNb)
@@ -108,6 +109,13 @@ Batiment* getBat(const Jeu*  j, int bNb);
  */
 BatBase* getBatConstructible(const Jeu*  j,int bNb);
 
+/**
+ * \fn int getIdSel( jeu*  j)
+ * \brief accesseur IdSel
+ * \param j pointeur sur un Jeu
+ * \return idSel
+ */
+int getIdSel(const Jeu*  j);
 
  /**
  * \fn void setNbJoueur ( jeu* j,int nb)
@@ -134,6 +142,14 @@ BatBase* getBatConstructible(const Jeu*  j,int bNb);
  * \param[in] c pointeur sur la nouvelle carte
  */
  void setCarteJeu( Jeu*  j, Terrain* c);
+
+ /**
+ * \fn void setIdSel( jeu*  j,int id)
+ * \brief mutateur IdSel
+ * \param[in,out] j pointeur sur un Jeu
+ * \param  id nouvel id selectionnee
+ */
+ void setIdSel(Jeu*  j, int id);
 
 /**
  * \fn  void ajouterUnite( jeu*  j, Unite* unit)

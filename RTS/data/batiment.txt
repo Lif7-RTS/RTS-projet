@@ -2,11 +2,11 @@
 
 nom=Taverne
 niveau=1
-tile=25
+tile=6
 vieMax=100
 ameliorable=1
 tempsConstruct=30
 tailleCaseX=2
 tailleCaseY=2
-nombreUnite=3
-tabUniteFormable=1 2 7
+nombreUnite=9
+tabUniteFormable=1 1 1 1 1 1 1 1 1

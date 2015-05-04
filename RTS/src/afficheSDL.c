@@ -71,14 +71,13 @@ void affiche(const Affichage* aff){
 	camX = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraX;
 	camY = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraY;
 	SDL_RenderClear(aff->renderer);
-	for(i=0;i<aff->nbTileCamX;i++)
-	{
-		for(j=0;j<aff->nbTileCamY;j++)
+    rect_Dest.w = TILE_TAILLE;
+    rect_Dest.h = TILE_TAILLE;
+	for(i=0;i<aff->nbTileCamX;i++){
+		for(j=0;j<aff->nbTileCamY-(HUD_H/TILE_TAILLE);j++)
 		{
 			rect_Dest.x = i*TILE_TAILLE;
 			rect_Dest.y = j*TILE_TAILLE;
-			rect_Dest.w = TILE_TAILLE;
-			rect_Dest.h = TILE_TAILLE;
 			num_tile = aff->carte->tiles[camX+i+(camY+j)*tX];
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             id = aff->carte->tabCase[camX+i+(camY+j)*tX].idContenu;
@@ -97,7 +96,31 @@ void affiche(const Affichage* aff){
             }
 
 		}
+		for(j=aff->nbTileCamY-(HUD_H/TILE_TAILLE); j < aff->nbTileCamY; j++){
+            num_tile = 3;
+            rect_Dest.x = i*TILE_TAILLE;
+			rect_Dest.y = j*TILE_TAILLE;
+            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+            if(j == aff->nbTileCamY-(HUD_H/TILE_TAILLE)){
+                num_tile = 4;
+                SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+
+            }
+		}
 	}
+	id = getIdSel(aff->jeu);
+    if(getIdSel(aff->jeu) < 0){
+        BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)-1));
+        for(j = 0; j < getNbUniteFormable(b);j++){
+            printf("idAFF:%d ",getUnitFormableBat(b,j)-1);
+            num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(b,j)-1));
+            printf("numTile: %d\n",num_tile);
+            rect_Dest.x = SCREEN_W+(j%3-3)*TILE_TAILLE;
+			rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE+5;
+            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+        }
+    }
+
     SDL_RenderPresent(aff->renderer);
     SDL_Delay(1000/60);
 }

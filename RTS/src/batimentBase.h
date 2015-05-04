@@ -24,6 +24,7 @@ struct SBatBase{
      int tailleCaseY;/*!< taille en case d'un batiment suivant sa coordonée y */
      int tailleCaseX;/*!< taille en case d'un batiment suivant sa coordonée x */
      int* tabUnitFormable;/*!< tableau d'identifiant d'unite formable par un batiment */
+     int nbUnitFormable;/*!< nombre d'unite formable par ce batiment */
 };
 typedef struct SBatBase BatBase;
 
@@ -45,7 +46,7 @@ typedef struct SBatBase BatBase;
 * \param[in, out] tabUniteFormable est un tableau des troupe constructible par le batiment en question.
 * \param[in, out] tabAttente est la file d'attente des unite en construction dans le batiment en question.
 */
-void initBatBase(BatBase* bat, const char* nomBat,char niveau, char tile, int vieMax,int ameliorable, int tempsConstruct,
+void initBatBase(BatBase* bat, char* nomBat,char niveau, char tile, int vieMax,int ameliorable, int tempsConstruct,
                  int tailleCaseY, int tailleCaseX, int* tabUnitFormable);
 
 
@@ -115,7 +116,7 @@ int getTempsConstruct(const BatBase* bat);
 int getTailleCaseX(const BatBase* bat);
 
 /**
-* \fn void getTailleCaseY(BatBase* bat)
+* \fn int getTailleCaseY(BatBase* bat)
 * \brief accesseur tailleCaseY
 *
 * \param[in, out] bat pointeur sur BatBase
@@ -128,10 +129,19 @@ int getTailleCaseY(const BatBase* bat);
 * \brief accesseur TabUnitFormable
 *
 * \param[in, out] bat pointeur sur BatBase
-* \return tableau des troupe constructible par le batiment en question.
+* \param i index de l'unite voulu dans tabUniteFormable
+* \return tabUnitFormable[i]
 */
-int* getTabUnitFormable(const BatBase* bat);
+int getUnitFormableBat(const BatBase* bat, int i);
 
+/**
+* \fn int getNbUniteFormable(const BatBase* bat)
+* \brief accesseur nbUniteFormable
+*
+* \param[in, out] bat pointeur sur BatBase
+* \return nbUniteFormable
+*/
+int getNbUniteFormable(const BatBase* bat);
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -215,6 +225,14 @@ void setTailleCaseY(BatBase* bat, int tailleCaseY);
 */
 void setTabUnitFormable(BatBase* bat, int* tabUnitFormable);
 
+/**
+* \fn void setNbUniteFormable(BatBase* bat,int nb)
+* \brief mutateur nbUniteFormable
+*
+* \param[in, out] bat pointeur sur BatBase
+* \param nb nombre de type d'unite que le batiment peut forme
+*/
+void setNbUniteFormable(BatBase* bat,int nb);
 /* *************************************************************--FCT--***************************************************************************** */
 
 /**
