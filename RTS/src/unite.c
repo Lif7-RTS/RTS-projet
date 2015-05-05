@@ -180,39 +180,50 @@ void avanceUnite(Unite* homme, Terrain* terrain){
 }
 
 void trouverAcces(Unite* homme){
-     int xMax = getPosX(homme);
-     int yMax = getPosY(homme);
-     int xMin = getPosCibleX(homme);
-     int yMin = getPosCibleY(homme);
+     int xHomme = getPosX(homme);
+     int yHomme = getPosY(homme);
+     int xCible = getPosCibleX(homme);
+     int yCible = getPosCibleY(homme);
      int xCase,yCase,i,j,x,y;
+     int fin=0;
 
-
-          printf("ta mere %d", xMax);
-     if(xMin<=xMax && yMin<=yMax)
+     if(xCible<=xHomme && yCible<=yHomme)
      {
-          xCase = xMin;
-          i=0;
+          xCase = xCible;
+          yCase = yCible;
+          i=1;
           j=0;
-          while(xCase != xMax)
+          while(fin==0)
           {
-               while(xCase >= 0)
+               while(xCase >= 0 && fin==0)
                {
-                    y=min(yCase,yMax);
                     printf("\n( %d - %d )",xCase,yCase);
-                    if(y==yCase)
+
+                    if(xCase==xHomme && yCase==yHomme)
+                    {
+                         fin =1;
+                    }
+
+                    if(yCase<=yHomme)
                     {
                          printf("testé");
                          /*testCase(xCase, y);*/
+                    }
+                    if(yCase<yHomme)
+                    {
                          xCase--;
                          yCase++;
                     }
+
                     else
                     {
                          xCase = -1;
                     }
                }
 
-               if(xCase != xMax)
+               yCase = yCible + j;
+               xCase = xCible + i;
+               if(xCase != xHomme)
                {
                     i++;
                }
@@ -220,14 +231,54 @@ void trouverAcces(Unite* homme){
                {
                     j++;
                }
-
-               xCase = xMin + i;
-               yCase = yMin + j;
           }
      }
-     else if (xMin>=xMax && yMin>=yMax)
+     else if (xCible>=xHomme && yCible>=yHomme)
      {
+          xCase = xCible;
+          yCase = yCible;
+          i=1;
+          j=0;
+          while(fin==0)
+          {
+               while(xCase >= 0 && fin==0)
+               {
+                    printf("\n( %d - %d )",xCase,yCase);
 
+                    if(xCase==xHomme && yCase==yHomme)
+                    {
+                         fin =1;
+                    }
+
+                    if(yCase>=yHomme)
+                    {
+                         printf("testé");
+                         /*testCase(xCase, y);*/
+                    }
+                    if(yCase>yHomme)
+                    {
+                         xCase--;
+                         yCase++;
+                    }
+
+                    else
+                    {
+                         xCase = -1;
+                    }
+               }
+
+               yCase = yCible - j;
+               xCase = xCible - i;
+               if(xCase != xHomme)
+               {
+                    i++;
+                    printf("paté");
+               }
+               else
+               {
+                    j++;
+               }
+          }
      }
 
 }

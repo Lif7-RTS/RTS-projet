@@ -10,10 +10,10 @@ int main(int argc, char** argv)
 
      Unite* homme=(Unite*) malloc (sizeof(Unite));
      int x=0;
-     setPosX(homme,3);
-     setPosY(homme,4);
-     setPosCibleX(homme,0);
-     setPosCibleY(homme,0);
+     setPosX(homme,0);
+     setPosY(homme,0);
+     setPosCibleX(homme,3);
+     setPosCibleY(homme,2);
      trouverAcces(homme);
 
      return 0;
