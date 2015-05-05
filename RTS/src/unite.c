@@ -13,6 +13,9 @@
 #include "case.h"
 #include <math.h>
 
+#define max(a,b) (a>=b?a:b)
+#define min(a,b) (a<=b?a:b)
+
 int getId(const Unite* unit){
     return unit->id;
 }
@@ -176,15 +179,56 @@ void avanceUnite(Unite* homme, Terrain* terrain){
      setTimerUnite(homme, tempo);
 }
 
-void trouverAcces(Unite* homme,int* x, int* y){
-  /*   int distX= abs(x-getPosX(homme));
-     int distY= abs(y-getPosY(homme));
-     int i,j;
-     for(i=x;i<i-distX;i--)
+void trouverAcces(Unite* homme){
+     int xMax = getPosX(homme);
+     int yMax = getPosY(homme);
+     int xMin = getPosCibleX(homme);
+     int yMin = getPosCibleY(homme);
+     int xCase,yCase,i,j,x,y;
+
+
+          printf("ta mere %d", xMax);
+     if(xMin<=xMax && yMin<=yMax)
      {
-          for(j=y+i; j<i; j--)
+          xCase = xMin;
+          i=0;
+          j=0;
+          while(xCase != xMax)
+          {
+               while(xCase >= 0)
+               {
+                    y=min(yCase,yMax);
+                    printf("\n( %d - %d )",xCase,yCase);
+                    if(y==yCase)
+                    {
+                         printf("testé");
+                         /*testCase(xCase, y);*/
+                         xCase--;
+                         yCase++;
+                    }
+                    else
+                    {
+                         xCase = -1;
+                    }
+               }
+
+               if(xCase != xMax)
+               {
+                    i++;
+               }
+               else
+               {
+                    j++;
+               }
+
+               xCase = xMin + i;
+               yCase = yMin + j;
+          }
      }
- */
+     else if (xMin>=xMax && yMin>=yMax)
+     {
+
+     }
 
 }
 
