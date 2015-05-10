@@ -23,7 +23,7 @@
 struct SUniteBase{
     int vieMax;/*!< point de vie maximum */
     int attaque;/*!< point de degat infliges a chaque attaque */
-    char* nom; /*!< nom de l'unite */
+    char nom[25]; /*!< nom de l'unite */
     int ouvrier; /*!< 1 si ouvrier, 0 sinon */
     int tempsFormation;/*!< temps de formation en secondes*/
     int vitesseAttaque;/*!< vitesse d'attaque (ecart entre 2 attaques en ms) */

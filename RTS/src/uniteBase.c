@@ -74,7 +74,13 @@ void setAttaque(UniteBase* unit, int atq){
 }
 
 void setNom(UniteBase* unit, char* n){
-     unit->nom = n;
+    int i;
+    for(i = 0; i<24;i++){
+        if(n[i] == NULL)
+            break;
+        unit->nom[i] = n[i];
+    }
+    unit->nom[i] = '\0';
 }
 
 void setOuvrier(UniteBase* unit, int ouvr){
@@ -122,8 +128,7 @@ UniteBase* chargementUniteBase(void){
                unit=tabUnite+i;
 
                /*Nom*/
-               fscanf(fish, "nom=%s\n", nom);
-               unit->nom=nom;
+               fscanf(fish, "nom=%s\n",unit->nom);
                /*vieMax*/
                fscanf(fish, "vieMax=%d\n",&(unit->vieMax));
                /* attaque */

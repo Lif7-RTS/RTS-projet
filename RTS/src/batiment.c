@@ -53,6 +53,11 @@ int getPosXBat(const Batiment* bat){
 int getPosYBat(const Batiment* bat){
     return bat->y;
 }
+
+
+clock_t getTimerBat(const Batiment* bat){
+    return bat->timerBat;
+}
 /* *************************************************************--SET--***************************************************************************** */
 
 void setIdBat(Batiment* bat, int id ){
@@ -81,4 +86,25 @@ void setPosXBat(Batiment* bat,int x){
 
 void setPosYBat(Batiment* bat, int y){
     bat->y= y;
+}
+
+
+void setTimerBat(Batiment* bat, clock_t t){
+    bat->timerBat= t;
+}
+
+/* *************************************************************--FCT--***************************************************************************** */
+
+void verifierTimerBat(Batiment* bat){
+    if(getTimerBat(bat) == NULL){
+        if(regardeTeteFile(bat->tabAttente) != NULL){
+            setTimerBat
+        }
+    }
+}
+
+void ajouterFileBat(Batiment* bat,Jeu* j,int i){
+    if(i >= getNbUniteFormable(getTypeBat(bat)))
+        return;
+    enfile(bat->tabAttente,getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i)));
 }

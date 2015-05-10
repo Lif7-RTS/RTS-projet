@@ -110,5 +110,7 @@ void defile(File* f){
 }
 
 UniteBase* regardeTeteFile(const File* f){
-     return getElement(getPremier(f));
+    if(getPremier(f) != NULL)
+        return getElement(getPremier(f));
+    return NULL;
 }

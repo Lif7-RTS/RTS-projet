@@ -71,7 +71,13 @@ int getNbUniteFormable(const BatBase* bat){
 /* *************************************************************--SET--***************************************************************************** */
 
 void setNomBat(BatBase* bat, char* nomBat){
-     bat->nomBat=nomBat;
+    int i;
+    for(i = 0; i<24;i++){
+        if(nomBat[i] == NULL)
+            break;
+        bat->nomBat[i] = nomBat[i];
+    }
+    bat->nomBat[i] = '\0';
 }
 
 void setNiveau(BatBase* bat, char niveau){
@@ -112,7 +118,6 @@ BatBase* chargementBatBase(void){
      int nbBat, nbUnite;
      BatBase* tabBat;
      BatBase* bat;
-     char nom[50];
      int i, j;
 
      fish=fopen("data/batiment.txt","r");
@@ -126,8 +131,7 @@ BatBase* chargementBatBase(void){
                bat= tabBat+i;
 
                /*Nom*/
-               fscanf(fish, "nom=%s\n", nom);
-               bat->nomBat=nom;
+               fscanf(fish, "nom=%s\n", bat->nomBat);
                /*Niveau*/
                fscanf(fish, "niveau=%d\n", &(bat->niveau));
                /* tile */

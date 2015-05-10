@@ -10,10 +10,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "batimentBase.h"
 #include "file.h"
 #ifndef _BAT
 #define _BAT
+#include "jeu.h"
 
 struct SBatiment{
      int id;  /*!< identifiant unique corespondant a un batiment precis dans le jeu */
@@ -22,7 +24,9 @@ struct SBatiment{
      int enConstruction;  /*!< 1 si le batiment en construction 0 sinon */
      File* tabAttente;/*!< une file d'attente de construction d'unite en cours */
      int x; /*!< position x du batiment (haut-gauche du batiment) */
-     int y; /*!< position x du batiment (haut-gauche du batiment) */
+     int y; /*!< position y du batiment (haut-gauche du batiment) */
+     clock_t timerBat;/*!< timer du batiment, pour la formation d'unite */
+
 };
 typedef struct SBatiment Batiment;
 
@@ -114,6 +118,16 @@ int getPosXBat(const Batiment* bat);
 int getPosYBat(const Batiment* bat);
 
 
+/**
+* \fn clock_t getTimerBat(Batiment* bat)
+* \brief accesseur timerBat
+*
+* \param[in, out] bat pointeur sur Batiment.
+*\return timerBat
+*/
+clock_t getTimerBat(const Batiment* bat);
+
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -178,5 +192,39 @@ void setPosXBat(Batiment* bat, int x );
 * \param[in] y la coordonnees y du bat
 */
 void setPosYBat(Batiment* bat, int y);
+
+
+/**
+* \fn void setTimerBat(Batiment* bat, clock_t t)
+* \brief mutateur timerBat
+*
+* \param[in, out] bat pointeur sur Batiment.
+* \param t nouveau timer du bat
+*/
+void setTimerBat(Batiment* bat, clock_t t);
+
+
+/* *************************************************************--FCT--***************************************************************************** */
+
+
+/**
+* \fn void verifierTimerBat(Batiment* bat)
+* \brief verifie si une action est a faire (cree unite,finir creation du bat)
+*
+* \param[in, out] bat pointeur sur Batiment
+*/
+void verifierTimerBat(Batiment* bat);
+
+
+/**
+* \fn void ajouterFileBat(Batiment* bat, int i)
+* \brief ajoute la creation d'une unite a la file d'attente
+*
+* \param[in, out] bat pointeur sur Batiment
+* \param i unite a cree (bat->type->uniteFormable[i])
+*/
+void ajouterFileBat(Batiment* bat,int i);
+
+
 #endif /* _BAT */
 

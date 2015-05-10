@@ -43,6 +43,11 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
             fprintf(stderr,"erreur chargement tileset ! SDL Erreur: %s \n", SDL_GetError());
             exit(EXIT_FAILURE);
         }
+        if(TTF_Init() != 0){
+            fprintf(stderr, "SDL_TTF n'as pas pu etre initialisee! SDL_TTF Erreur: %s\n", TTF_GetError() );
+            exit(EXIT_FAILURE);
+        }
+        aff->font  = TTF_OpenFont("data/arial.ttf", 25);
         aff->tileSet_Texture = SDL_CreateTextureFromSurface(aff->renderer,image);
         SDL_FreeSurface(image);
         image = NULL;
@@ -64,8 +69,10 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
 }
 
 void affiche(const Affichage* aff){
-    int i,j,id,camX,camY,tX;
+    int i,j,id,camX,camY,tX,tY;
 	SDL_Rect rect_Dest;
+	SDL_Surface* texte;
+	SDL_Color blanc ={255,255,255};
 	int num_tile;
 	tX = aff->carte->tailleX;
 	camX = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraX;
@@ -109,17 +116,39 @@ void affiche(const Affichage* aff){
 		}
 	}
 	id = getIdSel(aff->jeu);
-    if(getIdSel(aff->jeu) < 0){
-        BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)-1));
-        for(j = 0; j < getNbUniteFormable(b);j++){
-            printf("idAFF:%d ",getUnitFormableBat(b,j)-1);
-            num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(b,j)-1));
-            printf("numTile: %d\n",num_tile);
-            rect_Dest.x = SCREEN_W+(j%3-3)*TILE_TAILLE;
-			rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE+5;
-            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+	if(id != 0){
+        if(id < 0){
+            BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)-1));
+            printf("%s \n",getNomBat(b));
+            texte = TTF_RenderText_Solid(aff->font,getNomBat(b),blanc);
+            SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            for(j = 0; j < getNbUniteFormable(b);j++){
+                printf("idAFF:%d ",getUnitFormableBat(b,j)-1);
+                num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(b,j)-1));
+                printf("numTile: %d\n",num_tile);
+                rect_Dest.x = SCREEN_W+(j%3-3)*TILE_TAILLE;
+                rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE+5;
+                SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+            }
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
+            rect_Dest.x = (SCREEN_W-tX)/2;
+            rect_Dest.y = (SCREEN_H-HUD_H+10);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
         }
-    }
+        else{
+            UniteBase* u = getTypeUnite(getUnite(aff->jeu,getIdSel(aff->jeu)-1));
+            texte = TTF_RenderText_Solid(aff->font,getNom(u),blanc);
+            SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
+            rect_Dest.x = (SCREEN_W-tX)/2;
+            rect_Dest.y = (SCREEN_H-HUD_H-tY+10);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+        }
+	}
 
     SDL_RenderPresent(aff->renderer);
     SDL_Delay(1000/60);

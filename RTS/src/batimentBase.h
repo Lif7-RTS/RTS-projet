@@ -15,7 +15,7 @@
 #define _BATBASE
 /* RAJOUTER LA RACE!!! OMFG!!!! */
 struct SBatBase{
-     char* nomBat; /*!< le nom du batiment */
+     char nomBat[25]; /*!< le nom du batiment */
      char niveau;  /*!< c'est le niveau d'amelioration du batiment */
      char tile;/*!< un chemin vers l'image d'un batiment*/
      int vieMax; /*!< la vie maximum d'un batiment */
@@ -203,7 +203,7 @@ void setTempsConstruct(BatBase* bat, int tempsConstruct);
 * \brief mutateur tailleCaseX
 *
 * \param[in, out] bat pointeur sur BatBase
-* \param[in] tailleCaseX est la taille d'un batiment en case suivant sa coordonee x
+* \param[in] tailleCaseX est la taille d'un batiment en case suivant sa coordonnee x
 */
 void setTailleCaseX(BatBase* bat, int tailleCaseX);
 
@@ -212,7 +212,7 @@ void setTailleCaseX(BatBase* bat, int tailleCaseX);
 * \brief mutateur tailleCaseY
 *
 * \param[in, out] bat pointeur sur BatBase
-* \param[in] tailleCaseY est la taille d'un batiment en case suivant sa coordonee y.
+* \param[in] tailleCaseY est la taille d'un batiment en case suivant sa coordonnee y.
 */
 void setTailleCaseY(BatBase* bat, int tailleCaseY);
 
