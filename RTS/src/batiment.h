@@ -15,6 +15,8 @@
 #include "file.h"
 #ifndef _BAT
 #define _BAT
+
+typedef struct SBatiment Batiment;
 #include "jeu.h"
 
 struct SBatiment{
@@ -28,8 +30,6 @@ struct SBatiment{
      clock_t timerBat;/*!< timer du batiment, pour la formation d'unite */
 
 };
-typedef struct SBatiment Batiment;
-
 /* ***********************************************************--Init--*************************************************************************** */
 
 /**
@@ -213,7 +213,7 @@ void setTimerBat(Batiment* bat, clock_t t);
 *
 * \param[in, out] bat pointeur sur Batiment
 */
-void verifierTimerBat(Batiment* bat);
+void verifierTimerBat(Batiment* bat, Jeu* j);
 
 
 /**
@@ -223,7 +223,7 @@ void verifierTimerBat(Batiment* bat);
 * \param[in, out] bat pointeur sur Batiment
 * \param i unite a cree (bat->type->uniteFormable[i])
 */
-void ajouterFileBat(Batiment* bat,int i);
+void ajouterFileBat(Batiment* bat,Jeu* j,int i);
 
 
 #endif /* _BAT */
