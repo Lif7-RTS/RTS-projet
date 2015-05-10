@@ -9,13 +9,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "unite.h"
-#include "batiment.h"
 #include "tabDyn.h"
+#include "batiment.h"
 #ifndef _JOUEUR
 #define _JOUEUR
-/* #include "race.h" */
-
 struct SJoueur{
      int idJoueur; /*!< identifiant unique représentant un joueur */
      int pierre; /*!< quantite de pierre que possède le joueur */
@@ -88,7 +85,7 @@ int getMithrilJoueur(const Joueur* joue);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in, out] nomJoueur est le nom choisi par le joueur.*/
-char* getNomJoueur (const Joueur* joue);
+char* getNomJoueur(const Joueur* joue);
 
 /**
 * \fn int getIdRace (const Joueur* joue)
@@ -96,7 +93,7 @@ char* getNomJoueur (const Joueur* joue);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \return idRace esr un identifiant unique representant la rcae du joueur.*/
-int getIdRace (const Joueur* joue);
+int getIdRace(const Joueur* joue);
 
 /**
 * \fn int getNourritureMax (const Joueur* joue)
@@ -104,7 +101,7 @@ int getIdRace (const Joueur* joue);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \return nourMax est la quantite maximum de nourriture stockable par le joueur.*/
-int getNourritureMax (const Joueur* joue);
+int getNourritureMax(const Joueur* joue);
 
 /**
 * \fn int getNourritureCourante (const Joueur* joue)
@@ -112,7 +109,7 @@ int getNourritureMax (const Joueur* joue);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \return nourActu est la quantite actuelle de nourriture stockee par le joueur.*/
-int getNourritureCourante (const Joueur* joue);
+int getNourritureCourante(const Joueur* joue);
 
 /**
 * \fn int getCameraX (const Joueur* joue)
@@ -120,7 +117,7 @@ int getNourritureCourante (const Joueur* joue);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \return camX est la coordonee X de la camera du joueur.*/
-int getCameraX (const Joueur* joue);
+int getCameraX(const Joueur* joue);
 
 /**
 * \fn int getCameraY (const Joueur* joue)
@@ -128,7 +125,7 @@ int getCameraX (const Joueur* joue);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \return camX est la coordonee Y de la camera du joueur.*/
-int getCameraY (const Joueur* joue);
+int getCameraY(const Joueur* joue);
 
 /**
 * \fn Unite* choisiUnite (const Joueur* joue, int numLigne)
@@ -138,7 +135,7 @@ int getCameraY (const Joueur* joue);
 * \param[in] numLigne est un entier corespondant a une ligne de tabUnite
 * \return un poiteur sur une unite.
 */
-Unite* choisiUnite (const Joueur* joue, int numLigne);
+Unite* choisiUnite(const Joueur* joue, int numLigne);
 
 /**
 * \fn Batiment* choisiBatiment (const Joueur* joue, int numLigne)
@@ -148,7 +145,7 @@ Unite* choisiUnite (const Joueur* joue, int numLigne);
 * \param[in] numLigne est un entier corespondant a une ligne de tabBatiment
 * \return un poiteur sur un batiment.
 */
-Batiment* choisiBatiment (const Joueur* joue, int numLigne);
+Batiment* choisiBatiment(const Joueur* joue, int numLigne);
 
 /* *************************************************************--SET--***************************************************************************** */
 
@@ -159,7 +156,7 @@ Batiment* choisiBatiment (const Joueur* joue, int numLigne);
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] idJoueur est un identifiant unique representant un joueur.
 */
-void setIdJoueur (Joueur* joue, int idJoueur);
+void setIdJoueur(Joueur* joue, int idJoueur);
 
 /**
 * \fn void setPierre (Joueur* joue, int pierre)
@@ -185,7 +182,7 @@ void setMithrilJoueur(Joueur* joue, int mithril);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in, out] nomJoueur ets le nom choisi par le joueur.*/
-void setNomJoueur (Joueur* joue, char* nomJoueur);
+void setNomJoueur(Joueur* joue, char* nomJoueur);
 
 /**
 * \fn void setIdRace (Joueur* joue, int idRace)
@@ -193,7 +190,7 @@ void setNomJoueur (Joueur* joue, char* nomJoueur);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] idRace esr un identifiant unique representant la race du joueur.*/
-void setIdRace (Joueur* joue, int idRace);
+void setIdRace(Joueur* joue, int idRace);
 
 /**
 * \fn void setNourritureMax (Joueur* joue, int nourMax)
@@ -201,7 +198,7 @@ void setIdRace (Joueur* joue, int idRace);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] nourMax est la quantite maximum de nourriture stockable par le joueur.*/
-void setNourritureMax (Joueur* joue, int nourMax);
+void setNourritureMax(Joueur* joue, int nourMax);
 
 /**
 * \fn void setNourritureCourante (Joueur* joue, int nourActu)
@@ -209,7 +206,7 @@ void setNourritureMax (Joueur* joue, int nourMax);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] nourActu est la quantite actuelle de nourriture stockee par le joueur.*/
-void setNourritureCourante (Joueur* joue, int nourActu);
+void setNourritureCourante(Joueur* joue, int nourActu);
 
 /**
 * \fn void setCameraX (Joueur* joue, int camX)
@@ -217,7 +214,7 @@ void setNourritureCourante (Joueur* joue, int nourActu);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] camX est la coordonee X de la camera du joueur.*/
-void setCameraX (Joueur* joue, int camX);
+void setCameraX(Joueur* joue, int camX);
 
 /**
 * \fn void setCameraY (Joueur* joue, int camY)
@@ -225,7 +222,7 @@ void setCameraX (Joueur* joue, int camX);
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] camY est la coordonee Y de la camera du joueur.*/
-void setCameraY (Joueur* joue, int camY);
+void setCameraY(Joueur* joue, int camY);
 
 /**
 * \fn void ajouteUnite (Joueur* joue, const Unite* unite)
@@ -234,7 +231,7 @@ void setCameraY (Joueur* joue, int camY);
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in, out] unite est un poiteur sur une unite.
 */
-void ajouteUnite (Joueur* joue, const Unite* unite);
+void ajouteUnite(Joueur* joue, const Unite* unite);
 
 /**
 * \fn void ajouteBat (Joueur* joue, const Batiment* bat)
@@ -243,6 +240,6 @@ void ajouteUnite (Joueur* joue, const Unite* unite);
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in, out] bat est un pointeur sur un batiment.
 */
-void ajouteBat (Joueur* joue, const Batiment* bat);
+void ajouteBat(Joueur* joue, const Batiment* bat);
 
 #endif /*_JOUEUR */

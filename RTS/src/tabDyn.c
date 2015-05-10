@@ -31,7 +31,7 @@ int ajouterTabDyn(TabDyn* t, uintptr_t ptr){
     }
     t->tab[t->utilisee] = ptr;
     t->utilisee++;
-    return 1;
+    return (t->utilisee);
 
 }
 

@@ -158,6 +158,7 @@ BatBase* chargementBatBase(void){
                     for(j=0; j<nbUnite; j++)
                     {
                          fscanf(fish,"%d ", &(bat->tabUnitFormable[j]));
+                         printf("id %d : %d \n", j, bat->tabUnitFormable[j]);
                     }
                }
           }

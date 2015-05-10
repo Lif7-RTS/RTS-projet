@@ -17,25 +17,24 @@
 struct SCellule{
      UniteBase* element; /*!< element dans la cellule */
      struct SCellule* suivant; /*!< poiteur sur la cellule suivante */
-     struct SCellule* precedent; /*!<pointeur sur la cellule précédente */
 };
 typedef struct SCellule Cellule;
 
 struct SFile{
      Cellule* prem; /*!< première element de la file d'attente */
+     Cellule* dernier; /*!< dernier element de la file d'attente */
 };
 typedef struct SFile File;
 
 /* ************************************************************--INIT--***************************************************************************** */
 
 /**
-* \fn void initFile (File* file, const UniteBase* element)
+* \fn void initFile (File* file)
 * \brief initialise une file
 *
 * \param[in, out] file pointeur sur une structure File
-* \param[in, out] premier est un pointeur sur une UniteBase.
 */
-void initFile (File* file, const UniteBase* element);
+void initFile (File* file);
 
 /**
 * \fn void initCellule (File* file, const UniteBase* element)
@@ -60,7 +59,7 @@ void detruireFile (File** file);
 *
 * \param[in, out] cell est un  pointeur sur une structure Cellule
 */
-void detruireCellule (Cellule** cell);
+void detruireCellule (Cellule* cell);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -91,15 +90,15 @@ UniteBase* getElement(Cellule* cell);
 */
 Cellule* getSuivant(Cellule* cell);
 
-/**
-* \fn Cellule* getPrecedent(Cellule* cell)
-* \brief mutateur suivant
-*
-* \param[in, out] cell est un pointeur sur une cellule
-* \return un pointeur sur une structure Cellule.
-*/
-Cellule* getPrecedent(Cellule* cell);
 
+/**
+* \fn Cellule* getDernier(const File* file)
+* \brief accesseur prem
+*
+* \param[in, out] file pointeur sur une structure File
+* \return un pointeur sur la Dernière cellule de la file d'attente.
+*/
+Cellule* getDernier(const File* file);
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -107,7 +106,7 @@ Cellule* getPrecedent(Cellule* cell);
 * \brief mutateur prem
 *
 * \param[in, out] file pointeur sur une structure File
-* \param[in, out] premier est un pointeur sur un element UniteBase.
+* \param[in, out] premier est un pointeur sur une Cellule.
 */
 void setPremier (File* file, Cellule* premier);
 
@@ -130,14 +129,13 @@ void setElement(Cellule* cell, UniteBase* element);
 void setSuivant(Cellule* cell, Cellule* suiv);
 
 /**
-* \fn void setPrecedent(Cellule* cell, Cellule* prece)
-* \brief mutateur suivant
+* \fn setDernier(File* file, Cellule* dernier)
+* \brief mutateur prem
 *
-* \param[in, out] cell est un pointeur sur une cellule
-* \param[in, out] prece est un pointeur sur une structure Cellule.
+* \param[in, out] file pointeur sur une structure File
+* \param[in, out] dernier est un pointeur sur une Cellule.
 */
-void setPrecedent(Cellule* cell, Cellule* prece);
-
+void setDernier(File* file, Cellule* Dernier);
 /* *************************************************************--FCT--***************************************************************************** */
 
 /**

@@ -290,3 +290,14 @@ void trouverVide(Unite* homme,int* x,int* y){
 void trouveChemin(Unite* homme, int x, int y){
 
 }
+
+void initUnite(Unite* unit, const UniteBase* type){
+    setTypeUnite(unit, type);
+    setDeplacement(unit, 0);
+    setVieCouranteUnite(unit, getVieMaxUnite(type));
+    setPierrePorte(unit, 0);
+    setMithrilPorte(unit, 0);
+    setTimerUnite(unit, NULL);
+    unit->chemin = (Pile*) malloc(sizeof(Pile));
+    initPile(unit->chemin);
+}

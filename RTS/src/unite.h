@@ -40,6 +40,8 @@ struct SUnite{
 };
 typedef struct SUnite Unite;
 
+
+ void initUnite(Unite* unit, const UniteBase* type);
  /**
  * \fn int getId (Unite* unit)
  * \brief accesseur id

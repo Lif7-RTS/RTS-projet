@@ -193,6 +193,6 @@ typedef struct SUniteBase UniteBase;
 *
 * \return un tableau regroupant l'ensemble des types d'unites
 */
-UniteBase* chargementUniteBase(void);
+UniteBase* chargementUniteBase();
 
 #endif /* _UNITEBASE */

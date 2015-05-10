@@ -119,14 +119,11 @@ void affiche(const Affichage* aff){
 	if(id != 0){
         if(id < 0){
             BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)-1));
-            printf("%s \n",getNomBat(b));
             texte = TTF_RenderText_Solid(aff->font,getNomBat(b),blanc);
             SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
             SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
             for(j = 0; j < getNbUniteFormable(b);j++){
-                printf("idAFF:%d ",getUnitFormableBat(b,j)-1);
-                num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(b,j)-1));
-                printf("numTile: %d\n",num_tile);
+                num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(b,j)));
                 rect_Dest.x = SCREEN_W+(j%3-3)*TILE_TAILLE;
                 rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE+5;
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
@@ -134,7 +131,7 @@ void affiche(const Affichage* aff){
             rect_Dest.w = tX;
             rect_Dest.h = tY;
             rect_Dest.x = (SCREEN_W-tX)/2;
-            rect_Dest.y = (SCREEN_H-HUD_H+10);
+            rect_Dest.y = (SCREEN_H-HUD_H+tY+10);
             SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
         }
         else{
@@ -145,7 +142,7 @@ void affiche(const Affichage* aff){
             rect_Dest.w = tX;
             rect_Dest.h = tY;
             rect_Dest.x = (SCREEN_W-tX)/2;
-            rect_Dest.y = (SCREEN_H-HUD_H-tY+10);
+            rect_Dest.y = (SCREEN_H-HUD_H+tY+10);
             SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
         }
 	}

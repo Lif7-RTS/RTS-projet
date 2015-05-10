@@ -114,7 +114,7 @@ void boucleJeu(Jeu* j){
       Batiment* b;
       b = (Batiment*) malloc(sizeof(Batiment));
       u = (Unite*) malloc(sizeof(Unite));
-      setTypeBat(b, getBatConstructible(j,0));
+      initBatiment(b,0,getBatConstructible(j,0),100,0);
       setPosXBat(b,6);
       setPosYBat(b,0);
       setTypeUnite(u,getUniteFormable(j,0));
@@ -129,6 +129,7 @@ void boucleJeu(Jeu* j){
       j->carte->tabCase[6+(j->carte->tailleX)].idContenu = -1;
       j->carte->tabCase[7+(j->carte->tailleX)].idContenu = -1;
       while( !quit ){
+            verifierTimerBat(getBat(j,0),j);
             SDL_PumpEvents();
             SDL_GetMouseState(&x,&y);
         while( SDL_PollEvent(&e) != 0 ){
@@ -161,6 +162,12 @@ void boucleJeu(Jeu* j){
                             setPosX(u, xClick);
                             setPosY(u, yClick);
                         }
+                    }
+                }
+                else{
+                    if(e.button.button == SDL_BUTTON_LEFT){
+                        if(xClick > SCREEN_W - 3*TILE_TAILLE && xClick < SCREEN_W - 2*TILE_TAILLE)
+                            ajouterFileBat(getBat(j,-getIdSel(j)-1),j,0);
                     }
                 }
 

@@ -18,6 +18,9 @@ void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int 
      setTypeBat(bat, typeBat);
      setVieCouranteBat (bat, vieCourante);
      setEnConstruction (bat, enConstruction);
+     setTimerBat(bat, (clock_t)NULL);
+     setTabAttente(bat, (File*)malloc(sizeof(File)));
+     initFile(bat->tabAttente);
 }
 
 void detruireBatiment(Batiment** bat){
@@ -95,10 +98,34 @@ void setTimerBat(Batiment* bat, clock_t t){
 
 /* *************************************************************--FCT--***************************************************************************** */
 
-void verifierTimerBat(Batiment* bat){
+void verifierTimerBat(Batiment* bat, Jeu* j){
     if(getTimerBat(bat) == NULL){
-        if(regardeTeteFile(bat->tabAttente) != NULL){
-            setTimerBat
+        if(regardeTeteFile(getTabAttente(bat)) != NULL){
+            setTimerBat(bat,clock());
+        }
+    }
+    else{
+        if(getEnConstruction(bat) == 1){
+            if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC > getTempsConstruct(getTypeBat(bat))){
+                setEnConstruction(bat, 0);
+            }
+        }
+        else if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC > getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
+            printf("CREE \n");
+            Unite* u = (Unite*) malloc(sizeof(Unite));
+            initUnite(u, regardeTeteFile(getTabAttente(bat)));
+            int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
+            setId(u, id);
+            setPosX(u,getPosXBat(bat)-1);
+            setPosY(u, getPosYBat(bat));
+            setPosCibleX(u,getPosXBat(bat)-1);
+            setPosCibleY(u, getPosYBat(bat));
+            setContenu(getCase(getCarteJeu(j),getPosXBat(bat)-1, getPosYBat(bat)),id);
+            defile(getTabAttente(bat));
+            if(regardeTeteFile(getTabAttente(bat)) != NULL)
+                setTimerBat(bat, clock());
+            else
+                setTimerBat(bat, NULL);
         }
     }
 }
@@ -106,5 +133,6 @@ void verifierTimerBat(Batiment* bat){
 void ajouterFileBat(Batiment* bat,Jeu* j,int i){
     if(i >= getNbUniteFormable(getTypeBat(bat)))
         return;
+    printf("%d \n", i);
     enfile(bat->tabAttente,getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i)));
 }
