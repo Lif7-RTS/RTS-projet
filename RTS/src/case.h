@@ -136,5 +136,20 @@ void prendrePierre(sCase* c, Unite* ouvrier);
 
 void prendreMithril(sCase* c, Unite* ouvrier);
 
+
+/* *************************************************************--FCT--***************************************************************************** */
+
+/**
+ * \fn int memeCase(int x1, int y1, int x2, int y2)
+ * \brief compare deux case
+ *
+ * \param[in] x1 est un entier coordonée d'une case
+ * \param[in] y1 est un entier coordonée d'une case
+ * \param[in] x2 est un entier coordonée d'une case
+ * \param[in] y2 est un entier coordonée d'une case
+ * \return un entier (1 si les case sont égale, 0 sinon)
+ */
+int memeCase(int x1, int y1, int x2, int y2);
+
 #endif /* _CASE */
 

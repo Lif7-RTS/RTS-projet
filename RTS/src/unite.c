@@ -8,13 +8,26 @@
  *
  */
 
-#include "unite.h"
-#include "terrain.h"
 #include "case.h"
-#include <math.h>
 
 #define max(a,b) (a>=b?a:b)
 #define min(a,b) (a<=b?a:b)
+
+
+/* *************************************************************--Init--***************************************************************************** */
+
+void initUnite(Unite* unit, const UniteBase* type){
+    setTypeUnite(unit, type);
+    setDeplacement(unit, 0);
+    setVieCouranteUnite(unit, getVieMaxUnite(type));
+    setPierrePorte(unit, 0);
+    setMithrilPorte(unit, 0);
+    setTimerUnite(unit, NULL);
+    unit->chemin = (Pile*) malloc(sizeof(Pile));
+    initPile(unit->chemin);
+}
+
+/* *************************************************************--GET--***************************************************************************** */
 
 int getId(const Unite* unit){
     return unit->id;
@@ -59,6 +72,8 @@ int getPierrePorte(const Unite* unit){
 int getMithrilPorte(const Unite* unit){
     return unit->mithrilPorte;
 }
+
+/* *************************************************************--SET--***************************************************************************** */
 
 void setId(Unite* unit, int id){
     unit->id = id;
@@ -105,45 +120,7 @@ void setMithrilPorte(Unite* unit, int m){
 }
 
 
-/* *************************************************************--FCT en écriture--***************************************************************************** */
-
-void deplacementUnite(Unite* homme, int x, int y, Terrain* terrain){
-
-     if(homme->chemin->sommet)
-     {
-          clock_t tempo=clock();
-          float temps;
-          if(tempo == -1)
-          {
-               printf("Problème d'horloge");
-               exit(EXIT_FAILURE);
-          }
-          temps= (float)(tempo-homme->timerUnite)/CLOCKS_PER_SEC;
-          if( temps >= (float) homme->type->vitesse/1000)
-          {
-               avanceUnite(homme);
-          }
-     }
-     else
-     {
-          sCase* place=getCase(terrain,x,y);
-
-          if(getPosX(homme)!=x || getPosY(homme)!=y)
-          {
-               if(place->acces == 0){
-                    trouverAcces(homme,&x,&y);
-               }
-               else if(place->idContenu != 0){
-                    trouverVide(homme,&x,&y);
-               }
-               setPosCibleX(homme,x);
-               setPosCibleY(homme,y);
-               trouveChemin(homme, x, y);
-               deplacementUnite(homme,getPosCibleX(homme),getPosCibleY(homme),terrain);
-
-          }
-     }
-}
+/* *************************************************************--FCT--***************************************************************************** */
 
 void avanceUnite(Unite* homme, Terrain* terrain){
      clock_t tempo;
@@ -157,10 +134,10 @@ void avanceUnite(Unite* homme, Terrain* terrain){
 
      sCase* caseSuivante=getCase(terrain, x, y);
 
-     if(getContenu(caseSuivante) != 0)
+     if(getContenu(caseSuivante) != 0 || getAcces(caseSuivante)!=1)
      {
           detruirePile(getChemin(homme));
-          deplacementUnite(homme,getPosCibleX(homme),getPosCibleY(homme), terrain);
+          deplacementUnite(homme,terrain);
 
      }
      else     {
@@ -179,125 +156,122 @@ void avanceUnite(Unite* homme, Terrain* terrain){
      setTimerUnite(homme, tempo);
 }
 
-void trouverAcces(Unite* homme){
-     int xHomme = getPosX(homme);
-     int yHomme = getPosY(homme);
-     int xCible = getPosCibleX(homme);
-     int yCible = getPosCibleY(homme);
-     int xCase,yCase,i,j,x,y;
-     int fin=0;
+void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entré avant */
 
-     if(xCible<=xHomme && yCible<=yHomme)
+     if(homme->chemin->sommet)
      {
-          xCase = xCible;
-          yCase = yCible;
-          i=1;
-          j=0;
-          while(fin==0)
+          clock_t tempo=clock();
+          float temps;
+          if(tempo == -1)
           {
-               while(xCase >= 0 && fin==0)
-               {
-                    printf("\n( %d - %d )",xCase,yCase);
-
-                    if(xCase==xHomme && yCase==yHomme)
-                    {
-                         fin =1;
-                    }
-
-                    if(yCase<=yHomme)
-                    {
-                         printf("testé");
-                         /*testCase(xCase, y);*/
-                    }
-                    if(yCase<yHomme)
-                    {
-                         xCase--;
-                         yCase++;
-                    }
-
-                    else
-                    {
-                         xCase = -1;
-                    }
-               }
-
-               yCase = yCible + j;
-               xCase = xCible + i;
-               if(xCase != xHomme)
-               {
-                    i++;
-               }
-               else
-               {
-                    j++;
-               }
+               printf("Problème d'horloge");
+               exit(EXIT_FAILURE);
+          }
+          temps= (float)(tempo-homme->timerUnite)/CLOCKS_PER_SEC;
+          if( temps >= (float) homme->type->vitesse/1000)
+          {
+               avanceUnite(homme, terrain);
           }
      }
-     else if (xCible>=xHomme && yCible>=yHomme)
+     else
      {
-          xCase = xCible;
-          yCase = yCible;
-          i=1;
-          j=0;
-          while(fin==0)
+          if(getPosX(homme) != getPosCibleX(homme)|| getPosY(homme) != getPosCibleY(homme))
           {
-               while(xCase >= 0 && fin==0)
-               {
-                    printf("\n( %d - %d )",xCase,yCase);
-
-                    if(xCase==xHomme && yCase==yHomme)
-                    {
-                         fin =1;
-                    }
-
-                    if(yCase>=yHomme)
-                    {
-                         printf("testé");
-                         /*testCase(xCase, y);*/
-                    }
-                    if(yCase>yHomme)
-                    {
-                         xCase--;
-                         yCase++;
-                    }
-
-                    else
-                    {
-                         xCase = -1;
-                    }
+               sCase* place = getCase(terrain, getPosCibleX(homme), getPosCibleY(homme));
+               if(place->acces == 0 || place->idContenu != 0 ){
+                    trouverAcces(homme, terrain );
                }
+               trouveChemin(homme);
+               deplacementUnite(homme, terrain);
 
-               yCase = yCible - j;
-               xCase = xCible - i;
-               if(xCase != xHomme)
-               {
-                    i++;
-                    printf("paté");
-               }
-               else
-               {
-                    j++;
-               }
           }
      }
-
 }
 
-void trouverVide(Unite* homme,int* x,int* y){
-
+int testCase(int x, int y, Terrain* terrain){
+     if(x<0 || y < 0)
+     {
+          return 0;
+     }
+     else if(getContenu(getCase(terrain,x,y)) != 0)
+     {
+          return 0;
+     }
+     else if(getAcces(getCase(terrain,x,y)) != 1)
+     {
+          return 0;
+     }
+     else
+     {
+          return 1;
+     }
 }
 
-void trouveChemin(Unite* homme, int x, int y){
 
+/* *************************************************************--FCT en écriture--***************************************************************************** */
+
+void trouverAcces(Unite* homme, Terrain* terrain){
+     int fin=0; /* fin de boucle si fin=1 */
+     int caseCibleX=getPosCibleX(homme);
+     int caseCibleY=getPosCibleY(homme);
+     int caseX=getPosX(homme);
+     int caseY=getPosY(homme);
+     int caseTestX, caseTestY;
+     int vide =0;
+     int egale =0;
+     int i=1;
+
+     while (fin == 0)
+     {
+          caseTestX=caseCibleX+i;
+          caseTestY=caseCibleY;
+          /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+          egale = memeCase(caseTestX, caseTestY, caseX, caseY);
+          fin = vide + egale;
+          printf("\n\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
+
+          while(fin ==0 && caseTestX!=caseCibleX)
+          {
+               caseTestX--;
+               caseTestY--;
+               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               egale = memeCase(caseTestX, caseTestY, caseX, caseY);
+               fin = vide + egale;
+               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
+          }
+          while(fin==0 && caseTestY!=caseCibleY)
+          {
+               caseTestX--;
+               caseTestY++;
+               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               egale = memeCase(caseTestX, caseTestY, caseX, caseY);
+               fin = vide + egale;
+               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
+          }
+          while(fin ==0 && caseTestX!=caseCibleX)
+          {
+               caseTestX++;
+               caseTestY++;
+               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               egale = memeCase(caseTestX, caseTestY, caseX, caseY);
+               fin = vide + egale;
+               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
+          }
+          while(fin ==0 && caseTestY!=caseCibleY+1)
+          {
+               caseTestX++;
+               caseTestY--;
+               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               egale = memeCase(caseTestX, caseTestY, caseX, caseY);
+               fin = vide + egale;
+               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
+          }
+          i++;
+     }
+     setPosCibleX(homme,caseTestX);
+     setPosCibleY(homme,caseTestY);
 }
 
-void initUnite(Unite* unit, const UniteBase* type){
-    setTypeUnite(unit, type);
-    setDeplacement(unit, 0);
-    setVieCouranteUnite(unit, getVieMaxUnite(type));
-    setPierrePorte(unit, 0);
-    setMithrilPorte(unit, 0);
-    setTimerUnite(unit, NULL);
-    unit->chemin = (Pile*) malloc(sizeof(Pile));
-    initPile(unit->chemin);
+void trouveChemin(Unite* homme){
+
 }
