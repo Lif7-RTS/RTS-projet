@@ -59,9 +59,9 @@ void initTerrain(Terrain* ter, const char* colliCarte){
                 fscanf(fp,"%d %d %d", &tile, &m, &p);
                 ter->tiles[x+y*tailleX] = tile;
                 if(tile > 5)
-                    initCase(&ter->tabCase[tailleX*y+x],p,m,1);
-                else
                     initCase(&ter->tabCase[tailleX*y+x],p,m,0);
+                else
+                    initCase(&ter->tabCase[tailleX*y+x],p,m,1);
             }
             printf("\n");
         }

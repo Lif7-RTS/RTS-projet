@@ -18,8 +18,8 @@
 struct STerrain{
      sCase* tabCase; /*!< un tableau de case représentant le terrain*/
      char* collisionCarte;/*!< fichier de collision de la carte*/
-     int tailleX;/*!< taille de la carte en coordonee X */
-     int tailleY;/*!< taille de la carte en coordonée Y */
+     int tailleX;/*!< taille de la carte en coordonnee X */
+     int tailleY;/*!< taille de la carte en coordonnée Y */
      char* tiles;
 };
 typedef struct STerrain Terrain;
@@ -83,9 +83,9 @@ char* getCarteTerrain(const Terrain* ter);
 * \brief accesseur case
 *
 * \param[in, out] ter pointeur sur Terrain
-* \param[in] coordonée x d'une case
-* \param[in] coordonée y d'une case
-* \return un pointeur sur un case de coordonées choisies
+* \param[in] coordonnée x d'une case
+* \param[in] coordonnée y d'une case
+* \return un pointeur sur un case de coordonnées choisies
 */
 sCase* getCase(const Terrain* ter,int x, int y);
 

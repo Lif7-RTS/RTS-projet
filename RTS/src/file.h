@@ -51,7 +51,7 @@ void initCellule (Cellule* cell, const UniteBase* element);
 *
 * \param[in, out] file pointeur sur une structure File.
 */
-void detruireFile (File** file);
+void detruireFile (File* file);
 
 /**
 * \fn void detruireCellule (Cellule** cell)

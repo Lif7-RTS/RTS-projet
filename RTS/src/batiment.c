@@ -116,11 +116,14 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
             initUnite(u, regardeTeteFile(getTabAttente(bat)));
             int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
             setId(u, id);
-            setPosX(u,getPosXBat(bat)-1);
-            setPosY(u, getPosYBat(bat));
+            setPosX(u,-getTailleY(j->carte));
+            setPosY(u,-getTailleY(j->carte));
             setPosCibleX(u,getPosXBat(bat)-1);
             setPosCibleY(u, getPosYBat(bat));
-            setContenu(getCase(getCarteJeu(j),getPosXBat(bat)-1, getPosYBat(bat)),id);
+            trouverAcces(u, j->carte);
+            setPosX(u,getPosCibleX(u));
+            setPosY(u,getPosCibleY(u));
+            setContenu(getCase(getCarteJeu(j),getPosX(u), getPosY(u)),id);
             defile(getTabAttente(bat));
             if(regardeTeteFile(getTabAttente(bat)) != NULL)
                 setTimerBat(bat, clock());

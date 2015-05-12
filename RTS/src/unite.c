@@ -189,20 +189,24 @@ void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entr
 }
 
 int testCase(int x, int y, Terrain* terrain){
-     if(x<0 || y < 0)
+     if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
      {
+          printf("en dehors de la map: ");
           return 0;
      }
      else if(getContenu(getCase(terrain,x,y)) != 0)
      {
+          printf("contenu = %d ", getContenu(getCase(terrain, x, y)));
           return 0;
      }
      else if(getAcces(getCase(terrain,x,y)) != 1)
      {
+          printf("acces = %d ", getAcces(getCase(terrain, x, y)));
           return 0;
      }
      else
      {
+          printf("OK");
           return 1;
      }
 }
@@ -225,7 +229,7 @@ void trouverAcces(Unite* homme, Terrain* terrain){
      {
           caseTestX=caseCibleX+i;
           caseTestY=caseCibleY;
-          /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+          vide= testCase(caseTestX, caseTestY, terrain);
           egale = memeCase(caseTestX, caseTestY, caseX, caseY);
           fin = vide + egale;
           printf("\n\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
@@ -234,7 +238,7 @@ void trouverAcces(Unite* homme, Terrain* terrain){
           {
                caseTestX--;
                caseTestY--;
-               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
                printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
@@ -243,7 +247,7 @@ void trouverAcces(Unite* homme, Terrain* terrain){
           {
                caseTestX--;
                caseTestY++;
-               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
                printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
@@ -252,7 +256,7 @@ void trouverAcces(Unite* homme, Terrain* terrain){
           {
                caseTestX++;
                caseTestY++;
-               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
                printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
@@ -261,7 +265,7 @@ void trouverAcces(Unite* homme, Terrain* terrain){
           {
                caseTestX++;
                caseTestY--;
-               /*vide= testCase(caseTestX, caseTestY, Terrain* terrain);*/
+               vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
                printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);

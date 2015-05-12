@@ -25,16 +25,16 @@ void initCellule (Cellule* cell, const UniteBase* element){
      setElement(cell, NULL);
 }
 
-void detruireFile (File** file){
-     Cellule* prem =  getPremier(*file);
+void detruireFile (File* file){
+     Cellule* prem =  getPremier(file);
 
      while(prem)
      {
-          defile(*file);
-          prem =  getPremier(*file);
+          defile(file);
+          prem =  getPremier(file);
      }
-     free(*file);
-     *file=NULL;
+     free(file);
+     file=NULL;
 }
 
 void detruireCellule (Cellule* cell){
