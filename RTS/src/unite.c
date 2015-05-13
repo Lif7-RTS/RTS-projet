@@ -8,11 +8,11 @@
  *
  */
 
-#include "case.h"
-
-#define max(a,b) (a>=b?a:b)
-#define min(a,b) (a<=b?a:b)
-
+#include "unite.h"
+typedef struct{
+    int distance;
+    char precedent;
+}CellDjikstra;
 
 /* *************************************************************--Init--***************************************************************************** */
 
@@ -276,6 +276,36 @@ void trouverAcces(Unite* homme, Terrain* terrain){
      setPosCibleY(homme,caseTestY);
 }
 
-void trouveChemin(Unite* homme){
+
+static void djikstra(int x, int y,CellDjikstra* tabD,int precedent,int distance, Terrain* terrain){
+    if(precedent == 0){
+        djikstra(x-1, y,tabD, DROITE, 1, terrain);
+        djikstra(x, y-1,TabD, BAS, 1, terrain);
+        djikstra(x+1,y,tabD, GAUCHE, 1, terrain);
+        djikstra(x, y+1,tabD, HAUT, 1, terrain);
+        return;
+    }
+    if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
+        return;
+    if(getAcces(getCase(terrain, x,y)) == 0 || getContenu(getCase(terrain,x,y)) != 0)
+        return;
+    if(distance > tabD[x+y*getTailleX(terrain)].distance)
+        return;
+    tabD[x+y*getTailleX(terrain)].distance = distance;
+    tabD[x+y*getTailleX(terrain)].precedent = precedent;
+    djikstra(x-1, y,tabD, DROITE, distance + 1, terrain);
+    djikstra(x, y-1,TabD, BAS, distance + 1, terrain);
+    djikstra(x+1,y,tabD, GAUCHE, distance + 1, terrain);
+    djikstra(x, y+1,tabD, HAUT, distance + 1, terrain);
+}
+void trouveChemin(Unite* homme, Terrain* terrain){
+    CellDjikstra* tabD = (CellDjikstra*)malloc(sizeof(CellDjikstra*getTailleX(terrain)*getTailleY(terrain)));
+    int i;
+    for(i = 0; i < getTailleX(terrain)*getTailleY(terrain); i++){
+        tabD[i].distance = INT_MAX;
+        tabD[i].precedent = 0;
+    }
+    tabD[getPosCibleX(homme)+getTailleX(terrain)*getPosCibleY(homme)].distance = 0;
+    Djikstra(getPosCibleX(homme),getPosCibleY(homme), tabD, ORIGINE, 0,terrain);
 
 }

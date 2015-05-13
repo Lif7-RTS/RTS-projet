@@ -33,51 +33,49 @@
 	<stdlib.h>
 	"case.h"
 
-1429483973 source:c:\users\andzura\workspace\rts-projet\rts\src\case.c
+1431414631 source:c:\users\andzura\workspace\rts-projet\rts\src\case.c
 	"unite.h"
 	"uniteBase.h"
 	"case.h"
 
-1430661676 c:\users\andzura\workspace\rts-projet\rts\src\unite.h
+1431414631 c:\users\andzura\workspace\rts-projet\rts\src\unite.h
 	<stdlib.h>
 	<stdio.h>
 	<time.h>
+	"pile.h"
 	"uniteBase.h"
-	"Pile.h"
+	"terrain.h"
 
-1429483974 c:\users\andzura\workspace\rts-projet\rts\src\unitebase.h
+1431389942 c:\users\andzura\workspace\rts-projet\rts\src\unitebase.h
 	<stdlib.h>
 	<stdio.h>
 
-1429483973 c:\users\andzura\workspace\rts-projet\rts\src\case.h
+1431414631 c:\users\andzura\workspace\rts-projet\rts\src\case.h
 	<stdlib.h>
 	<stdio.h>
 	"uniteBase.h"
 	"unite.h"
 
-1430656308 source:c:\users\andzura\workspace\rts-projet\rts\src\main.c
+1431389942 source:c:\users\andzura\workspace\rts-projet\rts\src\main.c
 	<SDL2/SDL.h>
 	<stdio.h>
 	"jeu.h"
 	"define.h"
 
-1429599515 source:c:\users\andzura\workspace\rts-projet\rts\src\terrain.c
+1431416369 source:c:\users\andzura\workspace\rts-projet\rts\src\terrain.c
 	"terrain.h"
 
-1429599496 c:\users\andzura\workspace\rts-projet\rts\src\terrain.h
+1431411458 c:\users\andzura\workspace\rts-projet\rts\src\terrain.h
 	<stdio.h>
 	<stdlib.h>
 	"case.h"
 	"define.h"
 
-1430202528 source:c:\users\andzura\workspace\rts-projet\rts\src\unitebase.c
+1430811499 source:c:\users\andzura\workspace\rts-projet\rts\src\unitebase.c
 	"uniteBase.h"
 
-1430751165 source:c:\users\andzura\workspace\rts-projet\rts\src\unite.c
-	"unite.h"
-	"terrain.h"
+1431416122 source:c:\users\andzura\workspace\rts-projet\rts\src\unite.c
 	"case.h"
-	<math.h>
 
 1428338954 c:\users\andzura\workspace\rts-projet\rts\include\curses.h
 	<stdarg.h>
@@ -542,40 +540,42 @@
 1430213071 source:d:\04 - documents\polytech'\semestre_04\lif7\tp - projet\projet-github\rts-projet\rts\src\pile.c
 	"pile.h"
 
-1429614663 source:c:\users\andzura\workspace\rts-projet\rts\src\batiment.c
+1431416202 source:c:\users\andzura\workspace\rts-projet\rts\src\batiment.c
 	"batiment.h"
 
-1430199420 c:\users\andzura\workspace\rts-projet\rts\src\batiment.h
+1431389942 c:\users\andzura\workspace\rts-projet\rts\src\batiment.h
 	<stdio.h>
 	<stdlib.h>
+	<time.h>
 	"batimentBase.h"
 	"file.h"
+	"jeu.h"
 
-1430748933 c:\users\andzura\workspace\rts-projet\rts\src\batimentbase.h
+1430813585 c:\users\andzura\workspace\rts-projet\rts\src\batimentbase.h
 	<stdio.h>
 	<stdlib.h>
 	"uniteBase.h"
 
-1429176150 c:\users\andzura\workspace\rts-projet\rts\src\file.h
+1431412737 c:\users\andzura\workspace\rts-projet\rts\src\file.h
 	<stdio.h>
 	<stdlib.h>
 	"uniteBase.h"
 
-1430752457 source:c:\users\andzura\workspace\rts-projet\rts\src\batimentbase.c
+1431389942 source:c:\users\andzura\workspace\rts-projet\rts\src\batimentbase.c
 	"batimentBase.h"
 
 1430661676 c:\users\andzura\workspace\rts-projet\rts\src\pile.h
 	<stdlib.h>
 	<stdio.h>
 
-1429176150 source:c:\users\andzura\workspace\rts-projet\rts\src\file.c
+1431412385 source:c:\users\andzura\workspace\rts-projet\rts\src\file.c
 	"file.h"
 
-1430751619 source:c:\users\andzura\workspace\rts-projet\rts\src\jeu.c
+1431389942 source:c:\users\andzura\workspace\rts-projet\rts\src\jeu.c
 	"jeu.h"
 	"afficheSDL.h"
 
-1430743827 c:\users\andzura\workspace\rts-projet\rts\src\jeu.h
+1430816092 c:\users\andzura\workspace\rts-projet\rts\src\jeu.h
 	<stdlib.h>
 	<stdio.h>
 	<string.h>
@@ -585,29 +585,29 @@
 	"case.h"
 	"terrain.h"
 	"batimentBase.h"
-	"batiment.h"
 	"joueur.h"
 	"tabDyn.h"
+	"batiment.h"
 
-1430752790 c:\users\andzura\workspace\rts-projet\rts\src\define.h
+1431411559 c:\users\andzura\workspace\rts-projet\rts\src\define.h
 
-1429599693 c:\users\andzura\workspace\rts-projet\rts\src\joueur.h
+1431389942 c:\users\andzura\workspace\rts-projet\rts\src\joueur.h
 	<stdio.h>
 	<stdlib.h>
-	"unite.h"
-	"batiment.h"
 	"tabDyn.h"
+	"batiment.h"
 
 1429235965 c:\users\andzura\workspace\rts-projet\rts\src\tabdyn.h
 	<stdlib.h>
 	<stdio.h>
 	<stdint.h>
 
-1429483973 c:\users\andzura\workspace\rts-projet\rts\src\affichesdl.h
+1430808551 c:\users\andzura\workspace\rts-projet\rts\src\affichesdl.h
 	<stdio.h>
 	<stdlib.h>
 	"SDL2/SDL.h"
 	"SDL2/SDL_image.h"
+	"SDL2/SDL_ttf.h"
 	"terrain.h"
 	"define.h"
 
@@ -937,13 +937,18 @@
 1429599693 source:c:\users\andzura\workspace\rts-projet\rts\src\joueur.c
 	"joueur.h"
 
-1429483973 source:c:\users\andzura\workspace\rts-projet\rts\src\tabdyn.c
+1431389942 source:c:\users\andzura\workspace\rts-projet\rts\src\tabdyn.c
 	"tabDyn.h"
 
-1430752731 source:c:\users\andzura\workspace\rts-projet\rts\src\affichesdl.c
+1431389942 source:c:\users\andzura\workspace\rts-projet\rts\src\affichesdl.c
 	"afficheSDL.h"
 	"jeu.h"
 
 1430661676 source:c:\users\andzura\workspace\rts-projet\rts\src\pile.c
 	"pile.h"
+
+1429483972 c:\users\andzura\workspace\rts-projet\rts\include\sdl2\sdl_ttf.h
+	"SDL.h"
+	"begin_code.h"
+	"close_code.h"
 

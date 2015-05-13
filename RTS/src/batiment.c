@@ -110,8 +110,9 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
                 setEnConstruction(bat, 0);
             }
         }
-        else if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC > getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
+        else if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
             printf("CREE \n");
+            printf("temps: %d \n", (clock() - getTimerBat(bat))/CLOCKS_PER_SEC);
             Unite* u = (Unite*) malloc(sizeof(Unite));
             initUnite(u, regardeTeteFile(getTabAttente(bat)));
             int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
