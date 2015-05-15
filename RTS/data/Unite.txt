@@ -8,4 +8,4 @@ ouvrier=0
 tempsFormation=2
 ressourceMax=0
 tile=5
-vitesse=5
+vitesse=100

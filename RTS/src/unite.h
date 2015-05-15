@@ -11,13 +11,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-
-#include "pile.h"
 #include "uniteBase.h"
-
-
-
-
+#include "filePath.h"
 #ifndef _UNITE
 #define _UNITE
 
@@ -42,7 +37,7 @@ struct SUnite{
     int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
     int pierrePorte;/*!< pierre transporte par l'unite */
     int mithrilPorte;/*!< mithril tranporte par l'unite*/
-    Pile* chemin; /*!< tableau de case que l'unite parcours */
+    FilePath* chemin; /*!< File des direction que l'unite doit suivre */
     clock_t timerUnite; /*!< date du dernier deplacement de l'unite */
 };
 
@@ -152,13 +147,13 @@ struct SUnite{
  int getMithrilPorte(const Unite* unit);
 
  /**
- * \fn  int getChemin(const Unite* unit)
+ * \fn  FilePath* getChemin(const Unite* unit)
  * \brief accesseur chemin
  *
  * \param[in, out] unit pointeur sur Unite
- * \return un poiteur sur une pile correspondant au chemin que doit parcourir l'unité
+ * \return pointeur sur la file des mouvements que l'unite a à faire pour aller a sa posCible
  */
- Pile* getChemin(const Unite* unit);
+FilePath* getChemin(const Unite* unit);
 
  /**
  * \fn  clock_t getTimerUnite(const Unite* unit)
@@ -267,7 +262,7 @@ clock_t getTimerUnite(const Unite* unit);
  * \param[in, out] unit pointeur sur Unite
  * \param[in, out] pile pointeur sur une pile
  */
-void  setChemin(Unite* unit, Pile* pile);
+void  setChemin(Unite* unit, FilePath* file);
 
  /**
  * \fn void setTimerUnite(Unite* unit, clock_t time)
@@ -317,5 +312,7 @@ void trouverAcces(Unite* homme, Terrain* terrain);
  * \return un entier (1 si l'unite peut aller sur la case, 0 sinon)
  */
 int testCase(int x, int y, Terrain* terrain);
+
+void trouveChemin(Unite* homme, Terrain* terrain);
 
 #endif /* _UNITE */

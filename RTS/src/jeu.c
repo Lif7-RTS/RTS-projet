@@ -114,22 +114,25 @@ void boucleJeu(Jeu* j){
       Batiment* b;
       b = (Batiment*) malloc(sizeof(Batiment));
       u = (Unite*) malloc(sizeof(Unite));
-      initBatiment(b,0,getBatConstructible(j,0),100,0);
+     /* initBatiment(b,0,getBatConstructible(j,0),100,0);
       setPosXBat(b,6);
-      setPosYBat(b,0);
-      setTypeUnite(u,getUniteFormable(j,0));
+      setPosYBat(b,0);*/
+      initUnite(u, getUniteFormable(j,0));
       printf("%d \n",getTileUnite(getTypeUnite(u)));
-      ajouterTabDyn(j->tableauBat, (uintptr_t) b);
+    /*  ajouterTabDyn(j->tableauBat, (uintptr_t) b);*/
       ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
       setPosX(u,5);
       setPosY(u,0);
+      setPosCibleX(u,5);
+      setPosCibleY(u,0);
       j->carte->tabCase[5].idContenu = 1;
-      j->carte->tabCase[6].idContenu = -1;
+   /*   j->carte->tabCase[6].idContenu = -1;
       j->carte->tabCase[7].idContenu = -1;
       j->carte->tabCase[6+(j->carte->tailleX)].idContenu = -1;
-      j->carte->tabCase[7+(j->carte->tailleX)].idContenu = -1;
+      j->carte->tabCase[7+(j->carte->tailleX)].idContenu = -1;*/
       while( !quit ){
-            verifierTimerBat(getBat(j,0),j);
+           /* verifierTimerBat(getBat(j,0),j);*/
+            deplacementUnite(getUnite(j,0),j->carte);
             SDL_PumpEvents();
             SDL_GetMouseState(&x,&y);
         while( SDL_PollEvent(&e) != 0 ){
@@ -155,12 +158,9 @@ void boucleJeu(Jeu* j){
                         }
                         else if(getIdSel(j) > 0){
                             u = getUnite(j,getIdSel(j)-1);
-                            /* deplacerUnite(u,xClick,yClick);*/
-                            setContenu(getCase(getCarteJeu(j),getPosX(u),getPosY(u)),0);
-                            printf("x: %d y: %d \n",getPosX(u),getPosY(u));
-                            setContenu(getCase(getCarteJeu(j),xClick,yClick),getIdSel(j));
-                            setPosX(u, xClick);
-                            setPosY(u, yClick);
+                            setPosCibleX(u, xClick);
+                            setPosCibleY(u, yClick);
+                            deplacementUnite(u,j->carte);
                         }
                     }
                 }

@@ -9,6 +9,7 @@
  */
 
 #include "unite.h"
+
 typedef struct{
     int distance;
     char precedent;
@@ -23,8 +24,8 @@ void initUnite(Unite* unit, const UniteBase* type){
     setPierrePorte(unit, 0);
     setMithrilPorte(unit, 0);
     setTimerUnite(unit, NULL);
-    unit->chemin = (Pile*) malloc(sizeof(Pile));
-    initPile(unit->chemin);
+    unit->chemin = (FilePath*)malloc(sizeof(FilePath));
+    initFilePath(unit->chemin);
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -33,7 +34,7 @@ int getId(const Unite* unit){
     return unit->id;
 }
 
-Pile* getChemin(const Unite* unit){
+FilePath* getChemin(const Unite* unit){
      return unit->chemin;
 }
 
@@ -124,64 +125,77 @@ void setMithrilPorte(Unite* unit, int m){
 
 void avanceUnite(Unite* homme, Terrain* terrain){
      clock_t tempo;
+     int x = getPosX(homme);
+     int y = getPosY(homme);
+     int xSuiv, ySuiv;
+     int deplacement = regardeTeteFilePath(getChemin(homme));
+     switch (deplacement){
+     case GAUCHE:
+        xSuiv = x - 1;
+        ySuiv = y;
+        break;
+     case DROITE:
+        xSuiv = x + 1;
+        ySuiv = y;
+        break;
+     case HAUT:
+        xSuiv = x;
+        ySuiv = y - 1;
+        break;
+     case BAS:
+        xSuiv = x;
+        ySuiv = y + 1;
+        break;
+     }
 
-     sCase* caseActuel=getCase(terrain, getPosX(homme), getPosY(homme));
 
-     int x = regarderSommet(getChemin(homme));
-     depilePile(getChemin(homme));
-     int y = regarderSommet(getChemin(homme));
-     depilePile(getChemin(homme));
-
-     sCase* caseSuivante=getCase(terrain, x, y);
-
-     if(getContenu(caseSuivante) != 0 || getAcces(caseSuivante)!=1)
+     if(getContenu(getCase(terrain,xSuiv,ySuiv)) != 0 || getAcces(getCase(terrain,xSuiv,ySuiv))!=1)
      {
-          detruirePile(getChemin(homme));
+          detruireFilePath(getChemin(homme));
           deplacementUnite(homme,terrain);
 
      }
      else     {
-          setPosX(homme,x);
-          setPosY(homme,y);
-          setContenu(caseActuel,0);
-          setContenu(caseSuivante,getId(homme));
+          setPosX(homme,xSuiv);
+          setPosY(homme,ySuiv);
+          setContenu(getCase(terrain,xSuiv, ySuiv),getContenu(getCase(terrain, x, y)));
+          setContenu(getCase(terrain,x,y),0);
+          defilePath(getChemin(homme));
      }
 
      tempo=clock();
      if(tempo == -1)
      {
-          printf("Problème d'horloge");
+          printf("ProblÃ¨me d'horloge");
           exit(EXIT_FAILURE);
      }
      setTimerUnite(homme, tempo);
 }
 
-void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entré avant */
+void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entrÃ©e avant */
 
-     if(homme->chemin->sommet)
-     {
+     if(regardeTeteFilePath(getChemin(homme)) != -1){
           clock_t tempo=clock();
           float temps;
           if(tempo == -1)
           {
-               printf("Problème d'horloge");
+               printf("ProblÃ¨me d'horloge");
                exit(EXIT_FAILURE);
           }
-          temps= (float)(tempo-homme->timerUnite)/CLOCKS_PER_SEC;
+          temps= ((float)tempo-(float)homme->timerUnite)/CLOCKS_PER_SEC;
           if( temps >= (float) homme->type->vitesse/1000)
           {
                avanceUnite(homme, terrain);
           }
      }
-     else
-     {
-          if(getPosX(homme) != getPosCibleX(homme)|| getPosY(homme) != getPosCibleY(homme))
+     else{
+          if(getPosX(homme) != getPosCibleX(homme) || getPosY(homme) != getPosCibleY(homme))
           {
                sCase* place = getCase(terrain, getPosCibleX(homme), getPosCibleY(homme));
-               if(place->acces == 0 || place->idContenu != 0 ){
+               if( getAcces(place) == 0 || getContenu(place) != 0 ){
                     trouverAcces(homme, terrain );
                }
-               trouveChemin(homme);
+               trouveChemin(homme, terrain);
                deplacementUnite(homme, terrain);
 
           }
@@ -212,7 +226,7 @@ int testCase(int x, int y, Terrain* terrain){
 }
 
 
-/* *************************************************************--FCT en écriture--***************************************************************************** */
+/* *************************************************************--FCT en Ã©criture--***************************************************************************** */
 
 void trouverAcces(Unite* homme, Terrain* terrain){
      int fin=0; /* fin de boucle si fin=1 */
@@ -277,35 +291,134 @@ void trouverAcces(Unite* homme, Terrain* terrain){
 }
 
 
-static void djikstra(int x, int y,CellDjikstra* tabD,int precedent,int distance, Terrain* terrain){
-    if(precedent == 0){
-        djikstra(x-1, y,tabD, DROITE, 1, terrain);
-        djikstra(x, y-1,TabD, BAS, 1, terrain);
-        djikstra(x+1,y,tabD, GAUCHE, 1, terrain);
-        djikstra(x, y+1,tabD, HAUT, 1, terrain);
+static void djikstra(int x, int y,CellDjikstra* tabD, Terrain* terrain){
+     int tailleX = getTailleX(terrain);
+     int tailleY = getTailleY(terrain);
+     char selectionne[tailleX*tailleY];
+     int i;
+     for(i = 0; i< tailleX*tailleY; i++){
+        selectionne[i] = 0;
+     }
+     int distance = 0;
+     tabD[x+y*tailleX].distance = 0;
+     FilePath* file = (FilePath*)malloc(sizeof(FilePath));
+     initFilePath(file);
+     enfilePath(file,x);
+     enfilePath(file,y);
+     while(regardeTeteFilePath(file) != -1){
+        x = regardeTeteFilePath(file);
+        defilePath(file);
+        y = regardeTeteFilePath(file);
+        defilePath(file);
+        selectionne[x+y*tailleX] = 1;
+        distance = tabD[x+y*tailleX].distance + 1;
+        if(x-1 >= 0){
+            if((getContenu(getCase(terrain, x-1, y)) == 0) && (getAcces(getCase(terrain, x-1, y)) == 1)){
+                if(selectionne[x-1+y*tailleX] == 0){
+                    if(tabD[x-1+y*tailleX].distance > distance){
+                        tabD[x-1+y*tailleX].distance = distance;
+                        tabD[x-1+y*tailleX].precedent = DROITE;
+                        enfilePath(file, x-1);
+                        enfilePath(file, y);
+                    }
+                }
+            }
+        }
+        if(x+1 < tailleX){
+            if((getContenu(getCase(terrain, x+1, y)) == 0) && (getAcces(getCase(terrain, x+1, y)) == 1)){
+                if(selectionne[x+1+y*tailleX] == 0){
+                    if(tabD[x+1+y*tailleX].distance > distance){
+                        tabD[x+1+y*tailleX].distance = distance;
+                        tabD[x+1+y*tailleX].precedent = GAUCHE;
+                        enfilePath(file, x+1);
+                        enfilePath(file, y);
+                    }
+                }
+            }
+        }
+        if(y-1 >= 0){
+            if((getContenu(getCase(terrain, x, y-1)) == 0) && (getAcces(getCase(terrain, x, y-1)) == 1)){
+                if(selectionne[x+(y-1)*tailleX] == 0){
+                    if(tabD[x+(y-1)*tailleX].distance > distance){
+                        tabD[x+(y-1)*tailleX].distance = distance;
+                        tabD[x+(y-1)*tailleX].precedent = BAS;
+                        enfilePath(file, x);
+                        enfilePath(file, y-1);
+                    }
+                }
+            }
+        }
+        if(y+1 < tailleY){
+            if((getContenu(getCase(terrain, x, y+1)) == 0) && (getAcces(getCase(terrain, x, y+1)) == 1)){
+                if(selectionne[x+(y+1)*tailleX] == 0){
+                    if(tabD[x+(y+1)*tailleX].distance > distance){
+                        tabD[x+(y+1)*tailleX].distance = distance;
+                        tabD[x+(y+1)*tailleX].precedent = HAUT;
+                        enfilePath(file, x);
+                        enfilePath(file, y+1);
+                    }
+                }
+            }
+        }
+     }
+ /*   if(x < 0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
         return;
-    }
-    if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
-        return;
-    if(getAcces(getCase(terrain, x,y)) == 0 || getContenu(getCase(terrain,x,y)) != 0)
+    if(precedent != 0 && (getAcces(getCase(terrain, x,y)) == 0 || getContenu(getCase(terrain,x,y)) != 0))
         return;
     if(distance > tabD[x+y*getTailleX(terrain)].distance)
         return;
     tabD[x+y*getTailleX(terrain)].distance = distance;
     tabD[x+y*getTailleX(terrain)].precedent = precedent;
-    djikstra(x-1, y,tabD, DROITE, distance + 1, terrain);
-    djikstra(x, y-1,TabD, BAS, distance + 1, terrain);
-    djikstra(x+1,y,tabD, GAUCHE, distance + 1, terrain);
-    djikstra(x, y+1,tabD, HAUT, distance + 1, terrain);
+    if(precedent != GAUCHE)
+        djikstra(x-1, y,tabD, DROITE, distance + 1, terrain);
+    if(precedent != HAUT)
+        djikstra(x, y-1,tabD, BAS, distance + 1, terrain);
+    if(precedent != DROITE)
+        djikstra(x+1,y,tabD, GAUCHE, distance + 1, terrain);
+    if(precedent != BAS)
+        djikstra(x, y+1,tabD, HAUT, distance + 1, terrain);
+    return;*/
 }
 void trouveChemin(Unite* homme, Terrain* terrain){
-    CellDjikstra* tabD = (CellDjikstra*)malloc(sizeof(CellDjikstra*getTailleX(terrain)*getTailleY(terrain)));
+    CellDjikstra* tabD = (CellDjikstra*)malloc(sizeof(CellDjikstra)*getTailleX(terrain)*getTailleY(terrain));
     int i;
+    int x,y;
+    int prec;
     for(i = 0; i < getTailleX(terrain)*getTailleY(terrain); i++){
-        tabD[i].distance = INT_MAX;
+        tabD[i].distance = INFINI;
         tabD[i].precedent = 0;
     }
-    tabD[getPosCibleX(homme)+getTailleX(terrain)*getPosCibleY(homme)].distance = 0;
-    Djikstra(getPosCibleX(homme),getPosCibleY(homme), tabD, ORIGINE, 0,terrain);
+    x = getPosX(homme);
+    y = getPosY(homme);
+    i = getContenu(getCase(terrain,x,y));
+    setContenu(getCase(terrain, x,y), 0);
+    djikstra(getPosCibleX(homme),getPosCibleY(homme), tabD,terrain);
+    setContenu(getCase(terrain,x,y),i);
+    prec = tabD[x+getTailleX(terrain)*y].precedent;
+    while((x != getPosCibleX(homme) || y != getPosCibleY(homme)) && prec != 0){
+        prec = tabD[x+getTailleX(terrain)*y].precedent;
+        switch (tabD[x+getTailleX(terrain)*y].precedent){
+        case DROITE :
+            enfilePath(getChemin(homme), DROITE);
+            x++;
+            break;
+        case GAUCHE :
+            enfilePath(getChemin(homme), GAUCHE);
+            x--;
+            break;
+        case HAUT :
+            enfilePath(getChemin(homme), HAUT);
+            y--;
+            break;
+        case BAS :
+            enfilePath(getChemin(homme), BAS);
+            y++;
+        }
+
+    }
+    if(prec == 0) {
+        setPosCibleX(homme, x);
+        setPosCibleY(homme, y);
+    }
 
 }
