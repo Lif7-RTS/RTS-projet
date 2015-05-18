@@ -24,7 +24,7 @@ void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int 
 }
 
 void detruireBatiment(Batiment** bat){
-
+     /* LOOOOL */
 }
 
 /* *************************************************************--GET--***************************************************************************** */

@@ -11,6 +11,7 @@
 #include "jeu.h"
 #include "afficheSDL.h"
 
+/* *************************************************************--Init--***************************************************************************** */
 
 void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     int i;
@@ -41,6 +42,20 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     initAffichage(j->aff,j,j->carte);
     boucleJeu(j);
 }
+
+void detruireJeu(Jeu* j){
+    detruireTerrain(j->carte);
+    free(j->carte);
+    free(j->tableauJoueur);
+    detruireTabDyn(j->tableauUnite);
+    free(j->tableauUnite);
+    detruireTabDyn(j->tableauBat);
+    free(j->tableauBat);
+    free(j->tabBatConstructible);
+    free(j->tabUniteFormable);
+}
+
+/* *************************************************************--GET--***************************************************************************** */
 
 int getNbJoueur(const Jeu* j){
     return j->nbJoueur;
@@ -80,6 +95,8 @@ int getIdSel(const Jeu* j){
     return j->idSel;
 }
 
+/* *************************************************************--SET--***************************************************************************** */
+
 void setNbJoueur(Jeu* j, int nb){
     j->nbJoueur = nb;
 }
@@ -104,6 +121,16 @@ void ajouterBat(Jeu* j, Batiment* bat){
 void setIdSel(Jeu* j,int id){
     j->idSel = id;
 }
+
+TabDyn* getTabUnite(Jeu* j){
+     return j->tableauUnite;
+}
+
+TabDyn* getTabBat(Jeu* j){
+     return j->tableauBat;
+}
+
+/* *************************************************************--FCT--***************************************************************************** */
 
 void boucleJeu(Jeu* j){
       int quit = 0;
@@ -200,17 +227,83 @@ void afficheJeu(Jeu* j){
 
 }
 
-void afficheHUD(Jeu* j){
+void checkJeu(Jeu* jeu){
+
+     int taille, i, egale, enConstru;
+     sCase* place;
+     Unite* soldat;
+     Batiment* bat;
+
+     /* Activité des Unités */
+
+     taille = getUtiliseTabDyn(getTabUnite(jeu)); /*faire fonction TabDyn et tabUnite */
+     for(i=0;i<taille;i++)
+     {
+          soldat = getUnite(jeu,i);
+          if (getVieCouranteUnite(soldat) == 0)
+          {
+              /* detruireUnite(soldat); */
+          }
+          else
+          {
+               egale = memeCase(getPosX(soldat), getPosY(soldat), getPosCibleX(soldat), getPosCibleY(soldat));
+
+               if(getOuvrier(getTypeUnite(soldat)) == 1) /* est un ouvrier */
+               {
+                    /* particulier*/
+               }
+               else if( egale != 1)
+               {
+                    if(getDeplacement(soldat) == 1)
+                    {
+                         deplacementUnite(soldat, getCarteJeu(jeu));
+                    }
+                    else
+                    {
+                         place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
+                         if(getContenu(place)) /* géré ennemi */
+                         {
+                              /* attaque */
+                         }
+                         else /* cas securitaire ne devrai pas arriver */
+                         {
+                              setDeplacement(soldat,1);
+                              deplacementUnite(soldat, getCarteJeu(jeu));
+                         }
+                    }
+               }
+          }
+     }
+
+     /* Activité des batiment */
+
+     taille = getUtiliseTabDyn(getTabBat(jeu));
+     for(i=0;i<taille;i++)
+     {
+          bat = getBat(jeu, i);
+          if (getVieCouranteBat(bat)== 0)
+          {
+               /*detruireBatiment(bat*/
+          }
+          else
+          {
+               enConstru = getEnConstruction(bat);
+               if(enConstru == 1)
+               {
+                    /* avancer construction */
+               }
+               else
+               {
+                    if(getPremier(getTabAttente(bat)))
+                    {
+                         /*avancer la file */
+                    }
+               }
+          }
+     }
 
 }
-void detruireJeu(Jeu* j){
-    detruireTerrain(j->carte);
-    free(j->carte);
-    free(j->tableauJoueur);
-    detruireTabDyn(j->tableauUnite);
-    free(j->tableauUnite);
-    detruireTabDyn(j->tableauBat);
-    free(j->tableauBat);
-    free(j->tabBatConstructible);
-    free(j->tabUniteFormable);
+
+void afficheHUD(Jeu* j){
+
 }

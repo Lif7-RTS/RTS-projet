@@ -10,29 +10,13 @@
 
 #include "tabDyn.h"
 
+/* *************************************************************--Init--***************************************************************************** */
 
 void initTabDyn(TabDyn* t,int taille){
     t->utilisee = 0;
     t->taille = taille;
     t->tab = (uintptr_t*) malloc(sizeof(uintptr_t)*taille);
     return;
-}
-
-int ajouterTabDyn(TabDyn* t, uintptr_t ptr){
-    if(t->utilisee == t->taille){
-        uintptr_t* ptr_realloc;
-        ptr_realloc = (uintptr_t*) realloc(t->tab, sizeof(uintptr_t)*(t->taille)*2);
-        if(ptr_realloc == NULL){
-            printf("erreur realloc !");
-            return 0;
-        }
-        t->tab = ptr_realloc;
-        t->taille *= 2;
-    }
-    t->tab[t->utilisee] = ptr;
-    t->utilisee++;
-    return (t->utilisee);
-
 }
 
 int supprimerElemTabDyn(TabDyn* t, uintptr_t ptr){
@@ -63,8 +47,47 @@ void detruireTabDyn(TabDyn* t){
     t->utilisee = 0;
 }
 
+/* *************************************************************--GET--***************************************************************************** */
+
 uintptr_t getElemTabDyn(TabDyn* t, int i){
     if(i < t->utilisee)
         return t->tab[i];
     return (uintptr_t)(void*)NULL;
+}
+
+int getTailleTabDyn(TabDyn* t){
+     return t->taille;
+}
+
+int getUtiliseTabDyn(TabDyn* t){
+     return t->utilisee;
+}
+
+/* *************************************************************--SET--***************************************************************************** */
+
+void setTailleTabDyn(TabDyn* t, int taille){
+     t->taille=taille;
+}
+
+void setUtiliseTabDyn(TabDyn* t, int utilisee){
+     t->utilisee=utilisee;
+}
+
+/* *************************************************************--FCT--***************************************************************************** */
+
+int ajouterTabDyn(TabDyn* t, uintptr_t ptr){
+    if(t->utilisee == t->taille){
+        uintptr_t* ptr_realloc;
+        ptr_realloc = (uintptr_t*) realloc(t->tab, sizeof(uintptr_t)*(t->taille)*2);
+        if(ptr_realloc == NULL){
+            printf("erreur realloc !");
+            return 0;
+        }
+        t->tab = ptr_realloc;
+        t->taille *= 2;
+    }
+    t->tab[t->utilisee] = ptr;
+    t->utilisee++;
+    return (t->utilisee);
+
 }

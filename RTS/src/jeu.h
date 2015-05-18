@@ -30,6 +30,7 @@ typedef struct SAffichage Affichage;
  *
  * SJeu objet representant une partie en cours
  */
+
 typedef struct SJeu Jeu;
 struct SJeu{
     Affichage* aff;
@@ -44,6 +45,26 @@ struct SJeu{
     int idSel; /*!< id de l'unite selectionnee par le joueur[vueJoueur] */
 };
 
+
+/* *************************************************************--Init--***************************************************************************** */
+
+
+/** \fn void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ)
+ * \brief fonction d'initialisation de jeu, cree jeu puis lance la boucle de jeu
+ * \param [in,out] j pointeur sur jeu
+ * \param [in] raceJ race du joueur 1 ( controle par l'utilisateur)
+ * \param [in, out] cheminCarte chemin ( relatif ou absolu) vers la carte sur la quel la partie va etre lance
+ *
+ */
+void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ);
+
+ /** \fn void detruireJeu(Jeu* j)
+ * \brief function de destruction du module jeu
+ * \param j pointeur sur jeu
+ */
+ void detruireJeu(Jeu* j);
+
+/* *************************************************************--GET--***************************************************************************** */
 
 /**
  * \fn int getNbJoueur ( jeu*  j)
@@ -117,6 +138,26 @@ BatBase* getBatConstructible(const Jeu*  j,int bNb);
  */
 int getIdSel(const Jeu*  j);
 
+/**
+ * \fn TabDyn* getTabUnite(Jeu* j)
+ * \brief accesseur sur TabUnite
+ *
+ * \param j pointeur sur un Jeu
+ * \return une tableau dynamique
+ */
+TabDyn* getTabUnite(Jeu* j);
+
+/**
+ * \fn TabDyn* getTabBat(Jeu* j)
+ * \brief accesseur sur TabBat
+ *
+ * \param j pointeur sur un Jeu
+ * \return une tableau dynamique
+ */
+TabDyn* getTabBat(Jeu* j);
+
+/* *************************************************************--SET--***************************************************************************** */
+
  /**
  * \fn void setNbJoueur ( jeu* j,int nb)
  * \brief mutateur NbJoueur
@@ -167,39 +208,38 @@ int getIdSel(const Jeu*  j);
  */
  void ajouterBat( Jeu*  j, Batiment* bat);
 
-/** \fn void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ)
- * \brief fonction d'initialisation de jeu, cree jeu puis lance la boucle de jeu
- * \param [in,out] j pointeur sur jeu
- * \param [in] raceJ race du joueur 1 ( controle par l'utilisateur)
- * \param [in, out] cheminCarte chemin ( relatif ou absolu) vers la carte sur la quel la partie va etre lance
- *
- */
-void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ);
+/* *************************************************************--FCT--***************************************************************************** */
 
-/** \fn void boucleJeu(Jeu* j)
- * \brief function de boucle de jeu
- * \param j pointeur sur jeu
- */
+/**
+* \fn void boucleJeu(Jeu* j)
+* \brief function de boucle de jeu
+*
+* \param j pointeur sur jeu
+*/
  void boucleJeu(Jeu* j);
 
- /** \fn void afficheJeu(Jeu* j)
+ /**
+ * \fn void afficheJeu(Jeu* j)
  * \brief function d'affichage du jeu
+ *
  * \param j pointeur sur jeu
  */
  void afficheJeu(Jeu* j);
 
- /** \fn void afficheHUD(Jeu* j)
+ /**
+ * \fn void afficheHUD(Jeu* j)
  * \brief function d'affichage de l'interface
+ *
  * \param j pointeur sur jeu
  */
  void afficheHUD(Jeu* j);
 
- /** \fn void detruireJeu(Jeu* j)
- * \brief function de destruction du module jeu
- * \param j pointeur sur jeu
- */
- void detruireJeu(Jeu* j);
-
-
+/**
+* \fn void checkJeu(Jeu* jeu)
+* \brief verifie et réalise toute les action a faire sur/par les batiment et les Unites
+*
+* \param j pointeur sur jeu
+*/
+void checkJeu(Jeu* jeu);
 
 #endif
