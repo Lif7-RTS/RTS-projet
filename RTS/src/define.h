@@ -14,3 +14,5 @@
 #define vitesseRecolte 500
 #define quantiteRecolte 10
 #define NB_BAT_RACE 1
+#define PIERRE 10
+#define MITHRIL 11

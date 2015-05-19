@@ -25,14 +25,17 @@
  * sCase est un objet case, composant le terrain
  */
 struct SCase{
-    int acces; /*!< 1 si case accessible, 0 sinon */
-    int pierre; /*!< nombre de ressource pierre disponible */
-    int mithril; /*!< nombre de ressource mithril disponible */
-    int idContenu; /*!< id (unique) du contenu de la case (positif unite, negatif batiment, 0 vide) */
+     int acces; /*!< 1 si case accessible, 0 sinon */
+     int pierre; /*!< nombre de ressource pierre disponible */
+     int mithril; /*!< nombre de ressource mithril disponible */
+     int idContenu; /*!< id (unique) du contenu de la case (positif unite, negatif batiment, 0 vide) */
+     unsigned char tiles; /* Faire SET ET GET */
 };
 
 typedef struct SCase sCase;
 
+
+/* *************************************************************--Init--***************************************************************************** */
 
 /**
  * \fn void initCase(sCase* c,int p, int m, int acc)
@@ -44,6 +47,10 @@ typedef struct SCase sCase;
  * \param[in] acc 1 si case accessible, 0 sinon
  */
 void initCase(sCase* c,int p, int m, int acc);
+
+
+/* *************************************************************--GET--***************************************************************************** */
+
 /**
  * \fn int getContenu (sCase* c)
  * \brief accesseur idContenu
@@ -79,6 +86,17 @@ int getContenu(const sCase* c);
  * \return access
  */
  int getAcces(const sCase* c);
+
+ /**
+ * \fn bool getAcces (sCase* c)
+ * \brief accesseur Tile
+ *
+ * \param[in, out] c pointeur sur sCase
+ * \return un char correspondant à une tile
+ */
+ unsigned char getTileCase(const sCase* c);
+
+/* *************************************************************--SET--***************************************************************************** */
 
  /**
  * \fn void setContenu (sCase* c,int id)
@@ -117,25 +135,13 @@ int getContenu(const sCase* c);
  void setAcces(sCase* c, int acc);
 
 /**
- * \fn void prendrePierre(sCase* c, unite* ouvrier)
- * \brief retire de la ressource pierre de la case et la donne a l'unite
+ * \fn void setTileCase(sCase* c, unsigned char tile)
+ * \brief mutateur Tile
  *
  * \param[in, out] c pointeur sur sCase
- * \param[in, out] ouvrier pointeur sur l'unite qui mine
+ * \param[in] un entier correspondant a une tile
  */
-
-void prendrePierre(sCase* c, Unite* ouvrier);
-
-/**
- * \fn void prendreMithril(sCase* c, unite* ouvrier)
- * \brief retire de la ressource mithril de la case et la donne a l'unite
- *
- * \param[in, out] c pointeur sur sCase
- * \param[in, out] ouvrier pointeur sur l'unite qui mine
- */
-
-void prendreMithril(sCase* c, Unite* ouvrier);
-
+ void setTileCase(sCase* c, unsigned char tile);
 
 /* *************************************************************--FCT--***************************************************************************** */
 

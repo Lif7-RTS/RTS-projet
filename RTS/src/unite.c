@@ -465,6 +465,11 @@ void Recolte(Unite* homme, Jeu* jeu){
                }
                else
                {
+                    if(getTileCase(place) == PIERRE || getTileCase(place) == MITHRIL)
+                    {
+                         setTileCase(place, 0);
+                         setAcces(place, 1);
+                    }
                     trouverMinerai(homme, jeu);
                }
           }
@@ -477,4 +482,5 @@ void Recolte(Unite* homme, Jeu* jeu){
 }
 
 void trouverMinerai(Unite* homme, Jeu* jeu){
+
 }

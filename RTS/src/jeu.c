@@ -232,7 +232,7 @@ void boucleJeu(Jeu* j){
         }
         affiche(j->aff);
     }
-}
+} */
 
 void afficheJeu(Jeu* j){
 

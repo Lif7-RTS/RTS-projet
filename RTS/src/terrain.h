@@ -20,7 +20,6 @@ struct STerrain{
      char* collisionCarte;/*!< fichier de collision de la carte*/
      int tailleX;/*!< taille de la carte en coordonnee X */
      int tailleY;/*!< taille de la carte en coordonnée Y */
-     char* tiles;
 };
 typedef struct STerrain Terrain;
 
