@@ -166,8 +166,6 @@ void boucleJeu(Jeu* j){
              if( e.type == SDL_QUIT ){
                 quit = 1;
             }
-            if(e.type == SDL_KEYDOWN){
-            }
             if(e.type == SDL_MOUSEBUTTONDOWN){
                 xClick = e.button.x;
                 yClick = e.button.y;
@@ -191,13 +189,26 @@ void boucleJeu(Jeu* j){
                         }
                     }
                 }
-                else{
+               else{
                     if(e.button.button == SDL_BUTTON_LEFT){
-                        if(xClick > SCREEN_W - 3*TILE_TAILLE && xClick < SCREEN_W - 2*TILE_TAILLE)
-                            ajouterFileBat(getBat(j,-getIdSel(j)-1),j,0);
+                        if(xClick > SCREEN_W - 3*TILE_TAILLE && xClick < SCREEN_H){
+                            if(getIdSel(j) < 0){
+                                b = getBat(j, -getIdSel(j)-1);
+                                xClick -= (SCREEN_W - 3*TILE_TAILLE);
+                                xClick = xClick % TILE_TAILLE;
+                                yClick -= (SCREEN_H-HUD_H);
+                                yClick = yClick % TILE_TAILLE;
+                                if((yClick*3+xClick) < getNbUniteFormable(getTypeBat(bat)))){
+                                    ajouterFileBat(b,j,yClick*3+xClick);
+                                }
+                            }
+                        }
+                        else if(xClick > 0 && xClick < 3*TILE_TAILLE){
+                            xClick = xClick % TILE_TAILLE;
+                            yClick = yClick % TILE_TAILLE;
+                        }
                     }
                 }
-
             }
 
         }

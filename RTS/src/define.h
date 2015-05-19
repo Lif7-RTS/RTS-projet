@@ -13,3 +13,4 @@
 #define ORIGINE 0
 #define vitesseRecolte 500
 #define quantiteRecolte 10
+#define NB_BAT_RACE 1
