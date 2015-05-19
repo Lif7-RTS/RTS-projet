@@ -17,8 +17,9 @@ typedef struct{
 
 /* *************************************************************--Init--***************************************************************************** */
 
-void initUnite(Unite* unit, const UniteBase* type){
+void initUnite(Unite* unit, const UniteBase* type, int idJoueur){
     setTypeUnite(unit, type);
+    setIdJoueur(unit, idJoueur);
     setDeplacement(unit, 0);
     setVieCouranteUnite(unit, getVieMaxUnite(type));
     setPierrePorte(unit, 0);
@@ -32,6 +33,10 @@ void initUnite(Unite* unit, const UniteBase* type){
 
 int getId(const Unite* unit){
     return unit->id;
+}
+
+int getIdJoueur(const Unite* unit){
+     return unit->idJoueur;
 }
 
 FilePath* getChemin(const Unite* unit){
@@ -78,6 +83,10 @@ int getMithrilPorte(const Unite* unit){
 
 void setId(Unite* unit, int id){
     unit->id = id;
+}
+
+void setIdJoueur(Unite* unit, int idJoueur){
+     unit->idJoueur = idJoueur;
 }
 
 void setTimerUnite(Unite* unit, clock_t time){

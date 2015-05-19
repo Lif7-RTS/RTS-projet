@@ -27,9 +27,10 @@ typedef struct SUnite Unite;
  */
 
 struct SUnite{
-    int id;/*!< id (unique) de l'unite*/
-    int posX;/*!< position X de l'unite ( en case )*/
-    int posY;/*!<position Y de l'unite ( en case ) */
+    int id; /*!< id (unique) de l'unite*/
+    int idJoueur; /*!< id (unique) d'un joueur */
+    int posX; /*!< position X de l'unite ( en case )*/
+    int posY; /*!<position Y de l'unite ( en case ) */
     int vieCourante; /*!< vie de l'unite actuellement */
     int deplacement;/*!< 1 si l'unite est en deplacement, 0 sinon */
     UniteBase* type;/*!< archetype de l'unite */
@@ -62,6 +63,15 @@ struct SUnite{
  * \return un entier correspondant à un identifiant unique
  */
  int getId(const Unite* unit);
+
+ /**
+ * \fn int getIdJoueur(const Unite* unit)
+ * \brief accesseur idJoueur
+ *
+ * \param[in, out] unit pointeur sur Unite
+ * \return un entier correspondant à un identifiant unique
+ */
+ int getIdJoueur(const Unite* unit);
 
  /**
  * \fn int getPosX (Unite* unit)
@@ -165,13 +175,24 @@ FilePath* getChemin(const Unite* unit);
 clock_t getTimerUnite(const Unite* unit);
 
 /* *************************************************************--SET--***************************************************************************** */
+
+ /**
+ * \fn void setId (Unite* unit,int id)
+ * \brief mutateur id
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] id un identifiant d'unité unique
+ */
+ void setId(Unite* unit, int id);
+
   /**
  * \fn void setId (Unite* unit,int id)
  * \brief mutateur id
  *
  * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] un entier correspondant a un identifiant joueur unique
  */
- void setId(Unite* unit, int id);
+ void setIdJoueur(Unite* unit, int idJoueur);
 
  /**
  * \fn void setPosX (Unite* unit,int x)
