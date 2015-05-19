@@ -19,8 +19,10 @@
 #include "batimentBase.h"
 #include "joueur.h"
 #include "tabDyn.h"
+
 #ifndef _JEU
 #define _JEU
+
 #include "batiment.h"
 
 typedef struct SAffichage Affichage;

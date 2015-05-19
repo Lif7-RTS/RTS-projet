@@ -85,7 +85,7 @@ void affiche(const Affichage* aff){
 		{
 			rect_Dest.x = i*TILE_TAILLE;
 			rect_Dest.y = j*TILE_TAILLE;
-			num_tile = aff->carte->tiles[camX+i+(camY+j)*tX];
+			num_tile = getTileCase(getCase(aff->carte,camX+i,camY+j));
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             id = aff->carte->tabCase[camX+i+(camY+j)*tX].idContenu;
             if(id != 0){

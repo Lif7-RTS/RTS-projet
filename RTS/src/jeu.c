@@ -198,7 +198,7 @@ void boucleJeu(Jeu* j){
                                 xClick = xClick % TILE_TAILLE;
                                 yClick -= (SCREEN_H-HUD_H);
                                 yClick = yClick % TILE_TAILLE;
-                                if((yClick*3+xClick) < getNbUniteFormable(getTypeBat(bat)))){
+                                if((yClick*3+xClick) < getNbUniteFormable(getTypeBat(b))){
                                     ajouterFileBat(b,j,yClick*3+xClick);
                                 }
                             }
@@ -232,7 +232,7 @@ void boucleJeu(Jeu* j){
         }
         affiche(j->aff);
     }
-} */
+}
 
 void afficheJeu(Jeu* j){
 

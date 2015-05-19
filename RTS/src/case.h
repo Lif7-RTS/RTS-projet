@@ -29,7 +29,7 @@ struct SCase{
      int pierre; /*!< nombre de ressource pierre disponible */
      int mithril; /*!< nombre de ressource mithril disponible */
      int idContenu; /*!< id (unique) du contenu de la case (positif unite, negatif batiment, 0 vide) */
-     unsigned char tiles; /* Faire SET ET GET */
+     unsigned char tile; /* Faire SET ET GET */
 };
 
 typedef struct SCase sCase;

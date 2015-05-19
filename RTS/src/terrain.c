@@ -53,11 +53,10 @@ void initTerrain(Terrain* ter, const char* colliCarte){
         setTailleX(ter, tailleX);
         setTailleY(ter, tailleY);
         ter->tabCase = (sCase*) malloc(sizeof(sCase)*tailleX*tailleY);
-        ter->tiles = (char*) malloc(sizeof(int)*tailleX*tailleY);
         for(y = 0; y < tailleY; y++){
             for(x = 0; x < tailleX; x++){
                 fscanf(fp,"%d ", &tile);
-                ter->tiles[x+y*tailleX] = tile;
+                setTileCase(getCase(ter,x,y),tile);
                 if(tile >= 1 && tile <= 11){
                     if(tile == 10)
                         initCase(&ter->tabCase[tailleX*y+x],2000,0,0);
