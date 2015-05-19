@@ -99,6 +99,7 @@ CellulePath* getSuivantPath(CellulePath* cell);
 * \return un pointeur sur la Dernière cellule de la file d'attente.
 */
 CellulePath* getDernierPath(const FilePath* file);
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -136,6 +137,7 @@ void setSuivantPath(CellulePath* cell, CellulePath* suiv);
 * \param[in, out] dernier est un pointeur sur une Cellule.
 */
 void setDernierPath(FilePath* file, CellulePath* Dernier);
+
 /* *************************************************************--FCT--***************************************************************************** */
 
 /**

@@ -10,10 +10,45 @@
 
 #include "unite.h"
 
+
 typedef struct{
     int distance;
     char precedent;
 }CellDjikstra;
+
+/**
+ * \fn static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain)
+ * \brief regarde si une unite peu exploiter les ressource d'un case
+ *
+ * \param[in] x est un entier coordonée d'une case
+ * \param[in] y est un entier coordonée d'une case
+ * \param[in] tabD est un tableau de CellDjikstra
+ * \param[in, out] terrain est le terrain de jeu
+ * \return renvoi le nombre de ressource sur une case si elle est exploitable par un ouvrier.
+ */
+static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain);
+
+/**
+ * \fn static int testCase(int x, int y, Terrain* terrain)
+ * \brief regarde si une unite peu aller sur une case
+ *
+ * \param[in] x est un entier coordonée d'une case
+ * \param[in] y est un entier coordonée d'une case
+ * \param[in, out] terrain est le terrain de jeu
+ * \return un entier (1 si l'unite peut aller sur la case, 0 sinon)
+ */
+static int testCase(int x, int y, Terrain* terrain);
+
+/**
+ * \fn static int testCase(int x, int y, Terrain* terrain)
+ * \brief rempli un tableau de Djikstra avec la distance des toutes les case par rapport a une case fixé.
+ *
+ * \param[in] x est un entier coordonée d'une case
+ * \param[in] y est un entier coordonée d'une case
+ * \param[in] tabD est un tableau de CellDjikstra
+ * \param[in, out] terrain est le terrain de jeu
+ */
+static void djikstra(int x, int y,CellDjikstra* tabD, Terrain* terrain);
 
 /* *************************************************************--Init--***************************************************************************** */
 
@@ -70,12 +105,17 @@ int getPosCibleX(const Unite* unit){
 int getPosCibleY(const Unite* unit){
     return unit->posCibleY;
 }
+
 int getPosMineraiX(const Unite* unit){
      return unit->posMineraiX;
 }
 
 int getPosMineraiY(const Unite* unit){
      return unit->posMineraiY;
+}
+
+char getEnTravail(const Unite* unit){
+     return unit->enTravail;
 }
 
 int getPierrePorte(const Unite* unit){
@@ -126,6 +166,18 @@ void setPosCibleX(Unite* unit, int x){
 
 void setPosCibleY(Unite* unit, int y){
     unit->posCibleY = y;
+}
+
+void setPosMineraiX(Unite* unit, int x){
+    unit->posMineraiX=x;
+}
+
+void setPosMineraiY(Unite* unit, int y){
+     unit->posMineraiY=y;
+}
+
+void setEnTravail(Unite* unit, char enT){
+     unit->enTravail=enT;
 }
 
 void setPierrePorte(Unite* unit, int p){
@@ -218,7 +270,7 @@ void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entr
      }
 }
 
-int testCase(int x, int y, Terrain* terrain){
+static int testCase(int x, int y, Terrain* terrain){
      if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
      {
           printf("en dehors de la map: ");
@@ -425,7 +477,7 @@ void Recolte(Unite* homme, Jeu* jeu){
      clock_t tempo=clock();
      float temps;
      int finRecolte = 0;
-     int quantite = getRessourceMax(homme) - (getPierrePorte(homme) + getMithrilCase(homme));
+     int quantite = getRessourceMax(getTypeUnite(homme)) - (getPierrePorte(homme) + getMithrilCase(homme));
 
      if(tempo == -1)
      {
@@ -470,17 +522,100 @@ void Recolte(Unite* homme, Jeu* jeu){
                          setTileCase(place, 0);
                          setAcces(place, 1);
                     }
-                    trouverMinerai(homme, jeu);
+                    trouverMinerai(homme, jeu); /* cherche un nouveau minerai */
                }
           }
           else
           {
-               setPosCibleX(homme,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(homme))));
-               setPosCibleY(homme,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(homme))));
+               setEnTravail(homme, 2); /*retour au bat principal cas sécuritaire n'est pas sensé arriver */
           }
      }
 }
 
 void trouverMinerai(Unite* homme, Jeu* jeu){
 
+     Terrain* terrain=getCarteJeu(jeu);
+     CellDjikstra* tabD = (CellDjikstra*)malloc(sizeof(CellDjikstra)*getTailleX(terrain)*getTailleY(terrain));
+     int x = getPosX(homme);
+     int y = getPosY(homme);
+     int fin=0;
+     int caseCibleX=getPosMineraiX(homme);
+     int caseCibleY=getPosMineraiY(homme);
+     int caseTestX, caseTestY;
+     int i = getContenu(getCase(terrain,x,y));
+
+     for(i = 0; i < getTailleX(terrain)*getTailleY(terrain); i++){
+          tabD[i].distance = INFINI;
+          tabD[i].precedent = 0;
+     }
+     setContenu(getCase(terrain, x,y), 0);
+     djikstra(x, y, tabD,terrain);
+     setContenu(getCase(terrain,x,y),i);
+
+     i=1;
+     while (fin == 0)
+     {
+          caseTestX=caseCibleX+i;
+          caseTestY=caseCibleY;
+          fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
+          printf("\n\n%d",fin);
+
+          if (i>=5){
+               fin=-10;
+               printf("pas de minerais autour du dernier épuisé");
+          }
+
+          while(fin <=0 && caseTestX!=caseCibleX)
+          {
+               caseTestX--;
+               caseTestY--;
+               fin = testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
+               printf("\n\n%d",fin);
+          }
+          while(fin <=0 && caseTestY!=caseCibleY)
+          {
+               caseTestX--;
+               caseTestY++;
+               fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
+               printf("\n\n%d",fin);
+          }
+          while(fin <=0 && caseTestX!=caseCibleX)
+          {
+               caseTestX++;
+               caseTestY++;
+               fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
+               printf("\n\n%d",fin);
+          }
+          while(fin <=0 && caseTestY!=caseCibleY+1)
+          {
+               caseTestX++;
+               caseTestY--;
+               fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
+               printf("\n\n%d",fin);
+          }
+          i++;
+     }
+     if(i>0)
+     {
+          setPosMineraiX(homme, caseTestX);
+          setPosMineraiX(homme, caseTestY);
+          setEnTravail(homme,3); /* pars à la recherche du minerai */
+     }
+     else
+     {
+          setEnTravail(homme,0); /* en repos */
+     }
+}
+
+static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain){
+      if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
+     {
+          printf(" -> en dehors de la map <- ");
+          return 0;
+     }
+     else if( tabD[(x+1)+y*getTailleX(terrain)].distance != INFINI || tabD[(x-1)+y*getTailleX(terrain)].distance != INFINI || tabD[x+(y+1)*getTailleX(terrain)].distance != INFINI|| tabD[x+(y-1)*getTailleX(terrain)].distance != INFINI)
+     {
+          printf("-> Case exploitable <-");
+          return (getPierreCase(getCase(terrain, x, y)) + getMithrilCase(getCase(terrain, x, y)));
+     }
 }

@@ -261,7 +261,57 @@ void checkJeu(Jeu* jeu){
 
                if(getOuvrier(getTypeUnite(soldat)) == 1) /* est un ouvrier */
                {
-                    /* particulier*/
+                    char statut = getEnTravail(soldat);
+                    if(statut == 0) /*vide son sac et pars en repos */
+                    {
+                         setPierreJoueur(getIdJoueurUnite(soldat),getPierreJoueur(getIdJoueurUnite(soldat)) + getPierrePorte(soldat));
+                         setPierrePorte(soldat, 0);
+                         setMithrilJoueur(getIdJoueurUnite(soldat), getMithrilJoueur(getIdJoueurUnite(soldat)) + getMithrilPorte(soldat));
+                         setMithrilPorte(soldat, 0);
+                         setEnTravail(soldat, -1);
+                    }
+                    if( statut == 1) /* phase de récolte */
+                    {
+                         if(getRessourceMax(getTypeUnite(soldat)) - (getPierrePorte(soldat) + getMithrilCase(soldat)) == 0)
+                         {
+                              setEnTravail(soldat,2);
+                              setPosCibleX(soldat,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(soldat))));
+                              setPosCibleY(soldat,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(soldat))));
+                              deplacementUnite(soldat, getCarteJeu(jeu));
+                         }
+                         else
+                         {
+                              Recolte(soldat,jeu);
+                         }
+                    }
+                    else if( statut == 2) /*phase de "vidage" du sac */
+                    {
+                         if(egale ==1)
+                         {
+                              setPierreJoueur(getIdJoueurUnite(soldat),getPierreJoueur(getIdJoueurUnite(soldat)) + getPierrePorte(soldat));
+                              setPierrePorte(soldat, 0);
+                              setMithrilJoueur(getIdJoueurUnite(soldat), getMithrilJoueur(getIdJoueurUnite(soldat)) + getMithrilPorte(soldat));
+                              setMithrilPorte(soldat, 0);
+                              trouverMinerai(soldat, jeu);
+                         }
+                         else
+                         {
+                              deplacementUnite(soldat, getCarteJeu(jeu));
+                         }
+                    }
+                    else if(statut == 3) /* phase de retour au travail */
+                    {
+                         if(egale ==1)
+                         {
+                              setEnTravail(soldat,1);
+                              Recolte(soldat,jeu);
+
+                         }
+                         else
+                         {
+                              deplacementUnite(soldat, getCarteJeu(jeu));
+                         }
+                    }
                }
                else if( egale != 1)
                {

@@ -47,6 +47,7 @@ CellulePath* getPremierPath(const FilePath* file){
 CellulePath* getDernierPath(const FilePath* file){
     return file->dernier;
 }
+
 int getElementPath(CellulePath* cell){
      return cell->element;
 }

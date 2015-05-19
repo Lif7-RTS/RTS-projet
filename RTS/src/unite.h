@@ -39,8 +39,9 @@ struct SUnite{
      UniteBase* type;/*!< archetype de l'unite */
      int posCibleX; /*!< X de la position cible par l'unite ( case )*/
      int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
-     int posMineraiX; /* faire SET*/
-     int posMineraiY; /* faire SET */
+     int posMineraiX; /*! < X de la position d'un minerai ciblé */
+     int posMineraiY; /*! < Y de la position d'un minerai ciblé */
+     char enTravail; /*! < avancement du travail de l'unité (-1 au repos, 0 vide son sac, 1 recolte, 2 arrive au batiment principal, 3 pars à la mine) */
      int pierrePorte;/*!< pierre transporte par l'unite */
      int mithrilPorte;/*!< mithril tranporte par l'unite*/
      FilePath* chemin; /*!< File des direction que l'unite doit suivre */
@@ -161,7 +162,16 @@ int getPosMineraiX(const Unite* unit);
  */
 int getPosMineraiY(const Unite* unit);
 
-  /**
+/**
+ * \fn char getEnTravail(const Unite* unit)
+ * \brief accesseur enTravail
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \return un char correspondant a une etape precise du travail d'une unité
+ */
+char getEnTravail(const Unite* unit);
+
+/**
  * \fn int getPierrePorte(Unite* unit)
  * \brief accesseur pierrePorte
  *
@@ -281,7 +291,34 @@ clock_t getTimerUnite(const Unite* unit);
  */
  void setPosCibleY(Unite* unit, int y);
 
-   /**
+ /**
+ * \fn  void setPosMineraiX(Unite* unit, int x)
+ * \brief mutateur de posMineraiX
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] x coordonnée d'un minerai ciblé par une unité
+ */
+ void setPosMineraiX(Unite* unit, int x);
+
+ /**
+ * \fn  void setPosMineraiY(Unite* unit, int y)
+ * \brief mutateur posMineraiY
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] y coordonnée d'un minerai ciblé par une unité
+ */
+void setPosMineraiY(Unite* unit, int y);
+
+/**
+ * \fn void setEnTravail(Unite* unit, char enT)
+ * \brief mutateur enTravail
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] enT etat de l'avance de travail d'une unité
+ */
+void setEnTravail(Unite* unit, char enT);
+
+/**
  * \fn int setPierrePorte(Unite* unit,int p)
  * \brief mutateur pierrePorte
  *
@@ -345,17 +382,6 @@ void deplacementUnite(Unite* homme, Terrain* terrain);
  * \param[in, out] terrain est le terrain de jeu
  */
 void trouverAcces(Unite* homme, Terrain* terrain);
-
-/**
- * \fn int testCase(int x, int y, Terrain* terrain)
- * \brief regarde si une unite peu aller sur une case
- *
- * \param[in] x est un entier coordonée d'une case
- * \param[in] y est un entier coordonée d'une case
- * \param[in, out] terrain est le terrain de jeu
- * \return un entier (1 si l'unite peut aller sur la case, 0 sinon)
- */
-int testCase(int x, int y, Terrain* terrain);
 
 void trouveChemin(Unite* homme, Terrain* terrain);
 
