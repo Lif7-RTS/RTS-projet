@@ -11,4 +11,5 @@
 #define GAUCHE 3
 #define HAUT 4
 #define ORIGINE 0
-
+#define vitesseRecolte 500
+#define quantiteRecolte 10

@@ -144,7 +144,7 @@ void boucleJeu(Jeu* j){
      /* initBatiment(b,0,getBatConstructible(j,0),100,0);
       setPosXBat(b,6);
       setPosYBat(b,0);*/
-      initUnite(u, getUniteFormable(j,0));
+      initUnite(u, getUniteFormable(j,0), getVueJoueur(j));
       printf("%d \n",getTileUnite(getTypeUnite(u)));
     /*  ajouterTabDyn(j->tableauBat, (uintptr_t) b);*/
       ajouterTabDyn(j->tableauUnite, (uintptr_t) u);

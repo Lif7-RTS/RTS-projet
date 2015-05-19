@@ -13,6 +13,7 @@
 #include "uniteBase.h"
 #ifndef _BATBASE
 #define _BATBASE
+
 /* RAJOUTER LA RACE!!! OMFG!!!! */
 struct SBatBase{
      char nomBat[25]; /*!< le nom du batiment */

@@ -35,7 +35,7 @@ int getId(const Unite* unit){
     return unit->id;
 }
 
-int getIdJoueur(const Unite* unit){
+int getIdJoueurUnite(const Unite* unit){
      return unit->idJoueur;
 }
 
@@ -85,7 +85,7 @@ void setId(Unite* unit, int id){
     unit->id = id;
 }
 
-void setIdJoueur(Unite* unit, int idJoueur){
+void setIdJoueurUnite(Unite* unit, int idJoueur){
      unit->idJoueur = idJoueur;
 }
 
@@ -234,9 +234,6 @@ int testCase(int x, int y, Terrain* terrain){
      }
 }
 
-
-/* *************************************************************--FCT en écriture--***************************************************************************** */
-
 void trouverAcces(Unite* homme, Terrain* terrain){
      int fin=0; /* fin de boucle si fin=1 */
      int caseCibleX=getPosCibleX(homme);
@@ -298,7 +295,6 @@ void trouverAcces(Unite* homme, Terrain* terrain){
      setPosCibleX(homme,caseTestX);
      setPosCibleY(homme,caseTestY);
 }
-
 
 static void djikstra(int x, int y,CellDjikstra* tabD, Terrain* terrain){
      int tailleX = getTailleX(terrain);
@@ -370,24 +366,8 @@ static void djikstra(int x, int y,CellDjikstra* tabD, Terrain* terrain){
             }
         }
      }
- /*   if(x < 0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
-        return;
-    if(precedent != 0 && (getAcces(getCase(terrain, x,y)) == 0 || getContenu(getCase(terrain,x,y)) != 0))
-        return;
-    if(distance > tabD[x+y*getTailleX(terrain)].distance)
-        return;
-    tabD[x+y*getTailleX(terrain)].distance = distance;
-    tabD[x+y*getTailleX(terrain)].precedent = precedent;
-    if(precedent != GAUCHE)
-        djikstra(x-1, y,tabD, DROITE, distance + 1, terrain);
-    if(precedent != HAUT)
-        djikstra(x, y-1,tabD, BAS, distance + 1, terrain);
-    if(precedent != DROITE)
-        djikstra(x+1,y,tabD, GAUCHE, distance + 1, terrain);
-    if(precedent != BAS)
-        djikstra(x, y+1,tabD, HAUT, distance + 1, terrain);
-    return;*/
 }
+
 void trouveChemin(Unite* homme, Terrain* terrain){
     CellDjikstra* tabD = (CellDjikstra*)malloc(sizeof(CellDjikstra)*getTailleX(terrain)*getTailleY(terrain));
     int i;
@@ -430,4 +410,63 @@ void trouveChemin(Unite* homme, Terrain* terrain){
         setPosCibleY(homme, y);
     }
 
+}
+
+/* *************************************************************--FCT en écriture--***************************************************************************** */
+
+void Recolte(Unite* homme, Jeu* jeu){
+     clock_t tempo=clock();
+     float temps;
+     int finRecolte = 0;
+     int quantite = getRessourceMax(homme) - (getPierrePorte(homme) + getMithrilCase(homme));
+
+     if(tempo == -1)
+     {
+          printf("Problème d'horloge");
+          exit(EXIT_FAILURE);
+     }
+
+     temps= ((float)tempo-(float)homme->timerUnite)/CLOCKS_PER_SEC;
+
+     if( temps >= (float) vitesseRecolte/1000)
+     {
+          if (quantite != 0 )
+          {
+                sCase* place = getCase(getCarteJeu(jeu), , y);
+
+               if(getPierreCase(place)!= 0)
+               {
+                    if( quantite < quantiteRecolte)
+                    else if( getPierreCase(place) < quantiteRecolte))
+                              quantite=getPierreCase(place);
+                    else  quantite=quantiteRecolte;
+
+                    setPierrePorte(homme, getPierrePorte(homme) + quantite);
+                    setPierreCase(place, getPierreCase(place) - quantite);
+               }
+               else if(getMithrilCase(place) != 0)
+               {
+                    if( quantite < quantiteRecolte)
+                    else if( getMithrilCase(place) < quantiteRecolte))
+                              quantite=getMithrilCase(place);
+                    else  quantite=quantiteRecolte;
+
+                    setMithrilPorte(homme, getMithrilPorte(homme) + quantite);
+                    setMithrilCase(place, getMithrilCase(place) - quantite);
+               }
+               else
+               {
+                    trouverMinerai(homme, jeu);
+               }
+          }
+          else
+          {
+               setPosCibleX(homme,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(homme)));
+               setPosCibleY(homme,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(homme)));
+          }
+     }
+}
+
+void trouverMinerais(Unite* homme, Jeu* jeu){
+     4
 }

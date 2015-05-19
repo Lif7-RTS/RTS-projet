@@ -43,7 +43,7 @@ struct SBatiment{
 * \param[in] vieCourante est le nombre de point de vie actuel du batiment
 * \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
 */
-void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction);
+void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction, int idJ);
 
 /**
 * \fn void detruireBatiment (Batiment** bat)

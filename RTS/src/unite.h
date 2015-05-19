@@ -13,12 +13,15 @@
 #include <time.h>
 #include "uniteBase.h"
 #include "filePath.h"
+
 #ifndef _UNITE
 #define _UNITE
 
 typedef struct SUnite Unite;
 
 #include "terrain.h"
+#include "jeu.h"
+
 /**
  * \struct SUnite
  * \brief Objet Unite
@@ -27,31 +30,33 @@ typedef struct SUnite Unite;
  */
 
 struct SUnite{
-    int id; /*!< id (unique) de l'unite*/
-    int idJoueur; /*!< id (unique) d'un joueur */
-    int posX; /*!< position X de l'unite ( en case )*/
-    int posY; /*!<position Y de l'unite ( en case ) */
-    int vieCourante; /*!< vie de l'unite actuellement */
-    int deplacement;/*!< 1 si l'unite est en deplacement, 0 sinon */
-    UniteBase* type;/*!< archetype de l'unite */
-    int posCibleX; /*!< X de la position cible par l'unite ( case )*/
-    int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
-    int pierrePorte;/*!< pierre transporte par l'unite */
-    int mithrilPorte;/*!< mithril tranporte par l'unite*/
-    FilePath* chemin; /*!< File des direction que l'unite doit suivre */
-    clock_t timerUnite; /*!< date du dernier deplacement de l'unite */
+     int id; /*!< id (unique) de l'unite*/
+     int idJoueur; /*!< id (unique) d'un joueur */
+     int posX; /*!< position X de l'unite ( en case )*/
+     int posY; /*!<position Y de l'unite ( en ca(se ) */
+     int vieCourante; /*!< vie de l'unite actuellement */
+     int deplacement;/*!< 1 si l'unite est en deplacement, 0 sinon */
+     UniteBase* type;/*!< archetype de l'unite */
+     int posCibleX; /*!< X de la position cible par l'unite ( case )*/
+     int posCibleY;/*!< Y de la position cible par l'unite ( case )*/
+     int posMineraiX; /* faire SET*/
+     int posMineraiY; /* faire SET */
+     int pierrePorte;/*!< pierre transporte par l'unite */
+     int mithrilPorte;/*!< mithril tranporte par l'unite*/
+     FilePath* chemin; /*!< File des direction que l'unite doit suivre */
+     clock_t timerUnite; /*!< date du dernier deplacement de l'unite */
 };
 
 /* *************************************************************--Init--***************************************************************************** */
 
  /**
- * \fn  void initUnite(Unite* unit, const UniteBase* type)
+ * \fn  void initUnite(Unite* unit, const UniteBase* type, int idJ)
  * \brief fonction d'initialisation de la structure Unite
  *
  * \param[in, out] unit pointeur sur Unite
  * \param[in, out] type pointeur sur UniteBase
  */
- void initUnite(Unite* unit, const UniteBase* type);
+ void initUnite(Unite* unit, const UniteBase* type, int idJ);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -65,13 +70,13 @@ struct SUnite{
  int getId(const Unite* unit);
 
  /**
- * \fn int getIdJoueur(const Unite* unit)
+ * \fn int getIdJoueurUnite(const Unite* unit)
  * \brief accesseur idJoueur
  *
  * \param[in, out] unit pointeur sur Unite
  * \return un entier correspondant à un identifiant unique
  */
- int getIdJoueur(const Unite* unit);
+ int getIdJoueurUnite(const Unite* unit);
 
  /**
  * \fn int getPosX (Unite* unit)
@@ -138,6 +143,24 @@ struct SUnite{
  */
  int getPosCibleY(const Unite* unit);
 
+ /**
+ * \fn int getPosMineraiX(const Unite* unit)
+ * \brief accesseur posMineraiX
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \return un entier correspondant à la coordonnée X du minerai cible de l'unité
+ */
+int getPosMineraiX(const Unite* unit);
+
+ /**
+ * \fn int getPosMineraiY(const Unite* unit)
+ * \brief accesseur posMineraiY
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \return un entier correspondant à la coordonnée Y du minerai cible de l'unité
+ */
+int getPosMineraiY(const Unite* unit);
+
   /**
  * \fn int getPierrePorte(Unite* unit)
  * \brief accesseur pierrePorte
@@ -186,13 +209,13 @@ clock_t getTimerUnite(const Unite* unit);
  void setId(Unite* unit, int id);
 
   /**
- * \fn void setId (Unite* unit,int id)
+ * \fn void setIdJoueurUnite(Unite* unit, int idJoueur)
  * \brief mutateur id
  *
  * \param[in, out] unit pointeur sur UniteBase
  * \param[in] un entier correspondant a un identifiant joueur unique
  */
- void setIdJoueur(Unite* unit, int idJoueur);
+ void setIdJoueurUnite(Unite* unit, int idJoueur);
 
  /**
  * \fn void setPosX (Unite* unit,int x)

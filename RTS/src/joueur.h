@@ -25,6 +25,8 @@ struct SJoueur{
      int cameraY; /*!< la position en coordonée y de la camera du joueur */
      TabDyn* tabBatiment; /*!< un tableau contenant l'ensemble des batiments d'un joueur */
      TabDyn* tabTroupe; /*!< un tableau contenant l'ensemble des unites d'un joueur */
+     int posBatPX; /* faire GET et SET */
+     int posBatPY; /* faire GET et SET */
 };
 typedef struct SJoueur Joueur;
 
@@ -147,6 +149,22 @@ Unite* choisiUnite(const Joueur* joue, int numLigne);
 */
 Batiment* choisiBatiment(const Joueur* joue, int numLigne);
 
+/**
+* \fn int getPosBatPX(const Joueur* joue)
+* \brief accesseur posBatPX
+*
+* \param[in, out] joue est un pointeur sur Joueur
+* \return posBatPX est la coordonee X ddu batiment principal du joueur.*/
+int getPosBatPX(const Joueur* joue);
+
+/**
+* \fn int getPosBatPY(const Joueur* joue)
+* \brief accesseur posBatPY
+*
+* \param[in, out] joue est un pointeur sur Joueur
+* \return posBatPY est la coordonee Y du batiment principal du joueur.*/
+int getPosBatPY(const Joueur* joue);
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -241,5 +259,22 @@ void ajouteUnite(Joueur* joue, const Unite* unite);
 * \param[in, out] bat est un pointeur sur un batiment.
 */
 void ajouteBat(Joueur* joue, const Batiment* bat);
+
+/**
+* \fn void setPosBatPX(const Joueur* joue, int x)
+* \brief mutateur posBatPX
+*
+* \param[in, out] joue est un pointeur sur Joueur
+* \param[in] x un entier coordonnée X du batiment principal.*/
+void setPosBatPX(const Joueur* joue, int x);
+
+/**
+* \fn void setPosBatPY(const Joueur* joue, int y)
+* \brief mutateur posBatPY
+*
+* \param[in, out] joue est un pointeur sur Joueur
+* \param[in] y un entier coordonnée Y du batiment principal.*/
+void setPosBatPY(const Joueur* joue, int y);
+
 
 #endif /*_JOUEUR */
