@@ -26,6 +26,8 @@ struct SBatBase{
      int tailleCaseX;/*!< taille en case d'un batiment suivant sa coordonée x */
      int* tabUnitFormable;/*!< tableau d'identifiant d'unite formable par un batiment */
      int nbUnitFormable;/*!< nombre d'unite formable par ce batiment */
+     int coutPierre; /*!< cout en pierre du batiment *//*set Get à faire */
+     int coutMithril;/*!< cout en mithril du batiment *//*set Get à faire */
 };
 typedef struct SBatBase BatBase;
 

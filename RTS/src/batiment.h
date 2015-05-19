@@ -40,10 +40,10 @@ struct SBatiment{
 * \param[in, out] bat pointeur sur Batiment
 * \param[in] id est un identifiant unique
 * \param[in, out] typeBat pointeur sur un batiment de base
-* \param[in] vieCourante est le nombre de point de vie actuel du batiment
 * \param[in] enConstruction est un entier jugeant de l'avancement de la construction du batiment.
+* \param[in] idJ id du joueur controlant ce batiment.
 */
-void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction, int idJ);
+void initBatiment(Batiment* bat, int id, BatBase* typeBat, int enConstruction, int idJ);
 
 /**
 * \fn void detruireBatiment (Batiment** bat)

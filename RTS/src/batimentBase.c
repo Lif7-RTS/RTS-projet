@@ -132,10 +132,13 @@ BatBase* chargementBatBase(void){
 
                /*Nom*/
                fscanf(fish, "nom=%s\n", bat->nomBat);
+               printf("%s \n", bat->nomBat);
                /*Niveau*/
                fscanf(fish, "niveau=%d\n", &(bat->niveau));
+               printf("%d \n", bat->niveau);
                /* tile */
                fscanf(fish, "tile=%d\n", &(bat->tile));
+              printf("%d \n", bat->tile);
                /*vieMax*/
                fscanf(fish, "vieMax=%d\n",&(bat->vieMax));
                /* ameliorable */

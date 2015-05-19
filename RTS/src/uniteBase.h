@@ -30,6 +30,8 @@ struct SUniteBase{
     int ressourceMax; /*!< ressource maximum que cette unite peut porter */
     char tile; /*!< numero de la tile de l'unite */
     int vitesse; /*!<temps qu'il faut à l'unite pour traverser une case en ms  */
+    int coutPierre; /*!< cout en pierre du batiment */ /*set Get à faire */
+     int coutMithril;/*!< cout en mithril du batiment */ /*set Get à faire */
 };
 
 typedef struct SUniteBase UniteBase;

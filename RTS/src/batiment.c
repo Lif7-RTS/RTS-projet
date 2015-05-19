@@ -12,14 +12,14 @@
 
 /* ***********************************************************--Init--*************************************************************************** */
 
-void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction, int idJ)
+void initBatiment(Batiment* bat, int id, BatBase* typeBat, int enConstruction, int idJ)
 {
      setIdBat(bat, id);
      setTypeBat(bat, typeBat);
-     setVieCouranteBat (bat, vieCourante);
+     setVieCouranteBat (bat, getVieMaxBat(typeBat));
      setEnConstruction (bat, enConstruction);
      setIdJoueurBat(bat, idJ);
-     setTimerBat(bat, (clock_t)NULL);
+     setTimerBat(bat, clock());
      setTabAttente(bat, (File*)malloc(sizeof(File)));
      initFile(bat->tabAttente);
 }
@@ -114,11 +114,13 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
     }
     else{
         if(getEnConstruction(bat) == 1){
-            if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC > getTempsConstruct(getTypeBat(bat))){
+            if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsConstruct(getTypeBat(bat))){
                 setEnConstruction(bat, 0);
+                setTimerBat(bat,NULL);
             }
         }
         else if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
+            printf("Création Unite ! \n");
             Unite* u = (Unite*) malloc(sizeof(Unite));
             initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
             int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
@@ -144,5 +146,11 @@ void ajouterFileBat(Batiment* bat,Jeu* j,int i){
     if(i >= getNbUniteFormable(getTypeBat(bat)))
         return;
     printf("%d \n", i);
-    enfile(bat->tabAttente,getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i)));
+    UniteBase* u = getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i));
+    if(getCoutPierreUnite(u) <= getPierreJoueur(getJoueur(j,getIdJoueurBat(bat)))
+       && getCoutMithrilUnite(u) <= getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat)))){
+        enfile(bat->tabAttente,u);
+        setPierreJoueur(getPierreJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutPierreUnite(u));
+        setMithrilJoueur(getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutMithrilUnite(u));
+    }
 }

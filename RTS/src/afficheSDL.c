@@ -115,6 +115,13 @@ void affiche(const Affichage* aff){
             }
 		}
 	}
+	for(j = 0; j < NB_BAT_RACE;j++){
+                int w =  j+getIdRace(getJoueur(aff->jeu,getVueJoueur(aff->jeu)))*NB_BAT_RACE;
+                num_tile = getTileBat(getBatConstructible(aff->jeu, w));
+                rect_Dest.x = (j%3)*TILE_TAILLE;
+                rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE;
+                SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+    }
 	id = getIdSel(aff->jeu);
 	if(id != 0){
         if(id < 0){

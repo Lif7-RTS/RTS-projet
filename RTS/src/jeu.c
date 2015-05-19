@@ -134,9 +134,12 @@ TabDyn* getTabBat(Jeu* j){
 
 void boucleJeu(Jeu* j){
       int quit = 0;
+      int ok;
+      int i,k;
       int x,y;
       int xClick,yClick;
       SDL_Event e;
+      Joueur* joueur = joueur;
       Unite* u;
       Batiment* b;
       b = (Batiment*) malloc(sizeof(Batiment));
@@ -158,8 +161,7 @@ void boucleJeu(Jeu* j){
       j->carte->tabCase[6+(j->carte->tailleX)].idContenu = -1;
       j->carte->tabCase[7+(j->carte->tailleX)].idContenu = -1;*/
       while( !quit ){
-           /* verifierTimerBat(getBat(j,0),j);*/
-            deplacementUnite(getUnite(j,0),j->carte);
+            checkJeu(j);
             SDL_PumpEvents();
             SDL_GetMouseState(&x,&y);
         while( SDL_PollEvent(&e) != 0 ){
@@ -167,15 +169,44 @@ void boucleJeu(Jeu* j){
                 quit = 1;
             }
             if(e.type == SDL_MOUSEBUTTONDOWN){
-                xClick = e.button.x;
+                        xClick = e.button.x;
                 yClick = e.button.y;
                 if(yClick < SCREEN_H-HUD_H){
-                    xClick = xClick/TILE_TAILLE + getCameraX(getJoueur(j,getVueJoueur(j)));
-                    yClick = yClick/TILE_TAILLE + getCameraY(getJoueur(j,getVueJoueur(j)));
-                    printf("x: %d y: %d ",xClick,yClick);
+                    xClick = xClick/TILE_TAILLE + getCameraX(joueur);
+                    yClick = yClick/TILE_TAILLE + getCameraY(joueur);
                     if(e.button.button == SDL_BUTTON_LEFT){
-                        setIdSel(j,getContenu(getCase(getCarteJeu(j),xClick,yClick)));
-                         printf("id: %d \n",getContenu(getCase(getCarteJeu(j),xClick,yClick)));
+                        if(getBatConstruction(joueur) == NULL)
+                            setIdSel(j,getContenu(getCase(getCarteJeu(j),xClick,yClick)));
+                        else{
+                            if(xClick + 1 < getTailleX(getCarteJeu(j)) && yClick + 1 < getTailleY(getCarteJeu(j))){
+                                ok = 1;
+                                for(i = 0; i < getTailleCaseX(getBatConstruction(joueur)); i++){
+                                    for(k = 0; k < getTailleCaseY(getBatConstruction(joueur)); k++){
+                                        if(getAcces(getCase(getCarteJeu(j), xClick+i, yClick+k)) != 1 || getContenu((getCase(getCarteJeu(j), xClick+i, yClick+k)) != 0)
+                                           ok = 0;
+                                    }
+                                }
+                                if(getPierreJoueur(joueur) < getCoutPierreBat(getBatConstruction(joueur))
+                                   || getMithrilJoueur(joueur) < getCoutMithrilBat(getBatConstruction(joueur)))
+                                    ok = 0;
+                                if(ok){
+
+                                    b = (Batiment*)malloc(sizeof(Batiment));
+                                    int race = getIdRace(joueur);
+                                    initBatiment(b,ajouterTabDyn(getTabBat(j),(uintptr_t)b), getBatConstruction(joueur),1,getVueJoueur(j));
+                                    setPosXBat(b, xClick);
+                                    setPosYBat(b, yClick);
+                                    setPierreJoueur(joueur, getPierreJoueur(joueur) - getCoutPierreBat(getTypeBat(b)));
+                                    setMithrilJoueur(joueur, getMithrilJoueur(joueur) - getCoutMithrilBat(getTypeBat(b)));
+                                    for(i = 0; i < getTailleCaseX(getTypeBat(b)); i++){
+                                        for(k = 0; k < getTailleCaseY(getTypeBat(b)); k++){
+                                            setContenu(getCase(getCarteJeu(j),xClick+i, yClick+k),-getIdBat(b));
+                                        }
+                                    }
+                                    setBatConstruction(joueur, NULL);
+                                }
+                            }
+                        }
                     }
                     else if(e.button.button == SDL_BUTTON_RIGHT){
                         if(getIdSel(j) < 0){
@@ -191,21 +222,26 @@ void boucleJeu(Jeu* j){
                 }
                else{
                     if(e.button.button == SDL_BUTTON_LEFT){
-                        if(xClick > SCREEN_W - 3*TILE_TAILLE && xClick < SCREEN_H){
+                        if(xClick > (SCREEN_W - 3*TILE_TAILLE) && xClick < SCREEN_W){
                             if(getIdSel(j) < 0){
+                                printf("lo\n");
                                 b = getBat(j, -getIdSel(j)-1);
                                 xClick -= (SCREEN_W - 3*TILE_TAILLE);
-                                xClick = xClick % TILE_TAILLE;
+                                xClick = xClick /TILE_TAILLE;
                                 yClick -= (SCREEN_H-HUD_H);
-                                yClick = yClick % TILE_TAILLE;
+                                yClick = yClick /TILE_TAILLE;
                                 if((yClick*3+xClick) < getNbUniteFormable(getTypeBat(b))){
+                                    printf("lol");
                                     ajouterFileBat(b,j,yClick*3+xClick);
                                 }
                             }
                         }
                         else if(xClick > 0 && xClick < 3*TILE_TAILLE){
-                            xClick = xClick % TILE_TAILLE;
-                            yClick = yClick % TILE_TAILLE;
+                            xClick = xClick / TILE_TAILLE;
+                            yClick = (yClick-SCREEN_H+HUD_H) / TILE_TAILLE;
+                            if((xClick + yClick * 3) < NB_BAT_RACE){
+                                setBatConstruction(joueur, getBatConstructible(j,xClick+yClick*3 + getIdRace(joueur)*NB_BAT_RACE));
+                            }
                         }
                     }
                 }
@@ -342,25 +378,7 @@ void checkJeu(Jeu* jeu){
      for(i=0;i<taille;i++)
      {
           bat = getBat(jeu, i);
-          if (getVieCouranteBat(bat)== 0)
-          {
-               /*detruireBatiment(bat*/
-          }
-          else
-          {
-               enConstru = getEnConstruction(bat);
-               if(enConstru == 1)
-               {
-                    /* avancer construction */
-               }
-               else
-               {
-                    if(getPremier(getTabAttente(bat)))
-                    {
-                         /*avancer la file */
-                    }
-               }
-          }
+          verifierTimerBat(bat,jeu);
      }
 
 }

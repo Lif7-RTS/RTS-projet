@@ -94,6 +94,10 @@ int getPosBatPX(const Joueur* joue){
 int getPosBatPY(const Joueur* joue){
      return joue->posBatPY;
 }
+
+BatBase* getBatConstruction(const Joueur* joue){
+    return joue->batConstruction;
+}
 /* *************************************************************--SET--***************************************************************************** */
 
 void setIdJoueur(Joueur* joue, int idJoueur){
@@ -138,4 +142,8 @@ void ajouteUnite(Joueur* joue, const Unite* unite){
 
 void ajouteBat(Joueur* joue, const Batiment* bat){
     ajouterTabDyn(joue->tabBatiment, (uintptr_t) bat);
+}
+
+void setBatConstruction(Joueur* joue,BatBase* bat){
+    joue->batConstruction = bat;
 }
