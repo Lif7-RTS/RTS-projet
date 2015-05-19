@@ -70,6 +70,13 @@ int getPosCibleX(const Unite* unit){
 int getPosCibleY(const Unite* unit){
     return unit->posCibleY;
 }
+int getPosMineraiX(const Unite* unit){
+     return unit->posMineraiX;
+}
+
+int getPosMineraiY(const Unite* unit){
+     return unit->posMineraiY;
+}
 
 int getPierrePorte(const Unite* unit){
     return unit->pierrePorte;
@@ -432,12 +439,13 @@ void Recolte(Unite* homme, Jeu* jeu){
      {
           if (quantite != 0 )
           {
-                sCase* place = getCase(getCarteJeu(jeu), , y);
+                sCase* place = getCase(getCarteJeu(jeu), getPosMineraiX(homme), getPosMineraiY(homme));
 
                if(getPierreCase(place)!= 0)
                {
                     if( quantite < quantiteRecolte)
-                    else if( getPierreCase(place) < quantiteRecolte))
+                         quantite=quantite;
+                    else if( getPierreCase(place) < quantiteRecolte)
                               quantite=getPierreCase(place);
                     else  quantite=quantiteRecolte;
 
@@ -447,7 +455,8 @@ void Recolte(Unite* homme, Jeu* jeu){
                else if(getMithrilCase(place) != 0)
                {
                     if( quantite < quantiteRecolte)
-                    else if( getMithrilCase(place) < quantiteRecolte))
+                         quantite=quantite;
+                    else if( getMithrilCase(place) < quantiteRecolte)
                               quantite=getMithrilCase(place);
                     else  quantite=quantiteRecolte;
 
@@ -461,12 +470,11 @@ void Recolte(Unite* homme, Jeu* jeu){
           }
           else
           {
-               setPosCibleX(homme,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(homme)));
-               setPosCibleY(homme,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(homme)));
+               setPosCibleX(homme,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(homme))));
+               setPosCibleY(homme,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(homme))));
           }
      }
 }
 
-void trouverMinerais(Unite* homme, Jeu* jeu){
-     4
+void trouverMinerai(Unite* homme, Jeu* jeu){
 }

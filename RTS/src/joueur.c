@@ -16,6 +16,10 @@ struct SRace{
     int pierre[2];
 };
 static Race races = {{10,11},{50,75},{100,120}};
+
+
+/* ***********************************************************--INIT--*************************************************************************** */
+
 void initJoueur (Joueur* joue, int idJoueur, char* nomJouer,
                  int idRace, int cameraX, int cameraY){
     setIdJoueur(joue,idJoueur);
@@ -36,6 +40,8 @@ void detruireJoueur(Joueur* joue){
     detruireTabDyn(joue->tabBatiment);
     detruireTabDyn(joue->tabTroupe);
 }
+
+/* *************************************************************--GET--***************************************************************************** */
 
 int getIdJoueur(const Joueur* joue){
     return joue->idJoueur;
@@ -80,6 +86,15 @@ Unite* choisiUnite(const Joueur* joue, int numLigne){
 Batiment* choisiBatiment(const Joueur* joue, int numLigne){
     return (Batiment*) getElemTabDyn(joue->tabBatiment, numLigne);
 }
+
+int getPosBatPX(const Joueur* joue){
+     return joue->posBatPX;
+}
+
+int getPosBatPY(const Joueur* joue){
+     return joue->posBatPY;
+}
+/* *************************************************************--SET--***************************************************************************** */
 
 void setIdJoueur(Joueur* joue, int idJoueur){
     joue->idJoueur = idJoueur;
