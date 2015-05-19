@@ -4,7 +4,7 @@
 #define TILE_TAILLE 50
 #define NB_TILE 10
 #define NB_TILEX 10
-#define NB_TILEY 1
+#define NB_TILEY 2
 #define INFINI 1000000
 #define DROITE 1
 #define BAS 2

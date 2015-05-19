@@ -28,6 +28,7 @@ struct SBatiment{
      int x; /*!< position x du batiment (haut-gauche du batiment) */
      int y; /*!< position y du batiment (haut-gauche du batiment) */
      clock_t timerBat;/*!< timer du batiment, pour la formation d'unite */
+     int idJoueur; /*!< id du joueur controleur */
 
 };
 /* ***********************************************************--Init--*************************************************************************** */
@@ -62,6 +63,15 @@ void detruireBatiment(Batiment** bat);
 *\return id, un identifiant unique
 */
 int getIdBat(const Batiment* bat);
+
+/**
+* \fn int getIdJoueurBat(Batiment* bat)
+* \brief accesseur idJ
+*
+* \param[in, out] bat pointeur sur Batiment.
+*\return idJ,id du joueur controleur
+*/
+int getIdJoueurBat(const Batiment* bat);
 
 /**
 * \fn BatBase getTypeBat(Batiment* bat)
@@ -138,6 +148,16 @@ clock_t getTimerBat(const Batiment* bat);
 * \param[in] id est un identifiant unique.
 */
 void setIdBat(Batiment* bat, int id );
+
+
+/**
+* \fn int setIdJoueurBat(Batiment* bat, int idJ)
+* \brief mutateur idJoueur
+*
+* \param[in, out] bat pointeur sur Batiment.
+* \param idJ, l'id du joueur controleur
+*/
+void setIdJoueurBat(Batiment* bat, int idJ);
 
 /**
 * \fn vvoid setTypeBat(Batiment* bat, BatBase* typeBat)

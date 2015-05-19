@@ -218,22 +218,6 @@ TabDyn* getTabBat(Jeu* j);
 */
  void boucleJeu(Jeu* j);
 
- /**
- * \fn void afficheJeu(Jeu* j)
- * \brief function d'affichage du jeu
- *
- * \param j pointeur sur jeu
- */
- void afficheJeu(Jeu* j);
-
- /**
- * \fn void afficheHUD(Jeu* j)
- * \brief function d'affichage de l'interface
- *
- * \param j pointeur sur jeu
- */
- void afficheHUD(Jeu* j);
-
 /**
 * \fn void checkJeu(Jeu* jeu)
 * \brief verifie et réalise toute les action a faire sur/par les batiment et les Unites

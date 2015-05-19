@@ -12,12 +12,13 @@
 
 /* ***********************************************************--Init--*************************************************************************** */
 
-void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction)
+void initBatiment(Batiment* bat, int id, BatBase* typeBat, int vieCourante, int enConstruction, int idJ)
 {
      setIdBat(bat, id);
      setTypeBat(bat, typeBat);
      setVieCouranteBat (bat, vieCourante);
      setEnConstruction (bat, enConstruction);
+     setIdJoueurBat(bat, idJ);
      setTimerBat(bat, (clock_t)NULL);
      setTabAttente(bat, (File*)malloc(sizeof(File)));
      initFile(bat->tabAttente);
@@ -33,6 +34,9 @@ int getIdBat(const Batiment* bat){
      return bat->id;
 }
 
+int getIdJoueurBat(const Batiment* bat){
+    return bat->idJoueur;
+}
 BatBase* getTypeBat(const Batiment* bat){
      return bat->typeBat;
 }
@@ -65,6 +69,10 @@ clock_t getTimerBat(const Batiment* bat){
 
 void setIdBat(Batiment* bat, int id ){
      bat->id=id;
+}
+
+void setIdJoueurBat(Batiment* bat, int idJ){
+     bat->idJoueur = idJ;
 }
 
 void setTypeBat(Batiment* bat, BatBase* typeBat){
@@ -111,10 +119,8 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
             }
         }
         else if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
-            printf("CREE \n");
-            printf("temps: %d \n", (clock() - getTimerBat(bat))/CLOCKS_PER_SEC);
             Unite* u = (Unite*) malloc(sizeof(Unite));
-            initUnite(u, regardeTeteFile(getTabAttente(bat)));
+            initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
             int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
             setId(u, id);
             setPosX(u,-getTailleY(j->carte));

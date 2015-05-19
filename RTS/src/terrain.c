@@ -45,7 +45,7 @@ void initTerrain(Terrain* ter, const char* colliCarte){
     FILE* fp;
     int tailleX;
     int tailleY;
-    int x,y,tile,p,m;
+    int x,y,tile;
     setCarteTerrain(ter, colliCarte);
     fp = fopen(colliCarte,"r");
     if(fp != NULL){
@@ -56,12 +56,18 @@ void initTerrain(Terrain* ter, const char* colliCarte){
         ter->tiles = (char*) malloc(sizeof(int)*tailleX*tailleY);
         for(y = 0; y < tailleY; y++){
             for(x = 0; x < tailleX; x++){
-                fscanf(fp,"%d %d %d", &tile, &m, &p);
+                fscanf(fp,"%d ", &tile);
                 ter->tiles[x+y*tailleX] = tile;
-                if(tile == 2)
-                    initCase(&ter->tabCase[tailleX*y+x],p,m,0);
+                if(tile >= 1 && tile <= 11){
+                    if(tile == 10)
+                        initCase(&ter->tabCase[tailleX*y+x],2000,0,0);
+                    else if(tile == 11)
+                        initCase(&ter->tabCase[tailleX*y+x],0,2000,0);
+                    else
+                        initCase(&ter->tabCase[tailleX*y+x],0,0,0);
+                }
                 else
-                    initCase(&ter->tabCase[tailleX*y+x],p,m,1);
+                    initCase(&ter->tabCase[tailleX*y+x],0,0,1);
             }
             printf("\n");
         }

@@ -51,13 +51,13 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
         aff->tileSet_Texture = SDL_CreateTextureFromSurface(aff->renderer,image);
         SDL_FreeSurface(image);
         image = NULL;
-        aff->tileSet = (Tile*) malloc(sizeof(Tile)*NB_TILE);
-        for(i= 0; i < NB_TILEX; i++){
-            for(k=0; k < NB_TILEY; k++){
-                aff->tileSet[i+k*NB_TILEX].r.w = TILE_TAILLE;
-                aff->tileSet[i+k*NB_TILEX].r.h = TILE_TAILLE;
-                aff->tileSet[i+k*NB_TILEX].r.x = i*TILE_TAILLE;
-                aff->tileSet[i+k*NB_TILEX].r.y = k*TILE_TAILLE;
+        aff->tileSet = (Tile*) malloc(sizeof(Tile)*NB_TILEX*NB_TILEY);
+        for(i= 0; i < NB_TILEY; i++){
+            for(k=0; k < NB_TILEX; k++){
+                aff->tileSet[k+i*NB_TILEX].r.w = TILE_TAILLE;
+                aff->tileSet[k+i*NB_TILEX].r.h = TILE_TAILLE;
+                aff->tileSet[k+i*NB_TILEX].r.x = k*TILE_TAILLE;
+                aff->tileSet[k+i*NB_TILEX].r.y = i*TILE_TAILLE;
             }
         }
     }

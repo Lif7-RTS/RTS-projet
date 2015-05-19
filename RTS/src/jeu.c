@@ -148,11 +148,11 @@ void boucleJeu(Jeu* j){
       printf("%d \n",getTileUnite(getTypeUnite(u)));
     /*  ajouterTabDyn(j->tableauBat, (uintptr_t) b);*/
       ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
-      setPosX(u,5);
-      setPosY(u,0);
-      setPosCibleX(u,5);
-      setPosCibleY(u,0);
-      j->carte->tabCase[5].idContenu = 1;
+      setPosX(u,7);
+      setPosY(u,1);
+      setPosCibleX(u,7);
+      setPosCibleY(u,1);
+      j->carte->tabCase[7+getTailleX(j->carte)].idContenu = 1;
    /*   j->carte->tabCase[6].idContenu = -1;
       j->carte->tabCase[7].idContenu = -1;
       j->carte->tabCase[6+(j->carte->tailleX)].idContenu = -1;
