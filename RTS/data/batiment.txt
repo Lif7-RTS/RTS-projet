@@ -10,3 +10,6 @@ tailleCaseX=2
 tailleCaseY=2
 nombreUnite=9
 tabUniteFormable=0 0 0 0 0 0 0 0 0
+coutPierre=150
+coutMithril=150
+

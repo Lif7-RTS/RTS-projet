@@ -21,20 +21,24 @@
  * SUniteBase est un objet representant un archetype d'unite
  */
 struct SUniteBase{
-    int vieMax;/*!< point de vie maximum */
-    int attaque;/*!< point de degat infliges a chaque attaque */
-    char nom[25]; /*!< nom de l'unite */
-    int ouvrier; /*!< 1 si ouvrier, 0 sinon */
-    int tempsFormation;/*!< temps de formation en secondes*/
-    int vitesseAttaque;/*!< vitesse d'attaque (ecart entre 2 attaques en ms) */
-    int ressourceMax; /*!< ressource maximum que cette unite peut porter */
-    char tile; /*!< numero de la tile de l'unite */
-    int vitesse; /*!<temps qu'il faut à l'unite pour traverser une case en ms  */
-    int coutPierre; /*!< cout en pierre du batiment */ /*set Get à faire */
+     int vieMax;/*!< point de vie maximum */
+     int attaque;/*!< point de degat infliges a chaque attaque */
+     char nom[25]; /*!< nom de l'unite */
+     int ouvrier; /*!< 1 si ouvrier, 0 sinon */
+     int tempsFormation;/*!< temps de formation en secondes*/
+     int vitesseAttaque;/*!< vitesse d'attaque (ecart entre 2 attaques en ms) */
+     int ressourceMax; /*!< ressource maximum que cette unite peut porter */
+     char tile; /*!< numero de la tile de l'unite */
+     int vitesse; /*!<temps qu'il faut à l'unite pour traverser une case en ms  */
+     int coutPierre; /*!< cout en pierre du batiment */ /*set Get à faire */
      int coutMithril;/*!< cout en mithril du batiment */ /*set Get à faire */
+     int portee; /* faite set et get*/
 };
-
 typedef struct SUniteBase UniteBase;
+
+
+/* *************************************************************--Init--***************************************************************************** */
+
 /**
  * \fn void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
                     int ouvr, int t, int vitesseAtq, int ressourceM, char* chemin, int v)
@@ -51,59 +55,70 @@ typedef struct SUniteBase UniteBase;
  */
  void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
                      int ouvr, int t, int vitesseAtq, int ressourceM, char tile, int v);
+
+/* *************************************************************--GET--***************************************************************************** */
+
 /**
  * \fn int getVieMax (UniteBase* unit)
  * \brief accesseur vieMax
- * \param unit pointeur sur une unitBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return vieMax
  */
  int getVieMaxUnite(const UniteBase* unit);
  /**
  * \fn int getAttaque (UniteBase* unit)
  * \brief accesseur attaque
- * \param unit pointeur sur une unitBase
+  *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return attaque
  */
  int getAttaque(const UniteBase* unit);
  /**
  * \fn char* getNom (UniteBase* unit)
  * \brief accesseur nom
- * \param unit pointeur sur une unitBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return nom
  */
  char* getNom(const UniteBase* unit);
  /**
  * \fn int getOuvrier (UniteBase* unit)
  * \brief accesseur ouvrier
- * \param unit pointeur sur une unitBase
+  *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return ouvrier: 1 si ouvrier, 0 sinon
  */
  int getOuvrier(const UniteBase* unit);
   /**
  * \fn int getTempsFormation (UniteBase* unit)
  * \brief accesseur tempsFormation
- * \param unit pointeur sur une unitBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return tempsFormation
  */
  int getTempsFormation(const UniteBase* unit);
   /**
  * \fn int getVitesseAttaque (UniteBase* unit)
  * \brief accesseur VitesseAttaque
- * \param unit pointeur sur une unitBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return VitesseAttaque
  */
  int getVitesseAttaque(const UniteBase* unit);
   /**
  * \fn int getRessourceMax (UniteBase* unit)
  * \brief accesseur RessourceMax
- * \param unit pointeur sur une UniteBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return ressourceMax
  */
  int getRessourceMax(const UniteBase* unit);
 /**
  * \fn int getVitesse (UniteBase* unit)
  * \brief accesseur Vitesse
- * \param unit pointeur sur une UniteBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return vitesse
  */
  int getVitesse(const UniteBase* unit);
@@ -111,10 +126,40 @@ typedef struct SUniteBase UniteBase;
  /**
  * \fn char getTile(UniteBase* unit)
  * \brief accesseur tile
- * \param unit pointeur sur une UniteBase
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
  * \return tile
  */
  char getTileUnite(const UniteBase* unit);
+
+ /**
+ * \fn int getCoutPierreUnite(const UniteBase* unit)
+ * \brief accesseur coutPierre
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \return un entier correspondant au cout en pierre de la formation d'une unité.
+ */
+int getCoutPierreUnite(const UniteBase* unit);
+
+ /**
+ * \fn int getCoutMithrilUnite(const UniteBase* unit)
+ * \brief accesseur coutMithril
+ *
+ * \param[in, out] unitBase pointeur sur Unite
+ * \return un entier correspondant au cout en mithril de la formation d'une unité.
+ */
+int getCoutMithrilUnite(const UniteBase* unit);
+
+ /**
+ * \fn int getPorteeUnite(const UniteBase* unit)
+ * \brief accesseur portee
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
+ * \return un entier correspondant a une portée.
+ */
+int getPorteeUnite(const UniteBase* unit);
+
+/* *************************************************************--SET--***************************************************************************** */
 
  /**
  * \fn void setVieMax (UniteBase* unit,int vieM)
@@ -187,6 +232,35 @@ typedef struct SUniteBase UniteBase;
  * \param tile numero de la tile de l'unite
  */
  void setTileUnite(UniteBase* unit, char tile);
+
+ /**
+ * \fn void setCoutPierreUnite(UniteBase* unit, int coutP)
+ * \brief mutateur coutPierre
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] un entier correspondant au cout en pierre de la formation d'une unité.
+ */
+void setCoutPierreUnite(UniteBase* unit, int coutP);
+
+ /**
+ * \fn void setCoutMithrilUnite(UniteBase* unit, int coutM)
+ * \brief mutateur coutMithril
+ *
+ * \param[in, out] unit pointeur sur UniteBase
+ * \param[in] un entier correspondant au cout en mithril de la formation d'une unité.
+ */
+void setCoutMithrilUnite(UniteBase* unit, int coutM);
+
+ /**
+ * \fn void setPorteeUnite(const UniteBase* unit, int portee)
+ * \brief mutateur portee
+ *
+ * \param[in, out] unit pointeur sur une UniteBase
+ * \param[in] un entier correspondant a une portée.
+ */
+void setPorteeUnite(UniteBase* unit, int portee);
+
+/* *************************************************************--FCT--***************************************************************************** */
 
  /**
 * \fn UniteBase* chargementUniteBase(void)

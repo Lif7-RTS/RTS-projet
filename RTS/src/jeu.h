@@ -158,6 +158,16 @@ TabDyn* getTabUnite(Jeu* j);
  */
 TabDyn* getTabBat(Jeu* j);
 
+/**
+ * \fn int getIdJoueurCase(const jeu* jeu,const sCase* place)
+ * \brief renvoi l'id du joueur a qui apartien le contenu de la case (-1 si aucun joueur ne possède la case)
+ *
+ * \param[in, ou] jjeu un poiteur sur Jeu
+ * \param[in, ou] place un pointeur sur une case
+ * \return un identifiant unique de joueur.
+ */
+int getIdJoueurCase(const Jeu* jeu, const sCase* place);
+
 /* *************************************************************--SET--***************************************************************************** */
 
  /**
@@ -201,6 +211,15 @@ TabDyn* getTabBat(Jeu* j);
  * \param[in] unit pointeur sur une nouvelle unite
  */
  void ajouterUnite( Jeu*  j, Unite* unit);
+
+/**
+ * \fn Unite* getUnite ( jeu* j, int uNb)
+ * \brief mutateur tableauUnite
+ * \param[in, ou] j pointeur sur un Jeu
+ * \param[in] placement de l'unite dans le tableau d'unite.
+ * \param[in, out] pointeur sur une unite.
+*/
+void setUnite(const Jeu*  j, int uNb, Unite* unit);
 
   /**
  * \fn  void ajouterBat(jeu*  j, Batiment* bat)

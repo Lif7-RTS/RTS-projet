@@ -50,18 +50,47 @@ static int testCase(int x, int y, Terrain* terrain);
  */
 static void djikstra(int x, int y,CellDjikstra* tabD, Terrain* terrain);
 
+/**
+ * \fn static int testCase(int x, int y, Terrain* terrain)
+ * \brief verifi si l'unité est a portée d'attque de sa cible 1 si oui 0 sinon
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
+static int aPortee(Unite* homme, Jeu* jeu);
+
 /* *************************************************************--Init--***************************************************************************** */
 
 void initUnite(Unite* unit, const UniteBase* type, int idJoueur){
-    setTypeUnite(unit, type);
-    setIdJoueur(unit, idJoueur);
-    setDeplacement(unit, 0);
-    setVieCouranteUnite(unit, getVieMaxUnite(type));
-    setPierrePorte(unit, 0);
-    setMithrilPorte(unit, 0);
-    setTimerUnite(unit, NULL);
-    unit->chemin = (FilePath*)malloc(sizeof(FilePath));
-    initFilePath(unit->chemin);
+     FilePath* chemin = (FilePath*)malloc(sizeof(FilePath));
+     initFilePath(chemin);
+     clock_t tempo=clock();
+
+     if(tempo == -1)
+     {
+          printf("Problème d'horloge");
+          exit(EXIT_FAILURE);
+     }
+
+     /* id */
+     setIdJoueur(unit, idJoueur);
+     /* posX et posY */
+     setVieCouranteUnite(unit, getVieMaxUnite(type));
+     setDeplacement(unit, 0);
+     setTypeUnite(unit, type);
+     /* posCibleX et posCibleY */
+     /* posMineraiX posMineraiY */
+     setEnTravail(unit, -1);
+     setPierrePorte(unit, 0);
+     setMithrilPorte(unit, 0);
+     setChemin(unit, chemin);
+     setTimerUnite(unit, tempo);
+}
+
+void detruireUnite(Unite** unit){
+     detruireFilePath(getChemin(*unit));
+     free(*unit);
+     *unit=NULL;
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -188,6 +217,9 @@ void setMithrilPorte(Unite* unit, int m){
     unit->mithrilPorte = m;
 }
 
+void  setChemin(Unite* unit, FilePath* file){
+     unit->chemin=file;
+}
 
 /* *************************************************************--FCT--***************************************************************************** */
 
@@ -471,7 +503,7 @@ void trouveChemin(Unite* homme, Terrain* terrain){
 
 }
 
-/* *************************************************************--FCT en écriture--***************************************************************************** */
+/* *************************************************************--FCT à tester--***************************************************************************** */
 
 void Recolte(Unite* homme, Jeu* jeu){
      clock_t tempo=clock();
@@ -529,6 +561,14 @@ void Recolte(Unite* homme, Jeu* jeu){
           {
                setEnTravail(homme, 2); /*retour au bat principal cas sécuritaire n'est pas sensé arriver */
           }
+
+          tempo=clock();
+          if(tempo == -1)
+          {
+               printf("Problème d'horloge");
+               exit(EXIT_FAILURE);
+          }
+          setTimerUnite(homme, tempo);
      }
 }
 
@@ -617,5 +657,72 @@ static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain){
      {
           printf("-> Case exploitable <-");
           return (getPierreCase(getCase(terrain, x, y)) + getMithrilCase(getCase(terrain, x, y)));
+     }
+}
+
+
+/* *************************************************************--FCT en écriture--***************************************************************************** */
+
+void attaque(Unite* homme, Jeu* jeu){
+
+     if (aPortee(homme, jeu )== 1)
+     {
+          clock_t tempo=clock();
+          float temps;
+          int contenu = getContenu(getCase(getCarteJeu(jeu),getPosCibleX(homme),getPosCibleY(homme)));
+
+          if(tempo == -1)
+          {
+               printf("Problème d'horloge");
+               exit(EXIT_FAILURE);
+          }
+
+          temps= ((float)tempo-(float)homme->timerUnite)/CLOCKS_PER_SEC;
+
+          if( temps >= (float) getVitesseAttaque(getTypeUnite(homme))/1000) /* attaquer */
+          {
+               if(contenu > 0){
+                    /* annimation */
+                    Unite* ennemi = getUnite(jeu, contenu);
+                    setVieCouranteUnite(ennemi, getVieCouranteUnite(ennemi) - getAttaque(homme)); /* frappe une foi */
+               }
+               else if(contenu < 0){
+                    /* annimation */
+                    Batiment* bat = getBat(jeu, contenu);
+                    setVieCouranteBat(bat, getVieCouranteBat(bat) - getAttaque(homme));
+               }
+               setTimerUnite(homme, tempo);
+          }
+     }
+     else
+     {
+               int cibleX = getPosCibleX(homme);
+               int cibleY = getPosCibleY(homme);
+
+               deplacementUnite(homme, getCarteJeu(jeu));
+
+               setPosCibleX(homme, cibleX);
+               setPosCibleY(homme, cibleY);
+     }
+}
+
+static int aPortee(Unite* homme, Jeu* jeu){
+     int portee = getPorteeUnite(homme);
+     int hommeX = getPosX(homme);
+     int hommeY = getPosY(homme);
+     int cibleX = getPosCibleX(homme);
+     int cibleY = getPosCibleY(homme);
+
+     if(hommeY < cibleY - portee || hommeY > cibleY + portee)
+     {
+          return 0;
+     }
+     else if (hommeX < cibleX - portee || hommeX > cibleX + portee)
+     {
+          return 0;
+     }
+     else
+     {
+          return 1;
      }
 }

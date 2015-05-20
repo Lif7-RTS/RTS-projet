@@ -1,6 +1,6 @@
 1
 
-nom=Archer
+nom=Lance-cailloux
 vieMax=600
 attaque=50
 vitesseAttaque=950
@@ -9,3 +9,6 @@ tempsFormation=2
 ressourceMax=0
 tile=5
 vitesse=100
+coutPierre=50
+coutMithril=100
+portee=3

@@ -26,8 +26,8 @@ struct SBatBase{
      int tailleCaseX;/*!< taille en case d'un batiment suivant sa coordonée x */
      int* tabUnitFormable;/*!< tableau d'identifiant d'unite formable par un batiment */
      int nbUnitFormable;/*!< nombre d'unite formable par ce batiment */
-     int coutPierre; /*!< cout en pierre du batiment *//*set Get à faire */
-     int coutMithril;/*!< cout en mithril du batiment *//*set Get à faire */
+     int coutPierre; /*!< cout en pierre du batiment */
+     int coutMithril;/*!< cout en mithril du batiment */
 };
 typedef struct SBatBase BatBase;
 
@@ -145,6 +145,25 @@ int getUnitFormableBat(const BatBase* bat, int i);
 * \return nbUniteFormable
 */
 int getNbUniteFormable(const BatBase* bat);
+
+ /**
+ * \fn int getCoutPierreBat(const BatBase* bat)
+ * \brief accesseur coutPierre
+ *
+* \param[in, out] bat pointeur sur BatBase
+ * \return un entier correspondant au cout en pierre de la création d'un batiment.
+ */
+int getCoutPierreBat(const BatBase* bat);
+
+ /**
+ * \fn int getCoutMithrilBat(const BatBase* bat)
+ * \brief accesseur coutMithril
+ *
+* \param[in, out] bat pointeur sur BatBase
+ * \return un entier correspondant au cout en mithril de la création d'un batiment.
+ */
+int getCoutMithrilBat(const BatBase* bat);
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -236,6 +255,25 @@ void setTabUnitFormable(BatBase* bat, int* tabUnitFormable);
 * \param nb nombre de type d'unite que le batiment peut forme
 */
 void setNbUniteFormable(BatBase* bat,int nb);
+
+ /**
+ * \fn void setCoutPierreBat(BatBase* bat, int coutP)
+ * \brief mutateur coutPierre
+ *
+ * \param[in, out] bat pointeur sur BatBase
+ * \param[in] un entier correspondant au cout en pierre de la creation d'un batiment..
+ */
+void setCoutPierreBat(BatBase* bat, int coutP);
+
+ /**
+ * \fn void setCoutMithrilBat(BatBase* bat, int coutM)
+ * \brief mutateur coutMithril
+ *
+ * \param[in, out] bat pointeur sur BatBase
+ * \param[in] un entier correspondant au cout en mithril de la creation d'un batiment.
+ */
+void setCoutMithrilBat(BatBase* bat, int coutM);
+
 /* *************************************************************--FCT--***************************************************************************** */
 
 /**

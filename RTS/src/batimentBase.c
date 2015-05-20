@@ -68,6 +68,14 @@ int getUnitFormableBat(const BatBase* bat,int i){
 int getNbUniteFormable(const BatBase* bat){
      return bat->nbUnitFormable;
 }
+
+int getCoutPierreBat(const BatBase* bat){
+     return bat->coutPierre;
+}
+
+int getCoutMithrilBat(const BatBase* bat){
+     return bat->coutMithril;
+}
 /* *************************************************************--SET--***************************************************************************** */
 
 void setNomBat(BatBase* bat, char* nomBat){
@@ -111,6 +119,15 @@ void setTabUnitFormable(BatBase* bat, int* tabUnitFormable){
 void setNbUniteFormable(BatBase* bat, int nb){
      bat->nbUnitFormable = nb;
 }
+
+void setCoutPierreBat(BatBase* bat, int coutP){
+     bat->coutPierre= coutP;
+}
+
+void setCoutMithrilBat(BatBase* bat, int coutM){
+     bat->coutPierre=coutM;
+}
+
 /* *************************************************************--FCT--***************************************************************************** */
 
 BatBase* chargementBatBase(void){
@@ -164,6 +181,10 @@ BatBase* chargementBatBase(void){
                          printf("id %d : %d \n", j, bat->tabUnitFormable[j]);
                     }
                }
+                /* coutPierre */
+               fscanf(fish, "coutPierre=%d\n", &(bat->coutPierre));
+               /* coutMithril */
+               fscanf(fish, "coutMithril=%d\n", &(bat->coutMithril));
           }
      }
      else

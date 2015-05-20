@@ -14,18 +14,30 @@
 
 void initBatiment(Batiment* bat, int id, BatBase* typeBat, int enConstruction, int idJ)
 {
+     File* fileAttente = (File*)malloc(sizeof(File));
+     initFile(fileAttente);
+     clock_t tempo=clock();
+
+     if(tempo == -1)
+     {
+          printf("Problème d'horloge");
+          exit(EXIT_FAILURE);
+     }
+
      setIdBat(bat, id);
      setTypeBat(bat, typeBat);
      setVieCouranteBat (bat, getVieMaxBat(typeBat));
-     setEnConstruction (bat, enConstruction);
+     setEnConstruction (bat, enConstruction); /* à enlever ? car forcement en construction quand init? */
+     setTabAttente(bat, fileAttente);
+     /* posX et posY */
      setIdJoueurBat(bat, idJ);
-     setTimerBat(bat, clock());
-     setTabAttente(bat, (File*)malloc(sizeof(File)));
-     initFile(bat->tabAttente);
+     setTimerBat(bat, tempo);
 }
 
 void detruireBatiment(Batiment** bat){
-     /* LOOOOL */
+     detruireFile(getTabAttente(*bat));
+     free(*bat);
+     *bat=NULL;
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -61,10 +73,10 @@ int getPosYBat(const Batiment* bat){
     return bat->y;
 }
 
-
 clock_t getTimerBat(const Batiment* bat){
     return bat->timerBat;
 }
+
 /* *************************************************************--SET--***************************************************************************** */
 
 void setIdBat(Batiment* bat, int id ){
@@ -150,7 +162,7 @@ void ajouterFileBat(Batiment* bat,Jeu* j,int i){
     if(getCoutPierreUnite(u) <= getPierreJoueur(getJoueur(j,getIdJoueurBat(bat)))
        && getCoutMithrilUnite(u) <= getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat)))){
         enfile(bat->tabAttente,u);
-        setPierreJoueur(getPierreJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutPierreUnite(u));
-        setMithrilJoueur(getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutMithrilUnite(u));
+        setPierreJoueur((getJoueur(j,getIdJoueurBat(bat))), getPierreJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutPierreUnite(u));
+        setMithrilJoueur((getJoueur(j,getIdJoueurBat(bat))), getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutMithrilUnite(u));
     }
 }

@@ -56,8 +56,17 @@ struct SUnite{
  *
  * \param[in, out] unit pointeur sur Unite
  * \param[in, out] type pointeur sur UniteBase
+ * \param[in] idJ est une identifiant unique d'un Joueur
  */
  void initUnite(Unite* unit, const UniteBase* type, int idJ);
+
+ /**
+ * \fn  void detruireUnite(Unite** unit)
+ * \brief fonction de destruction de la structure Unite
+ *
+ * \param[in, out] unit pointeur sur Unite
+ */
+void detruireUnite(Unite** unit);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -87,7 +96,6 @@ struct SUnite{
  * \return un entier correspondant à une coordonnée d'axe X
  */
  int getPosX(const Unite* unit);
-
 
  /**
  * \fn int getPosY (Unite* unit)

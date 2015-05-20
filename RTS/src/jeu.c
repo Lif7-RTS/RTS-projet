@@ -95,6 +95,30 @@ int getIdSel(const Jeu* j){
     return j->idSel;
 }
 
+int getIdJoueurCase(const Jeu* jeu, const sCase* place){
+     int contenu = getContenu(place);
+     if (contenu == 0)
+     {
+          return -1;
+     }
+     else if(contenu > 0)
+     {
+          getIdJoueurUnite(getUnite(jeu, contenu));
+     }
+     else
+     {
+          getIdJoueurBat(getBat(jeu, contenu));
+     }
+}
+
+TabDyn* getTabUnite(Jeu* j){
+     return j->tableauUnite;
+}
+
+TabDyn* getTabBat(Jeu* j){
+     return j->tableauBat;
+}
+
 /* *************************************************************--SET--***************************************************************************** */
 
 void setNbJoueur(Jeu* j, int nb){
@@ -113,6 +137,9 @@ void ajouterUnite(Jeu* j, Unite* unit){
     ajouterTabDyn(j->tableauUnite, (uintptr_t)unit);
 }
 
+void setUnite(const Jeu*  j, int uNb, Unite* unit){
+    j->tableauUnite->tab[uNb] = (uintptr_t*) unit;
+}
 
 void ajouterBat(Jeu* j, Batiment* bat){
     ajouterTabDyn(j->tableauBat, (uintptr_t)bat);
@@ -120,14 +147,6 @@ void ajouterBat(Jeu* j, Batiment* bat){
 
 void setIdSel(Jeu* j,int id){
     j->idSel = id;
-}
-
-TabDyn* getTabUnite(Jeu* j){
-     return j->tableauUnite;
-}
-
-TabDyn* getTabBat(Jeu* j){
-     return j->tableauBat;
 }
 
 /* *************************************************************--FCT--***************************************************************************** */
@@ -156,7 +175,7 @@ void boucleJeu(Jeu* j){
       setPosCibleX(u,7);
       setPosCibleY(u,1);
       j->carte->tabCase[7+getTailleX(j->carte)].idContenu = 1;
-   /*   j->carte->tabCase[6].idContenu = -1;
+   /* j->carte->tabCase[6].idContenu = -1;
       j->carte->tabCase[7].idContenu = -1;
       j->carte->tabCase[6+(j->carte->tailleX)].idContenu = -1;
       j->carte->tabCase[7+(j->carte->tailleX)].idContenu = -1;*/
@@ -182,7 +201,7 @@ void boucleJeu(Jeu* j){
                                 ok = 1;
                                 for(i = 0; i < getTailleCaseX(getBatConstruction(joueur)); i++){
                                     for(k = 0; k < getTailleCaseY(getBatConstruction(joueur)); k++){
-                                        if(getAcces(getCase(getCarteJeu(j), xClick+i, yClick+k)) != 1 || getContenu((getCase(getCarteJeu(j), xClick+i, yClick+k)) != 0)
+                                        if(getAcces(getCase(getCarteJeu(j), xClick+i, yClick+k)) != 1 || getContenu((getCase(getCarteJeu(j), xClick+i, yClick+k)) != 0))
                                            ok = 0;
                                     }
                                 }
@@ -270,10 +289,6 @@ void boucleJeu(Jeu* j){
     }
 }
 
-void afficheJeu(Jeu* j){
-
-}
-
 void checkJeu(Jeu* jeu){
 
      int taille, i, egale, enConstru;
@@ -287,9 +302,12 @@ void checkJeu(Jeu* jeu){
      for(i=0;i<taille;i++)
      {
           soldat = getUnite(jeu,i);
-          if (getVieCouranteUnite(soldat) == 0)
+          if (getVieCouranteUnite(soldat) <= 0)
           {
-              /* detruireUnite(soldat); */
+              detruireUnite(&soldat);
+              printf("valeur du pointeur sur soldat: %d", (int) soldat);
+              setUnite(jeu, i, soldat);
+              /* enfiler I dans la file de case dispo */
           }
           else
           {
@@ -328,7 +346,7 @@ void checkJeu(Jeu* jeu){
                               setPierrePorte(soldat, 0);
                               setMithrilJoueur(getIdJoueurUnite(soldat), getMithrilJoueur(getIdJoueurUnite(soldat)) + getMithrilPorte(soldat));
                               setMithrilPorte(soldat, 0);
-                              trouverMinerai(soldat, jeu);
+                              trouverMinerai(soldat, jeu); /*attention ajouter un teste pour minerais epuisé*/
                          }
                          else
                          {
@@ -358,9 +376,10 @@ void checkJeu(Jeu* jeu){
                     else
                     {
                          place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
-                         if(getContenu(place)) /* géré ennemi */
+
+                         if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)) /* géré ennemi */
                          {
-                              /* attaque */
+                              attaque(soldat,jeu);
                          }
                          else /* cas securitaire ne devrai pas arriver */
                          {
@@ -380,6 +399,10 @@ void checkJeu(Jeu* jeu){
           bat = getBat(jeu, i);
           verifierTimerBat(bat,jeu);
      }
+
+}
+
+void afficheJeu(Jeu* j){
 
 }
 

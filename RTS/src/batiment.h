@@ -29,8 +29,8 @@ struct SBatiment{
      int y; /*!< position y du batiment (haut-gauche du batiment) */
      clock_t timerBat;/*!< timer du batiment, pour la formation d'unite */
      int idJoueur; /*!< id du joueur controleur */
-
 };
+
 /* ***********************************************************--Init--*************************************************************************** */
 
 /**
@@ -137,7 +137,6 @@ int getPosYBat(const Batiment* bat);
 */
 clock_t getTimerBat(const Batiment* bat);
 
-
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -222,7 +221,6 @@ void setPosYBat(Batiment* bat, int y);
 * \param t nouveau timer du bat
 */
 void setTimerBat(Batiment* bat, clock_t t);
-
 
 /* *************************************************************--FCT--***************************************************************************** */
 

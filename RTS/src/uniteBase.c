@@ -63,6 +63,17 @@ char getTileUnite(const UniteBase* unit){
     return unit->tile;
 }
 
+int getCoutPierreUnite(const UniteBase* unit){
+     return unit->coutPierre;
+}
+
+int getCoutMithrilUnite(const UniteBase* unit){
+     return unit->coutMithril;
+}
+
+int getPorteeUnite(const UniteBase* unit){
+     return unit->portee;
+}
 /* *************************************************************--SET--***************************************************************************** */
 
 void setVieMaxUnite(UniteBase* unit, int vieM){
@@ -107,6 +118,18 @@ void setTileUnite(UniteBase* unit, char tile){
     unit->tile = tile;
 }
 
+void setCoutPierreUnite(UniteBase* unit, int coutP){
+     unit->coutPierre=coutP;
+}
+
+void setCoutMithrilUnite(UniteBase* unit, int coutM){
+     unit->coutMithril=coutM;
+}
+
+void setPorteeUnite(UniteBase* unit, int portee){
+     unit->portee=portee;
+}
+
 /* *************************************************************--FCT--***************************************************************************** */
 
 UniteBase* chargementUniteBase(void){
@@ -145,6 +168,12 @@ UniteBase* chargementUniteBase(void){
                fscanf(fish, "tile=%d\n",&(unit->tile));
                /* vitesse */
                fscanf(fish, "vitesse=%d\n",&(unit->vitesse));
+               /* coutPierre*/
+               fscanf(fish, "coutPierre=%d\n",&(unit->coutPierre));
+               /* coutMithril */
+               fscanf(fish, "coutMithril=%d\n",&(unit->coutMithril));
+               /* portee */
+               fscanf(fish, "portee=%d\n",&(unit->portee));
           }
      }
      else
