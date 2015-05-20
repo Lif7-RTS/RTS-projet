@@ -73,7 +73,9 @@ void initUnite(Unite* unit, const UniteBase* type, int idJoueur){
      }
 
      /* id */
-     setIdJoueur(unit, idJoueur);
+     printf("id= %d \n", idJoueur);
+     setIdJoueurUnite(unit, idJoueur);
+     printf("idJUnit= %d \n", getIdJoueurUnite(unit));
      /* posX et posY */
      setVieCouranteUnite(unit, getVieMaxUnite(type));
      setDeplacement(unit, 0);
@@ -251,7 +253,7 @@ void avanceUnite(Unite* homme, Terrain* terrain){
 
      if(getContenu(getCase(terrain,xSuiv,ySuiv)) != 0 || getAcces(getCase(terrain,xSuiv,ySuiv))!=1)
      {
-          detruireFilePath(getChemin(homme));
+          viderFilePath(getChemin(homme));
           deplacementUnite(homme,terrain);
 
      }
@@ -582,7 +584,8 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
      int caseCibleX=getPosMineraiX(homme);
      int caseCibleY=getPosMineraiY(homme);
      int caseTestX, caseTestY;
-     int i = getContenu(getCase(terrain,x,y));
+     int id = getContenu(getCase(terrain,x,y));
+     int i;
 
      for(i = 0; i < getTailleX(terrain)*getTailleY(terrain); i++){
           tabD[i].distance = INFINI;
@@ -590,7 +593,7 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
      }
      setContenu(getCase(terrain, x,y), 0);
      djikstra(x, y, tabD,terrain);
-     setContenu(getCase(terrain,x,y),i);
+     setContenu(getCase(terrain,x,y),id);
 
      i=1;
      while (fin == 0)
@@ -667,6 +670,7 @@ void attaque(Unite* homme, Jeu* jeu){
 
      if (aPortee(homme, jeu )== 1)
      {
+          viderFilePath(getChemin(homme));
           clock_t tempo=clock();
           float temps;
           int contenu = getContenu(getCase(getCarteJeu(jeu),getPosCibleX(homme),getPosCibleY(homme)));
@@ -688,7 +692,7 @@ void attaque(Unite* homme, Jeu* jeu){
                }
                else if(contenu < 0){
                     /* annimation */
-                    Batiment* bat = getBat(jeu, contenu);
+                    Batiment* bat = getBat(jeu, -contenu);
                     setVieCouranteBat(bat, getVieCouranteBat(bat) - getAttaque(homme));
                }
                setTimerUnite(homme, tempo);
@@ -707,17 +711,17 @@ void attaque(Unite* homme, Jeu* jeu){
 }
 
 static int aPortee(Unite* homme, Jeu* jeu){
-     int portee = getPorteeUnite(homme);
+     int portee = getPorteeUnite(getTypeUnite(homme));
      int hommeX = getPosX(homme);
      int hommeY = getPosY(homme);
      int cibleX = getPosCibleX(homme);
      int cibleY = getPosCibleY(homme);
 
-     if(hommeY < cibleY - portee || hommeY > cibleY + portee)
+     if(hommeY < (cibleY - portee) || hommeY > (cibleY + portee))
      {
           return 0;
      }
-     else if (hommeX < cibleX - portee || hommeX > cibleX + portee)
+     else if (hommeX < (cibleX - portee) || hommeX > (cibleX + portee))
      {
           return 0;
      }

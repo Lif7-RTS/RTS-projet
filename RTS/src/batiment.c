@@ -16,8 +16,7 @@ void initBatiment(Batiment* bat, int id, BatBase* typeBat, int enConstruction, i
 {
      File* fileAttente = (File*)malloc(sizeof(File));
      initFile(fileAttente);
-     clock_t tempo=clock();
-
+     clock_t tempo = clock();
      if(tempo == -1)
      {
           printf("Problème d'horloge");
@@ -26,8 +25,8 @@ void initBatiment(Batiment* bat, int id, BatBase* typeBat, int enConstruction, i
 
      setIdBat(bat, id);
      setTypeBat(bat, typeBat);
-     setVieCouranteBat (bat, getVieMaxBat(typeBat));
-     setEnConstruction (bat, enConstruction); /* à enlever ? car forcement en construction quand init? */
+     setVieCouranteBat(bat, getVieMaxBat(typeBat));
+     setEnConstruction(bat, enConstruction);
      setTabAttente(bat, fileAttente);
      /* posX et posY */
      setIdJoueurBat(bat, idJ);
@@ -123,6 +122,7 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
         if(regardeTeteFile(getTabAttente(bat)) != NULL){
             setTimerBat(bat,clock());
         }
+        return;
     }
     else{
         if(getEnConstruction(bat) == 1){
@@ -131,25 +131,27 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
                 setTimerBat(bat,NULL);
             }
         }
-        else if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
-            printf("Création Unite ! \n");
-            Unite* u = (Unite*) malloc(sizeof(Unite));
-            initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
-            int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
-            setId(u, id);
-            setPosX(u,-getTailleY(j->carte));
-            setPosY(u,-getTailleY(j->carte));
-            setPosCibleX(u,getPosXBat(bat)-1);
-            setPosCibleY(u, getPosYBat(bat));
-            trouverAcces(u, j->carte);
-            setPosX(u,getPosCibleX(u));
-            setPosY(u,getPosCibleY(u));
-            setContenu(getCase(getCarteJeu(j),getPosX(u), getPosY(u)),id);
-            defile(getTabAttente(bat));
-            if(regardeTeteFile(getTabAttente(bat)) != NULL)
-                setTimerBat(bat, clock());
-            else
-                setTimerBat(bat, NULL);
+        else  if(regardeTeteFile(getTabAttente(bat)) != NULL){
+            if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
+                printf("Création Unite ! \n");
+                Unite* u = (Unite*) malloc(sizeof(Unite));
+                initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
+                int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
+                setId(u, id);
+                setPosX(u,-getTailleX(j->carte));
+                setPosY(u,-getTailleY(j->carte));
+                setPosCibleX(u,getPosXBat(bat)-1);
+                setPosCibleY(u, getPosYBat(bat));
+                trouverAcces(u, j->carte);
+                setPosX(u,getPosCibleX(u));
+                setPosY(u,getPosCibleY(u));
+                setContenu(getCase(getCarteJeu(j),getPosX(u), getPosY(u)),id);
+                defile(getTabAttente(bat));
+                if(regardeTeteFile(getTabAttente(bat)) != NULL)
+                    setTimerBat(bat, clock());
+                else
+                    setTimerBat(bat, NULL);
+            }
         }
     }
 }

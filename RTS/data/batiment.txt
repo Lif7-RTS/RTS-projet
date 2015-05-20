@@ -2,7 +2,7 @@
 
 nom=Taverne
 niveau=1
-tile=11
+tile=14
 vieMax=100
 ameliorable=1
 tempsConstruct=30

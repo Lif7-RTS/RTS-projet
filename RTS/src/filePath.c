@@ -22,17 +22,20 @@ void initCellulePath(CellulePath* cell){
 }
 
 void detruireFilePath(FilePath* file){
-     CellulePath* prem =  getPremierPath(file);
+     viderFilePath(file);
+     free(file);
+     file=NULL;
+}
+
+void viderFilePath(FilePath* file){
+    CellulePath* prem =  getPremierPath(file);
 
      while(prem)
      {
           defilePath(file);
           prem =  getPremierPath(file);
      }
-     free(file);
-     file=NULL;
 }
-
 void detruireCellulePath(CellulePath* cell){
      free(cell);
      cell=NULL;

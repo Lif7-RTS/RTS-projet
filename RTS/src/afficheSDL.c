@@ -90,14 +90,12 @@ void affiche(const Affichage* aff){
             id = aff->carte->tabCase[camX+i+(camY+j)*tX].idContenu;
             if(id != 0){
                 if(id > 0){
-                    id--;
-                    num_tile = getTileUnite(getTypeUnite((Unite*)(aff->jeu->tableauUnite->tab[id])));
+                    num_tile = getTileUnite(getTypeUnite((getUnite(aff->jeu,id))));
                 }
                 else{
-                    id++;
-                    num_tile = getTileBat(getTypeBat((Batiment*)(aff->jeu->tableauBat->tab[-id])));
-                    num_tile += (i+camX)-getPosXBat((Batiment*)(aff->jeu->tableauBat->tab[-id]));
-                    num_tile += ((j+camY)-getPosYBat((Batiment*)(aff->jeu->tableauBat->tab[-id])))*getTailleCaseX(getTypeBat((Batiment*)(aff->jeu->tableauBat->tab[-id])));
+                    num_tile = getTileBat(getTypeBat(getBat(aff->jeu, -id)));
+                    num_tile += (i+camX)-getPosXBat(getBat(aff->jeu, -id));
+                    num_tile += (j+camY)-getPosYBat(getBat(aff->jeu, -id))*getTailleCaseX(getTypeBat(getBat(aff->jeu, -id)));
                 }
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             }
@@ -125,7 +123,7 @@ void affiche(const Affichage* aff){
 	id = getIdSel(aff->jeu);
 	if(id != 0){
         if(id < 0){
-            BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)-1));
+            BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)));
             texte = TTF_RenderText_Solid(aff->font,getNomBat(b),blanc);
             SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
             SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
@@ -142,7 +140,7 @@ void affiche(const Affichage* aff){
             SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
         }
         else{
-            UniteBase* u = getTypeUnite(getUnite(aff->jeu,getIdSel(aff->jeu)-1));
+            UniteBase* u = getTypeUnite(getUnite(aff->jeu,getIdSel(aff->jeu)));
             texte = TTF_RenderText_Solid(aff->font,getNom(u),blanc);
             SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
             SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);

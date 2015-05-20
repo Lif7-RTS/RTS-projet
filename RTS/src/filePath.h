@@ -30,28 +30,37 @@ typedef struct SFilePath FilePath;
 /* ************************************************************--INIT--***************************************************************************** */
 
 /**
-* \fn void initFile (FilePath* file)
+* \fn void initFilePath(FilePath* file)
 * \brief initialise une file
 *
-* \param[in, out] file pointeur sur une structure File
+* \param[in, out] file pointeur sur une structure FilePath
 */
 void initFilePath(FilePath* file);
 
 /**
-* \fn void initCellule (FilePath* file)
+* \fn void initCellulePath(FilePath* file)
 * \brief initialise une cellule
 *
-* \param[in, out] cell pointeur sur une structure Cellule
+* \param[in, out] cell pointeur sur une structure CellulePath
 */
 void initCellulePath(CellulePath* cell);
 
 /**
-* \fn void detruireFile (FilePath** file)
+* \fn void detruireFilePath(FilePath* file)
 * \brief detruit une file et libere ses élements
 *
-* \param[in, out] file pointeur sur une structure File.
+* \param[in, out] file pointeur sur une structure FilePath.
 */
 void detruireFilePath(FilePath* file);
+
+
+/**
+* \fn void viderFilePath(FilePath* file)
+* \brief vide la file
+*
+* \param[in, out] file pointeur sur une structure FilePath.
+*/
+void viderFilePath(FilePath* file);
 
 /**
 * \fn void detruireCellule (CellulePath** cell)
@@ -67,7 +76,7 @@ void detruireCellulePath(CellulePath* cell);
 * \fn CellulePath* getPremier(const FilePath* file)
 * \brief accesseur prem
 *
-* \param[in, out] file pointeur sur une structure File
+* \param[in, out] file pointeur sur une structure FilePath
 * \return un pointeur sur la première cellule de la file d'attente.
 */
 CellulePath* getPremierPath(const FilePath* file);
@@ -76,7 +85,7 @@ CellulePath* getPremierPath(const FilePath* file);
 * \fn int getElement(CellulePath* cell)
 * \brief mutateur element
 *
-* \param[in, out] cell est un pointeur sur une cellule
+* \param[in, out] cell est un pointeur sur une cellulePath
 * \return un entier
 */
 int getElementPath(CellulePath* cell);
@@ -85,8 +94,8 @@ int getElementPath(CellulePath* cell);
 * \fn CellulePath* getSuivant(CellulePath* cell)
 * \brief mutateur suivant
 *
-* \param[in, out] cell est un pointeur sur une cellule
-* \return un pointeur sur une structure Cellule.
+* \param[in, out] cell est un pointeur sur une cellulePath
+* \return un pointeur sur une structure CellulePath
 */
 CellulePath* getSuivantPath(CellulePath* cell);
 
@@ -95,8 +104,8 @@ CellulePath* getSuivantPath(CellulePath* cell);
 * \fn CellulePath* getDernier(const FilePath* file)
 * \brief accesseur prem
 *
-* \param[in, out] file pointeur sur une structure File
-* \return un pointeur sur la Dernière cellule de la file d'attente.
+* \param[in, out] file pointeur sur une structure FilePath
+* \return un pointeur sur la Dernière cellule de la file.
 */
 CellulePath* getDernierPath(const FilePath* file);
 

@@ -30,6 +30,7 @@ void initJoueur (Joueur* joue, int idJoueur, char* nomJouer,
     setNourritureMax(joue, races.nourritureMax[idRace]);
     setMithrilJoueur(joue, races.mithril[idRace]);
     setPierreJoueur(joue, races.pierre[idRace]);
+    setBatConstruction(joue, NULL);
     joue->tabBatiment = (TabDyn*) malloc(sizeof(TabDyn));
     joue->tabTroupe = (TabDyn*) malloc(sizeof(TabDyn));
     initTabDyn(joue->tabBatiment,10);
@@ -144,6 +145,13 @@ void ajouteBat(Joueur* joue, const Batiment* bat){
     ajouterTabDyn(joue->tabBatiment, (uintptr_t) bat);
 }
 
+void setPosBatPX(Joueur* joue,int x){
+    joue->posBatPX = x;
+}
+
+void setPosBatPY(Joueur* joue,int y){
+    joue->posBatPY = y;
+}
 void setBatConstruction(Joueur* joue,BatBase* bat){
     joue->batConstruction = bat;
 }
