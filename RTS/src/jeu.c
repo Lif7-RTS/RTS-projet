@@ -44,8 +44,7 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
 }
 
 void detruireJeu(Jeu* j){
-    detruireTerrain(j->carte);
-    free(j->carte);
+    detruireTerrain(&(j->carte));
     free(j->tableauJoueur);
     detruireTabDyn(j->tableauUnite);
     free(j->tableauUnite);
@@ -448,13 +447,5 @@ void checkJeu(Jeu* jeu){
           bat = getBat(jeu, i);
           verifierTimerBat(bat,jeu);
      }
-
-}
-
-void afficheJeu(Jeu* j){
-
-}
-
-void afficheHUD(Jeu* j){
 
 }

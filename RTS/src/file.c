@@ -37,9 +37,9 @@ void detruireFile (File* file){
      file=NULL;
 }
 
-void detruireCellule (Cellule* cell){
-     free(cell);
-     cell=NULL;
+void detruireCellule (Cellule** cell){
+     free(*cell);
+     *cell=NULL;
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -98,7 +98,7 @@ void defile(File* f){
      if(prem)
      {
         setPremier(f, getSuivant(prem));
-        detruireCellule(prem);
+        detruireCellule(&prem);
      }
 }
 

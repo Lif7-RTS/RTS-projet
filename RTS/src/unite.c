@@ -502,6 +502,7 @@ void trouveChemin(Unite* homme, Terrain* terrain){
         setPosCibleX(homme, x);
         setPosCibleY(homme, y);
     }
+    free(tabD);
 
 }
 
@@ -679,6 +680,7 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
      {
           setEnTravail(homme,0); /* en repos */
      }
+      free(tabD);
 }
 
 static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain){

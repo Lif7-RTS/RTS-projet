@@ -68,7 +68,7 @@ void viderFilePath(FilePath* file);
 *
 * \param[in, out] cell est un  pointeur sur une structure Cellule
 */
-void detruireCellulePath(CellulePath* cell);
+void detruireCellulePath(CellulePath** cell);
 
 /* *************************************************************--GET--***************************************************************************** */
 

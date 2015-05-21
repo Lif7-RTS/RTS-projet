@@ -181,5 +181,6 @@ UniteBase* chargementUniteBase(void){
           printf("impossible d'ouvrir le fichier !");
           exit(EXIT_FAILURE);
      }
+     fclose(fish);
      return tabUnite;
 }

@@ -98,11 +98,11 @@ sCase* getCase(const Terrain* ter,int x, int y);
 void initTerrain(Terrain* ter, const char* colliCarte);
 
 /**
-* \fn void detruireTerrain(Terrain* ter)
+* \fn void detruireTerrain(Terrain** ter)
 * \brief detruit un Terrain
 *
-* \param[in, out] ter pointeur sur Terrain
+* \param[in, out] ter double pointeur sur Terrain
 */
-void detruireTerrain(Terrain* ter);
+void detruireTerrain(Terrain** ter);
 
 #endif /* _TERRAIN */

@@ -78,7 +78,9 @@ void initTerrain(Terrain* ter, const char* colliCarte){
     }
 }
 
-void detruireTerrain(Terrain* ter){
-    free(ter->tabCase);
+void detruireTerrain(Terrain** ter){
+    free((*ter)->tabCase);
+    free(*ter);
+    *ter = NULL;
 }
 

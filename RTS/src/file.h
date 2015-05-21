@@ -59,7 +59,7 @@ void detruireFile (File* file);
 *
 * \param[in, out] cell est un  pointeur sur une structure Cellule
 */
-void detruireCellule (Cellule* cell);
+void detruireCellule (Cellule** cell);
 
 /* *************************************************************--GET--***************************************************************************** */
 

@@ -36,9 +36,9 @@ void viderFilePath(FilePath* file){
           prem =  getPremierPath(file);
      }
 }
-void detruireCellulePath(CellulePath* cell){
-     free(cell);
-     cell=NULL;
+void detruireCellulePath(CellulePath** cell){
+     free(*cell);
+     *cell=NULL;
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -98,7 +98,7 @@ void defilePath(FilePath* f){
      if(prem)
      {
         setPremierPath(f, getSuivantPath(prem));
-        detruireCellulePath(prem);
+        detruireCellulePath(&prem);
      }
 }
 
