@@ -97,19 +97,27 @@ void affiche(const Affichage* aff){
                 else{
                     num_tile = getTileBat(getTypeBat(getBat(aff->jeu, -id)));
                     num_tile += (i+camX)-getPosXBat(getBat(aff->jeu, -id));
-                    num_tile += (j+camY)-getPosYBat(getBat(aff->jeu, -id))*getTailleCaseX(getTypeBat(getBat(aff->jeu, -id)));
+                    num_tile += ((j+camY)-getPosYBat(getBat(aff->jeu, -id)))*getTailleCaseX(getTypeBat(getBat(aff->jeu, -id)));
                 }
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             }
 
 		}
 		for(j=aff->nbTileCamY-(HUD_H/TILE_TAILLE); j < aff->nbTileCamY; j++){
-            num_tile = 3;
+            if(i < 3 || i >= (SCREEN_W/TILE_TAILLE - 3))
+                num_tile = 98;
+            else if(i == 3)
+                num_tile = 96;
+            else if(i == 4)
+                num_tile = 97;
+            else
+                num_tile = 99;
             rect_Dest.x = i*TILE_TAILLE;
 			rect_Dest.y = j*TILE_TAILLE;
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             if(j == aff->nbTileCamY-(HUD_H/TILE_TAILLE)){
-                num_tile = 4;
+                num_tile = 95;
+                rect_Dest.y -= 2;
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
 
             }
@@ -234,9 +242,10 @@ void affiche(const Affichage* aff){
     texte = TTF_RenderText_Solid(aff->font,getNomJoueur(getJoueur(aff->jeu, getVueJoueur(aff->jeu))),vert);
     texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
     SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
-    if(tX > (TILE_TAILLE*2)){
-        tY = tY*((TILE_TAILLE*2)/tX);
-        tX = TILE_TAILLE*2;
+    if(tX > (TILE_TAILLE*2-4)){
+        tY *= ((TILE_TAILLE*200)/tX);
+        tY /= 100;
+        tX = TILE_TAILLE*2 - 8;
     }
     rect_Dest.w = tX;
     rect_Dest.h = tY;
@@ -250,10 +259,10 @@ void affiche(const Affichage* aff){
     texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
     rect_Dest.y += tY;
     SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
-    if(tX > (TILE_TAILLE*2)){
+    if(tX > (TILE_TAILLE*2-4)){
         tY *= ((TILE_TAILLE*200)/tX);
         tY /= 100;
-        tX = TILE_TAILLE*2;
+        tX = TILE_TAILLE*2 - 8;
     }
     rect_Dest.w = tX;
     rect_Dest.h = tY;
@@ -266,10 +275,10 @@ void affiche(const Affichage* aff){
     texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
     rect_Dest.y += tY;
     SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
-    if(tX > (TILE_TAILLE*2)){
+    if(tX > (TILE_TAILLE*2-4)){
         tY *= ((TILE_TAILLE*200)/tX);
         tY /= 100;
-        tX = TILE_TAILLE*2;
+        tX = TILE_TAILLE*2 - 8;
     }
     rect_Dest.w = tX;
     rect_Dest.h = tY;
@@ -282,10 +291,10 @@ void affiche(const Affichage* aff){
     texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
     rect_Dest.y += tY;
     SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
-    if(tX > (TILE_TAILLE*2)){
+    if(tX > (TILE_TAILLE*2-4)){
         tY *= ((TILE_TAILLE*200)/tX);
         tY /= 100;
-        tX = TILE_TAILLE*2;
+        tX = TILE_TAILLE*2 - 8;
     }
     rect_Dest.w = tX;
     rect_Dest.h = tY;

@@ -168,16 +168,25 @@ void boucleJeu(Jeu* j){
       setPosYBat(b,2);
       printf("%d\n",getVueJoueur(j));
       initUnite(u, getUniteFormable(j,0), getVueJoueur(j));
+      setNourritureCourante(joueur, 1);
       printf("%d \n",getTileUnite(getTypeUnite(u)));
       ajouterTabDyn(j->tableauBat, (uintptr_t) b);
       ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
       setPosX(u,6);
       setPosY(u,1);
-      setPosBatPX(joueur,8);
-      setPosBatPY(joueur,2);
       setPosCibleX(u,6);
       setPosCibleY(u,1);
+      u = (Unite*) malloc(sizeof(Unite));
+      initUnite(u, getUniteFormable(j,0), getVueJoueur(j)+1);
+      ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
+      setPosX(u,10);
+      setPosY(u,5);
+      setPosCibleX(u,10);
+      setPosCibleY(u,5);
+      setPosBatPX(joueur,8);
+      setPosBatPY(joueur,2);
       j->carte->tabCase[6+getTailleX(j->carte)].idContenu = 1;
+      j->carte->tabCase[10+5*getTailleX(j->carte)].idContenu = 2;
       j->carte->tabCase[8+2*getTailleX(j->carte)].idContenu = -1;
       j->carte->tabCase[9+2*getTailleX(j->carte)].idContenu = -1;
       j->carte->tabCase[8+3*getTailleX(j->carte)].idContenu = -1;
@@ -211,7 +220,6 @@ void boucleJeu(Jeu* j){
                                 if(getPierreJoueur(joueur) < getCoutPierreBat(getBatConstruction(joueur))
                                    || getMithrilJoueur(joueur) < getCoutMithrilBat(getBatConstruction(joueur))){
                                     ok = 0;
-                                    printf("lol T POVR \n");
                                     setBatConstruction(joueur, NULL);
                                    }
                                 if(ok){
@@ -238,9 +246,11 @@ void boucleJeu(Jeu* j){
 
                         }
                         else if(getIdSel(j) > 0){
-                            u = getUnite(j,getIdSel(j));
-                            setPosCibleX(u, xClick);
-                            setPosCibleY(u, yClick);
+                            if(getIdJoueurUnite(getUnite(j, getIdSel(j))) == getVueJoueur(j)){
+                                u = getUnite(j,getIdSel(j));
+                                setPosCibleX(u, xClick);
+                                setPosCibleY(u, yClick);
+                            }
                         }
                     }
                 }
@@ -248,15 +258,15 @@ void boucleJeu(Jeu* j){
                     if(e.button.button == SDL_BUTTON_LEFT){
                         if(xClick > (SCREEN_W - 3*TILE_TAILLE) && xClick < SCREEN_W){
                             if(getIdSel(j) < 0){
-                                printf("lo\n");
-                                b = getBat(j, -getIdSel(j));
-                                xClick -= (SCREEN_W - 3*TILE_TAILLE);
-                                xClick = xClick /TILE_TAILLE;
-                                yClick -= (SCREEN_H-HUD_H);
-                                yClick = yClick /TILE_TAILLE;
-                                if((yClick*3+xClick) < getNbUniteFormable(getTypeBat(b))){
-                                    printf("lol");
-                                    ajouterFileBat(b,j,yClick*3+xClick);
+                                if( getIdJoueurBat(getBat(j,-getIdSel(j))) == getVueJoueur(j)){
+                                    b = getBat(j, -getIdSel(j));
+                                    xClick -= (SCREEN_W - 3*TILE_TAILLE);
+                                    xClick = xClick /TILE_TAILLE;
+                                    yClick -= (SCREEN_H-HUD_H);
+                                    yClick = yClick /TILE_TAILLE;
+                                    if((yClick*3+xClick) < getNbUniteFormable(getTypeBat(b))){
+                                        ajouterFileBat(b,j,yClick*3+xClick);
+                                    }
                                 }
                             }
                         }
@@ -281,7 +291,7 @@ void boucleJeu(Jeu* j){
                 (j->tableauJoueur[j->vueJoueur].cameraX)--;
         }
         if( y >= SCREEN_H-20){
-            if(((j->tableauJoueur[j->vueJoueur].cameraY) + 1) <= j->carte->tailleY - SCREEN_H/TILE_TAILLE)
+            if(((j->tableauJoueur[j->vueJoueur].cameraY) + 1) <= j->carte->tailleY - (SCREEN_H-HUD_H)/TILE_TAILLE)
                 (j->tableauJoueur[j->vueJoueur].cameraY)++;
         }
         if( y < 20 ){

@@ -27,6 +27,7 @@ void initJoueur (Joueur* joue, int idJoueur, char* nomJouer,
     setIdRace(joue, idRace);
     setCameraX(joue, cameraX);
     setCameraY(joue, cameraY);
+    setNourritureCourante(joue, 0);
     setNourritureMax(joue, races.nourritureMax[idRace]);
     setMithrilJoueur(joue, races.mithril[idRace]);
     setPierreJoueur(joue, races.pierre[idRace]);

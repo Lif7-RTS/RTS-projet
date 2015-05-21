@@ -161,10 +161,13 @@ void ajouterFileBat(Batiment* bat,Jeu* j,int i){
         return;
     printf("%d \n", i);
     UniteBase* u = getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i));
-    if(getCoutPierreUnite(u) <= getPierreJoueur(getJoueur(j,getIdJoueurBat(bat)))
-       && getCoutMithrilUnite(u) <= getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat)))){
+    Joueur* joueur = getJoueur(j,getIdJoueurBat(bat));
+    if(getCoutPierreUnite(u) <= getPierreJoueur(joueur)
+       && getCoutMithrilUnite(u) <= getMithrilJoueur(joueur)
+       && getNourritureCourante(joueur)+1 <= getNourritureMax(joueur)){
         enfile(bat->tabAttente,u);
-        setPierreJoueur((getJoueur(j,getIdJoueurBat(bat))), getPierreJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutPierreUnite(u));
-        setMithrilJoueur((getJoueur(j,getIdJoueurBat(bat))), getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutMithrilUnite(u));
+        setPierreJoueur(joueur, getPierreJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutPierreUnite(u));
+        setMithrilJoueur(joueur, getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutMithrilUnite(u));
+        setNourritureCourante(joueur,getNourritureCourante(joueur)+1);
     }
 }
