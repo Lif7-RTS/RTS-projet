@@ -73,6 +73,8 @@ void affiche(const Affichage* aff){
 	SDL_Rect rect_Dest;
 	SDL_Surface* texte;
 	SDL_Color blanc ={255,255,255};
+	SDL_Color rouge ={255,0,0};
+	SDL_Color vert  ={0,255,0};
 	int num_tile;
 	tX = aff->carte->tailleX;
 	camX = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraX;
@@ -121,36 +123,176 @@ void affiche(const Affichage* aff){
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
     }
 	id = getIdSel(aff->jeu);
+	char str[15];
+    SDL_Texture * texture;
 	if(id != 0){
         if(id < 0){
-            BatBase* b = getTypeBat(getBat(aff->jeu,-getIdSel(aff->jeu)));
-            texte = TTF_RenderText_Solid(aff->font,getNomBat(b),blanc);
-            SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
-            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
-            for(j = 0; j < getNbUniteFormable(b);j++){
-                num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(b,j)));
+            /*Affichage unite formable par le batiment */
+            Batiment* b = getBat(aff->jeu,-getIdSel(aff->jeu));
+            BatBase* type = getTypeBat(b);
+            for(j = 0; j < getNbUniteFormable(type);j++){
+                num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(type,j)));
                 rect_Dest.x = SCREEN_W+(j%3-3)*TILE_TAILLE;
                 rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE+5;
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             }
-            rect_Dest.w = tX;
-            rect_Dest.h = tY;
-            rect_Dest.x = (SCREEN_W-tX)/2;
-            rect_Dest.y = (SCREEN_H-HUD_H+tY+10);
-            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
-        }
-        else{
-            UniteBase* u = getTypeUnite(getUnite(aff->jeu,getIdSel(aff->jeu)));
-            texte = TTF_RenderText_Solid(aff->font,getNom(u),blanc);
-            SDL_Texture * texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            /* affichage nom */
+            texte = TTF_RenderText_Solid(aff->font,getNomBat(type),blanc);
+            texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
             SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
             rect_Dest.w = tX;
             rect_Dest.h = tY;
             rect_Dest.x = (SCREEN_W-tX)/2;
-            rect_Dest.y = (SCREEN_H-HUD_H+tY+10);
+            rect_Dest.y = (SCREEN_H-HUD_H+tY);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+            /*affichage vie */
+            sprintf(str, "%d / %d",getVieCouranteBat(b),getVieMaxBat(type));
+            texte = TTF_RenderText_Solid(aff->font,str,rouge);
+            texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
+            rect_Dest.x = (SCREEN_W-2*tX)/2;
+            rect_Dest.y = (SCREEN_H-HUD_H+2*tY);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+            if(regardeTeteFile(getTabAttente(b)) != NULL){
+                /*affichage file d'attente */
+                Cellule* c = getPremier(getTabAttente(b));
+                i = 0;
+                texte = TTF_RenderText_Solid(aff->font,"En Formation:",blanc);
+                texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                rect_Dest.x += tX+TILE_TAILLE/2;
+                SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                rect_Dest.w = tX;
+                rect_Dest.h = tY;
+                SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                rect_Dest.w = TILE_TAILLE;
+                rect_Dest.h = TILE_TAILLE;
+                rect_Dest.x += tX;
+                rect_Dest.y -= TILE_TAILLE/2;
+                num_tile = getTileUnite(getElement(c));
+                SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+                rect_Dest.y += TILE_TAILLE;
+                while(getSuivant(c) != NULL && i < 8){
+                    c = getSuivant(c);
+                    num_tile = getTileUnite(getElement(c));
+                    rect_Dest.x = SCREEN_W/2-3*TILE_TAILLE + i*TILE_TAILLE;
+                    SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+                    i++;
+                }
+            }
+        }
+        else{
+            /* Affichage Nom */
+            Unite* u = getUnite(aff->jeu,getIdSel(aff->jeu));
+            UniteBase* type = getTypeUnite(u);
+            texte = TTF_RenderText_Solid(aff->font,getNom(type),blanc);
+            texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
+            rect_Dest.x = (SCREEN_W-tX)/2;
+            rect_Dest.y = (SCREEN_H-HUD_H+tY);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+            /* Affichage vie*/
+            sprintf(str, "%d / %d",getVieCouranteUnite(u),getVieMaxUnite(type));
+            texte = TTF_RenderText_Solid(aff->font,str,rouge);
+            texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
+            rect_Dest.x = (SCREEN_W-2*tX)/2;
+            rect_Dest.y = (SCREEN_H-HUD_H+2*tY);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+            /*Affichage pierre Porte*/
+            sprintf(str, "Pierre : %d / %d",getPierrePorte(u),getRessourceMax(type));
+            texte = TTF_RenderText_Solid(aff->font,str,blanc);
+            texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            rect_Dest.x += tX + TILE_TAILLE/2;
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
+            rect_Dest.y = (SCREEN_H-HUD_H+2*tY);
+            SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+            /*Affichage mithril Porte*/
+            sprintf(str, "Mithril : %d / %d",getMithrilPorte(u),getRessourceMax(type));
+            texte = TTF_RenderText_Solid(aff->font,str,blanc);
+            texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+            rect_Dest.y += tY;
+            SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+            rect_Dest.w = tX;
+            rect_Dest.h = tY;
             SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
         }
 	}
+
+    /*Affichage nom joueur */
+    texte = TTF_RenderText_Solid(aff->font,getNomJoueur(getJoueur(aff->jeu, getVueJoueur(aff->jeu))),vert);
+    texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+    SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+    if(tX > (TILE_TAILLE*2)){
+        tY = tY*((TILE_TAILLE*2)/tX);
+        tX = TILE_TAILLE*2;
+    }
+    rect_Dest.w = tX;
+    rect_Dest.h = tY;
+    rect_Dest.x = TILE_TAILLE*4-tX/2;
+    rect_Dest.y = (SCREEN_H-HUD_H+tY/2);
+    SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+    /*affichage pierre du joueur */
+    sprintf(str,"pierre: %d", getPierreJoueur(getJoueur(aff->jeu, getVueJoueur(aff->jeu))));
+    texte = TTF_RenderText_Solid(aff->font,str,blanc);
+    texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+    rect_Dest.y += tY;
+    SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+    if(tX > (TILE_TAILLE*2)){
+        tY *= ((TILE_TAILLE*200)/tX);
+        tY /= 100;
+        tX = TILE_TAILLE*2;
+    }
+    rect_Dest.w = tX;
+    rect_Dest.h = tY;
+    rect_Dest.x = TILE_TAILLE*4-tX/2;
+    SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+    /*affichage mithril du joueur */
+    sprintf(str,"mithril: %d", getMithrilJoueur(getJoueur(aff->jeu, getVueJoueur(aff->jeu))));
+    texte = TTF_RenderText_Solid(aff->font,str,blanc);
+    texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+    rect_Dest.y += tY;
+    SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+    if(tX > (TILE_TAILLE*2)){
+        tY *= ((TILE_TAILLE*200)/tX);
+        tY /= 100;
+        tX = TILE_TAILLE*2;
+    }
+    rect_Dest.w = tX;
+    rect_Dest.h = tY;
+    rect_Dest.x = TILE_TAILLE*4-tX/2;
+    SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+     /*affichage nourriture du joueur */
+    sprintf(str,"armée: %d/%d", getNourritureCourante(getJoueur(aff->jeu, getVueJoueur(aff->jeu))), getNourritureMax(getJoueur(aff->jeu, getVueJoueur(aff->jeu))));
+    texte = TTF_RenderUTF8_Solid(aff->font,str,blanc);
+    texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+    rect_Dest.y += tY;
+    SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+    if(tX > (TILE_TAILLE*2)){
+        tY *= ((TILE_TAILLE*200)/tX);
+        tY /= 100;
+        tX = TILE_TAILLE*2;
+    }
+    rect_Dest.w = tX;
+    rect_Dest.h = tY;
+    rect_Dest.x = TILE_TAILLE*4-tX/2;
+    SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+
+
 
     SDL_RenderPresent(aff->renderer);
     SDL_Delay(1000/60);
