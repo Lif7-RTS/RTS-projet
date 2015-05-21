@@ -511,7 +511,7 @@ void Recolte(Unite* homme, Jeu* jeu){
      clock_t tempo=clock();
      float temps;
      int finRecolte = 0;
-     int quantite = getRessourceMax(getTypeUnite(homme)) - (getPierrePorte(homme) + getMithrilCase(homme));
+     int quantite;
 
      if(tempo == -1)
      {
@@ -523,17 +523,32 @@ void Recolte(Unite* homme, Jeu* jeu){
 
      if( temps >= (float) vitesseRecolte/1000)
      {
+          quantite = getRessourceMax(getTypeUnite(homme)) - (getMithrilPorte(homme) + getPierrePorte(homme));
+
           if (quantite != 0 )
           {
                 sCase* place = getCase(getCarteJeu(jeu), getPosMineraiX(homme), getPosMineraiY(homme));
+                int test;
 
                if(getPierreCase(place)!= 0)
                {
                     if( quantite < quantiteRecolte)
+                    {
                          quantite=quantite;
+                         test=1;
+                    }
                     else if( getPierreCase(place) < quantiteRecolte)
-                              quantite=getPierreCase(place);
-                    else  quantite=quantiteRecolte;
+                    {
+                         quantite=getPierreCase(place);
+                         test=2;
+                    }
+                    else
+                    {
+                         quantite=quantiteRecolte;
+                         test = 3;
+                    }
+
+                    printf("\n boucle %d -> recolte %d pierre", test,quantite);
 
                     setPierrePorte(homme, getPierrePorte(homme) + quantite);
                     setPierreCase(place, getPierreCase(place) - quantite);
@@ -541,10 +556,22 @@ void Recolte(Unite* homme, Jeu* jeu){
                else if(getMithrilCase(place) != 0)
                {
                     if( quantite < quantiteRecolte)
+                    {
                          quantite=quantite;
+                         test=1;
+                    }
                     else if( getMithrilCase(place) < quantiteRecolte)
-                              quantite=getMithrilCase(place);
-                    else  quantite=quantiteRecolte;
+                    {
+                         quantite=getMithrilCase(place);
+                         test=2;
+                    }
+                    else
+                    {
+                         quantite=quantiteRecolte;
+                         test = 3;
+                    }
+
+                    printf("\n boucle %d -> recolte %d mithril.", test,quantite);
 
                     setMithrilPorte(homme, getMithrilPorte(homme) + quantite);
                     setMithrilCase(place, getMithrilCase(place) - quantite);
@@ -596,53 +623,57 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
      setContenu(getCase(terrain,x,y),id);
 
      i=1;
+     printf(" \n\n\nl'ancien minerais est à la acse (%d, %d)\n\n\n debut recherche:\n", caseCibleX, caseCibleY);
      while (fin == 0)
      {
           caseTestX=caseCibleX+i;
           caseTestY=caseCibleY;
           fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-          printf("\n\n%d",fin);
-
-          if (i>=5){
-               fin=-10;
-               printf("pas de minerais autour du dernier épuisé");
-          }
+          printf("fin = %d\n\n",fin);
 
           while(fin <=0 && caseTestX!=caseCibleX)
           {
                caseTestX--;
                caseTestY--;
                fin = testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("\n\n%d",fin);
+               printf("fin = %d\n\n",fin);
           }
           while(fin <=0 && caseTestY!=caseCibleY)
           {
                caseTestX--;
                caseTestY++;
                fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("\n\n%d",fin);
+               printf("fin = %d\n\n",fin);
           }
           while(fin <=0 && caseTestX!=caseCibleX)
           {
                caseTestX++;
                caseTestY++;
                fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("\n\n%d",fin);
+               printf("fin = %d\n\n",fin);
           }
           while(fin <=0 && caseTestY!=caseCibleY+1)
           {
                caseTestX++;
                caseTestY--;
                fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("\n\n%d",fin);
+               printf("fin = %d\n\n",fin);
+          }
+
+          if (i>=5){
+               fin=-500;
+               printf("pas de minerais autour du dernier épuisé");
           }
           i++;
      }
-     if(i>0)
+     if(fin>0)
      {
           setPosMineraiX(homme, caseTestX);
-          setPosMineraiX(homme, caseTestY);
+          setPosMineraiY(homme, caseTestY);
+          setPosCibleX(homme, caseTestX);
+          setPosCibleY(homme, caseTestY);
           setEnTravail(homme,3); /* pars à la recherche du minerai */
+          printf("Minerai trouve case (%d, %d)\n\n", getPosMineraiX(homme), getPosMineraiY(homme));
      }
      else
      {
@@ -658,8 +689,10 @@ static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain){
      }
      else if( tabD[(x+1)+y*getTailleX(terrain)].distance != INFINI || tabD[(x-1)+y*getTailleX(terrain)].distance != INFINI || tabD[x+(y+1)*getTailleX(terrain)].distance != INFINI|| tabD[x+(y-1)*getTailleX(terrain)].distance != INFINI)
      {
-          printf("-> Case exploitable <-");
-          return (getPierreCase(getCase(terrain, x, y)) + getMithrilCase(getCase(terrain, x, y)));
+          printf("-> Case exploitable: (%d, %d)\n", x, y);
+          int quantite =getPierreCase(getCase(terrain, x, y)) + getMithrilCase(getCase(terrain, x, y));
+          printf("la quatite est %d\n", quantite);
+          return quantite;
      }
 }
 
@@ -728,5 +761,24 @@ static int aPortee(Unite* homme, Jeu* jeu){
      else
      {
           return 1;
+     }
+}
+
+void surveille(Unite* homme, Jeu* jeu){
+     int i,j, id;
+     int x = getPosX(homme);
+     int y = getPosY(homme);
+
+     for (i=x-4; i<x+4; i++)
+     {
+          for(j=y-4; j<y+4; j++)
+          {
+               id=getIdJoueurCase(getCarteJeu(jeu), getCase(getCarteJeu(jeu), i, j));
+               if(id != getIdJoueurUnite(homme) && id != -1)
+               {
+                    setPosCibleX(homme, x);
+                    setPosCibleY(homme, y);
+               }
+          }
      }
 }

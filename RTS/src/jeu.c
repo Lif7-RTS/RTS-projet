@@ -336,9 +336,12 @@ void checkJeu(Jeu* jeu){
                     }
                     if(statut == 0) /*vide son sac et pars en repos */
                     {
-                         setPierreJoueur(getIdJoueurUnite(soldat),getPierreJoueur(getIdJoueurUnite(soldat)) + getPierrePorte(soldat));
+                         printf("\n\npierre %d \n", getPierrePorte(soldat));
+                         setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
                          setPierrePorte(soldat, 0);
-                         setMithrilJoueur(getIdJoueurUnite(soldat), getMithrilJoueur(getIdJoueurUnite(soldat)) + getMithrilPorte(soldat));
+                         printf("Mithril %d \n", getMithrilPorte(soldat));
+                         setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
+                         printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
                          setMithrilPorte(soldat, 0);
                          setEnTravail(soldat, -1);
                     }
@@ -361,15 +364,23 @@ void checkJeu(Jeu* jeu){
                     {
                          if(egale ==1)
                          {
-                              printf("pierre %d \n", getPierrePorte(soldat));
+                              printf("\n\npierre %d \n", getPierrePorte(soldat));
                               setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
                               setPierrePorte(soldat, 0);
                               printf("Mithril %d \n", getMithrilPorte(soldat));
                               setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
+                              printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
                               setMithrilPorte(soldat, 0);
-                              if(getPierreCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat))) == 0 &&
-                                getMithrilCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat)))== 0)
-                                    trouverMinerai(soldat, jeu); /*attention ajouter un teste pour minerais epuisé*/
+                              if(getPierreCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat))) == 0 && getMithrilCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat)))== 0)
+                              {
+                                   place = getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat));
+                                   if(getTileCase(place) == PIERRE || getTileCase(place) == MITHRIL)
+                                   {
+                                        setTileCase(place, 0);
+                                        setAcces(place, 1);
+                                   }
+                                   trouverMinerai(soldat, jeu); /*attention ajouter un teste pour minerais epuisé*/
+                              }
                               else{
                                 setPosCibleX(soldat,getPosMineraiX(soldat));
                                 setPosCibleY(soldat, getPosMineraiY(soldat));
@@ -405,7 +416,7 @@ void checkJeu(Jeu* jeu){
                     {
                          place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
 
-                         if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat) )
+                         if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1)
                          {
                               attaque(soldat,jeu);
                          }

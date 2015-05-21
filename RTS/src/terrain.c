@@ -59,9 +59,9 @@ void initTerrain(Terrain* ter, const char* colliCarte){
                 setTileCase(getCase(ter,x,y),tile);
                 if(tile >= 1 && tile <= 11){
                     if(tile == 10)
-                        initCase(&ter->tabCase[tailleX*y+x],2000,0,0);
+                        initCase(&ter->tabCase[tailleX*y+x],10,0,0);
                     else if(tile == 11)
-                        initCase(&ter->tabCase[tailleX*y+x],0,2000,0);
+                        initCase(&ter->tabCase[tailleX*y+x],0,10,0);
                     else
                         initCase(&ter->tabCase[tailleX*y+x],0,0,0);
                 }

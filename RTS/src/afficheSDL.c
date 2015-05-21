@@ -25,7 +25,7 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
         exit(EXIT_FAILURE);
     }
     atexit(SDL_Quit);
-    aff->pFenetre = SDL_CreateWindow("Panique à la mine !", SDL_WINDOWPOS_CENTERED,
+    aff->pFenetre = SDL_CreateWindow("Panique Ã  la mine !", SDL_WINDOWPOS_CENTERED,
                                                             SDL_WINDOWPOS_CENTERED,
                                                             SCREEN_W,
                                                             SCREEN_H,
@@ -62,7 +62,7 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
         }
     }
     else{
-        fprintf(stderr,"Erreur à la creation de la fenetre: %s \n",SDL_GetError());
+        fprintf(stderr,"Erreur Ã  la creation de la fenetre: %s \n",SDL_GetError());
         exit(EXIT_FAILURE);
     }
 
