@@ -772,20 +772,6 @@ void surveille(Unite* homme, Jeu* jeu){
      int i,j, id;
      int x = getPosX(homme);
      int y = getPosY(homme);
-     clock_t tempo=clock();
-     float temps;
-
-     if(tempo == -1)
-     {
-          printf("Problème d'horloge");
-              exit(EXIT_FAILURE);
-     }
-     temps= ((float)tempo-(float)homme->timerUnite)/CLOCKS_PER_SEC;
-
-     if( temps >= (float) 3*1000/1000) /* surveille*/
-     {
-          printf("***************************************************************************\n");
-          printf("%d - %d\n", x, y);
           for (i=x-4; i<=x+4; i++)
           {
                for(j=y-4; j<=y+4; j++)
@@ -797,7 +783,7 @@ void surveille(Unite* homme, Jeu* jeu){
                     }
                     else
                     {
-                         id=getIdJoueurCase(getCarteJeu(jeu), getCase(getCarteJeu(jeu), i, j));
+                         id=getIdJoueurCase(jeu, getCase(getCarteJeu(jeu), i, j));
                          printf("acceptable  (%d,%d) \n",i,j);
                          /*if(id != getIdJoueurUnite(homme) && id != -1)
                          {
@@ -809,12 +795,5 @@ void surveille(Unite* homme, Jeu* jeu){
                     }
                }
           }
-          tempo=clock();
-          if(tempo == -1)
-          {
-               printf("Problème d'horloge");
-               exit(EXIT_FAILURE);
-          }
-          setTimerUnite(homme, tempo);
      }
-}
+

@@ -316,127 +316,129 @@ void checkJeu(Jeu* jeu){
      for(i=1;i<taille+1;i++)
      {
           soldat = getUnite(jeu,i);
-          if (getVieCouranteUnite(soldat) <= 0)
-          {
-               printf("\nON DETRUIT TOUT!!");
-               setContenu(getCase(getCarteJeu(jeu), getPosX(soldat), getPosY(soldat)), 0);
-               detruireUnite(&soldat);
-               printf("\nvaleur du pointeur sur soldat: %d", (int) soldat);
-               setUnite(jeu, i, soldat);
-               if(getIdSel(jeu) == i){
-                    setIdSel(jeu,0);
-               }
-               /* enfiler I dans la file de case dispo */
-          }
-          else
-          {
-               egale = memeCase(getPosX(soldat), getPosY(soldat), getPosCibleX(soldat), getPosCibleY(soldat));
+          if(soldat != NULL){
+              if (getVieCouranteUnite(soldat) <= 0)
+              {
+                   printf("\nON DETRUIT TOUT!!");
+                   setContenu(getCase(getCarteJeu(jeu), getPosX(soldat), getPosY(soldat)), 0);
+                   detruireUnite(&soldat);
+                   printf("\nvaleur du pointeur sur soldat: %d", (int) soldat);
+                   setUnite(jeu, i, soldat);
+                   if(getIdSel(jeu) == i){
+                        setIdSel(jeu,0);
+                   }
+                   /* enfiler I dans la file de case dispo */
+              }
+              else
+              {
+                   egale = memeCase(getPosX(soldat), getPosY(soldat), getPosCibleX(soldat), getPosCibleY(soldat));
 
-               if(getOuvrier(getTypeUnite(soldat)) == 1) /* est un ouvrier */
-               {
-                    char statut = getEnTravail(soldat);
-                    if(statut == -1){
-                        if(egale != 1){
-                            if(getTileCase(getCase(getCarteJeu(jeu),getPosCibleX(soldat), getPosCibleY(soldat))) == PIERRE
-                            || getTileCase(getCase(getCarteJeu(jeu),getPosCibleX(soldat), getPosCibleY(soldat))) == MITHRIL ){
-                                setEnTravail(soldat, 3);
-                                setPosMineraiX(soldat, getPosCibleX(soldat));
-                                setPosMineraiY(soldat,getPosCibleY(soldat));
-                               }
-                            else
-                                deplacementUnite(soldat, getCarteJeu(jeu));
-                        }
-
-                    }
-                    if(statut == 0) /*vide son sac et pars en repos */
-                    {
-                         printf("\n\npierre %d \n", getPierrePorte(soldat));
-                         setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
-                         setPierrePorte(soldat, 0);
-                         printf("Mithril %d \n", getMithrilPorte(soldat));
-                         setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
-                         printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
-                         setMithrilPorte(soldat, 0);
-                         setEnTravail(soldat, -1);
-                    }
-                    if( statut == 1) /* phase de récolte */
-                    {
-                         if(getRessourceMax(getTypeUnite(soldat)) - (getPierrePorte(soldat) + getMithrilPorte(soldat)) == 0)
-                         {
-                              setEnTravail(soldat,2);
-                              printf("%d",getIdJoueurUnite(soldat));
-                              setPosCibleX(soldat,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(soldat))));
-                              setPosCibleY(soldat,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(soldat))));
-                              deplacementUnite(soldat, getCarteJeu(jeu));
-                         }
-                         else
-                         {
-                              Recolte(soldat,jeu);
-                         }
-                    }
-                    else if( statut == 2) /*phase de "vidage" du sac */
-                    {
-                         if(egale ==1)
-                         {
-                              printf("\n\npierre %d \n", getPierrePorte(soldat));
-                              setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
-                              setPierrePorte(soldat, 0);
-                              printf("Mithril %d \n", getMithrilPorte(soldat));
-                              setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
-                              printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
-                              setMithrilPorte(soldat, 0);
-                              if(getPierreCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat))) == 0 && getMithrilCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat)))== 0)
-                              {
-                                   place = getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat));
-                                   if(getTileCase(place) == PIERRE || getTileCase(place) == MITHRIL)
-                                   {
-                                        setTileCase(place, 0);
-                                        setAcces(place, 1);
+                   if(getOuvrier(getTypeUnite(soldat)) == 1) /* est un ouvrier */
+                   {
+                        char statut = getEnTravail(soldat);
+                        if(statut == -1){
+                            if(egale != 1){
+                                if(getTileCase(getCase(getCarteJeu(jeu),getPosCibleX(soldat), getPosCibleY(soldat))) == PIERRE
+                                || getTileCase(getCase(getCarteJeu(jeu),getPosCibleX(soldat), getPosCibleY(soldat))) == MITHRIL ){
+                                    setEnTravail(soldat, 3);
+                                    setPosMineraiX(soldat, getPosCibleX(soldat));
+                                    setPosMineraiY(soldat,getPosCibleY(soldat));
                                    }
-                                   trouverMinerai(soldat, jeu); /*attention ajouter un teste pour minerais epuisé*/
-                              }
-                              else{
-                                setPosCibleX(soldat,getPosMineraiX(soldat));
-                                setPosCibleY(soldat, getPosMineraiY(soldat));
-                                setEnTravail(soldat, 3);
-                              }
-                         }
-                         else
-                         {
-                              deplacementUnite(soldat, getCarteJeu(jeu));
-                         }
-                    }
-                    else if(statut == 3) /* phase de retour au travail */
-                    {
-                         if(egale == 1)
-                         {
-                              setEnTravail(soldat,1);
-                              Recolte(soldat,jeu);
+                                else
+                                    deplacementUnite(soldat, getCarteJeu(jeu));
+                            }
 
-                         }
-                         else
-                         {
-                              deplacementUnite(soldat, getCarteJeu(jeu));
-                         }
-                    }
-               }
-               else
-               {
-                    surveille(soldat,jeu);
-                    if( egale != 1)
-                    {
-                         place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
-                         if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1)
-                         {
-                              attaque(soldat,jeu);
-                         }
-                         else
-                         {
-                              deplacementUnite(soldat, getCarteJeu(jeu));
-                         }
+                        }
+                        if(statut == 0) /*vide son sac et pars en repos */
+                        {
+                             printf("\n\npierre %d \n", getPierrePorte(soldat));
+                             setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
+                             setPierrePorte(soldat, 0);
+                             printf("Mithril %d \n", getMithrilPorte(soldat));
+                             setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
+                             printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
+                             setMithrilPorte(soldat, 0);
+                             setEnTravail(soldat, -1);
+                        }
+                        if( statut == 1) /* phase de récolte */
+                        {
+                             if(getRessourceMax(getTypeUnite(soldat)) - (getPierrePorte(soldat) + getMithrilPorte(soldat)) == 0)
+                             {
+                                  setEnTravail(soldat,2);
+                                  printf("%d",getIdJoueurUnite(soldat));
+                                  setPosCibleX(soldat,getPosBatPX(getJoueur(jeu, getIdJoueurUnite(soldat))));
+                                  setPosCibleY(soldat,getPosBatPY(getJoueur(jeu, getIdJoueurUnite(soldat))));
+                                  deplacementUnite(soldat, getCarteJeu(jeu));
+                             }
+                             else
+                             {
+                                  Recolte(soldat,jeu);
+                             }
+                        }
+                        else if( statut == 2) /*phase de "vidage" du sac */
+                        {
+                             if(egale ==1)
+                             {
+                                  printf("\n\npierre %d \n", getPierrePorte(soldat));
+                                  setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
+                                  setPierrePorte(soldat, 0);
+                                  printf("Mithril %d \n", getMithrilPorte(soldat));
+                                  setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
+                                  printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
+                                  setMithrilPorte(soldat, 0);
+                                  if(getPierreCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat))) == 0 && getMithrilCase(getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat)))== 0)
+                                  {
+                                       place = getCase(getCarteJeu(jeu), getPosMineraiX(soldat), getPosMineraiY(soldat));
+                                       if(getTileCase(place) == PIERRE || getTileCase(place) == MITHRIL)
+                                       {
+                                            setTileCase(place, 0);
+                                            setAcces(place, 1);
+                                       }
+                                       trouverMinerai(soldat, jeu); /*attention ajouter un teste pour minerais epuisé*/
+                                  }
+                                  else{
+                                    setPosCibleX(soldat,getPosMineraiX(soldat));
+                                    setPosCibleY(soldat, getPosMineraiY(soldat));
+                                    setEnTravail(soldat, 3);
+                                  }
+                             }
+                             else
+                             {
+                                  deplacementUnite(soldat, getCarteJeu(jeu));
+                             }
+                        }
+                        else if(statut == 3) /* phase de retour au travail */
+                        {
+                             if(egale == 1)
+                             {
+                                  setEnTravail(soldat,1);
+                                  Recolte(soldat,jeu);
 
-                    }
-               }
+                             }
+                             else
+                             {
+                                  deplacementUnite(soldat, getCarteJeu(jeu));
+                             }
+                        }
+                   }
+                   else
+                   {
+                        surveille(soldat,jeu);
+                        if( egale != 1)
+                        {
+                             place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
+                             if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1)
+                             {
+                                  attaque(soldat,jeu);
+                             }
+                             else
+                             {
+                                  deplacementUnite(soldat, getCarteJeu(jeu));
+                             }
+
+                        }
+                   }
+              }
           }
      }
 
