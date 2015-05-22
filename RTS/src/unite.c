@@ -779,12 +779,11 @@ void surveille(Unite* homme, Jeu* jeu){
 
                    if(i<0 || j < 0 || i >= getTailleX(getCarteJeu(jeu)) || j >= getTailleY(getCarteJeu(jeu)))
                     {
-                         printf("en dehors de la map: (%d,%d) \n",i,j);
+
                     }
                     else
                     {
                          id=getIdJoueurCase(jeu, getCase(getCarteJeu(jeu), i, j));
-                         printf("acceptable  (%d,%d) \n",i,j);
                          /*if(id != getIdJoueurUnite(homme) && id != -1)
                          {
                               system("Pause");
