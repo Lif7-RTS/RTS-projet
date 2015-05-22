@@ -106,7 +106,7 @@ int getIdJoueurCase(const Jeu* jeu, const sCase* place){
      }
      else
      {
-         return getIdJoueurBat(getBat(jeu, contenu));
+         return getIdJoueurBat(getBat(jeu, -contenu));
      }
 }
 
@@ -137,7 +137,7 @@ void ajouterUnite(Jeu* j, Unite* unit){
 }
 
 void setUnite(const Jeu*  j, int uNb, Unite* unit){
-    j->tableauUnite->tab[uNb] = (uintptr_t*) unit;
+    j->tableauUnite->tab[uNb-1] = (uintptr_t*) unit;
 }
 
 void ajouterBat(Jeu* j, Batiment* bat){
@@ -319,9 +319,13 @@ void checkJeu(Jeu* jeu){
           if (getVieCouranteUnite(soldat) <= 0)
           {
                printf("\nON DETRUIT TOUT!!");
+               setContenu(getCase(getCarteJeu(jeu), getPosX(soldat), getPosY(soldat)), 0);
                detruireUnite(&soldat);
                printf("\nvaleur du pointeur sur soldat: %d", (int) soldat);
                setUnite(jeu, i, soldat);
+               if(getIdSel(jeu) == i){
+                    setIdSel(jeu,0);
+               }
                /* enfiler I dans la file de case dispo */
           }
           else

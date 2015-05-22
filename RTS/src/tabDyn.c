@@ -50,6 +50,7 @@ void detruireTabDyn(TabDyn* t){
 /* *************************************************************--GET--***************************************************************************** */
 
 uintptr_t getElemTabDyn(TabDyn* t, int i){
+    int utilisee = t->utilisee;
     if((i-1) < t->utilisee)
         return t->tab[i-1];
     return (uintptr_t)(void*)NULL;
