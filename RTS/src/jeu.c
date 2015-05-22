@@ -318,10 +318,11 @@ void checkJeu(Jeu* jeu){
           soldat = getUnite(jeu,i);
           if (getVieCouranteUnite(soldat) <= 0)
           {
-              detruireUnite(&soldat);
-              printf("valeur du pointeur sur soldat: %d", (int) soldat);
-              setUnite(jeu, i, soldat);
-              /* enfiler I dans la file de case dispo */
+               printf("\nON DETRUIT TOUT!!");
+               detruireUnite(&soldat);
+               printf("\nvaleur du pointeur sur soldat: %d", (int) soldat);
+               setUnite(jeu, i, soldat);
+               /* enfiler I dans la file de case dispo */
           }
           else
           {
@@ -415,25 +416,21 @@ void checkJeu(Jeu* jeu){
                          }
                     }
                }
-               else if( egale != 1)
+               else
                {
-                    if(getDeplacement(soldat) == 1)
-                    {
-                         deplacementUnite(soldat, getCarteJeu(jeu));
-                    }
-                    else
+                    surveille(soldat,jeu);
+                    if( egale != 1)
                     {
                          place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
-
                          if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1)
                          {
                               attaque(soldat,jeu);
                          }
                          else
                          {
-                              setDeplacement(soldat,1);
                               deplacementUnite(soldat, getCarteJeu(jeu));
                          }
+
                     }
                }
           }

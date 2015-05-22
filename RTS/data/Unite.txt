@@ -3,8 +3,8 @@
 nom=Lance-cailloux
 vieMax=600
 attaque=50
-vitesseAttaque=950
-ouvrier=1
+vitesseAttaque=900
+ouvrier=0
 tempsFormation=2
 ressourceMax=100
 tile=12
