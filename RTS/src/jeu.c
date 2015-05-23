@@ -454,3 +454,50 @@ void checkJeu(Jeu* jeu){
      }
 
 }
+
+/* *************************************************************--FCT--***************************************************************************** */
+
+void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
+     int i;
+     FILE* fish;
+     if(numSauvegarde==1)
+          fish=fopen("data/save/sauvegarde01.txt","w");
+     else if(numSauvegarde==2)
+          fish=fopen("data/save/sauvegarde02.txt","w");
+     else if (numSauvegarde==3)
+          fish=fopen("data/save/sauvegarde03.txt","w");
+     else
+     {
+          printf("La sauvegarde à échouée");
+          return;
+     }
+
+     fprintf(fish,"%c\n\n",nomSauvegarde);
+     /* que faut il mettre pour aff?*/
+     fprintf(fish,"nbJoueur=%d\n\n", getNbJoueur(jeu));
+
+     for(i=0; i<getNbJoueur(jeu);i++)
+     {
+          Joueur* joueur =getJoueur(jeu,i);
+          fprintf(fish,"%d\n", getIdJoueur(joueur));
+          fprintf(fish,"%d\n", getPierreJoueur(joueur));
+          fprintf(fish,"%d\n",getMithrilJoueur(joueur));
+          /* voir pour nom joueur */
+          fprintf(fish,"%d\n",getIdRace(joueur));
+          fprintf(fish,"%d\n",getNourritureMax(joueur));
+          fprintf(fish,"%d\n",getNourritureCourante(joueur));
+          fprintf(fish,"%d\n",getCameraX(joueur));
+          fprintf(fish,"%d\n",getCameraY(joueur));
+          /* voir pour tabBatiment */
+          /* voir pour tabUnite */
+          fprintf(fish,"%d\n",getPosBatPX(joueur));
+          fprintf(fish,"%d\n",getPosBatPY(joueur));
+          /* voir apres pour batCOnstru */
+          fprintf(fish,"\n");
+     }
+
+     for(i=0; i< getTailleX(getCarteJeu(jeu))* getTailleY(getCarteJeu(jeu)); i++)
+     {
+
+     }
+}

@@ -1,4 +1,4 @@
-3
+6
 
 nom=Maison mère
 niveau=1
@@ -12,6 +12,7 @@ nombreUnite=1
 tabUniteFormable=0
 coutPierre=150
 coutMithril=150
+race=1
 
 nom=Foyer
 niveau=1
@@ -25,6 +26,7 @@ nombreUnite=0
 tabUniteFormable=
 coutPierre=150
 coutMithril=150
+race=1
 
 nom=Armurie
 niveau=1
@@ -38,6 +40,7 @@ nombreUnite=2
 tabUniteFormable=1 2
 coutPierre=150
 coutMithril=150
+race=1
 
 nom=Batiment Principal
 niveau=1
@@ -51,6 +54,7 @@ nombreUnite=1
 tabUniteFormable=3
 coutPierre=150
 coutMithril=150
+race=2
 
 nom=Taverne
 niveau=1
@@ -64,6 +68,7 @@ nombreUnite=0
 tabUniteFormable=
 coutPierre=150
 coutMithril=150
+race=2
 
 nom=Caserne
 niveau=1
@@ -77,3 +82,4 @@ nombreUnite=2
 tabUniteFormable=4 5
 coutPierre=150
 coutMithril=150
+race=2

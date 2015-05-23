@@ -715,11 +715,15 @@ void attaque(Unite* homme, Jeu* jeu){
                     printf("\ntape du %d", getAttaque(getTypeUnite(homme)));
                     setVieCouranteUnite(ennemi, getVieCouranteUnite(ennemi) - getAttaque(getTypeUnite(homme))); /* frappe une foi */
                     printf(" -> %d HP restant", getVieCouranteUnite(ennemi));
+                    if(getRaceUnite(homme)==1)
+                         setVieCouranteUnite(homme, getVieCouranteUnite(homme)- DMG_BLOB);
                }
                else if(contenu < 0){
                     /* annimation */
                     Batiment* bat = getBat(jeu, -contenu);
                     setVieCouranteBat(bat, getVieCouranteBat(bat) - getAttaque(homme));
+                    if(getRaceUnite(homme)==1)
+                         setVieCouranteUnite(homme, getVieCouranteUnite(homme)- DMG_BLOB);
                }
                setTimerUnite(homme, tempo);
           }

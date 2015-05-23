@@ -12,6 +12,7 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=3
+race=1
 
 nom=Caster Blob
 vieMax=600
@@ -25,6 +26,7 @@ vitesse=200
 coutPierre=1
 coutMithril=1
 portee=3
+race=1
 
 nom=Guerrrier Blob
 vieMax=850
@@ -38,6 +40,7 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=1
+race=1
 
 nom=Ouvrier
 vieMax=300
@@ -51,6 +54,7 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=1
+race=2
 
 nom=Caster Nain
 vieMax=600
@@ -64,6 +68,7 @@ vitesse=220
 coutPierre=1
 coutMithril=1
 portee=3
+race=2
 
 nom=Guerrier Nain
 vieMax=1000
@@ -77,3 +82,4 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=1
+race=2

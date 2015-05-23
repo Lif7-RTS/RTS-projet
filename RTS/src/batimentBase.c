@@ -76,6 +76,11 @@ int getCoutPierreBat(const BatBase* bat){
 int getCoutMithrilBat(const BatBase* bat){
      return bat->coutMithril;
 }
+
+unsigned char getRaceBat(const BatBase* bat){
+     return bat->race;
+}
+
 /* *************************************************************--SET--***************************************************************************** */
 
 void setNomBat(BatBase* bat, char* nomBat){
@@ -126,6 +131,10 @@ void setCoutPierreBat(BatBase* bat, int coutP){
 
 void setCoutMithrilBat(BatBase* bat, int coutM){
      bat->coutPierre=coutM;
+}
+
+void setRaceBat(BatBase* bat, unsigned char race){
+     bat->race=race;
 }
 
 /* *************************************************************--FCT--***************************************************************************** */
@@ -185,6 +194,10 @@ BatBase* chargementBatBase(void){
                fscanf(fish, "coutPierre=%d\n", &(bat->coutPierre));
                /* coutMithril */
                fscanf(fish, "coutMithril=%d\n", &(bat->coutMithril));
+               /* race */
+               fscanf(fish, "race=%d\n", &(bat->race));
+
+               fscanf(fish, "\n");
           }
      }
      else

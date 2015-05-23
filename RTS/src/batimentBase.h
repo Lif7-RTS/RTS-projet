@@ -14,7 +14,6 @@
 #ifndef _BATBASE
 #define _BATBASE
 
-/* RAJOUTER LA RACE!!! OMFG!!!! */
 struct SBatBase{
      char nomBat[25]; /*!< le nom du batiment */
      char niveau;  /*!< c'est le niveau d'amelioration du batiment */
@@ -28,6 +27,7 @@ struct SBatBase{
      int nbUnitFormable;/*!< nombre d'unite formable par ce batiment */
      int coutPierre; /*!< cout en pierre du batiment */
      int coutMithril;/*!< cout en mithril du batiment */
+     unsigned char race; /*!< race capable de généré ce batiment (1=blob, 2=Nain) */
 };
 typedef struct SBatBase BatBase;
 
@@ -150,7 +150,7 @@ int getNbUniteFormable(const BatBase* bat);
  * \fn int getCoutPierreBat(const BatBase* bat)
  * \brief accesseur coutPierre
  *
-* \param[in, out] bat pointeur sur BatBase
+ * \param[in, out] bat pointeur sur BatBase
  * \return un entier correspondant au cout en pierre de la création d'un batiment.
  */
 int getCoutPierreBat(const BatBase* bat);
@@ -159,10 +159,19 @@ int getCoutPierreBat(const BatBase* bat);
  * \fn int getCoutMithrilBat(const BatBase* bat)
  * \brief accesseur coutMithril
  *
-* \param[in, out] bat pointeur sur BatBase
+ * \param[in, out] bat pointeur sur BatBase
  * \return un entier correspondant au cout en mithril de la création d'un batiment.
  */
 int getCoutMithrilBat(const BatBase* bat);
+
+ /**
+ * \fn unsigned char getRaceBat(const BatBase* bat)
+ * \brief accesseur race
+ *
+ * \param[in, out] bat pointeur sur BatBase
+ * \return un entier représentant une race.
+ */
+unsigned char getRaceBat(const BatBase* bat);
 
 /* *************************************************************--SET--***************************************************************************** */
 
@@ -273,6 +282,15 @@ void setCoutPierreBat(BatBase* bat, int coutP);
  * \param[in] un entier correspondant au cout en mithril de la creation d'un batiment.
  */
 void setCoutMithrilBat(BatBase* bat, int coutM);
+
+ /**
+ * \fn void getRaceBat(const BatBase* bat, unsigned char race)
+ * \brief mutateur race
+ *
+ * \param[in, out] bat pointeur sur BatBase
+ * \param[in] un entier représentant une race.
+ */
+void setRaceBat(BatBase* bat, unsigned char race);
 
 /* *************************************************************--FCT--***************************************************************************** */
 

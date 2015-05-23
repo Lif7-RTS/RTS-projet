@@ -235,7 +235,7 @@ void setUnite(const Jeu*  j, int uNb, Unite* unit);
 * \fn void boucleJeu(Jeu* j)
 * \brief function de boucle de jeu
 *
-* \param j pointeur sur jeu
+* \param[in, out] j pointeur sur jeu
 */
  void boucleJeu(Jeu* j);
 
@@ -243,8 +243,27 @@ void setUnite(const Jeu*  j, int uNb, Unite* unit);
 * \fn void checkJeu(Jeu* jeu)
 * \brief verifie et réalise toute les action a faire sur/par les batiment et les Unites
 *
-* \param j pointeur sur jeu
+* \param[in, out] j pointeur sur jeu
 */
 void checkJeu(Jeu* jeu);
+
+/**
+* \fn void sauvegarder(Jeu* jeu, unsigned char numSauvegarde))
+* \brief sauvegarde l'ensemble du jeu à l'emplacement choisi
+*
+* \params[in, out] j pointeur sur jeu
+* \param[in] un entier compris entre 1 et 3 correspondant à l'emplacement de la sauvegarde a faire
+* \param[in] une chaine de caractère correspodnant au nom de la sauvegarde
+*/
+void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde);
+
+/**
+* \fn void sauvegarder(Jeu* jeu, unsigned char numSauvegarde))
+* \brief charge uen partie du jeu sauvegardée à l'emplacement choisi
+*
+* \params[in, out] j pointeur sur jeu
+* \param[in] un entier compris entre 1 et 3 correspondant à l'emplacement de la sauvegarde a faire
+*/
+void charger(Jeu* jeu, unsigned char numSauvegarde);
 
 #endif

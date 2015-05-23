@@ -74,6 +74,11 @@ int getCoutMithrilUnite(const UniteBase* unit){
 int getPorteeUnite(const UniteBase* unit){
      return unit->portee;
 }
+
+unsigned char getRaceUnite(const UniteBase* unit){
+     return unit->race;
+}
+
 /* *************************************************************--SET--***************************************************************************** */
 
 void setVieMaxUnite(UniteBase* unit, int vieM){
@@ -130,6 +135,10 @@ void setPorteeUnite(UniteBase* unit, int portee){
      unit->portee=portee;
 }
 
+void setRaceUnite(UniteBase* unit, unsigned char race){
+     unit->race=race;
+}
+
 /* *************************************************************--FCT--***************************************************************************** */
 
 UniteBase* chargementUniteBase(void){
@@ -174,6 +183,10 @@ UniteBase* chargementUniteBase(void){
                fscanf(fish, "coutMithril=%d\n",&(unit->coutMithril));
                /* portee */
                fscanf(fish, "portee=%d\n",&(unit->portee));
+               /* race */
+               fscanf(fish, "race=%d\n",&(unit->race));
+
+               fscanf(fish, "\n");
           }
      }
      else

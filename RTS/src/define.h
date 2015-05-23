@@ -16,3 +16,4 @@
 #define NB_BAT_RACE 1
 #define PIERRE 10
 #define MITHRIL 11
+#define DMG_BLOB 15
