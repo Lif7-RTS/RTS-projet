@@ -157,7 +157,7 @@ BatBase* chargementBatBase(void){
                bat= tabBat+i;
 
                /*Nom*/
-               fscanf(fish, "nom=%s\n", bat->nomBat);
+               fscanf(fish, "nom=%24[^\n]\n", bat->nomBat);
                printf("%s \n", bat->nomBat);
                /*Niveau*/
                fscanf(fish, "niveau=%d\n", &(bat->niveau));
@@ -180,6 +180,7 @@ BatBase* chargementBatBase(void){
                fscanf(fish, "nombreUnite=%d\n", &nbUnite);
                setNbUniteFormable(bat, nbUnite);
                printf("nbUniteFormable: %d \n", getNbUniteFormable(bat));
+               fscanf(fish,"tabUniteFormable=");
                if(nbUnite > 0 )
                {
                     fscanf(fish,"tabUniteFormable=");
@@ -190,6 +191,7 @@ BatBase* chargementBatBase(void){
                          printf("id %d : %d \n", j, bat->tabUnitFormable[j]);
                     }
                }
+               fscanf(fish, "\n");
                 /* coutPierre */
                fscanf(fish, "coutPierre=%d\n", &(bat->coutPierre));
                /* coutMithril */

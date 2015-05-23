@@ -228,6 +228,7 @@ void boucleJeu(Jeu* j){
                                     initBatiment(b,ajouterTabDyn(getTabBat(j),(uintptr_t)b), getBatConstruction(joueur),1,getVueJoueur(j));
                                     setPosXBat(b, xClick);
                                     setPosYBat(b, yClick);
+                                    printf("pierre %d \n mithril %d \n",getCoutPierreBat(getTypeBat(b)),getCoutMithrilBat(getTypeBat(b)));
                                     setPierreJoueur(joueur, getPierreJoueur(joueur) - getCoutPierreBat(getTypeBat(b)));
                                     setMithrilJoueur(joueur, getMithrilJoueur(joueur) - getCoutMithrilBat(getTypeBat(b)));
                                     for(i = 0; i < getTailleCaseX(getTypeBat(b)); i++){
@@ -272,8 +273,8 @@ void boucleJeu(Jeu* j){
                         else if(xClick > 0 && xClick < 3*TILE_TAILLE){
                             xClick = xClick / TILE_TAILLE;
                             yClick = (yClick-SCREEN_H+HUD_H) / TILE_TAILLE;
-                            if((xClick + yClick * 3) < NB_BAT_RACE){
-                                setBatConstruction(joueur, getBatConstructible(j,xClick+yClick*3 + getIdRace(joueur)*NB_BAT_RACE));
+                            if((xClick + yClick * 3) < NB_BAT_RACE-1){
+                                setBatConstruction(joueur, getBatConstructible(j,xClick+yClick*3 + 1 + getIdRace(joueur)*NB_BAT_RACE));
                             }
                         }
                     }

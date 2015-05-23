@@ -13,7 +13,7 @@
 #define ORIGINE 0
 #define vitesseRecolte 500
 #define quantiteRecolte 10
-#define NB_BAT_RACE 1
+#define NB_BAT_RACE 3
 #define PIERRE 10
 #define MITHRIL 11
 #define DMG_BLOB 15

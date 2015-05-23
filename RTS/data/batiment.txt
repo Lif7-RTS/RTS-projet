@@ -2,7 +2,7 @@
 
 nom=Maison mère
 niveau=1
-tile=16
+tile=20
 vieMax=5000
 ameliorable=1
 tempsConstruct=30
@@ -16,12 +16,12 @@ race=1
 
 nom=Foyer
 niveau=1
-tile=16
+tile=24
 vieMax=1500
 ameliorable=1
 tempsConstruct=30
-tailleCaseX=2
-tailleCaseY=2
+tailleCaseX=1
+tailleCaseY=1
 nombreUnite=0
 tabUniteFormable=
 coutPierre=150
@@ -30,7 +30,7 @@ race=1
 
 nom=Armurie
 niveau=1
-tile=16
+tile=25
 vieMax=1500
 ameliorable=1
 tempsConstruct=30
