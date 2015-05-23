@@ -6,7 +6,7 @@
 int main(int argc, char** argv)
 {
      Jeu* j=(Jeu*)malloc(sizeof(Jeu));
-     commencerPartie(j, 0, "data/carte.txt", "Andzura" );
+     commencerPartie(j, 1, "data/carte.txt", "Andzura" );
 
      return 0;
 }

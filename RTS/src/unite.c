@@ -513,7 +513,7 @@ void Recolte(Unite* homme, Jeu* jeu){
 
      temps= ((float)tempo-(float)homme->timerUnite)/CLOCKS_PER_SEC;
 
-     if( temps >= (float) vitesseRecolte/1000)
+     if( temps >= (float) VITESSERECOLTE/1000)
      {
           quantite = getRessourceMax(getTypeUnite(homme)) - (getMithrilPorte(homme) + getPierrePorte(homme));
 
@@ -524,19 +524,18 @@ void Recolte(Unite* homme, Jeu* jeu){
 
                if(getPierreCase(place)!= 0)
                {
-                    if( quantite < quantiteRecolte)
+                    if( quantite < QUANTITERECOLTE)
                     {
-                         quantite=quantite;
                          test=1;
                     }
-                    else if( getPierreCase(place) < quantiteRecolte)
+                    else if( getPierreCase(place) < QUANTITERECOLTE)
                     {
                          quantite=getPierreCase(place);
                          test=2;
                     }
                     else
                     {
-                         quantite=quantiteRecolte;
+                         quantite=QUANTITERECOLTE;
                          test = 3;
                     }
 
@@ -547,19 +546,18 @@ void Recolte(Unite* homme, Jeu* jeu){
                }
                else if(getMithrilCase(place) != 0)
                {
-                    if( quantite < quantiteRecolte)
+                    if( quantite < QUANTITERECOLTE)
                     {
-                         quantite=quantite;
                          test=1;
                     }
-                    else if( getMithrilCase(place) < quantiteRecolte)
+                    else if( getMithrilCase(place) < QUANTITERECOLTE)
                     {
                          quantite=getMithrilCase(place);
                          test=2;
                     }
                     else
                     {
-                         quantite=quantiteRecolte;
+                         quantite=QUANTITERECOLTE;
                          test = 3;
                     }
 
@@ -710,19 +708,17 @@ void attaque(Unite* homme, Jeu* jeu){
           if( temps >= (float) getVitesseAttaque(getTypeUnite(homme))/1000) /* attaquer */
           {
                if(contenu > 0){
-                    /* annimation */
                     Unite* ennemi = getUnite(jeu, contenu);
                     printf("\ntape du %d", getAttaque(getTypeUnite(homme)));
-                    setVieCouranteUnite(ennemi, getVieCouranteUnite(ennemi) - getAttaque(getTypeUnite(homme))); /* frappe une foi */
+                    setVieCouranteUnite(ennemi, getVieCouranteUnite(ennemi) - getAttaque(getTypeUnite(homme))); /* frappe une fois */
                     printf(" -> %d HP restant", getVieCouranteUnite(ennemi));
-                    if(getRaceUnite(homme)==1)
+                    if(getRaceUnite(homme)==0)
                          setVieCouranteUnite(homme, getVieCouranteUnite(homme)- DMG_BLOB);
                }
                else if(contenu < 0){
-                    /* annimation */
                     Batiment* bat = getBat(jeu, -contenu);
                     setVieCouranteBat(bat, getVieCouranteBat(bat) - getAttaque(homme));
-                    if(getRaceUnite(homme)==1)
+                    if(getRaceUnite(homme)==0)
                          setVieCouranteUnite(homme, getVieCouranteUnite(homme)- DMG_BLOB);
                }
                setTimerUnite(homme, tempo);

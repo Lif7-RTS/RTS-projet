@@ -228,7 +228,6 @@ void boucleJeu(Jeu* j){
                                     initBatiment(b,ajouterTabDyn(getTabBat(j),(uintptr_t)b), getBatConstruction(joueur),1,getVueJoueur(j));
                                     setPosXBat(b, xClick);
                                     setPosYBat(b, yClick);
-                                    printf("pierre %d \n mithril %d \n",getCoutPierreBat(getTypeBat(b)),getCoutMithrilBat(getTypeBat(b)));
                                     setPierreJoueur(joueur, getPierreJoueur(joueur) - getCoutPierreBat(getTypeBat(b)));
                                     setMithrilJoueur(joueur, getMithrilJoueur(joueur) - getCoutMithrilBat(getTypeBat(b)));
                                     for(i = 0; i < getTailleCaseX(getTypeBat(b)); i++){
@@ -354,13 +353,17 @@ void checkJeu(Jeu* jeu){
                          }
                          if(statut == 0) /*vide son sac et pars en repos */
                          {
-                             printf("\n\npierre %d \n", getPierrePorte(soldat));
-                             setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
-                             setPierrePorte(soldat, 0);
-                             printf("Mithril %d \n", getMithrilPorte(soldat));
-                             setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
-                             printf("le joueur possède maintenant %d mithril %d pierre", getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))), getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))));
-                             setMithrilPorte(soldat, 0);
+                             if(getRaceUnite(getTypeUnite(soldat)) == 0 && getNourritureCourante(getJoueur(jeu, getIdJoueurUnite(soldat))) > 25){
+                                 setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + (getPierrePorte(soldat)*80)/100);
+                                 setPierrePorte(soldat, 0);
+                                 setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + (getMithrilPorte(soldat)*80)/100);
+                                 setMithrilPorte(soldat, 0);
+                             }else{
+                                 setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
+                                 setPierrePorte(soldat, 0);
+                                 setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
+                                 setMithrilPorte(soldat, 0);
+                             }
                              setEnTravail(soldat, -1);
                          }
                          if( statut == 1) /* phase de récolte */
@@ -382,12 +385,17 @@ void checkJeu(Jeu* jeu){
                          {
                              if(egale ==1)
                              {
-                                   setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
-                                   setPierrePorte(soldat, 0);
-
-                                   setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
-                                   setMithrilPorte(soldat, 0);
-
+                                    if(getRaceUnite(getTypeUnite(soldat)) == 0 && getNourritureCourante(getJoueur(jeu, getIdJoueurUnite(soldat))) > 25){
+                                         setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + (getPierrePorte(soldat)*80)/100);
+                                         setPierrePorte(soldat, 0);
+                                         setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + (getMithrilPorte(soldat)*80)/100);
+                                         setMithrilPorte(soldat, 0);
+                                     }else{
+                                         setPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)),getPierreJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getPierrePorte(soldat));
+                                         setPierrePorte(soldat, 0);
+                                         setMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat)), getMithrilJoueur(getJoueur(jeu,getIdJoueurUnite(soldat))) + getMithrilPorte(soldat));
+                                         setMithrilPorte(soldat, 0);
+                                     }
                                    setPosCibleX(soldat,getPosMineraiX(soldat));
                                    setPosCibleY(soldat, getPosMineraiY(soldat));
                                    setEnTravail(soldat, 3);

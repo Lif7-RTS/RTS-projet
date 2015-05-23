@@ -160,7 +160,7 @@ UniteBase* chargementUniteBase(void){
                unit=tabUnite+i;
 
                /*Nom*/
-               fscanf(fish, "nom=%s\n",unit->nom);
+               fscanf(fish, "nom=%24[^\n]\n",unit->nom);
                /*vieMax*/
                fscanf(fish, "vieMax=%d\n",&(unit->vieMax));
                /* attaque */

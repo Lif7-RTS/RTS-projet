@@ -117,15 +117,14 @@ void affiche(const Affichage* aff){
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             if(j == aff->nbTileCamY-(HUD_H/TILE_TAILLE)){
                 num_tile = 95;
-                rect_Dest.y -= 2;
+                rect_Dest.y -= 6;
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
 
             }
 		}
 	}
 	for(j = 1; j < NB_BAT_RACE;j++){
-                int w =  j+getIdRace(getJoueur(aff->jeu,getVueJoueur(aff->jeu)))*NB_BAT_RACE;
-                num_tile = getTileBat(getBatConstructible(aff->jeu, w));
+                num_tile = j+ICON;
                 rect_Dest.x = ((j-1)%3)*TILE_TAILLE;
                 rect_Dest.y = SCREEN_H+((j-1)/3-3)*TILE_TAILLE;
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);

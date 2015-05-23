@@ -1,5 +1,5 @@
-#define SCREEN_W 800
-#define SCREEN_H 600
+#define SCREEN_W 1000
+#define SCREEN_H 700
 #define HUD_H 150
 #define TILE_TAILLE 50
 #define NB_TILE 100
@@ -10,10 +10,10 @@
 #define BAS 2
 #define GAUCHE 3
 #define HAUT 4
-#define ORIGINE 0
-#define vitesseRecolte 500
-#define quantiteRecolte 10
+#define VITESSERECOLTE 500
+#define QUANTITERECOLTE 10
 #define NB_BAT_RACE 3
 #define PIERRE 10
 #define MITHRIL 11
 #define DMG_BLOB 15
+#define ICON 92
