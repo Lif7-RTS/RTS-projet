@@ -1,15 +1,79 @@
-1
+3
 
-nom=Taverne
+nom=Maison mère
 niveau=1
-tile=13
-vieMax=100
+tile=16
+vieMax=5000
 ameliorable=1
 tempsConstruct=30
 tailleCaseX=2
 tailleCaseY=2
-nombreUnite=9
-tabUniteFormable=0 0 0 0 0 0 0 0 0
+nombreUnite=1
+tabUniteFormable=0
 coutPierre=150
 coutMithril=150
 
+nom=Foyer
+niveau=1
+tile=16
+vieMax=1500
+ameliorable=1
+tempsConstruct=30
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=0
+tabUniteFormable=
+coutPierre=150
+coutMithril=150
+
+nom=Armurie
+niveau=1
+tile=16
+vieMax=1500
+ameliorable=1
+tempsConstruct=30
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=2
+tabUniteFormable=1 2
+coutPierre=150
+coutMithril=150
+
+nom=Batiment Principal
+niveau=1
+tile=16
+vieMax=5000
+ameliorable=1
+tempsConstruct=30
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=1
+tabUniteFormable=3
+coutPierre=150
+coutMithril=150
+
+nom=Taverne
+niveau=1
+tile=16
+vieMax=1500
+ameliorable=1
+tempsConstruct=30
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=0
+tabUniteFormable=
+coutPierre=150
+coutMithril=150
+
+nom=Caserne
+niveau=1
+tile=16
+vieMax=1500
+ameliorable=1
+tempsConstruct=30
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=2
+tabUniteFormable=4 5
+coutPierre=150
+coutMithril=150

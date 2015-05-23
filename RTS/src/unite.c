@@ -50,15 +50,6 @@ static int testCase(int x, int y, Terrain* terrain);
  */
 static void djikstra(int x, int y,CellDjikstra* tabD, Terrain* terrain);
 
-/**
- * \fn static int testCase(int x, int y, Terrain* terrain)
- * \brief verifi si l'unité est a portée d'attque de sa cible 1 si oui 0 sinon
- *
- * \param[in, out] homme est un pointeur sur une unité
- * \param[in, out] jeu est un pointeur sur jeu
- */
-static int aPortee(Unite* homme, Jeu* jeu);
-
 /* *************************************************************--Init--***************************************************************************** */
 
 void initUnite(Unite* unit, const UniteBase* type, int idJoueur){
@@ -577,7 +568,7 @@ void Recolte(Unite* homme, Jeu* jeu){
                     setMithrilPorte(homme, getMithrilPorte(homme) + quantite);
                     setMithrilCase(place, getMithrilCase(place) - quantite);
                }
-               else
+               if(getPierreCase(place)== 0 && getMithrilCase(place) == 0)
                {
                     if(getTileCase(place) == PIERRE || getTileCase(place) == MITHRIL)
                     {
@@ -703,8 +694,6 @@ static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain){
 
 void attaque(Unite* homme, Jeu* jeu){
 
-     if (aPortee(homme, jeu )== 1)
-     {
           viderFilePath(getChemin(homme));
           clock_t tempo=clock();
           float temps;
@@ -734,20 +723,9 @@ void attaque(Unite* homme, Jeu* jeu){
                }
                setTimerUnite(homme, tempo);
           }
-     }
-     else
-     {
-               int cibleX = getPosCibleX(homme);
-               int cibleY = getPosCibleY(homme);
-
-               deplacementUnite(homme, getCarteJeu(jeu));
-
-               setPosCibleX(homme, cibleX);
-               setPosCibleY(homme, cibleY);
-     }
 }
 
-static int aPortee(Unite* homme, Jeu* jeu){
+int aPortee(Unite* homme, Jeu* jeu){
      int portee = getPorteeUnite(getTypeUnite(homme));
      int hommeX = getPosX(homme);
      int hommeY = getPosY(homme);
@@ -784,13 +762,11 @@ void surveille(Unite* homme, Jeu* jeu){
                     else
                     {
                          id=getIdJoueurCase(jeu, getCase(getCarteJeu(jeu), i, j));
-                         /*if(id != getIdJoueurUnite(homme) && id != -1)
+                         if(id != getIdJoueurUnite(homme) && id != -1)
                          {
-                              system("Pause");
-                              printf("Bingo!");
-                              setPosCibleX(homme, x);
-                              setPosCibleY(homme, y);
-                         }*/
+                              setPosCibleX(homme, i);
+                              setPosCibleY(homme, j);
+                         }
                     }
                }
           }

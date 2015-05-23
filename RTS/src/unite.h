@@ -391,6 +391,16 @@ void deplacementUnite(Unite* homme, Terrain* terrain);
  */
 void trouverAcces(Unite* homme, Terrain* terrain);
 
+/**
+ * \fn static int testCase(int x, int y, Terrain* terrain)
+ * \brief verifi si l'unité est a portée d'attque de sa cible 1 si oui 0 sinon
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
+int aPortee(Unite* homme, Jeu* jeu);
+
+
 void trouveChemin(Unite* homme, Terrain* terrain);
 
 #endif /* _UNITE */
