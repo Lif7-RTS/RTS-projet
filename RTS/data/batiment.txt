@@ -30,7 +30,7 @@ race=1
 
 nom=Armurie
 niveau=1
-tile=25
+tile=24
 vieMax=1500
 ameliorable=1
 tempsConstruct=30
@@ -44,7 +44,7 @@ race=1
 
 nom=Batiment Principal
 niveau=1
-tile=16
+tile=20
 vieMax=5000
 ameliorable=1
 tempsConstruct=30
@@ -58,7 +58,7 @@ race=2
 
 nom=Taverne
 niveau=1
-tile=16
+tile=24
 vieMax=1500
 ameliorable=1
 tempsConstruct=30
@@ -72,7 +72,7 @@ race=2
 
 nom=Caserne
 niveau=1
-tile=16
+tile=24
 vieMax=1500
 ameliorable=1
 tempsConstruct=30

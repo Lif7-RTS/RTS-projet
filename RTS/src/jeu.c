@@ -467,7 +467,7 @@ void checkJeu(Jeu* jeu){
 /* *************************************************************--FCT--***************************************************************************** */
 
 void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
-     int i;
+     int i, compteur;
      FILE* fish;
      if(numSauvegarde==1)
           fish=fopen("data/save/sauvegarde01.txt","w");
@@ -485,6 +485,7 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
      /* que faut il mettre pour aff?*/
      fprintf(fish,"nbJoueur=%d\n\n", getNbJoueur(jeu));
 
+     /*tabJoueur*/
      for(i=0; i<getNbJoueur(jeu);i++)
      {
           Joueur* joueur =getJoueur(jeu,i);
@@ -505,8 +506,130 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
           fprintf(fish,"\n");
      }
 
+     /*le terrain*/
+     fprintf(fish,"%d\n%d\n", getTailleX(getCarteJeu(jeu)), getTailleY(getCarteJeu(jeu)));
      for(i=0; i< getTailleX(getCarteJeu(jeu))* getTailleY(getCarteJeu(jeu)); i++)
      {
-
+          fprintf(fish,"%d ",getAcces(&getCarteJeu(jeu)->tabCase[i]));
+          fprintf(fish,"%d ",getPierreCase(&getCarteJeu(jeu)->tabCase[i]));
+          fprintf(fish,"%d ",getMithrilCase(&getCarteJeu(jeu)->tabCase[i]));
+          fprintf(fish,"%d ",getContenu(&getCarteJeu(jeu)->tabCase[i]));
+          fprintf(fish,"%d\n",getTileCase(&getCarteJeu(jeu)->tabCase[i]));
      }
+    fprintf(fish,"%c\n", getCarteTerrain(getCarteJeu(jeu)));
+
+     /*TabUnite*/
+     compteur=0;
+     for(i=0; i<getUtiliseTabDyn(getTabUnite(jeu)); i++)
+     {
+          if(getElemTabDyn(getTabUnite(jeu),i)) /*different de NULL*/
+               compteur++;
+     }
+     fprintf(fish, "nbUnite=%d\n", compteur);
+     for(i=0; i<getUtiliseTabDyn(getTabUnite(jeu)); i++)
+     {
+          if(getElemTabDyn(getTabUnite(jeu),i)) /*different de NULL*/
+          fprintf(fish, "%d\n", getElemTabDyn(getTabUnite(jeu),i));
+     }
+
+     /*TabBat*/
+     compteur=0;
+     for(i=0; i<getUtiliseTabDyn(getTabBat(jeu)); i++)
+     {
+          if(getElemTabDyn(getTabBat(jeu), i))
+               compteur++;
+     }
+     fprintf(fish, "nbBatiment=%d\n", compteur);
+     for(i=0; i<getUtiliseTabDyn(getTabBat(jeu)); i++)
+     {
+          if(getElemTabDyn(getTabBat(jeu), i))
+               fprintf(fish, "%d\n", getElemTabDyn(getTabBat(jeu),i));
+     }
+
+     /* voir pour BatBase et Unibase */
+
+     /* vueJoueur */
+     fprintf("\nvueJoueur=%d\n", getVueJoueur(jeu));
+
+     /*mettre l'id à NULL*/
+
+}
+
+void charger(Jeu* jeu, unsigned char numSauvegarde){
+     int i, compteur;
+     uintptr_t* element;
+     FILE* fish;
+     if(numSauvegarde==1)
+          fish=fopen("data/save/sauvegarde01.txt","r");
+     else if(numSauvegarde==2)
+          fish=fopen("data/save/sauvegarde02.txt","r");
+     else if (numSauvegarde==3)
+          fish=fopen("data/save/sauvegarde03.txt","r");
+     else
+     {
+          printf("La chargement de la partie a échoué");
+          return;
+     }
+
+     fscanf(fish,"%c\n\n"); /*possible erreur ici*/
+
+     /* que faut il mettre pour aff?*/
+
+     fscanf(fish,"nbJoueur=%d\n\n", &(jeu->nbJoueur));
+
+     /*tabJoueur*/
+     for(i=0; i<getNbJoueur(jeu); i++)
+     {
+          Joueur* joueur = getJoueur(jeu,i);
+          fscanf(fish,"%d\n", &(joueur->idJoueur));
+          fscanf(fish,"%d\n", &(joueur->pierre));
+          fscanf(fish,"%d\n",&(joueur->mithril));
+          /* voir pour nom joueur */
+          fscanf(fish,"%d\n",&(joueur->idRace));
+          fscanf(fish,"%d\n",&(joueur->nourritureMax));
+          fscanf(fish,"%d\n",&(joueur->nourritureCourante));
+          fscanf(fish,"%d\n",&(joueur->cameraX));
+          fscanf(fish,"%d\n",&(joueur->cameraY));
+          /* voir pour tabBatiment */
+          /* voir pour tabUnite */
+          fscanf(fish,"%d\n",&(joueur->posBatPX));
+          fscanf(fish,"%d\n",&(joueur->posBatPY));
+          /* voir apres pour batCOnstru */
+          fscanf(fish,"\n");
+     }
+
+     /*le terrain*/
+     fscanf(fish,"%d\n%d\n", &(jeu->carte->tailleX), &(jeu->carte->tailleY));
+     for(i=0; i< getTailleX(getCarteJeu(jeu))* getTailleY(getCarteJeu(jeu)); i++)
+     {
+          fscanf(fish,"%d ",&(jeu->carte->tabCase[i].acces));
+          fscanf(fish,"%d ",&(jeu->carte->tabCase[i].pierre));
+          fscanf(fish,"%d ",&(jeu->carte->tabCase[i].mithril));
+          fscanf(fish,"%d ",&(jeu->carte->tabCase[i].idContenu));
+          fscanf(fish,"%d\n",&(jeu->carte->tabCase[i].tile));
+     }
+    fscanf(fish,"%c\n", &(jeu->carte->collisionCarte));
+
+     /*TabUnite*/
+     fscanf(fish, "nbUnite=%d\n", &compteur);
+     for(i=0; i<compteur; i++)
+     {
+          fscanf(fish, "%d\n", &element);
+          ajouterTabDyn(getTabUnite(jeu), element);
+     }
+
+     /*TabBat*/
+     fscanf(fish, "nbBatiment=%d\n", &compteur);
+     for(i=0; i<compteur; i++)
+     {
+          fscanf(fish, "%d\n", &element);
+          ajouterTabDyn(getTabBat(jeu), element);
+     }
+
+     /* voir pour BatBase et Unibase */
+
+     /* vueJoueur */
+     fscanf("\nvueJoueur=%d\n", &(jeu->vueJoueur));
+
+     setIdSel(jeu,0); /* à verifier*/
 }
