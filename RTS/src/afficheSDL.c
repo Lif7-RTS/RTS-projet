@@ -341,3 +341,37 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
     SDL_RenderPresent(aff->renderer);
     SDL_Delay(1000/60);
 }
+
+void afficheMenu(const Affichage* aff, int menu){
+    int i,j;
+    SDL_Rect rect_Dest;
+    int num_tile;
+    rect_Dest.h = TILE_TAILLE;
+    rect_Dest.w = TILE_TAILLE;
+    for(i = 0; i < aff->nbTileCamX; i++){
+        for(j = 0; j < aff->nbTileCamY; j++){
+            num_tile = 99;
+            rect_Dest.x = i*TILE_TAILLE;
+            rect_Dest.y = j*TILE_TAILLE;
+            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+        }
+    }
+    for(i = 0; i < 3; i++){
+        for(j=0; j < 3; j++){
+            num_tile = (40+10*menu)+i*3+j;
+            rect_Dest.x = (((SCREEN_W-3*TILE_TAILLE)/2))+j*TILE_TAILLE;
+            rect_Dest.y = 3*TILE_TAILLE+i*TILE_TAILLE;
+            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+        }
+    }
+    for(i = 0; i < 10; i++){
+        for(j = 0; j < 2; j++){
+            num_tile = 60+j*10+i;
+            rect_Dest.x = (((SCREEN_W-10*TILE_TAILLE)/2))+i*TILE_TAILLE;
+            rect_Dest.y = j*TILE_TAILLE;
+            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+        }
+    }
+    SDL_RenderPresent(aff->renderer);
+    SDL_Delay(1000/60);
+}

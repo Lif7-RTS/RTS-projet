@@ -41,5 +41,7 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter);
 
 void affiche(const Affichage* aff, int xSouris, int ySouris);
 
+void afficheMenu(const Affichage* aff, int menu);
+
 
 #endif

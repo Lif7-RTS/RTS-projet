@@ -40,7 +40,7 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     j->tabBatConstructible = chargementBatBase();
     j->tabUniteFormable = chargementUniteBase();
     initAffichage(j->aff,j,j->carte);
-    boucleJeu(j);
+    boucleMenu(j);
 }
 
 void detruireJeu(Jeu* j){
@@ -509,7 +509,6 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
      }
 
      fprintf(fish,"%c\n\n",nomSauvegarde);
-     /* que faut il mettre pour aff?*/
      fprintf(fish,"nbJoueur=%d\n\n", getNbJoueur(jeu));
 
      /*tabJoueur*/
@@ -662,4 +661,51 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
      fscanf("\nvueJoueur=%d\n", &(jeu->vueJoueur));
 
      setIdSel(jeu,0); /* à verifier*/
+}
+
+void boucleMenu(Jeu* jeu){
+    SDL_Event e;
+    int quit=0;
+    int menu = 0;
+    int x,y;
+    while(!quit){
+        while( SDL_PollEvent(&e) != 0 ){
+            afficheMenu(jeu->aff, menu);
+            if( e.type == SDL_QUIT ){
+                quit = 1;
+            }
+            if(e.type == SDL_MOUSEBUTTONDOWN){
+                if(e.button.button == SDL_BUTTON_LEFT){
+                    x = e.button.x;
+                    y = e.button.y;
+                    x /= TILE_TAILLE;
+                    y /= TILE_TAILLE;
+                    if(x > (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE) && x < (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE)+3){
+                        if( y == 3){
+                            if(menu == 0){
+
+                            }else{
+                            }
+
+                        }
+                        if(y == 4){
+                            if(menu == 0){
+                                menu = 1;
+                            }else{
+                            }
+                        }
+                        if(y == 5){
+                            if(menu == 0){
+                                quit = 1;
+                                detruireJeu(jeu);
+                                free(jeu);
+                            }else{
+                                menu = 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
