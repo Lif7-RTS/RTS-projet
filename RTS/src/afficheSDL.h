@@ -39,7 +39,7 @@ struct SAffichage{
 
 void initAffichage(Affichage* aff, Jeu* j, Terrain* ter);
 
-void affiche(const Affichage* aff);
+void affiche(const Affichage* aff, int xSouris, int ySouris);
 
 
 #endif

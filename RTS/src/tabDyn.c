@@ -16,29 +16,19 @@ void initTabDyn(TabDyn* t,int taille){
     t->utilisee = 0;
     t->taille = taille;
     t->tab = (uintptr_t*) malloc(sizeof(uintptr_t)*taille);
+    setFileCaseARemplir(t, (FilePath*)malloc(sizeof(FilePath)));
+    initFilePath(getFileCaseARemplir(t));
     return;
 }
 
-int supprimerElemTabDyn(TabDyn* t, uintptr_t ptr){
-    int i;
-    int k = 0;
-    uintptr_t* ptr_realloc;
-    for(i = 0; i < t->utilisee; i++){
-        if(t->tab[i] != ptr){
-            t->tab[k] = t->tab[i];
-            k++;
-        }
-    }
-    if(t->utilisee < (t->taille)/3){
-        ptr_realloc = realloc(t->tab,sizeof(uintptr_t)/2);
-        if(ptr_realloc == NULL){
-            printf("erreur realloc !");
-            return 0;
-        }
-        t->tab = ptr_realloc;
-        t->taille /= 2;
-    }
-    return 1;
+int supprimerElemTabDyn(TabDyn* t, int index){
+    if(getElemTabDyn(t, index) != NULL){
+        int i = t->tab[index];
+        t->tab[index] = NULL;
+        enfilePath(getFileCaseARemplir(t), index);
+        return 1;
+    }else
+        return 0;
 }
 
 void detruireTabDyn(TabDyn* t){
@@ -64,6 +54,10 @@ int getUtiliseTabDyn(TabDyn* t){
      return t->utilisee;
 }
 
+FilePath* getFileCaseARemplir(TabDyn* t){
+     return t->caseARemplir;
+}
+
 /* *************************************************************--SET--***************************************************************************** */
 
 void setTailleTabDyn(TabDyn* t, int taille){
@@ -74,21 +68,32 @@ void setUtiliseTabDyn(TabDyn* t, int utilisee){
      t->utilisee=utilisee;
 }
 
+void setFileCaseARemplir(TabDyn* t, FilePath* f){
+    t->caseARemplir = f;
+}
+
 /* *************************************************************--FCT--***************************************************************************** */
 
 int ajouterTabDyn(TabDyn* t, uintptr_t ptr){
-    if(t->utilisee == t->taille){
-        uintptr_t* ptr_realloc;
-        ptr_realloc = (uintptr_t*) realloc(t->tab, sizeof(uintptr_t)*(t->taille)*2);
-        if(ptr_realloc == NULL){
-            printf("erreur realloc !");
-            return 0;
+    if(regardeTeteFilePath(getFileCaseARemplir(t)) != -1){
+        int i = regardeTeteFilePath(getFileCaseARemplir(t));
+        t->tab[i] = ptr;
+        defilePath(getFileCaseARemplir(t));
+        return i+1;
+    }else{
+        if(t->utilisee == t->taille){
+            uintptr_t* ptr_realloc;
+            ptr_realloc = (uintptr_t*) realloc(t->tab, sizeof(uintptr_t)*(t->taille)*2);
+            if(ptr_realloc == NULL){
+                printf("erreur realloc !");
+                return 0;
+            }
+            t->tab = ptr_realloc;
+            t->taille *= 2;
         }
-        t->tab = ptr_realloc;
-        t->taille *= 2;
+        t->tab[t->utilisee] = ptr;
+        t->utilisee++;
+        return (t->utilisee);
     }
-    t->tab[t->utilisee] = ptr;
-    t->utilisee++;
-    return (t->utilisee);
 
 }

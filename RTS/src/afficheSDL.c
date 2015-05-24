@@ -68,7 +68,7 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
 
 }
 
-void affiche(const Affichage* aff){
+void affiche(const Affichage* aff, int xSouris, int ySouris){
     int i,j,id,camX,camY,tX,tY;
 	SDL_Rect rect_Dest;
 	SDL_Surface* texte;
@@ -76,9 +76,9 @@ void affiche(const Affichage* aff){
 	SDL_Color rouge ={255,0,0};
 	SDL_Color vert  ={0,255,0};
 	int num_tile;
-	tX = aff->carte->tailleX;
-	camX = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraX;
-	camY = aff->jeu->tableauJoueur[aff->jeu->vueJoueur].cameraY;
+	tX = getTailleX(getCarteJeu(aff->jeu));
+	camX = getCameraX(getJoueur(aff->jeu, getVueJoueur(aff->jeu)));
+	camY = getCameraY(getJoueur(aff->jeu, getVueJoueur(aff->jeu)));
 	SDL_RenderClear(aff->renderer);
     rect_Dest.w = TILE_TAILLE;
     rect_Dest.h = TILE_TAILLE;
@@ -320,6 +320,24 @@ void affiche(const Affichage* aff){
     rect_Dest.x = TILE_TAILLE*4-tX/2;
     SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
     SDL_DestroyTexture(texture);
+    if(getBatConstruction(getJoueur(aff->jeu, getVueJoueur(aff->jeu))) != NULL){
+        if(ySouris < (SCREEN_H-HUD_H)){
+                rect_Dest.w = TILE_TAILLE;
+                rect_Dest.h = TILE_TAILLE;
+            for(i= 0; i < getTailleCaseX(getBatConstruction(getJoueur(aff->jeu, getVueJoueur(aff->jeu)))); i++){
+                for(j= 0; j < getTailleCaseY(getBatConstruction(getJoueur(aff->jeu, getVueJoueur(aff->jeu)))); j++){
+                    rect_Dest.x = (xSouris/TILE_TAILLE + i)*TILE_TAILLE;
+                    rect_Dest.y = (ySouris/TILE_TAILLE + j)*TILE_TAILLE;
+                    if(rect_Dest.x > 0 && rect_Dest.x < SCREEN_W
+                    && rect_Dest.y > 0 && rect_Dest.y < (SCREEN_H-HUD_H)){
+                        num_tile = getTileBat(getBatConstruction(getJoueur(aff->jeu, getVueJoueur(aff->jeu))));
+                        num_tile += i+j*getTailleCaseX(getBatConstruction(getJoueur(aff->jeu, getVueJoueur(aff->jeu))));
+                        SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+                    }
+                }
+            }
+        }
+    }
     SDL_RenderPresent(aff->renderer);
     SDL_Delay(1000/60);
 }

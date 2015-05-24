@@ -10,6 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
+#include "filePath.h"
 #ifndef _TABDYN
 #define _TABDYN
 
@@ -17,6 +18,7 @@ struct STabDyn{
     uintptr_t* tab; /*!< tableau dynamique de pointeur */
     int taille;/*!< taille du tableau */
     int utilisee;/*!< nombre de case du tableau utilisee*/
+    FilePath* caseARemplir; /*!< File des prochaines cases a remplir, si vide, remplit à la fin du tableau */
 };
 typedef struct STabDyn TabDyn;
 
@@ -31,13 +33,14 @@ typedef struct STabDyn TabDyn;
 void initTabDyn(TabDyn* t,int taille);
 
 /**
- * \fn int supprimerElemTabDyn(TabDyn* t, uintptr_t ptr)
+ * \fn int supprimerElemTabDyn(TabDyn* t, int index)
  * \brief supprime un element dans le tableau
  * \param[in,out] t pointeur sur un tabDyn
- * \param ptr pointeur a supprimer du tableau
- * \return 1 si l'ajout a reussi, 0 sinon (erreur de realloc)
+ * \param index position du pointeur a supprimer
+ * \return 1 si la suppression, 0 sinon (tab[index] déjà == NULL ou non existant)
  */
-int supprimerElemTabDyn(TabDyn* t, uintptr_t ptr);
+int supprimerElemTabDyn(TabDyn* t, int index);
+
 
 /**
  * \fn void detruireTabDyn(TabDyn* t)
@@ -75,6 +78,15 @@ int getTailleTabDyn(TabDyn* t);
  */
 int getUtiliseTabDyn(TabDyn* t);
 
+/**
+ * \fn FilePath* getFileCaseARemplir(TabDyn* t)
+ * \brief accesseur sur CaseARemplir
+ *
+ * \param[in,out] t pointeur sur un tabDyn
+ * \return la file des prochaines Cases a remplir.
+ */
+FilePath* getFileCaseARemplir(TabDyn* t);
+
 /* *************************************************************--SET--***************************************************************************** */
 
 /**
@@ -94,6 +106,15 @@ void setTailleTabDyn(TabDyn* t, int taille);
  * \param[in] un entier
  */
 void setUtiliseTabDyn(TabDyn* t, int utilisee);
+
+/**
+ * \fn void setFileCaseARemplir(TabDyn* t, FilePath* f)
+ * \brief mutateur sur CaseARemplir
+ *
+ * \param[in,out] t pointeur sur un tabDyn
+ * \param la file des prochaines Cases a remplir.
+ */
+void setFileCaseARemplir(TabDyn* t, FilePath* f);
 
 /* *************************************************************--FCT--***************************************************************************** */
 

@@ -140,6 +140,9 @@ void setUnite(const Jeu*  j, int uNb, Unite* unit){
     j->tableauUnite->tab[uNb-1] = (uintptr_t*) unit;
 }
 
+void setBat(const Jeu*  j, int bNb, Batiment* bat){
+    j->tableauBat->tab[bNb-1] = (uintptr_t*) bat;
+}
 void ajouterBat(Jeu* j, Batiment* bat){
     ajouterTabDyn(j->tableauBat, (uintptr_t)bat);
 }
@@ -235,6 +238,9 @@ void boucleJeu(Jeu* j){
                                             setContenu(getCase(getCarteJeu(j),xClick+i, yClick+k),-getIdBat(b));
                                         }
                                     }
+                                    if(getNbUniteFormable(getBatConstruction(joueur)) == 0){
+                                        setNourritureMax(joueur, getNourritureMax(joueur)+10);
+                                    }
                                     setBatConstruction(joueur, NULL);
                                 }
                             }
@@ -299,13 +305,13 @@ void boucleJeu(Jeu* j){
 
 
         }
-        affiche(j->aff);
+        affiche(j->aff,x,y);
     }
 }
 
 void checkJeu(Jeu* jeu){
 
-     int taille, i, egale, enConstru;
+     int taille, i, egale, enConstru,j,k;
      sCase* place;
      Unite* soldat;
      Batiment* bat;
@@ -319,15 +325,12 @@ void checkJeu(Jeu* jeu){
           if(soldat != NULL){
               if (getVieCouranteUnite(soldat) <= 0)
               {
-                   printf("\nON DETRUIT TOUT!!");
                    setContenu(getCase(getCarteJeu(jeu), getPosX(soldat), getPosY(soldat)), 0);
                    detruireUnite(&soldat);
-                   printf("\nvaleur du pointeur sur soldat: %d", (int) soldat);
-                   setUnite(jeu, i, soldat);
+                   supprimerUnite(jeu, i);
                    if(getIdSel(jeu) == i){
                         setIdSel(jeu,0);
                    }
-                   /* enfiler I dans la file de case dispo */
               }
               else
               {
@@ -458,11 +461,35 @@ void checkJeu(Jeu* jeu){
      taille = getUtiliseTabDyn(getTabBat(jeu));
      for(i=1;i<taille+1;i++)
      {
-          bat = getBat(jeu, i);
-          verifierTimerBat(bat,jeu);
+        bat = getBat(jeu, i);
+        if(bat != NULL){
+            if(getVieCouranteBat(bat) <= 0){
+                for(j = 0; j < getTailleCaseX(getTypeBat(bat)); j++){
+                    for(k = 0; k < getTailleCaseY(getTypeBat(bat)); k++){
+                         setContenu(getCase(getCarteJeu(jeu), getPosXBat(bat)+j, getPosYBat(bat))+k, 0);
+                    }
+                }
+                detruireBatiment(&bat);
+                supprimerBat(jeu, i);
+                if(getIdSel(jeu) == -i){
+                    setIdSel(jeu,0);
+                }
+            }else
+                verifierTimerBat(bat,jeu);
+        }
      }
 
 }
+
+int supprimerUnite(Jeu* jeu, int index){
+    return supprimerElemTabDyn(jeu->tableauUnite, index-1);
+}
+
+
+int supprimerBat(Jeu* jeu, int index){
+    return supprimerElemTabDyn(jeu->tableauBat, index-1);
+}
+
 
 /* *************************************************************--FCT--***************************************************************************** */
 
@@ -549,7 +576,7 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
      /* voir pour BatBase et Unibase */
 
      /* vueJoueur */
-     fprintf("\nvueJoueur=%d\n", getVueJoueur(jeu));
+     fprintf(fish, "\nvueJoueur=%d\n", getVueJoueur(jeu));
 
      /*mettre l'id à NULL*/
 
@@ -574,7 +601,10 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
      fscanf(fish,"%c\n\n"); /*possible erreur ici*/
 
      /* que faut il mettre pour aff?*/
-
+    for(i=0; i<getNbJoueur(jeu); i++){
+        detruireJoueur(getJoueur(jeu,i));
+    }
+    free(jeu->tableauJoueur);
      fscanf(fish,"nbJoueur=%d\n\n", &(jeu->nbJoueur));
 
      /*tabJoueur*/

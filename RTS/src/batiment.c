@@ -133,24 +133,30 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
         }
         else  if(regardeTeteFile(getTabAttente(bat)) != NULL){
             if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
-                printf("Création Unite ! \n");
-                Unite* u = (Unite*) malloc(sizeof(Unite));
-                initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
-                int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
-                setId(u, id);
-                setPosX(u,-getTailleX(j->carte));
-                setPosY(u,-getTailleY(j->carte));
-                setPosCibleX(u,getPosXBat(bat)-1);
-                setPosCibleY(u, getPosYBat(bat));
-                trouverAcces(u, j->carte);
-                setPosX(u,getPosCibleX(u));
-                setPosY(u,getPosCibleY(u));
-                setContenu(getCase(getCarteJeu(j),getPosX(u), getPosY(u)),id);
-                defile(getTabAttente(bat));
-                if(regardeTeteFile(getTabAttente(bat)) != NULL)
-                    setTimerBat(bat, clock());
-                else
-                    setTimerBat(bat, NULL);
+                if((getNourritureCourante(getJoueur(j, getIdJoueurBat(bat)))+1) <= getNourritureMax(getJoueur(j, getIdJoueurBat(bat)))){
+                    printf("Création Unite ! \n");
+                    Unite* u = (Unite*) malloc(sizeof(Unite));
+                    initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
+                    int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
+                    setId(u, id);
+                    setPosX(u,-getTailleX(j->carte));
+                    setPosY(u,-getTailleY(j->carte));
+                    setPosCibleX(u,getPosXBat(bat)-1);
+                    setPosCibleY(u, getPosYBat(bat));
+                    trouverAcces(u, j->carte);
+                    setPosX(u,getPosCibleX(u));
+                    setPosY(u,getPosCibleY(u));
+                    printf("%s \n", getNom(getTypeUnite(u)));
+                    u = getUnite(j, id);
+                    printf("%s \n", getNom(getTypeUnite(u)));
+                    setContenu(getCase(getCarteJeu(j),getPosX(u), getPosY(u)),id);
+                    setNourritureCourante(getJoueur(j, getIdJoueurBat(bat)),getNourritureCourante(getJoueur(j, getIdJoueurBat(bat)))+1);
+                    defile(getTabAttente(bat));
+                    if(regardeTeteFile(getTabAttente(bat)) != NULL)
+                        setTimerBat(bat, clock());
+                    else
+                        setTimerBat(bat, NULL);
+                }
             }
         }
     }
@@ -160,14 +166,23 @@ void ajouterFileBat(Batiment* bat,Jeu* j,int i){
     if(i >= getNbUniteFormable(getTypeBat(bat)))
         return;
     printf("%d \n", i);
+    int tempo;
     UniteBase* u = getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i));
     Joueur* joueur = getJoueur(j,getIdJoueurBat(bat));
     if(getCoutPierreUnite(u) <= getPierreJoueur(joueur)
        && getCoutMithrilUnite(u) <= getMithrilJoueur(joueur)
        && getNourritureCourante(joueur)+1 <= getNourritureMax(joueur)){
+        if(regardeTeteFile(getTabAttente(bat)) == NULL){
+            tempo = clock();
+            if(tempo == -1){
+                 fprintf(stderr,"Problème d'horloge \n");
+                 exit(EXIT_FAILURE);
+            }
+            setTimerBat(bat, tempo);
+        }
         enfile(bat->tabAttente,u);
         setPierreJoueur(joueur, getPierreJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutPierreUnite(u));
         setMithrilJoueur(joueur, getMithrilJoueur(getJoueur(j,getIdJoueurBat(bat))) - getCoutMithrilUnite(u));
-        setNourritureCourante(joueur,getNourritureCourante(joueur)+1);
+
     }
 }

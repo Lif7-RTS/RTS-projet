@@ -221,6 +221,15 @@ int getIdJoueurCase(const Jeu* jeu, const sCase* place);
 */
 void setUnite(const Jeu*  j, int uNb, Unite* unit);
 
+/**
+ * \fn Unite* getUnite ( jeu* j, int uNb)
+ * \brief mutateur tableauUnite
+ * \param[in, ou] j pointeur sur un Jeu
+ * \param[in] bNb index du placement de l'unite dans le tableau de batiment.
+ * \param[in, out] pointeur sur un batiment.
+*/
+void setBat(const Jeu*  j, int bNb, Batiment* bat);
+
   /**
  * \fn  void ajouterBat(jeu*  j, Batiment* bat)
  * \brief mutateur tabBatiment
@@ -246,6 +255,24 @@ void setUnite(const Jeu*  j, int uNb, Unite* unit);
 * \param[in, out] j pointeur sur jeu
 */
 void checkJeu(Jeu* jeu);
+
+/**
+* \fn int supprimerUnite(Jeu* jeu, int index)
+* \brief supprime l'unite d'id == index du tableau des unites
+*
+* \param[in, out] j pointeur sur jeu
+* \param index position dans le tableau tabUnite de l'unite a supprimer.
+*/
+int supprimerUnite(Jeu* jeu, int index);
+
+/**
+* \fn int supprimerBat(Jeu* jeu, int index)
+* \brief supprime le bat d'id == -index du tableau des bat
+*
+* \param[in, out] j pointeur sur jeu
+* \param index position dans le tableau tableauBat du batiment a supprimer.
+*/
+int supprimerBat(Jeu* jeu, int index);
 
 /**
 * \fn void sauvegarder(Jeu* jeu, unsigned char numSauvegarde))
