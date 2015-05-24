@@ -9,15 +9,21 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#ifdef WIN
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
 #include "SDL2/SDL_ttf.h"
+#endif // WIN
+#ifdef LINUX
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#endif // LINUX
 #include "terrain.h"
 #include "define.h"
 #ifndef _AFFICHAGE
 #define _AFFICHAGE
 
-typedef struct SJeu Jeu;
 typedef struct STile Tile;
 struct STile{
     SDL_Rect r;

@@ -1,6 +1,6 @@
 6
 
-nom=Ouvier
+nom=Ouvrier
 vieMax=300
 attaque=50
 vitesseAttaque=900
@@ -12,7 +12,7 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=3
-race=1
+race=0
 
 nom=Caster Blob
 vieMax=600
@@ -26,9 +26,9 @@ vitesse=200
 coutPierre=1
 coutMithril=1
 portee=3
-race=1
+race=0
 
-nom=Guerrrier Blob
+nom=Guerrier Blob
 vieMax=850
 attaque=60
 vitesseAttaque=1000
@@ -40,7 +40,7 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=1
-race=1
+race=0
 
 nom=Ouvrier
 vieMax=300
@@ -54,7 +54,7 @@ vitesse=300
 coutPierre=1
 coutMithril=1
 portee=1
-race=2
+race=1
 
 nom=Caster Nain
 vieMax=600
@@ -63,12 +63,12 @@ vitesseAttaque=900
 ouvrier=0
 tempsFormation=5
 ressourceMax=0
-tile=16
+tile=17
 vitesse=220
 coutPierre=1
 coutMithril=1
 portee=3
-race=2
+race=1
 
 nom=Guerrier Nain
 vieMax=1000
@@ -77,9 +77,9 @@ vitesseAttaque=1100
 ouvrier=0
 tempsFormation=5
 ressourceMax=0
-tile=17
+tile=16
 vitesse=300
 coutPierre=1
 coutMithril=1
 portee=1
-race=2
+race=1

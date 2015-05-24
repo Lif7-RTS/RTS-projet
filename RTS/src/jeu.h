@@ -280,9 +280,8 @@ int supprimerBat(Jeu* jeu, int index);
 *
 * \params[in, out] j pointeur sur jeu
 * \param[in] un entier compris entre 1 et 3 correspondant à l'emplacement de la sauvegarde a faire
-* \param[in] une chaine de caractère correspodnant au nom de la sauvegarde
 */
-void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde);
+void sauvegarder(Jeu* jeu, unsigned char numSauvegarde);
 
 /**
 * \fn void sauvegarder(Jeu* jeu, unsigned char numSauvegarde))
@@ -292,5 +291,9 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde);
 * \param[in] un entier compris entre 1 et 3 correspondant à l'emplacement de la sauvegarde a faire
 */
 void charger(Jeu* jeu, unsigned char numSauvegarde);
+
+void boucleMenu(Jeu* jeu);
+
+int boucleMenu2(Jeu* jeu);
 
 #endif
