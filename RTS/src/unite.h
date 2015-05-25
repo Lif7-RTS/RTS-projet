@@ -392,7 +392,7 @@ void deplacementUnite(Unite* homme, Terrain* terrain);
 void trouverAcces(Unite* homme, Terrain* terrain);
 
 /**
- * \fn static int testCase(int x, int y, Terrain* terrain)
+ * \fn int aPortee(Unite* homme, Jeu* jeu)
  * \brief verifi si l'unité est a portée d'attque de sa cible 1 si oui 0 sinon
  *
  * \param[in, out] homme est un pointeur sur une unité
@@ -400,7 +400,49 @@ void trouverAcces(Unite* homme, Terrain* terrain);
  */
 int aPortee(Unite* homme, Jeu* jeu);
 
-
+/**
+ * \fn void trouveChemin(Unite* homme, Terrain* terrain)
+ * \brief trouve un chemin pour deplacé le bonhomme
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
 void trouveChemin(Unite* homme, Terrain* terrain);
+
+/**
+ * \fn void recolte(Unite* homme, Jeu* jeu)
+ * \brief l'homme recole le minerais qu'il a en cible
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
+void recolte(Unite* homme, Jeu* jeu);
+
+/**
+ * \fn void trouverMinerai(Unite* homme, Jeu* jeu)
+ * \brief trouve un minerais proche du dernier minerais épuisé
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
+void trouverMinerai(Unite* homme, Jeu* jeu);
+
+/**
+ * \fn void attaque(Unite* homme, Jeu* jeu)
+ * \brief l'unité attaque sa cible
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
+void attaque(Unite* homme, Jeu* jeu);
+
+/**
+ * \fn void surveille(Unite* homme, Jeu* jeu)
+ * \brief l'unité monte la garde et attaque toute personne trop proche d'elle
+ *
+ * \param[in, out] homme est un pointeur sur une unité
+ * \param[in, out] jeu est un pointeur sur jeu
+ */
+void surveille(Unite* homme, Jeu* jeu);
 
 #endif /* _UNITE */

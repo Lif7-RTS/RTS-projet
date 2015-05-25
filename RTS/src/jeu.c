@@ -317,7 +317,7 @@ int boucleJeu(Jeu* j){
     return (quitJeu%2);
 }
 
-void checkJeu(Jeu* jeu){
+int checkJeu(Jeu* jeu){
 
      int taille, i, egale, enConstru,j,k;
      sCase* place;
@@ -387,7 +387,7 @@ void checkJeu(Jeu* jeu){
                              }
                              else
                              {
-                                  Recolte(soldat,jeu);
+                                  recolte(soldat,jeu);
                              }
                          }
                          else if( statut == 2) /*phase de "vidage" du sac */
@@ -419,7 +419,7 @@ void checkJeu(Jeu* jeu){
                              if(egale == 1)
                              {
                                   setEnTravail(soldat,1);
-                                  Recolte(soldat,jeu);
+                                  recolte(soldat,jeu);
 
                              }
                              else
@@ -485,19 +485,33 @@ void checkJeu(Jeu* jeu){
         }
      }
 
+
+     /* Test fin de partie */
+
+     for(i=0;i<getNbJoueur(jeu);i++)
+     {
+          if(getContenu(getCase(getCarteJeu(Jeu), getPosBatPX(getJoueur(Jeu, i)), getPosBatPY(getJoueur(Jeu,i)))) > 0)
+          {
+               int race;
+               if(getIdRace(getJoueur(Jeu, i)) == 1)
+                    race =0;
+               else
+                    race=1;
+
+               affichageFinPartie(Jeu, race);
+               return 1;
+          }
+     }
+     return 0;
 }
 
 void supprimerUnite(Jeu* jeu, int index){
     supprimerElemTabDyn(jeu->tableauUnite, index-1);
 }
 
-
 void supprimerBat(Jeu* jeu, int index){
     supprimerElemTabDyn(jeu->tableauBat, index-1);
 }
-
-
-/* *************************************************************--FCT--***************************************************************************** */
 
 void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
      int i,j;
