@@ -29,7 +29,7 @@ struct SCase{
      int pierre; /*!< nombre de ressource pierre disponible */
      int mithril; /*!< nombre de ressource mithril disponible */
      int idContenu; /*!< id (unique) du contenu de la case (positif unite, negatif batiment, 0 vide) */
-     unsigned char tile; /* Faire SET ET GET */
+     char tile; /*!< numÃ©ro de la tile(image) de la case*/
 };
 
 typedef struct SCase sCase;
@@ -92,9 +92,9 @@ int getContenu(const sCase* c);
  * \brief accesseur Tile
  *
  * \param[in, out] c pointeur sur sCase
- * \return un char correspondant à une tile
+ * \return un char correspondant Ã  une tile
  */
- unsigned char getTileCase(const sCase* c);
+ char getTileCase(const sCase* c);
 
 /* *************************************************************--SET--***************************************************************************** */
 
@@ -141,7 +141,7 @@ int getContenu(const sCase* c);
  * \param[in, out] c pointeur sur sCase
  * \param[in] un entier correspondant a une tile
  */
- void setTileCase(sCase* c, unsigned char tile);
+ void setTileCase(sCase* c, char tile);
 
 /* *************************************************************--FCT--***************************************************************************** */
 
@@ -149,11 +149,11 @@ int getContenu(const sCase* c);
  * \fn int memeCase(int x1, int y1, int x2, int y2)
  * \brief compare deux case
  *
- * \param[in] x1 est un entier coordonée d'une case
- * \param[in] y1 est un entier coordonée d'une case
- * \param[in] x2 est un entier coordonée d'une case
- * \param[in] y2 est un entier coordonée d'une case
- * \return un entier (1 si les case sont égale, 0 sinon)
+ * \param[in] x1 est un entier coordonÃ©e d'une case
+ * \param[in] y1 est un entier coordonÃ©e d'une case
+ * \param[in] x2 est un entier coordonÃ©e d'une case
+ * \param[in] y2 est un entier coordonÃ©e d'une case
+ * \return un entier (1 si les case sont Ã©gale, 0 sinon)
  */
 int memeCase(int x1, int y1, int x2, int y2);
 

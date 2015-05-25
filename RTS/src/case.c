@@ -39,7 +39,7 @@ int getAcces(const sCase* c){
     return c->acces;
 }
 
-unsigned char getTileCase(const sCase* c){
+char getTileCase(const sCase* c){
      return c->tile;
 }
 
@@ -60,7 +60,7 @@ void setAcces(sCase* c, int acc){
     c->acces = acc;
 }
 
- void setTileCase(sCase* c, unsigned char tile){
+ void setTileCase(sCase* c, char tile){
      c->tile=tile;
  }
 

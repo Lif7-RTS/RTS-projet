@@ -16,42 +16,18 @@
 
 struct SBatBase{
      char nomBat[25]; /*!< le nom du batiment */
-     char niveau;  /*!< c'est le niveau d'amelioration du batiment */
      char tile;/*!< un chemin vers l'image d'un batiment*/
      int vieMax; /*!< la vie maximum d'un batiment */
-     int ameliorable;/*!< 1 si le batiment est ameliorable 0 sinon */
      int tempsConstruct;/*!< temps en seconde necessaire a la construction d'un batiment */
-     int tailleCaseY;/*!< taille en case d'un batiment suivant sa coordonée y */
-     int tailleCaseX;/*!< taille en case d'un batiment suivant sa coordonée x */
+     int tailleCaseY;/*!< taille en case d'un batiment suivant sa coordonÃ©e y */
+     int tailleCaseX;/*!< taille en case d'un batiment suivant sa coordonÃ©e x */
      int* tabUnitFormable;/*!< tableau d'identifiant d'unite formable par un batiment */
      int nbUnitFormable;/*!< nombre d'unite formable par ce batiment */
      int coutPierre; /*!< cout en pierre du batiment */
      int coutMithril;/*!< cout en mithril du batiment */
-     unsigned char race; /*!< race capable de généré ce batiment (1=blob, 2=Nain) */
+     unsigned char race; /*!< race capable de gÃ©nÃ©rÃ© ce batiment (1=blob, 2=Nain) */
 };
 typedef struct SBatBase BatBase;
-
-/* ***********************************************************--Init--*************************************************************************** */
-
-/**
-* \fn void initBatBase(BatBase* bat, char* nomBat, char tile, int vieMax,int ameiorable, int tempsConstruct, int tailleCaseY, int tailleCaseX, int* tabUnitFormable)
-* \brief initialise un batiment de base.
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in, out] nomBat est une chaine de caractere contennat le nom d'un batiment.
-* \param[in] niveau est le niveau d'amelioration du batiment.
-* \param[in, out] cheminImage est une chaine de caractere contenant le chemin vers une image de batiment.
-* \param[in] vieMax est un entier correspondant a la vie maximum d'un batiment.
-* \param[in] ameliorable est un entier jugeant de la capacité d'amelioration d'un batiment.
-* \param[in] tempsConstruct est un entier correspondant au temps necessaire pour la construction d'un batiment.
-* \param[in] tailleCaseY est la taille d'un batiment en case suivant sa coordonee y.
-* \param[in] tailleCaseX est la taille d'un batiment en case suivant sa coordonee x.
-* \param[in, out] tabUniteFormable est un tableau des troupe constructible par le batiment en question.
-* \param[in, out] tabAttente est la file d'attente des unite en construction dans le batiment en question.
-*/
-void initBatBase(BatBase* bat, char* nomBat,char niveau, char tile, int vieMax,int ameliorable, int tempsConstruct,
-                 int tailleCaseY, int tailleCaseX, int* tabUnitFormable);
-
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -65,20 +41,11 @@ void initBatBase(BatBase* bat, char* nomBat,char niveau, char tile, int vieMax,i
 char* getNomBat(const BatBase* bat);
 
 /**
-* \fn void getNiveau(BatBase* bat)
-* \brief accesseur niveau
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return le niveau actuel du batiment en question.
-*/
-char getNiveau(const BatBase* bat);
-
-/**
 * \fn char getTileBat(const BatBase* bat)
 * \brief accesseur cheminImage
 *
 * \param[in, out] bat pointeur sur BatBase
-* \return un caractère correspond au tile d'un batiment.
+* \return un caractÃ¨re correspond au tile d'un batiment.
 */
 char getTileBat(const BatBase* bat);
 
@@ -90,15 +57,6 @@ char getTileBat(const BatBase* bat);
 * \return entier representant la vie maximum d'un batiment.
 */
 int getVieMaxBat(const BatBase* bat);
-
-/**
-* \fn int getAmeliorable(const BatBase* bat)
-* \brief accesseur ameliorable
-*
-* \param[in, out] bat pointeur sur BatBase
-* \return entier jugeant de la capacite d'amelioration d'un batiment.
-*/
-int getAmeliorable(const BatBase* bat);
 
 /**
 * \fn void getTempsConstruct(BatBase* bat)
@@ -151,7 +109,7 @@ int getNbUniteFormable(const BatBase* bat);
  * \brief accesseur coutPierre
  *
  * \param[in, out] bat pointeur sur BatBase
- * \return un entier correspondant au cout en pierre de la création d'un batiment.
+ * \return un entier correspondant au cout en pierre de la crÃ©ation d'un batiment.
  */
 int getCoutPierreBat(const BatBase* bat);
 
@@ -160,7 +118,7 @@ int getCoutPierreBat(const BatBase* bat);
  * \brief accesseur coutMithril
  *
  * \param[in, out] bat pointeur sur BatBase
- * \return un entier correspondant au cout en mithril de la création d'un batiment.
+ * \return un entier correspondant au cout en mithril de la crÃ©ation d'un batiment.
  */
 int getCoutMithrilBat(const BatBase* bat);
 
@@ -169,7 +127,7 @@ int getCoutMithrilBat(const BatBase* bat);
  * \brief accesseur race
  *
  * \param[in, out] bat pointeur sur BatBase
- * \return un entier représentant une race.
+ * \return un entier reprÃ©sentant une race.
  */
 unsigned char getRaceBat(const BatBase* bat);
 
@@ -183,15 +141,6 @@ unsigned char getRaceBat(const BatBase* bat);
 * \param[in, out] nomBat chaine de caractere contenant le nom du batiment.
 */
 void setNomBat(BatBase* bat,char* nomBat);
-
-/**
-* \fn void setNiveau(BatBase* bat, char niveau)
-* \brief mutateur niveau
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] niveau d'amelioration du batiment.
-*/
-void setNiveau(BatBase* bat, char niveau);
 
 /**
 * \fn void setTileBat(BatBase* bat, char tile);
@@ -210,15 +159,6 @@ void setTileBat(BatBase* bat, char tile);
 * \param[in] vieMax est un entier representant la vie maximum d'un batiment.
 */
 void setVieMaxBat(BatBase* bat,int vieMax);
-
-/**
-* \fn void setAmeliorable(BatBase* bat, int ameliorable)
-* \brief mutateur ameliorable
-*
-* \param[in, out] bat pointeur sur BatBase
-* \param[in] ameliorable est un entier jugeant de la capacite d'amelioration d'un batiment.
-*/
-void setAmeliorable(BatBase* bat, int ameliorable);
 
 /**
 * \fn void setTempsConstruct(BatBase* bat, int tempsConstruct)
@@ -288,7 +228,7 @@ void setCoutMithrilBat(BatBase* bat, int coutM);
  * \brief mutateur race
  *
  * \param[in, out] bat pointeur sur BatBase
- * \param[in] un entier représentant une race.
+ * \param[in] un entier reprÃ©sentant une race.
  */
 void setRaceBat(BatBase* bat, unsigned char race);
 
@@ -296,10 +236,10 @@ void setRaceBat(BatBase* bat, unsigned char race);
 
 /**
 * \fn BatBase* chargementBatBase(void)
-* \brief charge en mémoire tout les batiment de base.
+* \brief charge en mÃ©moire tout les batiment de base.
 *
 *
-* \return un tableau regroupant l'ensemble des bâtiments de base.
+* \return un tableau regroupant l'ensemble des bÃ¢timents de base.
 */
 BatBase* chargementBatBase(void);
 
