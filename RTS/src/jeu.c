@@ -767,9 +767,12 @@ void boucleMenu(Jeu* jeu){
     int quit=0;
     int menu = 0;
     int x,y;
+    int xSouris, ySouris;
     while(!quit){
+        SDL_PumpEvents();
+        SDL_GetMouseState(&xSouris,&ySouris);
+        afficheMenu(jeu->aff, menu, xSouris,ySouris);
         while( SDL_PollEvent(&e) != 0 ){
-            afficheMenu(jeu->aff, menu);
             if( e.type == SDL_QUIT ){
                 quit = 1;
             }
