@@ -17,7 +17,6 @@ struct SJoueur{
      int idJoueur; /*!< identifiant unique représentant un joueur */
      int pierre; /*!< quantite de pierre que possède le joueur */
      int mithril;  /*!< quantite de mithril que possède le joueur */
-     char* nomJoueur; /*!< chaine de caractère contenant le nom d'un joueur */
      int idRace; /*!< un identifiant correspondant a une des races */
      int nourritureMax; /*!< la quantite maximum de nourriture que peu stocker un joueur */
      int nourritureCourante; /*!< la quantite actuel de nourriture dans le grenier du joueur */
@@ -32,17 +31,16 @@ typedef struct SJoueur Joueur;
 /* ***********************************************************--INIT--*************************************************************************** */
 
 /**
-* \fn void initJoueur (Joueur* joue, int idJoueur, char* nomJouer, int idRace, int cameraX, int cameraY)
+* \fn void initJoueur (Joueur* joue, int idJoueur, int idRace, int cameraX, int cameraY)
 * \brief initialise une structure joueur
 *
 * \param[in, out] joue est un pointeur sur Joueur
 * \param[in] idJoueur est un identifiant unique representant un joueur
-* \param[in, out] nomJoueur ets le nom choisi par le joueur
 * \param[in] idRace esr un identifiant unique representant la race du joueur
 * \param[in] camX est la coordonee X de la camera du joueur
 * \param[in] camY est la coordonee Y de la camera du joueur
 */
-void initJoueur (Joueur* joue, int idJoueur,char* nomJouer, int idRace, int cameraX, int cameraY);
+void initJoueur (Joueur* joue, int idJoueur, int idRace, int cameraX, int cameraY);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -72,14 +70,6 @@ int getPierreJoueur(const Joueur* joue);
 * \return mithril est une quantite de mithril que possède le joueur.
 */
 int getMithrilJoueur(const Joueur* joue);
-
-/**
-* \fn char* getNomJoueur (const Joueur* joue)
-* \brief accesseur nomJoueur
-*
-* \param[in, out] joue est un pointeur sur Joueur
-* \param[in, out] nomJoueur est le nom choisi par le joueur.*/
-char* getNomJoueur(const Joueur* joue);
 
 /**
 * \fn int getIdRace (const Joueur* joue)
@@ -174,13 +164,6 @@ void setPierreJoueur(Joueur* joue, int pierre);
 */
 void setMithrilJoueur(Joueur* joue, int mithril);
 
-/**
-* \fn void setNomJoueur (Joueur* joue, const char* nomJoueur)
-* \brief mutateur nomJoueur
-*
-* \param[in, out] joue est un pointeur sur Joueur
-* \param[in, out] nomJoueur ets le nom choisi par le joueur.*/
-void setNomJoueur(Joueur* joue, char* nomJoueur);
 
 /**
 * \fn void setIdRace (Joueur* joue, int idRace)

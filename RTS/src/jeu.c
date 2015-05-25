@@ -13,7 +13,7 @@
 
 /* *************************************************************--Init--***************************************************************************** */
 
-void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
+void commencerPartie(Jeu* j, int raceJ, char* cheminCarte){
     int i;
     Joueur* tabJ;
     Terrain* ter;
@@ -31,7 +31,7 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     j->tableauBat = tabBat;
     setVueJoueur(j, 0);
     for(i = 0;i < getNbJoueur(j); i++){
-        initJoueur(&tabJ[i],i,nomJ, raceJ, 0,0);
+        initJoueur(&tabJ[i],i, raceJ, 0,0);
     }
     j->tableauJoueur = tabJ;
     initTerrain(ter,cheminCarte);
@@ -40,7 +40,7 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     j->tabBatConstructible = chargementBatBase();
     j->tabUniteFormable = chargementUniteBase();
     initAffichage(j->aff,j,j->carte);
-    boucleJeu(j);
+    boucleMenu(j);
 }
 
 void detruireJeu(Jeu* j){
@@ -482,13 +482,13 @@ void checkJeu(Jeu* jeu){
 
 }
 
-int supprimerUnite(Jeu* jeu, int index){
-    return supprimerElemTabDyn(jeu->tableauUnite, index-1);
+void supprimerUnite(Jeu* jeu, int index){
+    supprimerElemTabDyn(jeu->tableauUnite, index-1);
 }
 
 
-int supprimerBat(Jeu* jeu, int index){
-    return supprimerElemTabDyn(jeu->tableauBat, index-1);
+void supprimerBat(Jeu* jeu, int index){
+    supprimerElemTabDyn(jeu->tableauBat, index-1);
 }
 
 
@@ -521,7 +521,6 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
               fprintf(fish,"%d\n", getIdJoueur(joueur));
               fprintf(fish,"%d\n", getPierreJoueur(joueur));
               fprintf(fish,"%d\n",getMithrilJoueur(joueur));
-              fprintf(fish,"%s\n", getNomJoueur(joueur));
               fprintf(fish,"%d\n",getIdRace(joueur));
               fprintf(fish,"%d\n",getNourritureMax(joueur));
               fprintf(fish,"%d\n",getNourritureCourante(joueur));
@@ -549,7 +548,14 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
             printf("%d\n",i);
             u = getUnite(jeu, i);
             if(u == NULL){
-                fprintf(fish,"NULL\n");
+                fprintf(fish,"id=-1\n");
+                fprintf(fish,"idJ=0\n");
+                fprintf(fish,"posX=0\n");
+                fprintf(fish,"posY=0\n");
+                fprintf(fish,"vie=0\n");
+                fprintf(fish,"pierrePorte=0\n");
+                fprintf(fish,"MithrilPorte=0\n");
+                fprintf(fish,"type=0\n");
             }else{
                 fprintf(fish,"id=%d\n", i);
                 fprintf(fish,"idJ=%d\n",  getIdJoueurUnite(u));
@@ -569,8 +575,14 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
         for(i=1; i<=getUtiliseTabDyn(getTabBat(jeu)); i++){
              bat = getBat(jeu, i);
              j=0;
-             if(bat == NULL)
-                fprintf(fish, "NULL\n");
+             if(bat == NULL){
+                fprintf(fish,"id=1\n");
+                fprintf(fish,"idJ=0\n");
+                fprintf(fish,"posX=0\n");
+                fprintf(fish,"posY=0\n");
+                fprintf(fish,"vie=0\n");
+                fprintf(fish,"enConstruction=0\n");
+             }
              else{
                 fprintf(fish,"id=%d\n", -i);
                 fprintf(fish,"idJ=%d\n",  getIdJoueurBat(bat));
@@ -608,10 +620,12 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
 }
 
 void charger(Jeu* jeu, unsigned char numSauvegarde){
-     int i, compteur;
-     uintptr_t* element;
-     char* p;
+     int i, compteur,j,k;
+     Unite* u;
+     Batiment* bat;
      FILE* fish;
+     FilePath* fileP;
+     File* fileBat;
      if(numSauvegarde==1)
           fish=fopen("data/save/sauvegarde01.txt","r");
      else if(numSauvegarde==2)
@@ -634,17 +648,13 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
               fscanf(fish,"%d\n", &(joueur->idJoueur));
               fscanf(fish,"%d\n", &(joueur->pierre));
               fscanf(fish,"%d\n",&(joueur->mithril));
-              fscanf(fish,"%)
               fscanf(fish,"%d\n",&(joueur->idRace));
               fscanf(fish,"%d\n",&(joueur->nourritureMax));
               fscanf(fish,"%d\n",&(joueur->nourritureCourante));
               fscanf(fish,"%d\n",&(joueur->cameraX));
               fscanf(fish,"%d\n",&(joueur->cameraY));
-              /* voir pour tabBatiment */
-              /* voir pour tabUnite */
               fscanf(fish,"%d\n",&(joueur->posBatPX));
               fscanf(fish,"%d\n",&(joueur->posBatPY));
-              /* voir apres pour batCOnstru */
               fscanf(fish,"\n");
          }
 
@@ -661,27 +671,82 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
 
          /*TabUnite*/
          fscanf(fish, "nbUnite=%d\n", &compteur);
-         for(i=0; i<compteur; i++)
-         {
-              fscanf(fish, "%d\n", &element);
-              ajouterTabDyn(getTabUnite(jeu), element);
+         for(i=0; i<compteur; i++){
+            u = (Unite*)malloc(sizeof(Unite));
+            fscanf(fish,"id=%d\n", &(u->id));
+            fscanf(fish,"idJ=%d\n",  &(u->idJoueur));
+            fscanf(fish,"posX=%d\n", &(u->posX));
+            fscanf(fish,"posY=%d\n", &(u->posY));
+            fscanf(fish,"vie=%d\n", &(u->vieCourante));
+            fscanf(fish,"pierrePorte=%d\n", &(u->pierrePorte));
+            fscanf(fish,"MithrilPorte=%d\n",&(u->mithrilPorte));
+            fscanf(fish,"type=%d\n", &j);
+            setTypeUnite(u, getUniteFormable(jeu, j));
+            setDeplacement(u, 0);
+            setPosCibleX(u, getPosX(u));
+            setPosCibleY(u, getPosY(u));
+            setPosMineraiX(u, -1);
+            setPosMineraiY(u, -1);
+            setEnTravail(u, -1);
+            fileP = (FilePath*) malloc(sizeof(FilePath));
+            initFilePath(fileP);
+            setChemin(u, fileP);
+            j = clock();
+            if(j == -1){
+              fprintf(stderr, "Problème d'horloge");
+              exit(EXIT_FAILURE);
+            }
+            setTimerUnite(u, j);
+            ajouterUnite(jeu, u);
+            fscanf(fish,"\n");
+         }
+         for(i=1; i<=compteur; i++){
+            if(getId(getUnite(j, i)) == -1){
+              supprimerUnite(jeu,i);
+            }
          }
 
          /*TabBat*/
          fscanf(fish, "nbBatiment=%d\n", &compteur);
          for(i=0; i<compteur; i++)
          {
-              fscanf(fish, "%d\n", &element);
-              ajouterTabDyn(getTabBat(jeu), element);
+              bat = (Batiment*)malloc(sizeof(Batiment));
+              fscanf(fish,"id=%d\n", &(bat->id));
+              fscanf(fish,"idJ=%d\n", &(bat->idJoueur));
+              fscanf(fish,"posX=%d\n", &(bat->x));
+              fscanf(fish,"posY=%d\n", &(bat->y));
+              fscanf(fish,"vie=%d\n", &(bat->vieCourante));
+              fscanf(fish,"enConstruction=%d\n", &(bat->enConstruction));
+              fscanf(fish,"type=%d\n",j);
+              setTypeBat(bat, getBatConstructible(jeu,j));
+              fscanf(fish,"tailleTabAttente=%d\n", j);
+              fileBat = (File*)malloc(sizeof(File));
+              initFile(fileBat);
+              setTabAttente(bat, fileBat);
+              for(i = 0; i < j; i++){
+                fscanf(fish,"%d\n", &k);
+                enfile(fileBat, getUniteFormable(jeu,k));
+              }
+              j = clock();
+              if(j == -1){
+                fprintf(stderr, "Problème d'horloge");
+                exit(EXIT_FAILURE);
+              }
+              setTimerBat(bat,j);
+              ajouterBat(jeu,bat);
+
          }
-
-         /* voir pour BatBase et Unitebase */
-
+         for(i=1; i<=compteur; i++){
+            if(getIdBat(getBat(jeu, i)) == 1){
+                supprimerBat(jeu, i);
+            }
+         }
          /* vueJoueur */
          fscanf(fish,"\nvueJoueur=%d\n", &(jeu->vueJoueur));
 
          setIdSel(jeu,0); /* à verifier*/
          fclose(fish);
+         boucleJeu(jeu);
     }else{
          fprintf(stderr,"La chargement de la partie a échoué");
           return;
