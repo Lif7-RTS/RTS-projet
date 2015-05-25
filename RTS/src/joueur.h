@@ -14,17 +14,15 @@
 #ifndef _JOUEUR
 #define _JOUEUR
 struct SJoueur{
-     int idJoueur; /*!< identifiant unique représentant un joueur */
-     int pierre; /*!< quantite de pierre que possède le joueur */
-     int mithril;  /*!< quantite de mithril que possède le joueur */
-     char* nomJoueur; /*!< chaine de caractère contenant le nom d'un joueur */
+     int idJoueur; /*!< identifiant unique reprÃ©sentant un joueur */
+     int pierre; /*!< quantite de pierre que possÃ¨de le joueur */
+     int mithril;  /*!< quantite de mithril que possÃ¨de le joueur */
+     char* nomJoueur; /*!< chaine de caractÃ¨re contenant le nom d'un joueur */
      int idRace; /*!< un identifiant correspondant a une des races */
      int nourritureMax; /*!< la quantite maximum de nourriture que peu stocker un joueur */
      int nourritureCourante; /*!< la quantite actuel de nourriture dans le grenier du joueur */
-     int cameraX; /*!< la position en coordonée x de la camera du joueur */
-     int cameraY; /*!< la position en coordonée y de la camera du joueur */
-     TabDyn* tabBatiment; /*!< un tableau contenant l'ensemble des batiments d'un joueur */
-     TabDyn* tabTroupe; /*!< un tableau contenant l'ensemble des unites d'un joueur */
+     int cameraX; /*!< la position en coordonÃ©e x de la camera du joueur */
+     int cameraY; /*!< la position en coordonÃ©e y de la camera du joueur */
      int posBatPX; /* faire GET et SET */
      int posBatPY; /* faire GET et SET */
      BatBase* batConstruction; /*batiment que ce joueur veut construire */
@@ -45,13 +43,6 @@ typedef struct SJoueur Joueur;
 * \param[in] camY est la coordonee Y de la camera du joueur
 */
 void initJoueur (Joueur* joue, int idJoueur,char* nomJouer, int idRace, int cameraX, int cameraY);
-/**
-* \fn void detruireJoueur(Joueur* joue)
-* \brief detruit la structure joueur
-*
-* \param[in, out] joue est un pointeur sur Joueur
-*/
-void detruireJoueur(Joueur* joue);
 
 /* *************************************************************--GET--***************************************************************************** */
 
@@ -69,7 +60,7 @@ int getIdJoueur (const Joueur* joue);
 * \brief accesseur pierre
 *
 * \param[in, out] joue est un pointeur sur Joueur
-* \return pierre est une quantite de pierre que possède le joueur.
+* \return pierre est une quantite de pierre que possÃ¨de le joueur.
 */
 int getPierreJoueur(const Joueur* joue);
 
@@ -78,7 +69,7 @@ int getPierreJoueur(const Joueur* joue);
 * \brief accesseur mithril
 *
 * \param[in, out] joue est un pointeur sur Joueur
-* \return mithril est une quantite de mithril que possède le joueur.
+* \return mithril est une quantite de mithril que possÃ¨de le joueur.
 */
 int getMithrilJoueur(const Joueur* joue);
 
@@ -131,26 +122,6 @@ int getCameraX(const Joueur* joue);
 int getCameraY(const Joueur* joue);
 
 /**
-* \fn Unite* choisiUnite (const Joueur* joue, int numLigne)
-* \brief renvoi l'unite de la ligne choisi.
-*
-* \param[in, out] joue est un pointeur sur Joueur
-* \param[in] numLigne est un entier corespondant a une ligne de tabUnite
-* \return un poiteur sur une unite.
-*/
-Unite* choisiUnite(const Joueur* joue, int numLigne);
-
-/**
-* \fn Batiment* choisiBatiment (const Joueur* joue, int numLigne)
-* \brief renvoi le batiment de la ligne choisi.
-*
-* \param[in, out] joue est un pointeur sur Joueur
-* \param[in] numLigne est un entier corespondant a une ligne de tabBatiment
-* \return un poiteur sur un batiment.
-*/
-Batiment* choisiBatiment(const Joueur* joue, int numLigne);
-
-/**
 * \fn int getPosBatPX(const Joueur* joue)
 * \brief accesseur posBatPX
 *
@@ -190,7 +161,7 @@ void setIdJoueur(Joueur* joue, int idJoueur);
 * \brief mutateur pierre
 *
 * \param[in, out] joue est un pointeur sur Joueur
-* \param[in] pierre est une quantite de pierre que possède le joueur.
+* \param[in] pierre est une quantite de pierre que possÃ¨de le joueur.
 */
 void setPierreJoueur(Joueur* joue, int pierre);
 
@@ -199,7 +170,7 @@ void setPierreJoueur(Joueur* joue, int pierre);
 * \brief mutateur mithril
 *
 * \param[in, out] joue est un pointeur sur Joueur
-* \param[in] mithril est une quantite de mithril que possède le joueur.
+* \param[in] mithril est une quantite de mithril que possÃ¨de le joueur.
 */
 void setMithrilJoueur(Joueur* joue, int mithril);
 
@@ -252,29 +223,11 @@ void setCameraX(Joueur* joue, int camX);
 void setCameraY(Joueur* joue, int camY);
 
 /**
-* \fn void ajouteUnite (Joueur* joue, const Unite* unite)
-* \brief ajoute une unite a tabTroupe
-*
-* \param[in, out] joue est un pointeur sur Joueur
-* \param[in, out] unite est un poiteur sur une unite.
-*/
-void ajouteUnite(Joueur* joue, const Unite* unite);
-
-/**
-* \fn void ajouteBat (Joueur* joue, const Batiment* bat)
-* \brief ajoute un batiment a tabBatiment
-*
-* \param[in, out] joue est un pointeur sur Joueur
-* \param[in, out] bat est un pointeur sur un batiment.
-*/
-void ajouteBat(Joueur* joue, const Batiment* bat);
-
-/**
 * \fn void setPosBatPX(const Joueur* joue, int x)
 * \brief mutateur posBatPX
 *
 * \param[in, out] joue est un pointeur sur Joueur
-* \param[in] x un entier coordonnée X du batiment principal.*/
+* \param[in] x un entier coordonnÃ©e X du batiment principal.*/
 void setPosBatPX(Joueur* joue, int x);
 
 /**
@@ -282,7 +235,7 @@ void setPosBatPX(Joueur* joue, int x);
 * \brief mutateur posBatPY
 *
 * \param[in, out] joue est un pointeur sur Joueur
-* \param[in] y un entier coordonnée Y du batiment principal.*/
+* \param[in] y un entier coordonnÃ©e Y du batiment principal.*/
 void setPosBatPY(Joueur* joue, int y);
 
 /**

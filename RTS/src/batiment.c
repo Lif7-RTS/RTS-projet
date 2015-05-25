@@ -19,7 +19,7 @@ void initBatiment(Batiment* bat, int id, BatBase* typeBat, int enConstruction, i
      clock_t tempo = clock();
      if(tempo == -1)
      {
-          printf("Problème d'horloge");
+          fprintf(stderr, "ProblÃ¨me d'horloge");
           exit(EXIT_FAILURE);
      }
 
@@ -134,7 +134,6 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
         else  if(regardeTeteFile(getTabAttente(bat)) != NULL){
             if((clock() - getTimerBat(bat))/CLOCKS_PER_SEC >= getTempsFormation(regardeTeteFile(getTabAttente(bat)))){
                 if((getNourritureCourante(getJoueur(j, getIdJoueurBat(bat)))+1) <= getNourritureMax(getJoueur(j, getIdJoueurBat(bat)))){
-                    printf("Création Unite ! \n");
                     Unite* u = (Unite*) malloc(sizeof(Unite));
                     initUnite(u, regardeTeteFile(getTabAttente(bat)), getIdJoueurBat(bat));
                     int id = ajouterTabDyn(j->tableauUnite, (uintptr_t)u);
@@ -146,9 +145,7 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
                     trouverAcces(u, j->carte);
                     setPosX(u,getPosCibleX(u));
                     setPosY(u,getPosCibleY(u));
-                    printf("%s \n", getNom(getTypeUnite(u)));
                     u = getUnite(j, id);
-                    printf("%s \n", getNom(getTypeUnite(u)));
                     setContenu(getCase(getCarteJeu(j),getPosX(u), getPosY(u)),id);
                     setNourritureCourante(getJoueur(j, getIdJoueurBat(bat)),getNourritureCourante(getJoueur(j, getIdJoueurBat(bat)))+1);
                     defile(getTabAttente(bat));
@@ -165,7 +162,6 @@ void verifierTimerBat(Batiment* bat, Jeu* j){
 void ajouterFileBat(Batiment* bat,Jeu* j,int i){
     if(i >= getNbUniteFormable(getTypeBat(bat)))
         return;
-    printf("%d \n", i);
     int tempo;
     UniteBase* u = getUniteFormable(j,getUnitFormableBat(getTypeBat(bat), i));
     Joueur* joueur = getJoueur(j,getIdJoueurBat(bat));
@@ -175,7 +171,7 @@ void ajouterFileBat(Batiment* bat,Jeu* j,int i){
         if(regardeTeteFile(getTabAttente(bat)) == NULL){
             tempo = clock();
             if(tempo == -1){
-                 fprintf(stderr,"Problème d'horloge \n");
+                 fprintf(stderr,"ProblÃ¨me d'horloge \n");
                  exit(EXIT_FAILURE);
             }
             setTimerBat(bat, tempo);

@@ -32,15 +32,6 @@ void initJoueur (Joueur* joue, int idJoueur, char* nomJouer,
     setMithrilJoueur(joue, races.mithril[idRace]);
     setPierreJoueur(joue, races.pierre[idRace]);
     setBatConstruction(joue, NULL);
-    joue->tabBatiment = (TabDyn*) malloc(sizeof(TabDyn));
-    joue->tabTroupe = (TabDyn*) malloc(sizeof(TabDyn));
-    initTabDyn(joue->tabBatiment,10);
-    initTabDyn(joue->tabTroupe,races.nourritureMax[idRace]);
-}
-
-void detruireJoueur(Joueur* joue){
-    detruireTabDyn(joue->tabBatiment);
-    detruireTabDyn(joue->tabTroupe);
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -79,14 +70,6 @@ int getCameraX(const Joueur* joue){
 
 int getCameraY(const Joueur* joue){
     return joue->cameraY;
-}
-
-Unite* choisiUnite(const Joueur* joue, int numLigne){
-    return (Unite*) getElemTabDyn(joue->tabTroupe, numLigne);
-}
-
-Batiment* choisiBatiment(const Joueur* joue, int numLigne){
-    return (Batiment*) getElemTabDyn(joue->tabBatiment, numLigne);
 }
 
 int getPosBatPX(const Joueur* joue){
@@ -136,14 +119,6 @@ void setCameraX(Joueur* joue, int camX){
 
 void setCameraY(Joueur* joue, int camY){
     joue->cameraY = camY;
-}
-
-void ajouteUnite(Joueur* joue, const Unite* unite){
-    ajouterTabDyn(joue->tabTroupe, (uintptr_t) unite);
-}
-
-void ajouteBat(Joueur* joue, const Batiment* bat){
-    ajouterTabDyn(joue->tabBatiment, (uintptr_t) bat);
 }
 
 void setPosBatPX(Joueur* joue,int x){

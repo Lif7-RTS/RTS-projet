@@ -21,7 +21,7 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
     aff->carte = ter;
     aff->pFenetre = NULL;
     if(SDL_Init(SDL_INIT_VIDEO) != 0){
-        fprintf(stdout,"Echec de l'initialisation de la SDL (%s)\n",SDL_GetError());
+        fprintf(stderr,"Echec de l'initialisation de la SDL (%s)\n",SDL_GetError());
         exit(EXIT_FAILURE);
     }
     atexit(SDL_Quit);
@@ -82,14 +82,17 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
 	SDL_RenderClear(aff->renderer);
     rect_Dest.w = TILE_TAILLE;
     rect_Dest.h = TILE_TAILLE;
+    /*Affichage de la map vue par le joueur*/
 	for(i=0;i<aff->nbTileCamX;i++){
 		for(j=0;j<aff->nbTileCamY-(HUD_H/TILE_TAILLE);j++)
 		{
+			/*Affichage du Tile de la case (i;j)*/
 			rect_Dest.x = i*TILE_TAILLE;
 			rect_Dest.y = j*TILE_TAILLE;
 			num_tile = getTileCase(getCase(aff->carte,camX+i,camY+j));
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             id = aff->carte->tabCase[camX+i+(camY+j)*tX].idContenu;
+            /*Affichage du batiment ou de l'unite */
             if(id != 0){
                 if(id > 0){
                     num_tile = getTileUnite(getTypeUnite((getUnite(aff->jeu,id))));
@@ -103,6 +106,7 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
             }
 
 		}
+		/*Affichage HUD: Fond et barre du haut du HUD*/
 		for(j=aff->nbTileCamY-(HUD_H/TILE_TAILLE); j < aff->nbTileCamY; j++){
             if(i < 3 || i >= (SCREEN_W/TILE_TAILLE - 3))
                 num_tile = 98;
@@ -123,6 +127,7 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
             }
 		}
 	}
+	/*Affichage HUD des batiments constructible */
 	for(j = 1; j < NB_BAT_RACE;j++){
                 num_tile = j+ICON;
                 rect_Dest.x = ((j-1)%3)*TILE_TAILLE;
@@ -141,6 +146,8 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
                 num_tile = getTileUnite(getUniteFormable(aff->jeu,getUnitFormableBat(type,j)));
                 rect_Dest.x = SCREEN_W+(j%3-3)*TILE_TAILLE;
                 rect_Dest.y = SCREEN_H+(j/3-3)*TILE_TAILLE+5;
+                SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+                num_tile = 91 + getOuvrier(getUniteFormable(aff->jeu,getUnitFormableBat(type,j)));
                 SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
             }
             /* affichage nom */
@@ -358,7 +365,18 @@ void afficheMenu(const Affichage* aff, int menu){
     }
     for(i = 0; i < 3; i++){
         for(j=0; j < 3; j++){
-            num_tile = (40+10*menu)+i*3+j;
+            num_tile = (40+10*(menu%3))+i*3+j;
+            if(menu == 2){
+                num_tile = (63+i*3+j);
+                if(i == 2)
+                    num_tile = (46+j);
+            }
+            else if(menu == 3){
+                if(i == 0)
+                    num_tile = 60+j;
+                else
+                    num_tile = 66-i*10+j;
+            }
             rect_Dest.x = (((SCREEN_W-3*TILE_TAILLE)/2))+j*TILE_TAILLE;
             rect_Dest.y = 3*TILE_TAILLE+i*TILE_TAILLE;
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
@@ -366,7 +384,7 @@ void afficheMenu(const Affichage* aff, int menu){
     }
     for(i = 0; i < 10; i++){
         for(j = 0; j < 2; j++){
-            num_tile = 60+j*10+i;
+            num_tile = 70+j*10+i;
             rect_Dest.x = (((SCREEN_W-10*TILE_TAILLE)/2))+i*TILE_TAILLE;
             rect_Dest.y = j*TILE_TAILLE;
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);

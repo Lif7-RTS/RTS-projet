@@ -1,5 +1,5 @@
-#define SCREEN_W 1000
-#define SCREEN_H 700
+#define SCREEN_W 800
+#define SCREEN_H 600
 #define HUD_H 150
 #define TILE_TAILLE 50
 #define NB_TILE 100

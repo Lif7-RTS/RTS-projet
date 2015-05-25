@@ -20,8 +20,8 @@ typedef struct{
  * \fn static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain)
  * \brief regarde si une unite peu exploiter les ressource d'un case
  *
- * \param[in] x est un entier coordonée d'une case
- * \param[in] y est un entier coordonée d'une case
+ * \param[in] x est un entier coordonnée d'une case
+ * \param[in] y est un entier coordonnée d'une case
  * \param[in] tabD est un tableau de CellDjikstra
  * \param[in, out] terrain est le terrain de jeu
  * \return renvoi le nombre de ressource sur une case si elle est exploitable par un ouvrier.
@@ -59,14 +59,12 @@ void initUnite(Unite* unit, const UniteBase* type, int idJoueur){
 
      if(tempo == -1)
      {
-          printf("Problème d'horloge");
+          fprintf(stderr,"Problème d'horloge");
           exit(EXIT_FAILURE);
      }
 
      /* id */
-     printf("id= %d \n", idJoueur);
      setIdJoueurUnite(unit, idJoueur);
-     printf("idJUnit= %d \n", getIdJoueurUnite(unit));
      /* posX et posY */
      setVieCouranteUnite(unit, getVieMaxUnite(type));
      setDeplacement(unit, 0);
@@ -259,7 +257,7 @@ void avanceUnite(Unite* homme, Terrain* terrain){
      tempo=clock();
      if(tempo == -1)
      {
-          printf("Problème d'horloge");
+          fprintf(stderr,"Problème d'horloge");
           exit(EXIT_FAILURE);
      }
      setTimerUnite(homme, tempo);
@@ -272,7 +270,7 @@ void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entr
           float temps;
           if(tempo == -1)
           {
-               printf("Problème d'horloge");
+               fprintf(stderr,"Problème d'horloge");
                exit(EXIT_FAILURE);
           }
           temps= ((float)tempo-(float)homme->timerUnite)/CLOCKS_PER_SEC;
@@ -298,22 +296,18 @@ void deplacementUnite(Unite* homme, Terrain* terrain){ /*posCible doit etre entr
 static int testCase(int x, int y, Terrain* terrain){
      if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
      {
-          printf("en dehors de la map: ");
           return 0;
      }
      else if(getContenu(getCase(terrain,x,y)) != 0)
      {
-          printf("contenu = %d ", getContenu(getCase(terrain, x, y)));
           return 0;
      }
      else if(getAcces(getCase(terrain,x,y)) != 1)
      {
-          printf("acces = %d ", getAcces(getCase(terrain, x, y)));
           return 0;
      }
      else
      {
-          printf("OK");
           return 1;
      }
 }
@@ -336,7 +330,6 @@ void trouverAcces(Unite* homme, Terrain* terrain){
           vide= testCase(caseTestX, caseTestY, terrain);
           egale = memeCase(caseTestX, caseTestY, caseX, caseY);
           fin = vide + egale;
-          printf("\n\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
 
           while(fin ==0 && caseTestX!=caseCibleX)
           {
@@ -345,7 +338,6 @@ void trouverAcces(Unite* homme, Terrain* terrain){
                vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
-               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
           }
           while(fin==0 && caseTestY!=caseCibleY)
           {
@@ -354,7 +346,6 @@ void trouverAcces(Unite* homme, Terrain* terrain){
                vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
-               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
           }
           while(fin ==0 && caseTestX!=caseCibleX)
           {
@@ -363,7 +354,6 @@ void trouverAcces(Unite* homme, Terrain* terrain){
                vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
-               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
           }
           while(fin ==0 && caseTestY!=caseCibleY+1)
           {
@@ -372,7 +362,6 @@ void trouverAcces(Unite* homme, Terrain* terrain){
                vide= testCase(caseTestX, caseTestY, terrain);
                egale = memeCase(caseTestX, caseTestY, caseX, caseY);
                fin = vide + egale;
-               printf("\n(%d; %d) -> %d",caseTestX,caseTestY,fin);
           }
           i++;
      }
@@ -507,7 +496,7 @@ void Recolte(Unite* homme, Jeu* jeu){
 
      if(tempo == -1)
      {
-          printf("Problème d'horloge");
+          fprintf(stderr,"Problème d'horloge");
           exit(EXIT_FAILURE);
      }
 
@@ -538,9 +527,6 @@ void Recolte(Unite* homme, Jeu* jeu){
                          quantite=QUANTITERECOLTE;
                          test = 3;
                     }
-
-                    printf("\n boucle %d -> recolte %d pierre", test,quantite);
-
                     setPierrePorte(homme, getPierrePorte(homme) + quantite);
                     setPierreCase(place, getPierreCase(place) - quantite);
                }
@@ -560,9 +546,6 @@ void Recolte(Unite* homme, Jeu* jeu){
                          quantite=QUANTITERECOLTE;
                          test = 3;
                     }
-
-                    printf("\n boucle %d -> recolte %d mithril.", test,quantite);
-
                     setMithrilPorte(homme, getMithrilPorte(homme) + quantite);
                     setMithrilCase(place, getMithrilCase(place) - quantite);
                }
@@ -584,7 +567,7 @@ void Recolte(Unite* homme, Jeu* jeu){
           tempo=clock();
           if(tempo == -1)
           {
-               printf("Problème d'horloge");
+               fprintf(stderr,"Problème d'horloge");
                exit(EXIT_FAILURE);
           }
           setTimerUnite(homme, tempo);
@@ -613,46 +596,39 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
      setContenu(getCase(terrain,x,y),id);
 
      i=1;
-     printf(" \n\n\nl'ancien minerais est à la acse (%d, %d)\n\n\n debut recherche:\n", caseCibleX, caseCibleY);
      while (fin == 0)
      {
           caseTestX=caseCibleX+i;
           caseTestY=caseCibleY;
           fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-          printf("fin = %d\n\n",fin);
 
           while(fin <=0 && caseTestX!=caseCibleX)
           {
                caseTestX--;
                caseTestY--;
                fin = testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("fin = %d\n\n",fin);
           }
           while(fin <=0 && caseTestY!=caseCibleY)
           {
                caseTestX--;
                caseTestY++;
                fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("fin = %d\n\n",fin);
           }
           while(fin <=0 && caseTestX!=caseCibleX)
           {
                caseTestX++;
                caseTestY++;
                fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("fin = %d\n\n",fin);
           }
           while(fin <=0 && caseTestY!=caseCibleY+1)
           {
                caseTestX++;
                caseTestY--;
                fin=testMinerai(caseTestX, caseTestY, tabD, getCarteJeu(jeu));
-               printf("fin = %d\n\n",fin);
           }
 
           if (i>=5){
                fin=-500;
-               printf("pas de minerais autour du dernier épuisé");
           }
           i++;
      }
@@ -663,7 +639,6 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
           setPosCibleX(homme, caseTestX);
           setPosCibleY(homme, caseTestY);
           setEnTravail(homme,3); /* pars à la recherche du minerai */
-          printf("Minerai trouve case (%d, %d)\n\n", getPosMineraiX(homme), getPosMineraiY(homme));
      }
      else
      {
@@ -675,14 +650,11 @@ void trouverMinerai(Unite* homme, Jeu* jeu){
 static int testMinerai(int x, int y, CellDjikstra* tabD, Terrain* terrain){
       if(x<0 || y < 0 || x >= getTailleX(terrain) || y >= getTailleY(terrain))
      {
-          printf(" -> en dehors de la map <- ");
           return 0;
      }
      else if( tabD[(x+1)+y*getTailleX(terrain)].distance != INFINI || tabD[(x-1)+y*getTailleX(terrain)].distance != INFINI || tabD[x+(y+1)*getTailleX(terrain)].distance != INFINI|| tabD[x+(y-1)*getTailleX(terrain)].distance != INFINI)
      {
-          printf("-> Case exploitable: (%d, %d)\n", x, y);
           int quantite =getPierreCase(getCase(terrain, x, y)) + getMithrilCase(getCase(terrain, x, y));
-          printf("la quatite est %d\n", quantite);
           return quantite;
      }
 }
@@ -699,7 +671,7 @@ void attaque(Unite* homme, Jeu* jeu){
 
           if(tempo == -1)
           {
-               printf("Problème d'horloge");
+               fprintf(stderr,"Problème d'horloge");
                exit(EXIT_FAILURE);
           }
 
@@ -709,9 +681,7 @@ void attaque(Unite* homme, Jeu* jeu){
           {
                if(contenu > 0){
                     Unite* ennemi = getUnite(jeu, contenu);
-                    printf("\ntape du %d", getAttaque(getTypeUnite(homme)));
                     setVieCouranteUnite(ennemi, getVieCouranteUnite(ennemi) - getAttaque(getTypeUnite(homme))); /* frappe une fois */
-                    printf(" -> %d HP restant", getVieCouranteUnite(ennemi));
                     if(getRaceUnite(homme)==0)
                          setVieCouranteUnite(homme, getVieCouranteUnite(homme)- DMG_BLOB);
                }

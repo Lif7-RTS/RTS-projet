@@ -16,10 +16,9 @@
 #define _TERRAIN
 
 struct STerrain{
-     sCase* tabCase; /*!< un tableau de case représentant le terrain*/
-     char* collisionCarte;/*!< fichier de collision de la carte*/ /* get et set??*/
+     sCase* tabCase; /*!< un tableau de case reprÃ©sentant le terrain*/
      int tailleX;/*!< taille de la carte en coordonnee X */
-     int tailleY;/*!< taille de la carte en coordonnée Y */
+     int tailleY;/*!< taille de la carte en coordonnÃ©e Y */
 };
 typedef struct STerrain Terrain;
 
@@ -31,7 +30,7 @@ typedef struct STerrain Terrain;
 * \brief initialisation d'un Terrain
 *
 * \param[in, out] ter pointeur sur Terrain
-* \param[in, out] colliCarte chaine de caractère contenant le chemin du fichier de collision de la carte
+* \param[in, out] colliCarte chaine de caractÃ¨re contenant le chemin du fichier de collision de la carte
 */
 void initTerrain(Terrain* ter, const char* colliCarte);
 
@@ -63,15 +62,6 @@ void setTailleX(Terrain* ter, int x);
 */
 void setTailleY(Terrain* ter, int y);
 
-/**
-* \fn void setCarteTerrain(Terrain* ter, const char* colliCarte)
-* \brief mutateur collisionCarte
-*
-* \param[in, out] ter pointeur sur Terrain
-* \param[in, out]  colliCarte chaine de caractère contenant le chemin du fichier de collision la carte
-*/
-void setCarteTerrain(Terrain* ter, const char* colliCarte);
-
 /* *************************************************************--GET--***************************************************************************** */
 
 /**
@@ -93,22 +83,13 @@ int getTailleX(const Terrain* ter);
 int getTailleY(const Terrain* ter);
 
 /**
-* \fn char* getCarteTerrain(const Terrain* ter);
-* \brief accesseur collisionCarte
-*
-* \param[in, out] ter pointeur sur Terrain
-* \return collisionCarte
-*/
-char* getCarteTerrain(const Terrain* ter);
-
-/**
 * \fn sCase* getCase(int x, int y, Terrain* ter)
 * \brief accesseur case
 *
 * \param[in, out] ter pointeur sur Terrain
-* \param[in] coordonnée x d'une case
-* \param[in] coordonnée y d'une case
-* \return un pointeur sur un case de coordonnées choisies
+* \param[in] coordonnÃ©e x d'une case
+* \param[in] coordonnÃ©e y d'une case
+* \return un pointeur sur un case de coordonnÃ©es choisies
 */
 sCase* getCase(const Terrain* ter,int x, int y);
 

@@ -284,7 +284,7 @@ int supprimerBat(Jeu* jeu, int index);
 void sauvegarder(Jeu* jeu, unsigned char numSauvegarde);
 
 /**
-* \fn void sauvegarder(Jeu* jeu, unsigned char numSauvegarde))
+* \fn void charger(Jeu* jeu, unsigned char numSauvegarde))
 * \brief charge uen partie du jeu sauvegardée à l'emplacement choisi
 *
 * \params[in, out] j pointeur sur jeu
@@ -292,8 +292,21 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde);
 */
 void charger(Jeu* jeu, unsigned char numSauvegarde);
 
+/**
+* \fn void boucleMenu(Jeu* j)
+* \brief function de boucle du menu du debut du jeu
+*
+* \param[in, out] j pointeur sur jeu
+*/
 void boucleMenu(Jeu* jeu);
 
+/**
+* \fn int boucleMenu2(Jeu* j)
+* \brief function de boucle du menu de pause
+*
+* \param[in, out] j pointeur sur jeu
+* \return un entier, renvoi 1 si l'utilisateur veut quitter le jeu, 0 si il retourne seulement au jeu.
+*/
 int boucleMenu2(Jeu* jeu);
 
 #endif

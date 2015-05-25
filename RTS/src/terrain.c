@@ -19,10 +19,6 @@ void setTailleY(Terrain* ter, int y){
     ter->tailleY = y;
 }
 
-void setCarteTerrain(Terrain* ter, const char* colliCarte){
-    ter->collisionCarte = colliCarte;
-}
-
 int getTailleX(const Terrain* ter){
     return ter->tailleX;
 }
@@ -30,11 +26,6 @@ int getTailleX(const Terrain* ter){
 
 int getTailleY(const Terrain* ter){
     return ter->tailleY;
-}
-
-
-char* getCarteTerrain(const Terrain* ter){
-    return ter->collisionCarte;
 }
 
 sCase* getCase(const Terrain* ter,int x, int y){
@@ -46,7 +37,6 @@ void initTerrain(Terrain* ter, const char* colliCarte){
     int tailleX;
     int tailleY;
     int x,y,tile;
-    setCarteTerrain(ter, colliCarte);
     fp = fopen(colliCarte,"r");
     if(fp != NULL){
         fscanf(fp,"%d %d", &tailleX, &tailleY);
