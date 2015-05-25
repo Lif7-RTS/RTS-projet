@@ -14,46 +14,30 @@
 /* *************************************************************--Init--***************************************************************************** */
 
 void commencerPartie(Jeu* j, int raceJ, char* cheminCarte){
-    int i;
-    Joueur* tabJ;
-    Terrain* ter;
-    TabDyn* tabUnite;
-    TabDyn* tabBat;
-    setNbJoueur(j,1);
     j->aff = (Affichage*) malloc((sizeof(Affichage)));
-    tabUnite = (TabDyn*)malloc(sizeof(TabDyn));
-    tabBat = (TabDyn*)malloc(sizeof(TabDyn));
-    tabJ = (Joueur*) malloc(sizeof(Joueur)*getNbJoueur(j));
-    ter = (Terrain*) malloc(sizeof(Terrain));
-    initTabDyn(tabUnite,2);
-    j->tableauUnite = tabUnite;
-    initTabDyn(tabBat,2);
-    j->tableauBat = tabBat;
-    setVueJoueur(j, 0);
-    for(i = 0;i < getNbJoueur(j); i++){
-        initJoueur(&tabJ[i],i, raceJ, 0,0);
-    }
-    j->tableauJoueur = tabJ;
-    initTerrain(ter,cheminCarte);
-    setCarteJeu(j,ter);
-    setIdSel(j,0);
-    j->tabBatConstructible = chargementBatBase();
-    j->tabUniteFormable = chargementUniteBase();
-    initAffichage(j->aff,j,j->carte);
+    initAffichage(j->aff,j);
     boucleMenu(j);
 }
 
-void detruireJeu(Jeu* j){
+void detruirePartie(Jeu* j){
+    int i;
     detruireTerrain(&(j->carte));
     free(j->tableauJoueur);
     detruireTabDyn(j->tableauUnite);
     free(j->tableauUnite);
     detruireTabDyn(j->tableauBat);
     free(j->tableauBat);
+    for(i = 0; i < NB_BAT_RACE*2; i++){
+      detruireBatBase(&j->tabBatConstructible[i]);
+    }
     free(j->tabBatConstructible);
     free(j->tabUniteFormable);
-    detruireAffichage(j->aff);
-    free(j->aff);
+}
+void detruireJeu(Jeu** j){
+    detruireAffichage((*j)->aff);
+    free((*j)->aff);
+    free(*j);
+    *j=NULL;
 }
 
 /* *************************************************************--GET--***************************************************************************** */
@@ -165,36 +149,10 @@ int boucleJeu(Jeu* j){
       Joueur* joueur = getJoueur(j,getVueJoueur(j));
       Unite* u;
       Batiment* b;
-      b = (Batiment*) malloc(sizeof(Batiment));
-      u = (Unite*) malloc(sizeof(Unite));
-      initBatiment(b,0,getBatConstructible(j,0),0,getVueJoueur(j));
-      setPosXBat(b,8);
-      setPosYBat(b,2);
-      initUnite(u, getUniteFormable(j,0), getVueJoueur(j));
-      setNourritureCourante(joueur, 1);
-      ajouterTabDyn(j->tableauBat, (uintptr_t) b);
-      ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
-      setPosX(u,6);
-      setPosY(u,1);
-      setPosCibleX(u,6);
-      setPosCibleY(u,1);
-      u = (Unite*) malloc(sizeof(Unite));
-      initUnite(u, getUniteFormable(j,0), getVueJoueur(j)+1);
-      ajouterTabDyn(j->tableauUnite, (uintptr_t) u);
-      setPosX(u,10);
-      setPosY(u,5);
-      setPosCibleX(u,10);
-      setPosCibleY(u,5);
-      setPosBatPX(joueur,8);
-      setPosBatPY(joueur,2);
-      j->carte->tabCase[6+getTailleX(j->carte)].idContenu = 1;
-      j->carte->tabCase[10+5*getTailleX(j->carte)].idContenu = 2;
-      j->carte->tabCase[8+2*getTailleX(j->carte)].idContenu = -1;
-      j->carte->tabCase[9+2*getTailleX(j->carte)].idContenu = -1;
-      j->carte->tabCase[8+3*getTailleX(j->carte)].idContenu = -1;
-      j->carte->tabCase[9+3*getTailleX(j->carte)].idContenu = -1;
       while( !quit ){
-            checkJeu(j);
+            quitJeu = checkJeu(j);
+            if(quitJeu != 0)
+                quit = 1;
             SDL_PumpEvents();
             SDL_GetMouseState(&x,&y);
         while( SDL_PollEvent(&e) != 0 ){
@@ -314,6 +272,7 @@ int boucleJeu(Jeu* j){
         }
         affiche(j->aff,x,y);
     }
+    detruirePartie(j);
     return (quitJeu%2);
 }
 
@@ -484,34 +443,37 @@ int checkJeu(Jeu* jeu){
                 verifierTimerBat(bat,jeu);
         }
      }
-
-
-     /* Test fin de partie */
+       /* Test fin de partie */
 
      for(i=0;i<getNbJoueur(jeu);i++)
      {
-          if(getContenu(getCase(getCarteJeu(Jeu), getPosBatPX(getJoueur(Jeu, i)), getPosBatPY(getJoueur(Jeu,i)))) > 0)
+          if(getContenu(getCase(getCarteJeu(jeu), getPosBatPX(getJoueur(jeu, i)), getPosBatPY(getJoueur(jeu,i)))) >= 0)
           {
                int race;
-               if(getIdRace(getJoueur(Jeu, i)) == 1)
+               if(getIdRace(getJoueur(jeu, i)) == 1)
                     race =0;
                else
                     race=1;
 
-               affichageFinPartie(Jeu, race);
+               affichageFinPartie(jeu->aff, race);
                return 1;
           }
      }
      return 0;
+
 }
 
 void supprimerUnite(Jeu* jeu, int index){
     supprimerElemTabDyn(jeu->tableauUnite, index-1);
 }
 
+
 void supprimerBat(Jeu* jeu, int index){
     supprimerElemTabDyn(jeu->tableauBat, index-1);
 }
+
+
+/* *************************************************************--FCT--***************************************************************************** */
 
 void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
      int i,j;
@@ -523,8 +485,6 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
           fish=fopen("data/save/sauvegarde01.sav","w+");
      else if(numSauvegarde==2)
           fish=fopen("data/save/sauvegarde02.sav","w+");
-     else if (numSauvegarde==3)
-          fish=fopen("data/save/sauvegarde03.sav","w+");
      else
      {
           fprintf(stderr, "La sauvegarde à échouée");
@@ -638,7 +598,7 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
      }
 }
 
-void charger(Jeu* jeu, unsigned char numSauvegarde){
+int charger(Jeu* jeu, unsigned char numSauvegarde){
      int i, compteur,j,k,l;
      Unite* u;
      Batiment* bat;
@@ -651,14 +611,17 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
      else if(numSauvegarde==2)
           fish=fopen("data/save/sauvegarde02.sav","r");
      else if (numSauvegarde==3)
-          fish=fopen("data/save/sauvegarde03.sav","r");
+          fish=fopen("data/save/campagne_nain.sav","r");
+     else if (numSauvegarde==4)
+          fish=fopen("data/save/campagne_blob.sav","r");
      else
      {
           printf("La chargement de la partie a échoué");
           return;
      }
     if(fish){
-         free(jeu->tableauJoueur);
+         jeu->tabBatConstructible = chargementBatBase();
+         jeu->tabUniteFormable = chargementUniteBase();
          fscanf(fish,"nbJoueur=%d\n\n", &(jeu->nbJoueur));
          jeu->tableauJoueur = (Joueur*)malloc(sizeof(Joueur)*getNbJoueur(jeu));
          /*tabJoueur*/
@@ -676,12 +639,16 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
               fscanf(fish,"%d\n",&(joueur->posBatPX));
               fscanf(fish,"%d\n",&(joueur->posBatPY));
               fscanf(fish,"\n");
+              joueur->batConstruction = NULL;
          }
 
          /*le terrain*/
-         detruireTerrain(&(jeu->carte));
          jeu->carte = (Terrain*)malloc(sizeof(Terrain));
-         fscanf(fish,"%d\n%d\n", &(jeu->carte->tailleX), &(jeu->carte->tailleY));
+         fscanf(fish,"%d\n", &j);
+         fscanf(fish,"%d\n", &k);
+         printf("%d\n%d\n", j,k);
+         jeu->carte->tailleX = j;
+         jeu->carte->tailleY = k;
          jeu->carte->tabCase = (sCase*)malloc(sizeof(sCase)*getTailleX(jeu->carte)*getTailleY(jeu->carte));
          for(i=0; i< getTailleX(getCarteJeu(jeu))* getTailleY(getCarteJeu(jeu)); i++)
          {
@@ -693,6 +660,8 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
          }
          jeu->aff->carte = jeu->carte;
           /*TabUnite*/
+         jeu->tableauUnite = (TabDyn*)malloc(sizeof(TabDyn));
+         initTabDyn(jeu->tableauUnite, 2);
          fscanf(fish, "nbUnite=%d\n", &compteur);
          for(i=0; i<compteur; i++){
             u = (Unite*)malloc(sizeof(Unite));
@@ -730,8 +699,10 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
          }
 
          /*TabBat*/
+         jeu->tableauBat = (TabDyn*)malloc(sizeof(TabDyn));
+         initTabDyn(jeu->tableauBat, 2);
          fscanf(fish, "nbBatiment=%d\n", &compteur);
-         printf("%d\n", compteur);
+         printf(" %d\n", compteur);
          for(i=0; i<compteur; i++)
          {
               bat = (Batiment*)malloc(sizeof(Batiment));
@@ -770,9 +741,10 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
 
          setIdSel(jeu,0); /* à verifier*/
          fclose(fish);
+         return 1;
     }else{
          fprintf(stderr,"La chargement de la partie a échoué");
-          return;
+          return 0;
     }
 }
 
@@ -780,6 +752,7 @@ void boucleMenu(Jeu* jeu){
     SDL_Event e;
     int quit=0;
     int menu = 0;
+    int ok = 0;
     int x,y;
     int xSouris, ySouris;
     while(!quit){
@@ -787,6 +760,7 @@ void boucleMenu(Jeu* jeu){
         SDL_GetMouseState(&xSouris,&ySouris);
         afficheMenu(jeu->aff, menu, xSouris,ySouris);
         while( SDL_PollEvent(&e) != 0 ){
+            ok = 0;
             if( e.type == SDL_QUIT ){
                 quit = 1;
             }
@@ -795,36 +769,39 @@ void boucleMenu(Jeu* jeu){
                     x = e.button.x;
                     y = e.button.y;
                     x /= TILE_TAILLE;
-                    y /= TILE_TAILLE;
                     if(x > (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE) && x < (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE)+3){
-                        if( y == 3){
+                        if( y > (TILE_TAILLE*2 + (TILE_TAILLE/2)) && y < (TILE_TAILLE*3 +(TILE_TAILLE/2))){
                             if(menu == 0){
                                 menu = 2;
                             }else if(menu == 1){
-                                charger(jeu, 1);
-                                quit = boucleJeu(jeu);
+                                ok = charger(jeu, 1);
+                                if(ok)
+                                  quit = boucleJeu(jeu);
                                 menu = 0;
                             }else{
-                                charger(jeu, 3);
-                                quit = boucleJeu(jeu);
+                                ok = charger(jeu, 3);
+                                if(ok)
+                                  quit = boucleJeu(jeu);
                                 menu = 0;
                             }
 
                         }
-                        if(y == 4){
+                        if(y >(TILE_TAILLE*4)  && y < (TILE_TAILLE*5)){
                             if(menu == 0){
                                 menu = 1;
                             }else if(menu == 1){
-                                charger(jeu, 2);
-                                quit = boucleJeu(jeu);
+                                ok = charger(jeu, 2);
+                                if(ok)
+                                  quit = boucleJeu(jeu);
                                 menu = 0;
                             }else{
-                                charger(jeu, 4);
-                                quit = boucleJeu(jeu);
+                                ok = charger(jeu, 4);
+                                if(ok)
+                                  quit = boucleJeu(jeu);
                                 menu = 0;
                             }
                         }
-                        if(y == 5){
+                        if(y >(TILE_TAILLE*5 +TILE_TAILLE/2) && y < (TILE_TAILLE*6 +TILE_TAILLE/2)){
                             if(menu == 0){
                                 quit = 1;
                             }else{
@@ -837,8 +814,7 @@ void boucleMenu(Jeu* jeu){
             }
         }
     }
-    detruireJeu(jeu);
-    free(jeu);
+    detruireJeu(&jeu);
 }
 
 int boucleMenu2(Jeu* jeu){
@@ -862,9 +838,8 @@ int boucleMenu2(Jeu* jeu){
                     x = e.button.x;
                     y = e.button.y;
                     x /= TILE_TAILLE;
-                    y /= TILE_TAILLE;
                     if(x > (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE) && x < (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE)+3){
-                        if( y == 3){
+                        if( y > (TILE_TAILLE*2 + (TILE_TAILLE/2)) && y < (TILE_TAILLE*3 +(TILE_TAILLE/2))){
                             if(menu == 3){
                                 menu = 4;
                             }else{
@@ -873,7 +848,7 @@ int boucleMenu2(Jeu* jeu){
                             }
 
                         }
-                        if(y == 4){
+                        if(y >(TILE_TAILLE*4)  && y < (TILE_TAILLE*5)){
                             if(menu == 3)
                                 pause = 0;
                             else{
@@ -882,7 +857,7 @@ int boucleMenu2(Jeu* jeu){
                             }
 
                         }
-                        if(y == 5){
+                        if(y >(TILE_TAILLE*5 +TILE_TAILLE/2) && y < (TILE_TAILLE*6 +TILE_TAILLE/2)){
                             if(menu == 3){
                                 quit = 2;
                                 pause = 0;
@@ -890,7 +865,7 @@ int boucleMenu2(Jeu* jeu){
                                 menu = 3;
                             }
                         }
-                        if(y == 6){
+                        if(y >(TILE_TAILLE*7) && y < (TILE_TAILLE*8)) {
                             if(menu == 3){
                                 quit = 1;
                                 pause = 0;

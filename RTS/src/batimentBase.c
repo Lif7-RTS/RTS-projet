@@ -106,7 +106,9 @@ void setRaceBat(BatBase* bat, unsigned char race){
 }
 
 /* *************************************************************--FCT--***************************************************************************** */
-
+void detruireBatBase(BatBase* bat){
+     free(bat->tabUnitFormable);
+}
 BatBase* chargementBatBase(void){
      FILE* fish;
      int nbBat, nbUnite;

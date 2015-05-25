@@ -233,6 +233,14 @@ void setCoutMithrilBat(BatBase* bat, int coutM);
 void setRaceBat(BatBase* bat, unsigned char race);
 
 /* *************************************************************--FCT--***************************************************************************** */
+/**
+* \fn void detruireBatBase(BatBase* bat)
+* \brief detruit un BatBase
+*
+*
+* \param [in,out] bat pointeur sur le batiment a détruire.
+*/
+void detruireBatBase(BatBase* bat);
 
 /**
 * \fn BatBase* chargementBatBase(void)

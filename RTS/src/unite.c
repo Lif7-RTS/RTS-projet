@@ -488,7 +488,7 @@ void trouveChemin(Unite* homme, Terrain* terrain){
 
 /* *************************************************************--FCT à tester--***************************************************************************** */
 
-void Recolte(Unite* homme, Jeu* jeu){
+void recolte(Unite* homme, Jeu* jeu){
      clock_t tempo=clock();
      float temps;
      int finRecolte = 0;
@@ -515,17 +515,16 @@ void Recolte(Unite* homme, Jeu* jeu){
                {
                     if( quantite < QUANTITERECOLTE)
                     {
-                         test=1;
+                         /*pas assez de place pour porter QUANTITERECOLTE,
+                          donc porte quantite, donc quantite ne change pas.*/
                     }
                     else if( getPierreCase(place) < QUANTITERECOLTE)
                     {
                          quantite=getPierreCase(place);
-                         test=2;
                     }
                     else
                     {
                          quantite=QUANTITERECOLTE;
-                         test = 3;
                     }
                     setPierrePorte(homme, getPierrePorte(homme) + quantite);
                     setPierreCase(place, getPierreCase(place) - quantite);
@@ -534,17 +533,16 @@ void Recolte(Unite* homme, Jeu* jeu){
                {
                     if( quantite < QUANTITERECOLTE)
                     {
-                         test=1;
+                         /*pas assez de place pour porter QUANTITERECOLTE,
+                          donc porte quantite, donc quantite ne change pas.*/
                     }
                     else if( getMithrilCase(place) < QUANTITERECOLTE)
                     {
                          quantite=getMithrilCase(place);
-                         test=2;
                     }
                     else
                     {
                          quantite=QUANTITERECOLTE;
-                         test = 3;
                     }
                     setMithrilPorte(homme, getMithrilPorte(homme) + quantite);
                     setMithrilCase(place, getMithrilCase(place) - quantite);

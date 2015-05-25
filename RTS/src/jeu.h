@@ -60,12 +60,17 @@ struct SJeu{
  */
 void commencerPartie(Jeu* j, int raceJ, char* cheminCarte);
 
- /** \fn void detruireJeu(Jeu* j)
- * \brief function de destruction du module jeu
+ /** \fn void detruirePartie(Jeu* j)
+ * \brief fonction detruisant une partie (tout ce qui compose Jeu à l'exception de l'affichage).
  * \param j pointeur sur jeu
  */
- void detruireJeu(Jeu* j);
+void detruirePartie(Jeu* j);
 
+ /** \fn void detruireJeu(Jeu** j)
+ * \brief fonction detruisant jeu.
+ * \param j double pointeur sur jeu
+ */
+void detruireJeu(Jeu** j);
 /* *************************************************************--GET--***************************************************************************** */
 
 /**
@@ -250,12 +255,13 @@ void setBat(const Jeu*  j, int bNb, Batiment* bat);
 int boucleJeu(Jeu* j);
 
 /**
-* \fn void checkJeu(Jeu* jeu)
+* \fn int checkJeu(Jeu* jeu)
 * \brief verifie et réalise toute les action a faire sur/par les batiment et les Unites
 *
 * \param[in, out] j pointeur sur jeu
+* \return 1 si fin de partie 0 sinon
 */
-void checkJeu(Jeu* jeu);
+int checkJeu(Jeu* jeu);
 
 /**
 * \fn void supprimerUnite(Jeu* jeu, int index)
@@ -290,8 +296,9 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde);
 *
 * \params[in, out] j pointeur sur jeu
 * \param[in] un entier compris entre 1 et 3 correspondant à l'emplacement de la sauvegarde a faire
+* \return 1 si chargement ok 0 sinon
 */
-void charger(Jeu* jeu, unsigned char numSauvegarde);
+int charger(Jeu* jeu, unsigned char numSauvegarde);
 
 /**
 * \fn void boucleMenu(Jeu* j)

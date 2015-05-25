@@ -48,9 +48,8 @@ struct SAffichage{
 *
 * \param[in, out] aff pointeur sur l' Affichage à initialisé
 * \param j pointeur sur le jeu du quel l'affichage dépend
-* \param ter pointeur sur le terrain qui doit etre affiché tout le long de la partie
 */
-void initAffichage(Affichage* aff, Jeu* j, Terrain* ter);
+void initAffichage(Affichage* aff, Jeu* j);
 
 /**
 * \fn void affiche(Affichage* aff, int xSouris, int ySouris)
@@ -80,5 +79,5 @@ void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris);
 */
 void detruireAffichage(Affichage* aff);
 
-
+void affichageFinPartie(Affichage* aff, int race);
 #endif

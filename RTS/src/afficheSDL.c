@@ -12,13 +12,12 @@
 #include "afficheSDL.h"
 #include "jeu.h"
 
-void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
+void initAffichage(Affichage* aff, Jeu* j){
     int i,k;
     SDL_Surface* image;
     aff->nbTileCamX = SCREEN_W/TILE_TAILLE;
     aff->nbTileCamY = SCREEN_H/TILE_TAILLE;
     aff->jeu = j;
-    aff->carte = ter;
     aff->pFenetre = NULL;
     if(SDL_Init(SDL_INIT_VIDEO) != 0){
         fprintf(stderr,"Echec de l'initialisation de la SDL (%s)\n",SDL_GetError());
@@ -365,8 +364,12 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
 
 void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris){
     int i,j;
+    int tX, tY;
     SDL_Rect rect_Dest;
     int num_tile;
+    SDL_Surface* texte;
+    SDL_Texture* texture;
+    SDL_Color couleur ={255,255,0};
     rect_Dest.h = TILE_TAILLE;
     rect_Dest.w = TILE_TAILLE;
     for(i = 0; i < aff->nbTileCamX; i++){
@@ -377,6 +380,211 @@ void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris){
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
         }
     }
+    for(i = 0; i < 4; i++){
+        for(j = 0; j<3; j++){
+            rect_Dest.h = TILE_TAILLE;
+            rect_Dest.w = TILE_TAILLE;
+            if(xSouris > (SCREEN_W-3*TILE_TAILLE)/2
+                && xSouris < ((SCREEN_W-3*TILE_TAILLE)/2 + 3*TILE_TAILLE)
+                && ySouris > (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE/2) + i*TILE_TAILLE)
+                && ySouris < (TILE_TAILLE*3 +(i+1)*(TILE_TAILLE/2)+ i*TILE_TAILLE))
+                    num_tile=43+j;
+                else
+                    num_tile = 40+j;
+                    rect_Dest.x = (SCREEN_W-TILE_TAILLE*3)/2+j*TILE_TAILLE;
+                    rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE/2)+i*TILE_TAILLE);
+                    if(i < 3 || menu == 3)
+                        SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+            if(j == 2){
+                if(i == 0){
+                    switch(menu){
+                    case 0:
+                        texte = TTF_RenderText_Solid(aff->font,"Jouer",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +TILE_TAILLE - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 1:
+                        texte = TTF_RenderText_Solid(aff->font,"Partie 1",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +TILE_TAILLE - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 2:
+                        texte = TTF_RenderText_Solid(aff->font,"Nain",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +TILE_TAILLE - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 3:
+                        texte = TTF_RenderText_Solid(aff->font,"Sauver",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +TILE_TAILLE - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 4:
+                        texte = TTF_RenderText_Solid(aff->font,"Partie 1",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +TILE_TAILLE - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    }
+                }
+                else if(i == 1){
+                    switch(menu){
+                    case 0:
+                        texte = TTF_RenderText_Solid(aff->font,"Charger",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 1:
+                        texte = TTF_RenderText_Solid(aff->font,"Partie 2",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 2:
+                        texte = TTF_RenderText_Solid(aff->font,"Blob",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 3:
+                        texte = TTF_RenderText_Solid(aff->font,"Continuer",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 4:
+                        texte = TTF_RenderText_Solid(aff->font,"Partie 2",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    }
+                }
+                 else if(i == 2){
+                    switch(menu){
+                    case 0:
+                        texte = TTF_RenderText_Solid(aff->font,"Quitter",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    default:
+                        texte = TTF_RenderText_Solid(aff->font,"Retour",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    case 3:
+                        texte = TTF_RenderText_Solid(aff->font,"Menu Principale",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.w = TILE_TAILLE*3;
+                        rect_Dest.h = tY*((TILE_TAILLE*300)/tX)/100;
+                        rect_Dest.x = (SCREEN_W-rect_Dest.w)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - rect_Dest.h/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    }
+                }
+                 else if(i == 3){
+                    switch(menu){
+                    case 3:
+                        texte = TTF_RenderText_Solid(aff->font,"Quitter",couleur);
+                        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+                        SDL_FreeSurface(texte);
+                        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+                        rect_Dest.h = tY;
+                        rect_Dest.w = tX;
+                        rect_Dest.x = (SCREEN_W-tX)/2;
+                        rect_Dest.y = (TILE_TAILLE*2 +(i+1)*(TILE_TAILLE)+i*TILE_TAILLE/2 - tY/2);
+                        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+                        SDL_DestroyTexture(texture);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    rect_Dest.h = TILE_TAILLE;
+    rect_Dest.w = TILE_TAILLE;
     for(i = 0; i < 10; i++){
         for(j = 0; j < 2; j++){
             num_tile = 70+j*10+i;
@@ -387,4 +595,63 @@ void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris){
     }
     SDL_RenderPresent(aff->renderer);
     SDL_Delay(1000/60);
+}
+
+void affichageFinPartie(Affichage* aff, int race){
+    int i,j;
+    int quit = 0;
+    int tX, tY;
+    SDL_Event e;
+    SDL_Rect rect_Dest;
+    int num_tile;
+    SDL_Surface* texte;
+    SDL_Texture* texture;
+    SDL_Color couleur ={0,255,0};
+    SDL_Color couleur2 ={0,0,0};
+    rect_Dest.h = TILE_TAILLE;
+    rect_Dest.w = TILE_TAILLE;
+    for(i = 0; i < aff->nbTileCamX; i++){
+        for(j = 0; j < aff->nbTileCamY; j++){
+            num_tile = 99;
+            rect_Dest.x = i*TILE_TAILLE;
+            rect_Dest.y = j*TILE_TAILLE;
+            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
+        }
+    }
+    while(!quit){
+        if(race == 0)
+            texte = TTF_RenderUTF8_Solid(aff->font,"Mister Jelly à gagné!",couleur);
+        else
+            texte = TTF_RenderUTF8_Solid(aff->font,"Gurdil à gagné!",couleur);
+        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+        SDL_FreeSurface(texte);
+        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+        rect_Dest.w = tX*3;
+        rect_Dest.h = tY*3;
+        rect_Dest.x = (SCREEN_W-rect_Dest.w)/2;
+        rect_Dest.y = (SCREEN_H-rect_Dest.h)/2;
+        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+        SDL_DestroyTexture(texture);
+        couleur2.r = ((couleur2.r)+1)%255;
+        couleur2.g = ((couleur2.g)+1)%255;
+        couleur2.b = ((couleur2.b)+1)%255;
+        texte = TTF_RenderUTF8_Solid(aff->font,"Appuyer sur une touche pour quitter",couleur2);
+        texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
+        SDL_FreeSurface(texte);
+        rect_Dest.y += rect_Dest.h*2;
+        SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);
+        rect_Dest.w = tX;
+        rect_Dest.h = tY;
+        rect_Dest.x = (SCREEN_W-tX)/2;
+        SDL_RenderCopy(aff->renderer,texture,NULL,&rect_Dest);
+        SDL_DestroyTexture(texture);
+        SDL_RenderPresent(aff->renderer);
+        SDL_Delay(1000/500);
+        while( SDL_PollEvent(&e) != 0 ){
+            if(e.type == SDL_KEYDOWN || e.type == SDL_QUIT)
+                return;
+
+        }
+    }
+
 }
