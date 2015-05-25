@@ -620,7 +620,7 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
 }
 
 void charger(Jeu* jeu, unsigned char numSauvegarde){
-     int i, compteur,j,k;
+     int i, compteur,j,k,l;
      Unite* u;
      Batiment* bat;
      FILE* fish;
@@ -681,6 +681,7 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
             fscanf(fish,"pierrePorte=%d\n", &(u->pierrePorte));
             fscanf(fish,"MithrilPorte=%d\n",&(u->mithrilPorte));
             fscanf(fish,"type=%d\n", &j);
+            printf("%d\n", j);
             setTypeUnite(u, getUniteFormable(jeu, j));
             setDeplacement(u, 0);
             setPosCibleX(u, getPosX(u));
@@ -723,7 +724,7 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
               fileBat = (File*)malloc(sizeof(File));
               initFile(fileBat);
               setTabAttente(bat, fileBat);
-              for(i = 0; i < j; i++){
+              for(l = 0; l < j; l++){
                 fscanf(fish,"%d\n", &k);
                 enfile(fileBat, getUniteFormable(jeu,k));
               }

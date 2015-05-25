@@ -258,7 +258,11 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
 	}
 
     /*Affichage nom joueur */
-    texte = TTF_RenderText_Solid(aff->font,getNomJoueur(getJoueur(aff->jeu, getVueJoueur(aff->jeu))),vert);
+    if(getIdRace(getJoueur(aff->jeu, getVueJoueur(aff->jeu)))  == 0)
+        sprintf(str, "Mister Jelly");
+    else
+        sprintf(str, "Gurdil");
+    texte = TTF_RenderText_Solid(aff->font,str,vert);
     texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
     SDL_FreeSurface(texte);
     SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);

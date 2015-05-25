@@ -15,15 +15,14 @@ struct SRace{
     int mithril[2];
     int pierre[2];
 };
-static Race races = {{11,10},{500,750},{1000,1200}};
+static Race races = {{11,10},{50,75},{75,100}};
 
 
 /* ***********************************************************--INIT--*************************************************************************** */
 
-void initJoueur (Joueur* joue, int idJoueur, char* nomJouer,
+void initJoueur (Joueur* joue, int idJoueur,
                  int idRace, int cameraX, int cameraY){
     setIdJoueur(joue,idJoueur);
-    setNomJoueur(joue,nomJouer);
     setIdRace(joue, idRace);
     setCameraX(joue, cameraX);
     setCameraY(joue, cameraY);
@@ -46,10 +45,6 @@ int getPierreJoueur(const Joueur* joue){
 
 int getMithrilJoueur(const Joueur* joue){
     return joue->mithril;
-}
-
-char* getNomJoueur(const Joueur* joue){
-    return joue->nomJoueur;
 }
 
 int getIdRace(const Joueur* joue){
@@ -95,10 +90,6 @@ void setPierreJoueur(Joueur* joue, int pierre){
 
 void setMithrilJoueur(Joueur* joue, int mithril){
     joue->mithril = mithril;
-}
-
-void setNomJoueur(Joueur* joue, char* nomJoueur){
-    joue->nomJoueur = nomJoueur;
 }
 
 void setIdRace(Joueur* joue, int idRace){

@@ -23,7 +23,6 @@ void initTabDyn(TabDyn* t,int taille){
 
 int supprimerElemTabDyn(TabDyn* t, int index){
     if(getElemTabDyn(t, index) != NULL){
-        int i = t->tab[index];
         t->tab[index] = NULL;
         enfilePath(getFileCaseARemplir(t), index);
         return 1;

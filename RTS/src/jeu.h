@@ -58,7 +58,7 @@ struct SJeu{
  * \param [in, out] cheminCarte chemin ( relatif ou absolu) vers la carte sur la quel la partie va etre lance
  *
  */
-void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ);
+void commencerPartie(Jeu* j, int raceJ, char* cheminCarte);
 
  /** \fn void detruireJeu(Jeu* j)
  * \brief function de destruction du module jeu
@@ -257,22 +257,22 @@ void setBat(const Jeu*  j, int bNb, Batiment* bat);
 void checkJeu(Jeu* jeu);
 
 /**
-* \fn int supprimerUnite(Jeu* jeu, int index)
+* \fn void supprimerUnite(Jeu* jeu, int index)
 * \brief supprime l'unite d'id == index du tableau des unites
 *
 * \param[in, out] j pointeur sur jeu
 * \param index position dans le tableau tabUnite de l'unite a supprimer.
 */
-int supprimerUnite(Jeu* jeu, int index);
+void supprimerUnite(Jeu* jeu, int index);
 
 /**
-* \fn int supprimerBat(Jeu* jeu, int index)
+* \fn void supprimerBat(Jeu* jeu, int index)
 * \brief supprime le bat d'id == -index du tableau des bat
 *
 * \param[in, out] j pointeur sur jeu
 * \param index position dans le tableau tableauBat du batiment a supprimer.
 */
-int supprimerBat(Jeu* jeu, int index);
+void supprimerBat(Jeu* jeu, int index);
 
 /**
 * \fn void sauvegarder(Jeu* jeu, unsigned char numSauvegarde))
