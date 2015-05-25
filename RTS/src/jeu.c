@@ -40,7 +40,7 @@ void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ){
     j->tabBatConstructible = chargementBatBase();
     j->tabUniteFormable = chargementUniteBase();
     initAffichage(j->aff,j,j->carte);
-    boucleMenu(j);
+    boucleJeu(j);
 }
 
 void detruireJeu(Jeu* j){
@@ -200,6 +200,11 @@ void boucleJeu(Jeu* j){
         while( SDL_PollEvent(&e) != 0 ){
              if( e.type == SDL_QUIT ){
                 quit = 1;
+            }
+            if(e.type == SDL_KEYDOWN){
+                if(e.key.keysym.sym == SDLK_ESCAPE){
+                    quit = boucleMenu2(j);
+                }
             }
             if(e.type == SDL_MOUSEBUTTONDOWN){
                 xClick = e.button.x;
@@ -493,7 +498,7 @@ int supprimerBat(Jeu* jeu, int index){
 
 /* *************************************************************--FCT--***************************************************************************** */
 
-void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
+void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
      int i, compteur;
      FILE* fish;
      if(numSauvegarde==1)
@@ -508,7 +513,6 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
           return;
      }
 
-     fprintf(fish,"%c\n\n",nomSauvegarde);
      fprintf(fish,"nbJoueur=%d\n\n", getNbJoueur(jeu));
 
      /*tabJoueur*/
@@ -578,7 +582,6 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde, char* nomSauvegarde){
      fprintf(fish, "\nvueJoueur=%d\n", getVueJoueur(jeu));
 
      /*mettre l'id à NULL*/
-
 }
 
 void charger(Jeu* jeu, unsigned char numSauvegarde){
@@ -597,9 +600,6 @@ void charger(Jeu* jeu, unsigned char numSauvegarde){
           return;
      }
 
-     fscanf(fish,"%c\n\n"); /*possible erreur ici*/
-
-     /* que faut il mettre pour aff?*/
     for(i=0; i<getNbJoueur(jeu); i++){
         detruireJoueur(getJoueur(jeu,i));
     }
@@ -683,15 +683,21 @@ void boucleMenu(Jeu* jeu){
                     if(x > (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE) && x < (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE)+3){
                         if( y == 3){
                             if(menu == 0){
-
+                                menu = 2;
+                            }else if(menu == 1){
+                                charger(jeu, 1);
                             }else{
+                                charger(jeu, 3);
                             }
 
                         }
                         if(y == 4){
                             if(menu == 0){
                                 menu = 1;
+                            }else if(menu == 1){
+                                charger(jeu, 2);
                             }else{
+                                charger(jeu, 4);
                             }
                         }
                         if(y == 5){
@@ -709,3 +715,55 @@ void boucleMenu(Jeu* jeu){
         }
     }
 }
+
+int boucleMenu2(Jeu* jeu){
+    SDL_Event e;
+    int pause=1;
+    int quit = 0;
+    int menu = 0;
+    int x,y;
+    while(pause){
+        while( SDL_PollEvent(&e) != 0 ){
+            afficheMenu(jeu->aff, menu);
+            if( e.type == SDL_QUIT ){
+                quit = 1;
+            }
+            if(e.type == SDL_MOUSEBUTTONDOWN){
+                if(e.button.button == SDL_BUTTON_LEFT){
+                    x = e.button.x;
+                    y = e.button.y;
+                    x /= TILE_TAILLE;
+                    y /= TILE_TAILLE;
+                    if(x > (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE) && x < (((SCREEN_W-3*TILE_TAILLE)/2)/TILE_TAILLE)+3){
+                        if( y == 3){
+                            if(menu == 0){
+                                menu = 1;;
+                            }else{
+                                 sauvegarder(jeu, 1);
+                            }
+
+                        }
+                        if(y == 4){
+                            if(menu == 0)
+                                pause = 0;
+                            else{
+                                sauvegarder(jeu, 2);
+                            }
+
+                        }
+                        if(y == 5){
+                            if(menu == 0){
+                                quit = 1;
+                                pause = 0;
+                            }else{
+                                menu = 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return quit;
+}
+
