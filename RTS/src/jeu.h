@@ -241,12 +241,13 @@ void setBat(const Jeu*  j, int bNb, Batiment* bat);
 /* *************************************************************--FCT--***************************************************************************** */
 
 /**
-* \fn void boucleJeu(Jeu* j)
+* \fn int boucleJeu(Jeu* j)
 * \brief function de boucle de jeu
 *
 * \param[in, out] j pointeur sur jeu
+* \return quit 1 si le joueur veut quitter 0 sinon
 */
- void boucleJeu(Jeu* j);
+int boucleJeu(Jeu* j);
 
 /**
 * \fn void checkJeu(Jeu* jeu)

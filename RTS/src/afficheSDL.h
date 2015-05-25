@@ -46,9 +46,9 @@ struct SAffichage{
 * \fn void initAffichage(Affichage* aff, Jeu* j, Terrain* ter)
 * \brief initialise l'affichage pour le Jeu j
 *
-* \param[in, out] aff pointeur sur l' Affichage à initialisé
-* \param j pointeur sur le jeu du quel l'affichage dépend
-* \param ter pointeur sur le terrain qui doit etre affiché tout le long de la partie
+* \param[in, out] aff pointeur sur l' Affichage Ã  initialisÃ©
+* \param j pointeur sur le jeu du quel l'affichage dÃ©pend
+* \param ter pointeur sur le terrain qui doit etre affichÃ© tout le long de la partie
 */
 void initAffichage(Affichage* aff, Jeu* j, Terrain* ter);
 
@@ -63,12 +63,22 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter);
 void affiche(const Affichage* aff, int xSouris, int ySouris);
 
 /**
-* \fn void afficheMenu(Affichage* aff, int menu)
-* \brief affiche le menu du jeu, menu différent en fonction du paramètre menu
+* \fn void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris)
+* \brief affiche le menu du jeu, menu diffÃ©rent en fonction du paramÃ¨tre menu
 * \param[in, out] aff pointeur sur l' Affichage
-* \param menu menu à afficher
+* \param menu menu Ã  afficher
+* \param xSouris pos X de la souris
+* \param ySouris pos Y de la souris
 */
-void afficheMenu(const Affichage* aff, int menu);
+void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris);
+
+/**
+* \fn void detruireAffichage(Affichage* aff)
+* \brief detruit l'affichage
+*
+* \param[in, out] aff pointeur sur l' Affichage Ã  detruire
+*/
+void detruireAffichage(Affichage* aff);
 
 
 #endif

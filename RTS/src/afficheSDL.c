@@ -67,6 +67,16 @@ void initAffichage(Affichage* aff, Jeu* j, Terrain* ter){
     }
 
 }
+void detruireAffichage(Affichage* aff){
+    free(aff->tileSet);
+    TTF_CloseFont(aff->font);
+    SDL_DestroyTexture(aff->tileSet_Texture);
+    SDL_DestroyRenderer(aff->renderer);
+    SDL_DestroyWindow(aff->pFenetre);
+    TTF_Quit();
+    IMG_Quit();
+    SDL_Quit();
+}
 
 void affiche(const Affichage* aff, int xSouris, int ySouris){
     int i,j,id,camX,camY,tX,tY;
@@ -353,7 +363,7 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
     SDL_Delay(1000/60);
 }
 
-void afficheMenu(const Affichage* aff, int menu){
+void afficheMenu(const Affichage* aff, int menu, int xSouris, int ySouris){
     int i,j;
     SDL_Rect rect_Dest;
     int num_tile;
@@ -367,30 +377,11 @@ void afficheMenu(const Affichage* aff, int menu){
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
         }
     }
-    for(i = 0; i < 3; i++){
-        for(j=0; j < 3; j++){
-            num_tile = (40+10*(menu%3))+i*3+j;
-            if(menu == 2){
-                num_tile = (63+i*3+j);
-                if(i == 2)
-                    num_tile = (46+j);
-            }
-            else if(menu == 3){
-                if(i == 0)
-                    num_tile = 60+j;
-                else
-                    num_tile = 66-i*10+j;
-            }
-            rect_Dest.x = (((SCREEN_W-3*TILE_TAILLE)/2))+j*TILE_TAILLE;
-            rect_Dest.y = 3*TILE_TAILLE+i*TILE_TAILLE;
-            SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
-        }
-    }
     for(i = 0; i < 10; i++){
         for(j = 0; j < 2; j++){
             num_tile = 70+j*10+i;
             rect_Dest.x = (((SCREEN_W-10*TILE_TAILLE)/2))+i*TILE_TAILLE;
-            rect_Dest.y = j*TILE_TAILLE;
+            rect_Dest.y = j*TILE_TAILLE+1;
             SDL_RenderCopy(aff->renderer,aff->tileSet_Texture,&(aff->tileSet[num_tile].r),&rect_Dest);
         }
     }
