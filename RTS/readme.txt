@@ -16,6 +16,7 @@ pour compiler sous Linux: utiliser le MakefileLinux ( renommer le en Makefile)
 make all & default -> compile le jeu et les tests de regressions
 make jeu ->  compile seulement le jeu
 make regression -> compile tests de regressions
+make clean -> supprime obj/*.o et bin/PaniqueAlaMine.exe et bin/regression/test.exe
 
 ====Auteurs====
 Adrien Baud & Diego Roussel 

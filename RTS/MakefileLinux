@@ -1,15 +1,15 @@
 CC=gcc
-OS=WIN
-#OS = LINUX
+#OS=WIN
+OS = LINUX
 FINAL_TARGET= PaniqueAlaMine
 ifeq ($(OS),WIN)
 	DEFINE= -D$(OS)
 	LIBS = -L"./lib/" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
-	clean = del /f $(OBJ_DIR)\*.o $(BIN_DIR)\$(FINAL_TARGET).exe
+	clean = del /f $(OBJ_DIR)\*.o $(BIN_DIR)\$(FINAL_TARGET).exe $(BIN_DIR)/regression/test.exe
 else
 	DEFINE = -D$(OS)
 	LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
-	clean = rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/$(FINAL_TARGET)
+	clean = rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/$(FINAL_TARGET) $(BIN_DIR)/regression/test
 endif
 CFLAGS=$(DEFINE) -W -Wall -ansi -pedantic
 INCLUDE_DIR  = -I/usr/include -Isrc -I"./include/"
