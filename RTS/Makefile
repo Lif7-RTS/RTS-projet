@@ -3,11 +3,11 @@ OS=WIN
 #OS = LINUX
 FINAL_TARGET= RTS
 ifeq ($(OS),WIN)
-	DEFINE= -D$(OS)
+	DEFINE= -D$(OS) -DJEU
 	LIBS = -L"./lib/" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 	clean = del /f $(OBJ_DIR)\*.o $(BIN_DIR)\$(FINAL_TARGET).exe
 else
-	DEFINE = -D$(OS)
+	DEFINE = -D$(OS) -DJEU
 	LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
 	clean = rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/$(FINAL_TARGET)
 endif

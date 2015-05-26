@@ -16,7 +16,7 @@ int main(int argc, char** argv)
 
 #endif
 
-/*#ifdef REGRETION*/
+#ifdef REGRESSION
 
 int main(int argc, char** argv)
 {
@@ -370,4 +370,4 @@ int main(int argc, char** argv)
 }
 
 
-/*#endif /* REGRETION */
+#endif /* REGRESSION*/
