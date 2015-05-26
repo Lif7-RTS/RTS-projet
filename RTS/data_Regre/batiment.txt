@@ -1,0 +1,25 @@
+2
+
+nom=Maison mère
+tile=20
+vieMax=5000
+tempsConstruct=30
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=1
+tabUniteFormable=0
+coutPierre=150
+coutMithril=150
+race=0
+
+nom=to
+tile=12
+vieMax=100
+tempsConstruct=100
+tailleCaseX=2
+tailleCaseY=2
+nombreUnite=2
+tabUniteFormable=0 1
+coutPierre=100
+coutMithril=100
+race=0
