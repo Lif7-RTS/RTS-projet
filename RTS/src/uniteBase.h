@@ -48,11 +48,12 @@ typedef struct SUniteBase UniteBase;
  * \param[in] vieM vie maximum de l'unite
  * \param[in] atq attaque de l'unite
  * \param[in,out] n pointeur sur un tableau de caracteres contenant le nom de l'unite
- * \param[in] Ouvrier defini si l'unite est un ouvrier ou non
+ * \param[in] ouvrier defini si l'unite est un ouvrier ou non
  * \param[in] t temps de formation de l'unite
  * \param[in] vitesseAtq  vitesse d'attaque de l'unite (ecart entre 2 attaques en ms)
  * \param[in] ressourceM maximum de ressource que cette unite peut transporter
- * \param[in] vitesse temps qu'il faut à l'unite pour traverser une case en ms
+ * \param[in] tile numero de la tile de l'unite
+ * \param[in] v temps qu'il faut à l'unite pour traverser une case en ms
  */
  void initUniteBase(UniteBase* unit, int vie, int atq, char* n,
                      int ouvr, int t, int vitesseAtq, int ressourceM, char tile, int v);
@@ -202,7 +203,7 @@ unsigned char getRaceUnite(const UniteBase* unit);
  * \fn void setOuvrier (UniteBase* unit,int ouvr)
  * \brief mutateur ouvrier
  * \param[in, out] unit pointeur sur UniteBase
- * \param[in] Ouvrier defini si l'unite est un ouvrier ou non
+ * \param[in] ouvr defini si l'unite est un ouvrier ou non
  */
  void setOuvrier(UniteBase* unit, int ouvr);
 
@@ -231,7 +232,7 @@ unsigned char getRaceUnite(const UniteBase* unit);
  * \fn void setVitesse (UniteBase* unit,int v)
  * \brief mutateur vitesse
  * \param[in, out] unit pointeur sur UniteBase
- * \param[in] vitesse temps qu'il faut à l'unite pour traverser une case en ms
+ * \param[in] v temps qu'il faut à l'unite pour traverser une case en ms
  */
  void setVitesse(UniteBase* unit, int v);
 
@@ -248,7 +249,7 @@ unsigned char getRaceUnite(const UniteBase* unit);
  * \brief mutateur coutPierre
  *
  * \param[in, out] unit pointeur sur UniteBase
- * \param[in] un entier correspondant au cout en pierre de la formation d'une unité.
+ * \param[in] coutP un entier correspondant au cout en pierre de la formation d'une unité.
  */
 void setCoutPierreUnite(UniteBase* unit, int coutP);
 
@@ -257,7 +258,7 @@ void setCoutPierreUnite(UniteBase* unit, int coutP);
  * \brief mutateur coutMithril
  *
  * \param[in, out] unit pointeur sur UniteBase
- * \param[in] un entier correspondant au cout en mithril de la formation d'une unité.
+ * \param[in] coutM un entier correspondant au cout en mithril de la formation d'une unité.
  */
 void setCoutMithrilUnite(UniteBase* unit, int coutM);
 
@@ -266,7 +267,7 @@ void setCoutMithrilUnite(UniteBase* unit, int coutM);
  * \brief mutateur portee
  *
  * \param[in, out] unit pointeur sur une UniteBase
- * \param[in] un entier correspondant a une portée.
+ * \param[in] portee un entier correspondant a une portée.
  */
 void setPorteeUnite(UniteBase* unit, int portee);
 

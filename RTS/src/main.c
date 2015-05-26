@@ -4,17 +4,13 @@
 #include "define.h"
 #include <time.h>
 
-
-/*#ifdef JEU*/
 int main(int argc, char** argv)
 {
      Jeu* j=(Jeu*)malloc(sizeof(Jeu));
-     commencerPartie(j, 1, "data/carte.txt");
+     commencerPartie(j);
 
      return 0;
 }
-
-/*#endif*/
 
 #ifdef REGRESSION
 

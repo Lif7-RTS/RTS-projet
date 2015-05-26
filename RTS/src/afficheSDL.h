@@ -31,15 +31,15 @@ struct STile{
 
 typedef struct SAffichage Affichage;
 struct SAffichage{
-    Tile* tileSet;
-    SDL_Texture* tileSet_Texture;
-    int nbTileCamX;
-    int nbTileCamY;
-    Jeu* jeu;
-    Terrain* carte;
-    SDL_Window* pFenetre;
-    SDL_Renderer* renderer;
-    TTF_Font* font;
+    Tile* tileSet;/*!< tableau contenant de SDL_rect de la position du tile i */
+    SDL_Texture* tileSet_Texture; /*!< texture de l'image du tileSet*/
+    int nbTileCamX; /*!< largeur de l'écran en nombre de tile*/
+    int nbTileCamY; /*!< hauteur de l'écran en nombre de tile */
+    Jeu* jeu;/*!< pointeur sur le jeu du quel dépend l'affichage */
+    Terrain* carte; /*!< carte du jeu, qui sera donc affiché*/
+    SDL_Window* pFenetre;/*!< pointeur sur la fenètre du jeu*/
+    SDL_Renderer* renderer;/*!< pointeur sur le renderer utilisé pour afficher dans la fenètre*/
+    TTF_Font* font;/*!< police utilisé pour l'affichage des textes*/
 };
 
 /**

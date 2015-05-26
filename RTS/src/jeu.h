@@ -51,14 +51,12 @@ struct SJeu{
 /* *************************************************************--Init--***************************************************************************** */
 
 
-/** \fn void commencerPartie(Jeu* j, int raceJ, char* cheminCarte, char* nomJ)
+/** \fn void commencerPartie(Jeu* j)
  * \brief fonction d'initialisation de jeu, cree jeu puis lance la boucle de jeu
  * \param [in,out] j pointeur sur jeu
- * \param [in] raceJ race du joueur 1 ( controle par l'utilisateur)
- * \param [in, out] cheminCarte chemin ( relatif ou absolu) vers la carte sur la quel la partie va etre lance
  *
  */
-void commencerPartie(Jeu* j, int raceJ, char* cheminCarte);
+void commencerPartie(Jeu* j);
 
  /** \fn void detruirePartie(Jeu* j)
  * \brief fonction detruisant une partie (tout ce qui compose Jeu à l'exception de l'affichage).

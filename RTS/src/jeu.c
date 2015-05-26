@@ -13,7 +13,7 @@
 
 /* *************************************************************--Init--***************************************************************************** */
 
-void commencerPartie(Jeu* j, int raceJ, char* cheminCarte){
+void commencerPartie(Jeu* j){
     j->aff = (Affichage*) malloc((sizeof(Affichage)));
     initAffichage(j->aff,j);
     boucleMenu(j);
