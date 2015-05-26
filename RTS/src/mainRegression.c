@@ -392,7 +392,7 @@ int main(int argc, char** argv)
           printf("okay!\n");
      }
 
-     printf("Test des destruction :")
+     printf("Test des destruction :");
      test=0;
      detruireJeu(jeuTest);
      if(jeuTest != NULL)

@@ -15,7 +15,7 @@ struct SRace{
     int mithril[2];
     int pierre[2];
 };
-static Race races = {{11,10},{50,75},{75,100}};
+static Race races = {{11,10},{75,50},{100,75}};
 
 
 /* ***********************************************************--INIT--*************************************************************************** */
@@ -26,7 +26,7 @@ void initJoueur (Joueur* joue, int idJoueur,
     setIdRace(joue, idRace);
     setCameraX(joue, cameraX);
     setCameraY(joue, cameraY);
-    setNourritureCourante(joue, 0);
+    setNourritureCourante(joue, 1);
     setNourritureMax(joue, races.nourritureMax[idRace]);
     setMithrilJoueur(joue, races.mithril[idRace]);
     setPierreJoueur(joue, races.pierre[idRace]);

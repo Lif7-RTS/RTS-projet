@@ -141,6 +141,9 @@ int getPierrePorte(const Unite* unit){
 int getMithrilPorte(const Unite* unit){
     return unit->mithrilPorte;
 }
+clock_t getTimerUnite(const Unite* unit){
+     return unit->timerUnite;
+}
 
 /* *************************************************************--SET--***************************************************************************** */
 

@@ -16,7 +16,7 @@
 		</MakeCommands>
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/RTS" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/regression/test" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -29,12 +29,12 @@
 					<Add directory="lib" />
 				</Linker>
 				<MakeCommands>
-					<Build command="$make -f $makefile default" />
+					<Build command="$make -f $makefile all" />
 					<CompileFile command="$make -f $makefile $file" />
 					<Clean command="$make -f $makefile clean" />
 					<DistClean command="$make -f $makefile distclean$target" />
 					<AskRebuildNeeded command="$make -q -f $makefile $target" />
-					<SilentBuild command="$make -f $makefile default &gt; $(CMD_NULL)" />
+					<SilentBuild command="$make -f $makefile all &gt; $(CMD_NULL)" />
 				</MakeCommands>
 			</Target>
 			<Target title="Release">
@@ -97,6 +97,9 @@
 		</Unit>
 		<Unit filename="src/joueur.h" />
 		<Unit filename="src/main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="src/mainRegression.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="src/tabBat.h" />
