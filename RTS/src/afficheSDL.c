@@ -83,7 +83,6 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
 	SDL_Surface* texte;
 	SDL_Color blanc ={255,255,255};
 	SDL_Color rouge ={255,0,0};
-	SDL_Color vert  ={0,255,0};
 	int num_tile;
 	tX = getTailleX(getCarteJeu(aff->jeu));
 	camX = getCameraX(getJoueur(aff->jeu, getVueJoueur(aff->jeu)));
@@ -271,7 +270,7 @@ void affiche(const Affichage* aff, int xSouris, int ySouris){
         sprintf(str, "Mister Jelly");
     else
         sprintf(str, "Gurdil");
-    texte = TTF_RenderText_Solid(aff->font,str,vert);
+    texte = TTF_RenderText_Solid(aff->font,str,blanc);
     texture = SDL_CreateTextureFromSurface(aff->renderer,texte);
     SDL_FreeSurface(texte);
     SDL_QueryTexture(texture, NULL, NULL, &tX, &tY);

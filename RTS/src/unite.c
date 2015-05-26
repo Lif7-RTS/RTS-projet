@@ -63,14 +63,10 @@ void initUnite(Unite* unit, const UniteBase* type, int idJoueur){
           exit(EXIT_FAILURE);
      }
 
-     /* id */
      setIdJoueurUnite(unit, idJoueur);
-     /* posX et posY */
      setVieCouranteUnite(unit, getVieMaxUnite(type));
      setDeplacement(unit, 0);
      setTypeUnite(unit, type);
-     /* posCibleX et posCibleY */
-     /* posMineraiX posMineraiY */
      setEnTravail(unit, -1);
      setPierrePorte(unit, 0);
      setMithrilPorte(unit, 0);

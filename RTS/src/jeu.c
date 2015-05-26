@@ -279,6 +279,7 @@ int boucleJeu(Jeu* j){
 int checkJeu(Jeu* jeu){
 
      int taille, i, egale, enConstru,j,k;
+     int cibleX, cibleY;
      sCase* place;
      Unite* soldat;
      Batiment* bat;
@@ -394,19 +395,24 @@ int checkJeu(Jeu* jeu){
                              place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
                              if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1)
                              {
-                                   if (aPortee(soldat, jeu )== 1)
+                                   if (aPortee(soldat, jeu) == 1)
                                    {
                                         attaque(soldat,jeu);
                                    }
                                    else
                                    {
                                         surveille(soldat,jeu);
-                                        int cibleX = getPosCibleX(soldat);
-                                        int cibleY = getPosCibleY(soldat);
+                                        cibleX = getPosCibleX(soldat);
+                                        cibleY = getPosCibleY(soldat);
+                                         if (aPortee(soldat, jeu) == 1)
+                                        {
+                                            attaque(soldat,jeu);
+                                        }
 
                                         deplacementUnite(soldat, getCarteJeu(jeu));
 
-                                        setPosCibleX(soldat, cibleY);
+                                        setPosCibleX(soldat, cibleX);
+                                        setPosCibleY(soldat, cibleY);
                                    }
                              }
                              else
@@ -415,7 +421,8 @@ int checkJeu(Jeu* jeu){
                                    deplacementUnite(soldat, getCarteJeu(jeu));
                              }
 
-                        }
+                        }else
+                            surveille(soldat,jeu);
                    }
               }
           }
