@@ -661,6 +661,7 @@ void attaque(Unite* homme, Jeu* jeu){
           viderFilePath(getChemin(homme));
           clock_t tempo=clock();
           float temps;
+          int j;
           int contenu = getContenu(getCase(getCarteJeu(jeu),getPosCibleX(homme),getPosCibleY(homme)));
 
           if(tempo == -1)
@@ -681,7 +682,7 @@ void attaque(Unite* homme, Jeu* jeu){
                }
                else if(contenu < 0){
                     Batiment* bat = getBat(jeu, -contenu);
-                    setVieCouranteBat(bat, getVieCouranteBat(bat) - getAttaque(homme));
+                    setVieCouranteBat(bat, getVieCouranteBat(bat) - getAttaque(getTypeUnite(homme)));
                     if(getRaceUnite(homme)==0)
                          setVieCouranteUnite(homme, getVieCouranteUnite(homme)- DMG_BLOB);
                }
