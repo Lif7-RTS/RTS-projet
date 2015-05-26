@@ -60,11 +60,11 @@ Terrain* getCarteJeu(const Jeu* j){
 }
 
 Unite* getUnite(const Jeu* j, int uNb){
-    return (Unite*) getElemTabDyn(j->tableauUnite, uNb);
+    return (Unite*) getElemTabDyn(j->tableauUnite, uNb-1);
 }
 
 Batiment* getBat(const Jeu* j, int bNb){
-    return (Batiment*) getElemTabDyn(j->tableauBat, bNb);
+    return (Batiment*) getElemTabDyn(j->tableauBat, bNb-1);
 }
 
 UniteBase* getUniteFormable(const Jeu* j, int uNb){
@@ -293,6 +293,8 @@ int checkJeu(Jeu* jeu){
           if(soldat != NULL){
               if (getVieCouranteUnite(soldat) <= 0)
               {
+                   j = getPosX(soldat);
+                   k = getPosY(soldat);
                    setContenu(getCase(getCarteJeu(jeu), getPosX(soldat), getPosY(soldat)), 0);
                    detruireUnite(&soldat);
                    supprimerUnite(jeu, i);
@@ -404,25 +406,63 @@ int checkJeu(Jeu* jeu){
                                         surveille(soldat,jeu);
                                         cibleX = getPosCibleX(soldat);
                                         cibleY = getPosCibleY(soldat);
-                                         if (aPortee(soldat, jeu) == 1)
-                                        {
-                                            attaque(soldat,jeu);
+                                        place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
+                                        if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1){
+                                            if (aPortee(soldat, jeu) == 1)
+                                            {
+                                                attaque(soldat,jeu);
+                                            }else{
+                                                deplacementUnite(soldat, getCarteJeu(jeu));
+                                                setPosCibleX(soldat, cibleX);
+                                                setPosCibleY(soldat, cibleY);
+                                            }
+                                        }else{
+                                            deplacementUnite(soldat, getCarteJeu(jeu));
+                                            setPosCibleX(soldat, cibleX);
+                                            setPosCibleY(soldat, cibleY);
                                         }
-
-                                        deplacementUnite(soldat, getCarteJeu(jeu));
-
-                                        setPosCibleX(soldat, cibleX);
-                                        setPosCibleY(soldat, cibleY);
                                    }
                              }
                              else
                              {
-                                   surveille(soldat,jeu);
-                                   deplacementUnite(soldat, getCarteJeu(jeu));
+                                surveille(soldat,jeu);
+                                cibleX = getPosCibleX(soldat);
+                                cibleY = getPosCibleY(soldat);
+                                place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
+                                if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1){
+                                    if (aPortee(soldat, jeu) == 1)
+                                    {
+                                        attaque(soldat,jeu);
+                                    }
+                                    else{
+                                        deplacementUnite(soldat, getCarteJeu(jeu));
+                                        setPosCibleX(soldat, cibleX);
+                                        setPosCibleY(soldat, cibleY);
+                                    }
+                                }else{
+                                deplacementUnite(soldat, getCarteJeu(jeu));
+                                setPosCibleX(soldat, cibleX);
+                                setPosCibleY(soldat, cibleY);
+                                }
                              }
 
-                        }else
+                        }else{
                             surveille(soldat,jeu);
+                            cibleX = getPosCibleX(soldat);
+                            cibleY = getPosCibleY(soldat);
+                            place = getCase(getCarteJeu(jeu), getPosCibleX(soldat), getPosCibleY(soldat));
+                            if(getIdJoueurCase(jeu, place) != getIdJoueurUnite(soldat)  && getIdJoueurCase(jeu, place) != -1){
+                                if(aPortee(soldat, jeu) == 1)
+                                {
+                                    attaque(soldat,jeu);
+                                }
+                                else{
+                                    deplacementUnite(soldat, getCarteJeu(jeu));
+                                    setPosCibleX(soldat, cibleX);
+                                    setPosCibleY(soldat, cibleY);
+                                }
+                            }
+                        }
                    }
               }
           }
@@ -438,7 +478,7 @@ int checkJeu(Jeu* jeu){
             if(getVieCouranteBat(bat) <= 0){
                 for(j = 0; j < getTailleCaseX(getTypeBat(bat)); j++){
                     for(k = 0; k < getTailleCaseY(getTypeBat(bat)); k++){
-                         setContenu(getCase(getCarteJeu(jeu), getPosXBat(bat)+j, getPosYBat(bat))+k, 0);
+                         setContenu(getCase(getCarteJeu(jeu), getPosXBat(bat)+j, getPosYBat(bat)+k), 0);
                     }
                 }
                 detruireBatiment(&bat);
@@ -456,12 +496,7 @@ int checkJeu(Jeu* jeu){
      {
           if(getContenu(getCase(getCarteJeu(jeu), getPosBatPX(getJoueur(jeu, i)), getPosBatPY(getJoueur(jeu,i)))) >= 0)
           {
-               int race;
-               if(getIdRace(getJoueur(jeu, i)) == 1)
-                    race =0;
-               else
-                    race=1;
-
+               int race = (getIdRace(getJoueur(jeu, i))+1)%2;
                affichageFinPartie(jeu->aff, race);
                return 1;
           }
@@ -550,7 +585,10 @@ void sauvegarder(Jeu* jeu, unsigned char numSauvegarde){
                 fprintf(fish,"vie=%d\n", getVieCouranteUnite(u));
                 fprintf(fish,"pierrePorte=%d\n", getPierrePorte(u));
                 fprintf(fish,"MithrilPorte=%d\n", getMithrilPorte(u));
-                fprintf(fish,"type=%d\n", getTileUnite(getTypeUnite(u))-12);
+                while(getTypeUnite(u) != getUniteFormable(jeu, j)){
+                  j++;
+                }
+                fprintf(fish,"type=%d\n",j);
             }
             fprintf(fish,"\n");
          }
@@ -701,6 +739,8 @@ int charger(Jeu* jeu, unsigned char numSauvegarde){
          }
          for(i=1; i<=compteur; i++){
             if(getId(getUnite(jeu, i)) == -1){
+              u = getUnite(jeu, i);
+              detruireUnite(&u);
               supprimerUnite(jeu,i);
             }
          }

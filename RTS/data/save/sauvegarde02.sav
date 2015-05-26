@@ -1,20 +1,20 @@
 nbJoueur=2
 
 0
-97400
-100000
+97150
+99850
 0
 271
-1
-1
-6
+2
+12
+11
 5
 5
 
 1
 75
 50
-0
+1
 11
 0
 0
@@ -1160,7 +1160,7 @@ nbJoueur=2
 1 0 0 -19 0
 1 0 0 1 0
 1 0 0 0 0
-1 0 0 0 0
+1 0 0 2 0
 1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
@@ -1241,6 +1241,8 @@ nbJoueur=2
 1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
+1 0 0 -29 0
+1 0 0 -29 0
 1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
@@ -1295,11 +1297,9 @@ nbJoueur=2
 1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
-1 0 0 7 0
-1 0 0 6 0
-1 0 0 5 0
-1 0 0 4 0
-1 0 0 3 0
+1 0 0 0 0
+1 0 0 0 0
+1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
@@ -1621,7 +1621,7 @@ nbJoueur=2
 1 0 0 0 0
 1 0 0 0 0
 1 0 0 0 0
-1 0 0 2 0
+1 0 0 0 0
 0 0 200 0 11
 0 0 0 0 5
 0 0 0 0 2
@@ -1792,63 +1792,63 @@ posY=14
 vie=300
 pierrePorte=0
 MithrilPorte=0
-type=0
+type=1073741824
 
 id=2
-idJ=1
-posX=77
-posY=19
-vie=300
-pierrePorte=0
-MithrilPorte=0
-type=3
-
-id=3
-idJ=1
-posX=75
-posY=15
+idJ=0
+posX=16
+posY=14
 vie=600
 pierrePorte=0
 MithrilPorte=0
-type=4
+type=1073741825
 
-id=4
-idJ=1
-posX=74
-posY=15
-vie=600
+id=-1
+idJ=0
+posX=0
+posY=0
+vie=0
 pierrePorte=0
 MithrilPorte=0
-type=4
+type=0
 
-id=5
-idJ=1
-posX=73
-posY=15
-vie=600
+id=-1
+idJ=0
+posX=0
+posY=0
+vie=0
 pierrePorte=0
 MithrilPorte=0
-type=4
+type=0
 
-id=6
-idJ=1
-posX=72
-posY=15
-vie=600
+id=-1
+idJ=0
+posX=0
+posY=0
+vie=0
 pierrePorte=0
 MithrilPorte=0
-type=4
+type=0
 
-id=7
-idJ=1
-posX=71
-posY=15
-vie=600
+id=-1
+idJ=0
+posX=0
+posY=0
+vie=0
 pierrePorte=0
 MithrilPorte=0
-type=4
+type=0
 
-nbBatiment=28
+id=-1
+idJ=0
+posX=0
+posY=0
+vie=0
+pierrePorte=0
+MithrilPorte=0
+type=0
+
+nbBatiment=29
 id=-1
 idJ=0
 posX=5
@@ -1861,7 +1861,7 @@ id=-2
 idJ=1
 posX=75
 posY=17
-vie=5000
+vie=50
 enConstruction=0
 type=3
 tailleTabAttente=0
@@ -2072,6 +2072,14 @@ posY=10
 vie=1500
 enConstruction=0
 type=1
+tailleTabAttente=0
+id=-29
+idJ=0
+posX=17
+posY=15
+vie=1500
+enConstruction=0
+type=2
 tailleTabAttente=0
 
 vueJoueur=0
