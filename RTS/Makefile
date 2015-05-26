@@ -1,16 +1,7 @@
 CC=gcc
-OS=WIN
-#OS = LINUX
 FINAL_TARGET= PaniqueAlaMine
-ifeq ($(OS),WIN)
-	DEFINE= -D$(OS)
-	LIBS = -L"./lib/" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
-	clean = del /f $(OBJ_DIR)\*.o $(BIN_DIR)\$(FINAL_TARGET).exe $(BIN_DIR)/regression/test.exe
-else
-	DEFINE = -D$(OS)
-	LIBS = -lSDL2 -lSDL2_image -lSDL2_ttf
-	clean = rm -f $(OBJ_DIR)/*.o $(BIN_DIR)/$(FINAL_TARGET) $(BIN_DIR)/regression/test
-endif
+LIBS = -L"./lib/" -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
+clean = del /f $(OBJ_DIR)\*.o $(BIN_DIR)\$(FINAL_TARGET).exe $(BIN_DIR)/regression
 CFLAGS=$(DEFINE) -W -Wall -ansi -pedantic
 INCLUDE_DIR  = -I/usr/include -Isrc -I"./include/"
 
@@ -21,10 +12,14 @@ SRCS= case.c terrain.c file.c filePath.c uniteBase.c unite.c batimentBase.c bati
 SRCS_REG= case.c terrain.c file.c filePath.c uniteBase.c unite.c batimentBase.c batiment.c tabDyn.c joueur.c afficheSDL.c jeu.c mainRegression.c
 default: all
 
-all: $(BIN_DIR)/$(FINAL_TARGET) $(BIN_DIR)/regression/test
+all: jeu regression
+
+jeu: $(BIN_DIR)/$(FINAL_TARGET)
 
 $(BIN_DIR)/$(FINAL_TARGET): $(SRCS:%.c=$(OBJ_DIR)/%.o)
 	$(CC) -o $@ $^ $(LIB_DIR) $(LIBS)
+
+regression:$(BIN_DIR)/regression/test
 
 $(BIN_DIR)/regression/test: $(SRCS_REG:%.c=$(OBJ_DIR)/%.o)
 	$(CC) -o $@ $^ $(LIB_DIR) $(LIBS)

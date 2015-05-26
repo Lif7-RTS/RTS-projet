@@ -46,7 +46,7 @@ int main(int argc, char** argv)
           printf("okay!\n");
      }
 
-     printf("Test sur création d'un joueur :");
+     printf("Test sur creation d'un joueur :");
      test=0;
      Joueur* joueTest=(Joueur*) malloc(sizeof(Joueur));
      initJoueur(joueTest, 1, 1, 1, 1);
@@ -84,27 +84,27 @@ int main(int argc, char** argv)
      BatBase* batBaseTest;
      batBaseTest = chargementBatBase();
 
-     if(batBaseTest[2].nomBat[1] != "t" || batBaseTest[1].nomBat[2] != "o")
+     if(batBaseTest[1].nomBat[0] != 't' || batBaseTest[1].nomBat[1] != 'o')
           test++;
-     if(getTileBat(&batBaseTest[2]) != 12)
+     if(getTileBat(&batBaseTest[1]) != 12)
           test++;
-     if(getVieMaxBat(&batBaseTest[2]) != 100)
+     if(getVieMaxBat(&batBaseTest[1]) != 100)
           test++;
-     if(getTempsConstruct(&batBaseTest[2]) != 100)
-          test ++;
-     if(getTailleCaseX(&batBaseTest[2]) != 2)
+     if(getTempsConstruct(&batBaseTest[1]) != 100)
           test++;
-     if(getTailleCaseY(&batBaseTest[2]) != 2)
+     if(getTailleCaseX(&batBaseTest[1]) != 2)
           test++;
-     if(batBaseTest[2].tabUnitFormable[1] != 0 && batBaseTest[2].tabUnitFormable[2] != 1)
+     if(getTailleCaseY(&batBaseTest[1]) != 2)
           test++;
-     if(getNbUniteFormable(&batBaseTest[2]) != 2)
+     if(batBaseTest[1].tabUnitFormable[0] != 0 || batBaseTest[1].tabUnitFormable[1] != 1)
           test++;
-     if(getCoutPierreBat(&batBaseTest[2]) != 100)
+     if(getNbUniteFormable(&batBaseTest[1]) != 2)
           test++;
-     if(getCoutMithrilBat(&batBaseTest[2]) != 100)
+     if(getCoutPierreBat(&batBaseTest[1]) != 100)
           test++;
-     if(getRaceBat(&batBaseTest[2]) != 0)
+     if(getCoutMithrilBat(&batBaseTest[1]) != 100)
+          test++;
+     if(getRaceBat(&batBaseTest[1]) != 0)
           test++;
 
      if(test != 0)
@@ -120,7 +120,7 @@ int main(int argc, char** argv)
      printf("Test initialisation Batiment :");
      test=0;
      Batiment* batTest = (Batiment*) malloc(sizeof(Batiment));
-     initBatiment(batTest, 1, &batBaseTest[2], 0, 1);
+     initBatiment(batTest, 1, &batBaseTest[1], 0, 1);
      setPosXBat(batTest, 4);
      setPosYBat(batTest, 4);
 
@@ -128,11 +128,11 @@ int main(int argc, char** argv)
           test++;
      if(getTypeBat(batTest) == NULL)
           test++;
-     if(getVieCouranteBat(batTest) != getVieMaxBat(&batBaseTest[2]))
+     if(getVieCouranteBat(batTest) != getVieMaxBat(&batBaseTest[1]))
           test++;
      if(getEnConstruction(batTest) != 0)
           test++;
-     if(getTabAttente(batTest) != NULL)
+     if(regardeTeteFile(getTabAttente(batTest)) != NULL)
           test ++;
      if(getPosXBat(batTest) != 4)
           test++;
@@ -157,31 +157,31 @@ int main(int argc, char** argv)
      test=0;
      UniteBase* uniteBaseTest;
      uniteBaseTest = chargementUniteBase();
-     if(getVieMaxUnite(&uniteBaseTest[2]) != 600)
+     if(getVieMaxUnite(&uniteBaseTest[1]) != 600)
           test++;
-     if(getAttaque(&uniteBaseTest[2]) != 70)
+     if(getAttaque(&uniteBaseTest[1]) != 70)
           test++;
-     if(uniteBaseTest[2].nom[1] != 'r' || uniteBaseTest[2].nom[2] != 'i')
+     if(uniteBaseTest[1].nom[0] != 'r' || uniteBaseTest[1].nom[1] != 'i')
           test++;
-     if(getOuvrier(&uniteBaseTest[2]) != 1)
+     if(getOuvrier(&uniteBaseTest[1]) != 1)
           test++;
-     if(getTempsFormation(&uniteBaseTest[2]) != 5)
+     if(getTempsFormation(&uniteBaseTest[1]) != 5)
           test++;
-     if(getVitesseAttaque(&uniteBaseTest[2]) != 900)
+     if(getVitesseAttaque(&uniteBaseTest[1]) != 900)
           test++;
-     if(getRessourceMax(&uniteBaseTest[2]) != 500)
+     if(getRessourceMax(&uniteBaseTest[1]) != 500)
           test++;
-     if(getTileUnite(&uniteBaseTest[2]) != 13)
+     if(getTileUnite(&uniteBaseTest[1]) != 13)
           test++;
-     if(getVitesse(&uniteBaseTest[2]) !=200)
+     if(getVitesse(&uniteBaseTest[1]) !=200)
           test++;
-     if(getCoutPierreBat(&uniteBaseTest[2]) != 100)
+     if(getCoutPierreBat(&uniteBaseTest[1]) != 100)
           test++;
-     if(getCoutMithrilBat(&uniteBaseTest[2]) != 50)
+     if(getCoutMithrilBat(&uniteBaseTest[1]) != 50)
           test++;
-     if(getPorteeUnite(&uniteBaseTest[2]) != 3)
+     if(getPorteeUnite(&uniteBaseTest[1]) != 3)
           test++;
-     if(getRaceBat(&uniteBaseTest[2]) != 0)
+     if(getRaceBat(&uniteBaseTest[1]) != 0)
           test++;
 
      if(test != 0)
@@ -196,7 +196,7 @@ int main(int argc, char** argv)
 
      printf("Test initialisation Unite :");
      Unite* uniteTest = (Unite*)malloc(sizeof(Unite));
-     initUnite(uniteTest, &uniteBaseTest[2], 1);
+     initUnite(uniteTest, &uniteBaseTest[1], 1);
      setId(uniteTest, 1);
      setPosX(uniteTest, 2);
      setPosY(uniteTest, 0);
