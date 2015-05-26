@@ -5,7 +5,7 @@
 #include <time.h>
 
 
-#ifdef JEU
+/*#ifdef JEU*/
 int main(int argc, char** argv)
 {
      Jeu* j=(Jeu*)malloc(sizeof(Jeu));
@@ -14,7 +14,7 @@ int main(int argc, char** argv)
      return 0;
 }
 
-#endif
+/*#endif*/
 
 #ifdef REGRESSION
 
