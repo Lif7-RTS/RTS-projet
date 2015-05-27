@@ -18,11 +18,7 @@ src/ -> fichiers source du projet
 lib/ -> librairies nécessaires à la compilation du projet
 include -> contient les includes des bibliothèques nécessaires a la 
 	compilation du projet  
-====Compilation====
-pour compiler sous windows: utiliser le MakefileWin ( renommer le en Makefile)
-pour compiler sous Linux: utiliser le MakefileLinux ( renommer le en Makefile)
-
-	
+====Compilation====	
 make all & default -> compile le jeu et les tests de regressions
 make jeu ->  compile seulement le jeu
 make regression -> compile tests de regressions
